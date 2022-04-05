@@ -1,4 +1,3 @@
 # spring22-team3
 
-
-Just some beans 
+Just a bunch of clowns tryna make a video game
