@@ -20,6 +20,7 @@ public class GUIApplication extends Application{
         stage.setScene(scene);
         stage.setTitle("Microwave Dungeon"); // Title of main window
         stage.show();
+
     }
 
 }
