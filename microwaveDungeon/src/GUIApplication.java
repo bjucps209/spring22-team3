@@ -19,7 +19,7 @@ public class GUIApplication extends Application{
 
         stage.setScene(scene);
         stage.setTitle("Hello"); // Title of main window
-        stage.show();
+        stage.show(); //show the main window
     }
 
 }
