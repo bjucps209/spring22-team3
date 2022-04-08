@@ -8,6 +8,6 @@
 
     <Label text="Microwave Dungeon!" />
 
-    <Pane fx:id="pane" prefHeight="500" prefWidth="800" style="-fx-background-color: lightgray" />
+    <Pane fx:id="pane" prefHeight="500" prefWidth="700" styleClass="WindowPane" />
 
 </VBox> 
