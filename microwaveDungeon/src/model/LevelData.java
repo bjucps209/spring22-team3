@@ -69,6 +69,7 @@ public class LevelData {
                                     case "enemy":
                                         enemy enemy1 = new enemy(health, speed, damage, id, x, y);
                                         // ad the entity to the room using the roomId
+                                        enemy1.setSize(scale);
                                         roomList.get(roomId - 1).addEntity(enemy1);
                                         break;
                                     case "obstacle":
