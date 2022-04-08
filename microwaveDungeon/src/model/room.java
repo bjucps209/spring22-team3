@@ -100,5 +100,16 @@ public class room {
     public void addEntity(entity e) {
         entityList.add(e);
     }
+    @Override
+    public String toString() {
+       String toStringEntityList = "";
+        for( entity e : entityList){
+            toStringEntityList += e.toString() + ", ";
+            
+        }
+        //remove the last comma and space
+        toStringEntityList = toStringEntityList.substring(0, toStringEntityList.length()-2);
+        return "room [x=" + x + ", y=" + y + ", entityList=" + toStringEntityList + "]";
+    }
     
 }

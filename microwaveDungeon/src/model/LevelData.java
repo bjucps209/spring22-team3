@@ -30,18 +30,14 @@ public class LevelData {
                 if (list[3].equals(numLevel + ".txt")) {
 
                     try {
-                       ;
+                        ;
                         var rd = new BufferedReader(
                                 new FileReader(child));
 
                         String line = rd.readLine();
-                       
-                      
+
                         while (line != null) {
                             if (line.startsWith("Room")) {
-                               
-                                
-
 
                                 // read the room
                                 String[] roomData = line.split("-");
@@ -52,7 +48,7 @@ public class LevelData {
                                 // create a new roomCoord to hold the room's location
 
                                 // set room coordinates to the room
-                               room newRoom = new room(x,y);
+                                room newRoom = new room(x, y);
                                 roomList.add(newRoom);
 
                                 line = rd.readLine();
@@ -68,31 +64,29 @@ public class LevelData {
                                 int speed = Integer.parseInt(lineList[6]);
                                 int scale = Integer.parseInt(lineList[7]);
                                 int roomId = Integer.parseInt(lineList[8]);
-                                //check which entity to create 
+                                // check which entity to create
                                 switch (enemy) {
                                     case "enemy":
-                                    enemy enemy1 = new enemy(health, speed, damage, id, x, y);
-                                    //ad the entity to the room using the roomId
-                                    roomList.get(roomId - 1).addEntity(enemy1);
+                                        enemy enemy1 = new enemy(health, speed, damage, id, x, y);
+                                        // ad the entity to the room using the roomId
+                                        roomList.get(roomId - 1).addEntity(enemy1);
                                         break;
                                     case "obstacle":
-                                    obstacle o = new obstacle(health, speed, damage, id, x, y);
-                                    roomList.get(roomId - 1).addEntity(o);
+                                        obstacle o = new obstacle(health, speed, damage, id, x, y);
+                                        roomList.get(roomId - 1).addEntity(o);
                                         break;
-                                    //staircase
+                                    // staircase
                                     case "staircase":
-                                    staircase s = new staircase(health, speed, damage, id, x, y);
-                                    roomList.get(roomId - 1).addEntity(s);
+                                        staircase s = new staircase(health, speed, damage, id, x, y);
+                                        roomList.get(roomId - 1).addEntity(s);
                                         break;
-                                    case "start":
-                                    //start s1 = new start(health, speed, damage, id);
-                                   // roomList.get(roomId).addEntity(s1);
+                                    case "startpt":
+                                        startpt s1 = new startpt(health, speed, damage, id, x, y);
+                                        roomList.get(roomId).addEntity(s1);
                                         break;
                                     default:
                                         break;
                                 }
-                               
-                                
 
                                 line = rd.readLine();
                             }
@@ -115,20 +109,23 @@ public class LevelData {
         }
 
     }
-    public room findRoom(int x, int y){
-        //find the room in the roomList with the coordinates
-        for(room r: roomList){
-            if(r.getX() == x && r.getY() == y){
-                //load the room
+
+    public room findRoom(int x, int y) {
+        // find the room in the roomList with the coordinates
+        for (room r : roomList) {
+            if (r.getX() == x && r.getY() == y) {
+                // load the room
                 return r;
 
             }
         }
         return null;
-        
-    }
-    
 
+    }
+    @Override
+    public String toString() {
+        return "LevelData [numLevel=" + numLevel + ", roomList=" + roomList + "]";
+    }
     // This method will be in the Level Builder to save all the rooms and entities
     // in those rooms
     // It will loop through all the rooms and save them in order the rooms were

@@ -60,5 +60,19 @@ public class LevelDataTest {
         }
         assertEquals(25, level.getRoomList().size());
     }
+    @Test
+    public void test_getNumLevel(){
+        LevelData level = new LevelData(1);
+        assertEquals(1, level.getNumLevel());
+    }
+    @Test
+    public void test_toString(){
+        LevelData level = new LevelData(1);
+        level.addRoom(new room(1, 1));
+        level.findRoom(1, 1).addEntity(new enemy(10, 10, 10, 10, 100, 100));
+        level.findRoom(1, 1).addEntity(new staircase(10, 10, 10, 10, 100, 100));
+        assertEquals("LevelData [numLevel=1, roomList=[room [x=1, y=1, entityList=entity [health=10, speed=10, id=10, damage=10, Xcoord=100, Ycoord=100], entity [health=10, speed=10, id=10, damage=10, Xcoord=100, Ycoord=100]]]]", level.toString());
+    
+    }
 
 }

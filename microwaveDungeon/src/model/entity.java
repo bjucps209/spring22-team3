@@ -67,6 +67,10 @@ public class entity {
     public void setDamage(int damage) {
         this.damage = damage;
     }
+    @Override
+    public String toString() {
+        return "entity [health=" + health + ", speed=" + speed + ", id=" + id + ", damage=" + damage + ", Xcoord=" + Xcoord + ", Ycoord=" + Ycoord + "]";
+    }
 
     //constructor
     public entity(int setHealth, int setSpeed, int setDamage, int setId, int xcoord, int ycoord){
