@@ -95,5 +95,10 @@ public class room {
     public void setWest(int[] west) {
         West = west;
     }
+
+
+    public void addEntity(entity e) {
+        entityList.add(e);
+    }
     
 }

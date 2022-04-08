@@ -12,7 +12,7 @@ public class LevelDataTest {
         LevelData level = new LevelData(1);
         assertEquals(1, level.getNumLevel());
         assertEquals(0, level.getRoomList().size());
-        level.addRoom(new room(0,0));
+        level.addRoom(new room(0, 0));
         assertEquals(1, level.getRoomList().size());
     }
     // @Test
@@ -23,5 +23,42 @@ public class LevelDataTest {
     // assertEquals(2, level.getRoomList().size());
 
     // }
+    @Test
+    public void test_AddEntity() {
+        LevelData level = new LevelData(1);
+        level.addRoom(new room(0, 0));
+        level.findRoom(0, 0).addEntity(new enemy(10, 10, 10, 10));
+        assertEquals(1, level.findRoom(0, 0).getEntityList().size());
+
+    }
+
+    @Test
+    public void test_Save() throws IOException {
+
+        LevelData level = new LevelData(1);
+        level.addRoom(new room(0, 0));
+        level.findRoom(0, 0).addEntity(new enemy(10, 10, 10, 10));
+        level.save();
+        assertEquals(1, level.getRoomList().size());
+    }
+    @Test
+    public void test_findRoom(){
+        LevelData level = new LevelData(1);
+        level.addRoom(new room(0, 0));
+        level.findRoom(0, 0).addEntity(new enemy(10, 10, 10, 10));
+        assertEquals(1, level.findRoom(0, 0).getEntityList().size());
+
+    }
+    @Test
+    public void test_getRoomList(){
+        LevelData level = new LevelData(1);
+        //5x5 grid of rooms
+        for(int i = 0; i < 5; i++){
+            for(int j = 0; j < 5; j++){
+                level.addRoom(new room(i, j));
+            }
+        }
+        assertEquals(25, level.getRoomList().size());
+    }
 
 }

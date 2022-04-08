@@ -67,17 +67,26 @@ public class LevelData {
                                 int damage = Integer.parseInt(lineList[5]);
                                 int speed = Integer.parseInt(lineList[6]);
                                 int scale = Integer.parseInt(lineList[7]);
+                                int roomId = Integer.parseInt(lineList[8]);
                                 //check which entity to create 
                                 switch (enemy) {
                                     case "enemy":
                                     enemy enemy1 = new enemy(health, speed, damage, id);
+                                    //ad the entity to the room using the roomId
+                                    roomList.get(roomId - 1).addEntity(enemy1);
                                         break;
                                     case "obstacle":
                                     obstacle o = new obstacle(health, speed, damage, id);
+                                    roomList.get(roomId - 1).addEntity(o);
                                         break;
                                     //staircase
                                     case "staircase":
                                     staircase s = new staircase(health, speed, damage, id);
+                                    roomList.get(roomId - 1).addEntity(s);
+                                        break;
+                                    case "start":
+                                    //start s1 = new start(health, speed, damage, id);
+                                   // roomList.get(roomId).addEntity(s1);
                                         break;
                                     default:
                                         break;
@@ -106,6 +115,19 @@ public class LevelData {
         }
 
     }
+    public room findRoom(int x, int y){
+        //find the room in the roomList with the coordinates
+        for(room r: roomList){
+            if(r.getX() == x && r.getY() == y){
+                //load the room
+                return r;
+
+            }
+        }
+        return null;
+        
+    }
+    
 
     // This method will be in the Level Builder to save all the rooms and entities
     // in those rooms
