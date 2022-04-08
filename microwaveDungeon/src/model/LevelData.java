@@ -16,9 +16,9 @@ public class LevelData {
 
     /**
      * It should read the level data one by one and create rooms for that level.
-     * The Rooms should hold the location it is relative to the rooms around it.
+     * The Rooms should hold the location it is relative to the rooms around  it.
      */
-    public void load() {
+    public void load() {  
 
         File dir = new File("microwaveDungeon/src/Levels");
         File[] directoryListing = dir.listFiles();
