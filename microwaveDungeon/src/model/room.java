@@ -22,16 +22,23 @@ public class room {
     // List of all entities in the room
     ArrayList<entity> entityList = new ArrayList<entity>();
 
-    public room(int x, int y, int z){
+    public room(int x, int y){
         this.x = x;
 
         this.y = y;
+
+        generate();
     }
     
-    
+
     // TODO: Given an OutputStream, this method saves the room's attributes 
     public void save(DataOutputStream output) {
     }
+
+    //generates entity objects depending on the difficulty selected by the player
+    private void generate(){
+
+    } 
 
     public void setX(int x) {
         this.x = x;

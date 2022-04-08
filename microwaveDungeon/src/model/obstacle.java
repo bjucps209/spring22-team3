@@ -4,6 +4,8 @@ import java.io.DataOutputStream;
 
 public class obstacle extends entity {
     
+    
+
     obstacle(int setHealth, int setSpeed, int damage, int id) {
         super(setHealth, setSpeed, damage, id);
         //TODO Auto-generated constructor stub

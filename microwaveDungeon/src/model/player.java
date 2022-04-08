@@ -3,6 +3,8 @@ package model;
 import java.io.DataOutputStream;
 
 public class player extends entity {
+
+    String powerup;
     
     player(int setHealth, int setSpeed, int setDamage, int setId) {
         super(setHealth, setSpeed, setDamage, setId);

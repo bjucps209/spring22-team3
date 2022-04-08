@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<VBox fx:controller="GameWindow" xmlns:fx="http://javafx.com/fxml"  stylesheets="@GameWindow.css"
+    spacing="10" prefHeight="400" prefWidth="250">
+
+    <HBox>
+
+    <Button fx:id="pizzaCharacter" />
+
+    <Button fx:id="hotPocketCharacter" />
+
+    <Button fx:id="ramenCharacter" />
+
+    <Button fx:id="macCharacter" />
+    
+
+    </HBox>
+
+</VBox> 

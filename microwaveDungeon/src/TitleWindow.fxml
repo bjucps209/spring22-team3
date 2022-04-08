@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<VBox fx:controller="TitleWindow" xmlns:fx="http://javafx.com/fxml"  stylesheets="@TitleWindow.css"
+    spacing="10" prefHeight="400" prefWidth="250">
+
+    <Label text="Microwave Dungeon!" />
+
+    <Button fx:id="start" />
+
+    <Button fx:id="credits" />
+
+    <Button fx:id="leaderboard" />
+
+    <Button fx:id="hardDifficulty" />
+
+    <Button fx:id="medDifficulty" />
+
+    <Button fx:id="easyDifficulty" />
+
+</VBox> 
