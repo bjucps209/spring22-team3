@@ -4,6 +4,8 @@ import java.io.DataOutputStream;
 
 public class entity {
 
+
+    //instance variables for storing properties of entities
     private int health;
 
     private int speed;
@@ -11,7 +13,28 @@ public class entity {
     private int id;
     
     private int damage;
+    
+    private int Xcoord;
 
+    private int Ycoord;
+    
+    
+    //setters/getters for the instance variables
+    public int getXcoord() {
+        return Xcoord;
+    }
+
+    public void setXcoord(int xcoord) {
+        Xcoord = xcoord;
+    }
+
+    public int getYcoord() {
+        return Ycoord;
+    }
+
+    public void setYcoord(int ycoord) {
+        Ycoord = ycoord;
+    }
 
     public int getHealth() {
         return health;
@@ -45,6 +68,7 @@ public class entity {
         this.damage = damage;
     }
 
+    //constructor
     entity(int setHealth, int setSpeed, int setDamage, int setId){
         health = setHealth;
         speed = setSpeed;

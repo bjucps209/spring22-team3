@@ -4,13 +4,89 @@ import java.util.ArrayList;
 import java.io.DataOutputStream;
 
 public class room {
-    public room(){}
     
+    //X and Y coordinate that marks the rooms location in relationship to the other rooms
+    private int x;
+
+    private int y;
+
+    //Each direction holds the coordinate of the corresponding room (i.e. North[0] = x, North[1] = y)
+    private int[] North = new int[2];
+
+    private int[] South = new int[2];
+
+    private int[] East = new int[2];
+
+    private int[] West = new int[2];
+
+    // List of all entities in the room
     ArrayList<entity> entityList = new ArrayList<entity>();
 
-    
+    public room(int x, int y, int z){
+        this.x = x;
 
+        this.y = y;
+    }
+    
+    
     // TODO: Given an OutputStream, this method saves the room's attributes 
     public void save(DataOutputStream output) {
     }
+
+    public void setX(int x) {
+        this.x = x;
+    }
+
+    public int getX() {
+        return x;
+    }
+
+    public int getY() {
+        return y;
+    }
+
+    public void setY(int y) {
+        this.y = y;
+    }
+
+    public ArrayList<entity> getEntityList() {
+        return entityList;
+    }
+
+    public void setEntityList(ArrayList<entity> entityList) {
+        this.entityList = entityList;
+    }
+
+    public int[] getNorth() {
+        return North;
+    }
+
+    public void setNorth(int[] north) {
+        North = north;
+    }
+
+    public int[] getSouth() {
+        return South;
+    }
+
+    public void setSouth(int[] south) {
+        South = south;
+    }
+
+    public int[] getEast() {
+        return East;
+    }
+
+    public void setEast(int[] east) {
+        East = east;
+    }
+
+    public int[] getWest() {
+        return West;
+    }
+
+    public void setWest(int[] west) {
+        West = west;
+    }
+    
 }
