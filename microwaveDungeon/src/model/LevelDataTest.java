@@ -12,7 +12,7 @@ public class LevelDataTest {
         LevelData level = new LevelData(1);
         assertEquals(1, level.getNumLevel());
         assertEquals(0, level.getRoomList().size());
-        level.addRoom(new room());
+        level.addRoom(new room(0,0));
         assertEquals(1, level.getRoomList().size());
     }
     // @Test

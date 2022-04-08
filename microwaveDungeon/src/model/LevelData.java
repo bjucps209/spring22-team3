@@ -16,9 +16,9 @@ public class LevelData {
 
     /**
      * It should read the level data one by one and create rooms for that level.
-     * The Rooms should hold the location it is relative to the rooms around  it.
+     * The Rooms should hold the location it is relative to the rooms around it.
      */
-    public void load() {  
+    public void load() {
 
         File dir = new File("microwaveDungeon/src/Levels");
         File[] directoryListing = dir.listFiles();
@@ -26,17 +26,22 @@ public class LevelData {
             for (File child : directoryListing) {
                 // only load the level we want
                 String[] list = child.toString().split("\\\\");
-                
+
                 if (list[3].equals(numLevel + ".txt")) {
 
                     try {
-                        // LevelData level = new LevelData(1);
+                       ;
                         var rd = new BufferedReader(
                                 new FileReader(child));
 
                         String line = rd.readLine();
+                       
+                      
                         while (line != null) {
                             if (line.startsWith("Room")) {
+                               
+                                
+
 
                                 // read the room
                                 String[] roomData = line.split("-");
@@ -47,7 +52,7 @@ public class LevelData {
                                 // create a new roomCoord to hold the room's location
 
                                 // set room coordinates to the room
-                                room newRoom = new room();
+                               room newRoom = new room(x,y);
                                 roomList.add(newRoom);
 
                                 line = rd.readLine();
@@ -62,12 +67,24 @@ public class LevelData {
                                 int damage = Integer.parseInt(lineList[5]);
                                 int speed = Integer.parseInt(lineList[6]);
                                 int scale = Integer.parseInt(lineList[7]);
-                                entity enemy1 = new entity(health, speed, damage, id);
-                                // room.addEnemy(enemy1);
-
+                                //check which entity to create 
+                                switch (enemy) {
+                                    case "enemy":
+                                    enemy enemy1 = new enemy(health, speed, damage, id);
+                                        break;
+                                    case "obstacle":
+                                    obstacle o = new obstacle(health, speed, damage, id);
+                                        break;
+                                    //staircase
+                                    case "staircase":
+                                    staircase s = new staircase(health, speed, damage, id);
+                                        break;
+                                    default:
+                                        break;
+                                }
                                
+                                
 
-                               
                                 line = rd.readLine();
                             }
                             if (line.equals("End")) {
@@ -103,16 +120,20 @@ public class LevelData {
     public void addRoom(room r) {
         this.roomList.add(r);
     }
+
     /**
      * This method will return the level number
+     * 
      * @return numLevel
      *
      */
     public int getNumLevel() {
         return this.numLevel;
     }
+
     /**
      * This method will return the room list
+     * 
      * @return roomList
      */
     public ArrayList<room> getRoomList() {
