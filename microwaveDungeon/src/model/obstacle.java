@@ -3,11 +3,9 @@ package model;
 import java.io.DataOutputStream;
 
 public class obstacle extends entity {
-    
-    
 
-    obstacle(int setHealth, int setSpeed, int damage, int id) {
-        super(setHealth, setSpeed, damage, id);
+    obstacle(int setHealth, int setSpeed, int setDamage, int setId, int xcoord, int ycoord) {
+        super(setHealth, setSpeed, setDamage, setId, xcoord, ycoord);
         //TODO Auto-generated constructor stub
     }
 
