@@ -26,7 +26,7 @@ public class LevelData {
             for (File child : directoryListing) {
                 // only load the level we want
                 String[] list = child.toString().split("\\\\");
-                System.out.println(list[3]);
+                
                 if (list[3].equals(numLevel + ".txt")) {
 
                     try {
@@ -65,9 +65,9 @@ public class LevelData {
                                 entity enemy1 = new entity(health, speed, damage, id);
                                 // room.addEnemy(enemy1);
 
-                                System.out.println(enemy1.toString());
+                               
 
-                                System.out.println(line);
+                               
                                 line = rd.readLine();
                             }
                             if (line.equals("End")) {
@@ -103,11 +103,18 @@ public class LevelData {
     public void addRoom(room r) {
         this.roomList.add(r);
     }
-
+    /**
+     * This method will return the level number
+     * @return numLevel
+     *
+     */
     public int getNumLevel() {
         return this.numLevel;
     }
-
+    /**
+     * This method will return the room list
+     * @return roomList
+     */
     public ArrayList<room> getRoomList() {
         return this.roomList;
 
