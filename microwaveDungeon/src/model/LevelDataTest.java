@@ -27,7 +27,7 @@ public class LevelDataTest {
     public void test_AddEntity() {
         LevelData level = new LevelData(1);
         level.addRoom(new room(0, 0));
-        level.findRoom(0, 0).addEntity(new enemy(10, 10, 10, 10));
+        level.findRoom(0, 0).addEntity(new enemy(10, 10, 10, 10, 100, 100));
         assertEquals(1, level.findRoom(0, 0).getEntityList().size());
 
     }
@@ -37,7 +37,7 @@ public class LevelDataTest {
 
         LevelData level = new LevelData(1);
         level.addRoom(new room(0, 0));
-        level.findRoom(0, 0).addEntity(new enemy(10, 10, 10, 10));
+        level.findRoom(0, 0).addEntity(new enemy(10, 10, 10, 10, 100, 100));
         level.save();
         assertEquals(1, level.getRoomList().size());
     }
@@ -45,7 +45,7 @@ public class LevelDataTest {
     public void test_findRoom(){
         LevelData level = new LevelData(1);
         level.addRoom(new room(0, 0));
-        level.findRoom(0, 0).addEntity(new enemy(10, 10, 10, 10));
+        level.findRoom(0, 0).addEntity(new enemy(10, 10, 10, 10, 100, 100));
         assertEquals(1, level.findRoom(0, 0).getEntityList().size());
 
     }

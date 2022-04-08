@@ -71,17 +71,17 @@ public class LevelData {
                                 //check which entity to create 
                                 switch (enemy) {
                                     case "enemy":
-                                    enemy enemy1 = new enemy(health, speed, damage, id);
+                                    enemy enemy1 = new enemy(health, speed, damage, id, x, y);
                                     //ad the entity to the room using the roomId
                                     roomList.get(roomId - 1).addEntity(enemy1);
                                         break;
                                     case "obstacle":
-                                    obstacle o = new obstacle(health, speed, damage, id);
+                                    obstacle o = new obstacle(health, speed, damage, id, x, y);
                                     roomList.get(roomId - 1).addEntity(o);
                                         break;
                                     //staircase
                                     case "staircase":
-                                    staircase s = new staircase(health, speed, damage, id);
+                                    staircase s = new staircase(health, speed, damage, id, x, y);
                                     roomList.get(roomId - 1).addEntity(s);
                                         break;
                                     case "start":
