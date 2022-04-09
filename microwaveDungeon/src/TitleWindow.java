@@ -11,6 +11,9 @@ public class TitleWindow {
     Button start;
 
     @FXML
+    Button load;
+
+    @FXML
     Button credits;
 
     @FXML
@@ -25,9 +28,19 @@ public class TitleWindow {
     @FXML
     Button easyDifficulty;
 
+    // Checks if there is a save file, if not, disables load button
+    @FXML
+    void initialize() {}
+
     // begins the game when the start button is pressed
     @FXML
     public void startGame() {
+        throw new RuntimeException("Method not implemented");
+    }
+
+    // Uses the save file and loads a game based off the values in that file
+    @FXML
+    void onLoadClicked(ActionEvent event) {
         throw new RuntimeException("Method not implemented");
     }
 

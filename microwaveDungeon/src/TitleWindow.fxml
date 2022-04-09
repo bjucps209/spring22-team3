@@ -10,6 +10,8 @@
 
     <Button fx:id="start" />
 
+    <Button fx:id="load" onAction="#onLoadClicked" text="Load Saved Game" />
+
     <Button fx:id="credits" />
 
     <Button fx:id="leaderboard" />

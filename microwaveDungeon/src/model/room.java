@@ -18,7 +18,6 @@ public class room {
     private int[] East = new int[2];
 
     private int[] West = new int[2];
-
     // List of all entities in the room
     ArrayList<entity> entityList = new ArrayList<entity>();
 

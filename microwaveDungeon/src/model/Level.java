@@ -1,14 +1,23 @@
 package model;
 
+import java.io.DataOutputStream;
 import java.util.ArrayList;
 
 public class Level {
 
     private ArrayList<room> Rooms = new ArrayList<room>();
 
+    private int timePassed = 0;
+
     private int score = 0;
 
     private difficulties difficultyLevel;
+
+    // Constructor -Added for save/load tests. Feel free to make changes as you see fit
+    public Level(ArrayList<room> rooms, difficulties difficultyLevel) {
+        Rooms = rooms;
+        this.difficultyLevel = difficultyLevel;
+    }
 
     // Will generate room objects depending on the level of difficulty
     // chosen by the player
@@ -22,6 +31,14 @@ public class Level {
 
     public void setRooms(ArrayList<room> rooms) {
         Rooms = rooms;
+    }
+
+    public int getTimePassed() {
+        return timePassed;
+    }
+
+    public void setTimePassed(int timePassed) {
+        this.timePassed = timePassed;
     }
 
     public int getScore() {
@@ -40,6 +57,8 @@ public class Level {
         this.difficultyLevel = difficultyLevel;
     }
 
-    
+    // TODO: Given an OutputStream, this method saves the player's attributes 
+    public void save(DataOutputStream output) {
+    }
 
 }
