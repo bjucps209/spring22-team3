@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<VBox fx:controller="LeaderboardWindow" xmlns:fx="http://javafx.com/fxml"  stylesheets="@LeaderboardWindow.css"
+    spacing="10" prefHeight="400" prefWidth="250">
+
+    <Label text="High Scores" />
+
+    <HBox><Label text="1" /><Label fx:id="score1" text="" /></HBox>
+    <HBox><Label text="2" /><Label fx:id="score2" text="" /></HBox>
+    <HBox><Label text="3" /><Label fx:id="score3" text="" /></HBox>
+    <HBox><Label text="4" /><Label fx:id="score4" text="" /></HBox>
+    <HBox><Label text="5" /><Label fx:id="score5" text="" /></HBox>
+    <HBox><Label text="6" /><Label fx:id="score6" text="" /></HBox>
+    <HBox><Label text="7" /><Label fx:id="score7" text="" /></HBox>
+    <HBox><Label text="8" /><Label fx:id="score8" text="" /></HBox>
+    <HBox><Label text="9" /><Label fx:id="score9" text="" /></HBox>
+    <HBox><Label text="10" /><Label fx:id="score10" text="" /></HBox>
+
+    <Button text="Back" onAction="#onBackClicked" />
+
+</VBox>
