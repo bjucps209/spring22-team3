@@ -44,6 +44,11 @@ public class TitleWindow {
         throw new RuntimeException("Method not implemented");
     }
 
+    // Identical to onLoadClicked, but returns the level object for testing
+    static Level loadSave() {
+        throw new RuntimeException("Method not implemented");
+    }
+
     // sets the difficulty of the game in the model depending on the difficulty
     // selected by the player
     @FXML

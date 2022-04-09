@@ -1,8 +1,5 @@
-import java.io.DataOutputStream;
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
-import java.io.IOException;
+import static org.junit.Assert.assertEquals;
+import java.io.*;
 import java.util.ArrayList;
 import org.junit.Test;
 import model.*;
@@ -25,6 +22,7 @@ public class SerializationUnitTest {
         Level l = new Level(testRooms, difficulties.MEDIUM);
         try(DataOutputStream writer = new DataOutputStream(new FileOutputStream(file))) {
             l.save(writer);}
+        assertEquals(l, TitleWindow.loadSave());
     }
 
 }
