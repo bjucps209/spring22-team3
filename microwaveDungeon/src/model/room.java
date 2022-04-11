@@ -127,6 +127,9 @@ public class room {
     public void addEntity(entity e) {
         entityList.add(e);
     }
+    public void removeEntity(entity e) {
+        entityList.remove(e);
+    }
     @Override
     public String toString() {
        String toStringEntityList = "";
