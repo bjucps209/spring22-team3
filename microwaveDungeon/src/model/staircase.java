@@ -1,5 +1,8 @@
 package model;
 
+import java.io.DataOutputStream;
+import java.io.IOException;
+
 public class staircase extends entity {
  
     directions dir;
@@ -17,7 +20,11 @@ public class staircase extends entity {
         this.dir = dir;
     }
 
-   
+   @Override
+   public void save(DataOutputStream output) throws IOException {
+       output.writeInt(getXcoord());
+       output.writeInt(getYcoord());
+   }
 
 
 }

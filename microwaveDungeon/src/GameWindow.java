@@ -1,3 +1,4 @@
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.layout.Pane;
 
@@ -37,6 +38,10 @@ public class GameWindow {
     //sets the cursor to crosshairs and tracks it on the pane
     public void trackCursor(){
         throw new RuntimeException("Method not implemented");
+    }
+
+    void onPauseClicked(ActionEvent event) {
+        
     }
 
 }

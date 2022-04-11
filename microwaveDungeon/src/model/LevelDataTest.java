@@ -15,14 +15,14 @@ public class LevelDataTest {
         level.addRoom(new room(0, 0));
         assertEquals(1, level.getRoomList().size());
     }
-    // @Test
-    // public void test_Load() {
-    // LevelData level = new LevelData(1);
+    @Test
+    public void test_Load() {
+    LevelData level = new LevelData(1);
 
-    // level.load();
-    // assertEquals(2, level.getRoomList().size());
+    level.load();
+    assertEquals(2, level.getRoomList().size());
 
-    // }
+    }
     @Test
     public void test_AddEntity() {
         LevelData level = new LevelData(1);

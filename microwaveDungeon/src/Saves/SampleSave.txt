@@ -1,5 +1,6 @@
 100 (Score)
 55 (Time)
+1 (# of Levels)
 2 (# of Rooms)
 00 (Room id)
 0 (Room X)

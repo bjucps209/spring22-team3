@@ -1,6 +1,7 @@
 package model;
 
 import java.io.DataOutputStream;
+import java.io.IOException;
 
 public class enemy extends entity {
     
@@ -38,8 +39,11 @@ public class enemy extends entity {
 
 
 
-    // TODO: Given an OutputStream, this method saves the enemy's attributes 
-    public void save(DataOutputStream output) {
+    // Given an OutputStream, this method saves the enemy's attributes 
+    @Override
+    public void save(DataOutputStream output) throws IOException {
+        super.save(output);
+        output.writeInt(size);
     }
 }
  
