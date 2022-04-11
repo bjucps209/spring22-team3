@@ -12,27 +12,34 @@ public class ScoreList {
         scoreList = new ArrayList<Scores>();
     }
 
-    // gets the scores from the .txt file and adds it to the scoreList variable 
-    public void getScores() {
-        throw new RuntimeException("Method not implemented");
-        // get scores from txt file and save them as 
-        // Score objects with readData().
+    // // gets the scores from the .txt file and adds it to the scoreList variable 
+    // public void getScores() {
+    //     throw new RuntimeException("Method not implemented");
+    //     // get scores from txt file and save them as 
+    //     // Score objects with loadData().
 
-        // scoreList.add(Score_Object);
-        // sort();
-    }
+    //     // scoreList.add(Score_Object);
+    //     // sort();
+    // }
 
     // Writes the data from the list to the txt file, is used after getScores()
-    public void writeData() {
+    public void saveData() {
         throw new RuntimeException("Method not implemented");
         // for (Scores s : scoreList) {
         //    write(s);
         // }
     }
 
-    // Reads the data from the file and places them into the scoreList variable
-    public void readData() {
+    // Reads the data from the file and places them into the scoreList variable 
+    // then sorts the list from highest score to lowest score.
+    public void loadData() {
         throw new RuntimeException("Method not implemented");
+        // get scores from txt file and save them as 
+        // Score objects with loadData().
+
+        // scoreList.add(Score_Object);
+        // sort();
+
     }
 
     // Sorts the array list from highest score to lowest
