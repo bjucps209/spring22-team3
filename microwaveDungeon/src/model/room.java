@@ -107,7 +107,11 @@ public class room {
             
         }
         //remove the last comma and space
-        toStringEntityList = toStringEntityList.substring(0, toStringEntityList.length()-2);
+        //check to see if the list is empty
+        if(toStringEntityList.length() > 0){
+            toStringEntityList = toStringEntityList.substring(0, toStringEntityList.length() - 2);
+        }
+        //toStringEntityList = toStringEntityList.substring(0, toStringEntityList.length()-2);
         return "room [x=" + x + ", y=" + y + ", entityList=" + toStringEntityList + "]";
     }
     
