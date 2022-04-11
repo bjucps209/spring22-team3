@@ -8,15 +8,19 @@
 
     <HBox>
 
-    <Button fx:id="pizzaCharacter" />
+    <Button fx:id="pizzaCharacter" onAction="#selectPizzaCharacter" />
 
-    <Button fx:id="hotPocketCharacter" />
+    <Button fx:id="hotPocketCharacter" onAction="#selectHPocketCharacter" />
 
-    <Button fx:id="ramenCharacter" />
+    <Button fx:id="ramenCharacter" onAction="#selectRamenCharacter" />
 
-    <Button fx:id="macCharacter" />
+    <Button fx:id="macCharacter" onAction="selectMacCharacter" />
     
 
     </HBox>
+
+    <TextField />
+
+    <Button text="Into the Dungeon!" onAction="#onStartClicked" />
 
 </VBox> 
