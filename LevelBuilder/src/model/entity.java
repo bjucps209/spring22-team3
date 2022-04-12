@@ -18,9 +18,9 @@ public class entity {
     private int Xcoord;
 
     private int Ycoord;
-    public static CritterHandler handler;
+    public static EntityHandler handler;
 
-    public static void setHandler(CritterHandler newHandler) {
+    public static void setHandler(EntityHandler newHandler) {
         handler = newHandler;
     }
     public void updateLocation() {
