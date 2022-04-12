@@ -9,11 +9,11 @@ public class entity {
     //instance variables for storing properties of entities
     private int health;
 
-    private int speed;
+    private double speed;
 
     private int id;
     
-    private int damage;
+    private double damage;
     
     private int Xcoord;
 
@@ -45,7 +45,7 @@ public class entity {
         this.health = health;
     }
 
-    public int getSpeed() {
+    public double getSpeed() {
         return speed;
     }
 
@@ -61,7 +61,7 @@ public class entity {
         this.id = id;
     }
 
-    public int getDamage() {
+    public double getDamage() {
         return damage;
     }
 
@@ -74,7 +74,7 @@ public class entity {
     }
 
     //constructor
-    public entity(int setHealth, int setSpeed, int setDamage, int setId, int xcoord, int ycoord){
+    public entity(int setHealth, double setSpeed, double setDamage, int setId, int xcoord, int ycoord){
         health = setHealth;
         speed = setSpeed;
         damage = setDamage;
@@ -90,8 +90,8 @@ public class entity {
             output.writeInt(Xcoord);
             output.writeInt(Ycoord);
             output.writeInt(health);
-            output.writeInt(speed);
-            output.writeInt(damage);
+            output.writeDouble(speed);
+            output.writeDouble(damage); //changed these from int to Double for more specific numbers
     }
     
 }

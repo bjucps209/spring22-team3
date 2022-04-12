@@ -5,16 +5,19 @@ import java.io.IOException;
 
 public class player extends entity {
     
+    public player(int setHealth, double setSpeed, double setDamage, int setId, int xcoord, int ycoord) {
+        super(setHealth, setSpeed, setDamage, setId, xcoord, ycoord);
+        //TODO Auto-generated constructor stub
+    }
+
+
     private String name;
     private String powerup;
     private int roomXCoord, roomYCoord; // Added RoomCoords and floor to show player loc. -EW
     private int floor;
     private characters Character;
 
-    public player(int setHealth, int setSpeed, int setDamage, int setId, int xcoord, int ycoord) {
-        super(setHealth, setSpeed, setDamage, setId, xcoord, ycoord);
-        //TODO Auto-generated constructor stub
-    }
+
 
     public String getPowerup() {
         return powerup;
@@ -72,8 +75,8 @@ public class player extends entity {
         output.writeInt(getHealth());
         output.writeInt(getXcoord());
         output.writeInt(getYcoord());
-        output.writeInt(getSpeed());
-        output.writeInt(getDamage());
+        output.writeDouble(getSpeed());
+        output.writeDouble(getDamage());
         output.writeInt(roomXCoord);
         output.writeInt(roomYCoord);
         output.writeInt(floor);

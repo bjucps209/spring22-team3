@@ -5,13 +5,21 @@ import java.io.IOException;
 
 public class enemy extends entity {
     
-    int size;
-
-
-    public enemy(int setHealth, int setSpeed, int setDamage, int setId, int xcoord, int ycoord) {
+    public enemy(int setHealth, double setSpeed, double setDamage, int setId, int xcoord, int ycoord) {
         super(setHealth, setSpeed, setDamage, setId, xcoord, ycoord);
         //TODO Auto-generated constructor stub
     }
+
+
+
+
+
+
+
+    int size;
+
+
+
 
 
 

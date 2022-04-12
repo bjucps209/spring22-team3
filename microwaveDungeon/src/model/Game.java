@@ -15,12 +15,39 @@ public class Game {
 
     private difficulties diff;
 
+    private player User;
+
+    private enemy Enemies;
+
     public void initialize(difficulties setDiff, characters setCharacter){
         diff = setDiff;
         character = setCharacter;
     }
 
+    public void generateGame(){
+        switch(diff){
 
+            case EASY:
+            User = new player(25, 10, 2, 1, 0, 0);
+            break;
+
+            case MEDIUM:
+            User = new player(25, 10, 2, 1, 0, 0);
+            break;
+
+            case HARD:
+            User = new player(20, 10, 2, 1, 0, 0);
+            break;
+
+            
+            case NUKE:
+            User = new player(15, 10, 1.5, 1, 0, 0);
+            break;
+
+
+        }
+
+    }
 
     public characters getCharacter() {
         return character;
