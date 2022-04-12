@@ -5,6 +5,7 @@ import java.io.IOException;
 
 public class player extends entity {
     
+    String name;
     String powerup;
     int roomXCoord, roomYCoord; // Added RoomCoords and floor to show player loc. -EW
     int floor;
