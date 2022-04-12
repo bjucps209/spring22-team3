@@ -21,16 +21,23 @@ public class room {
     private int[] West = new int[2];
     // List of all entities in the room
     ArrayList<entity> entityList = new ArrayList<entity>();
+    static int nextId = 0;
+    int id;
 
     public room(int x, int y){
         this.x = x;
 
         this.y = y;
+        nextId++;
+        this.id = nextId;
 
         generate();
     }
     
-
+    public int getId(){
+        return id;
+    }
+    
     // TODO: Given an OutputStream, this method saves the room's attributes 
     public void save(DataOutputStream output) throws IOException {
         output.writeInt(x);
