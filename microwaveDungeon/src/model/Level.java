@@ -1,6 +1,7 @@
 package model;
 
 import java.io.DataOutputStream;
+import java.io.IOException;
 import java.util.ArrayList;
 
 public class Level {
@@ -57,8 +58,12 @@ public class Level {
         this.difficultyLevel = difficultyLevel;
     }
 
-    // TODO: Given an OutputStream, this method saves the player's attributes 
-    public void save(DataOutputStream output) {
+    // Given an OutputStream, this method saves the Level's attributes 
+    public void save(DataOutputStream output) throws IOException {
+        output.writeInt(Rooms.size());
+        for(room r: Rooms) {
+            r.save(output);
+        }
     }
 
 }

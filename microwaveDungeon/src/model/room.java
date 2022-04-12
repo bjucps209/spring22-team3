@@ -2,6 +2,7 @@ package model;
 
 import java.util.ArrayList;
 import java.io.DataOutputStream;
+import java.io.IOException;
 
 public class room {
     
@@ -31,7 +32,34 @@ public class room {
     
 
     // TODO: Given an OutputStream, this method saves the room's attributes 
-    public void save(DataOutputStream output) {
+    public void save(DataOutputStream output) throws IOException {
+        output.writeInt(x);
+        output.writeInt(y);
+        ArrayList<enemy> enemies = new ArrayList<enemy>();
+        ArrayList<obstacle> obstacles = new ArrayList<obstacle>();
+        staircase s = null;
+        for(entity e: entityList) {
+            if(e instanceof enemy)
+                enemies.add((enemy) e);
+            else if(e instanceof obstacle)
+                obstacles.add((obstacle) e);
+            else if(e instanceof staircase)
+                s = (staircase) e;
+        }
+        if(s != null) {
+            output.writeBoolean(true);
+            s.save(output);
+        }
+        else
+            output.writeBoolean(false);
+        output.writeInt(obstacles.size());
+        for(obstacle o: obstacles) {
+            o.save(output);
+        }
+        output.writeInt(enemies.size());
+        for(enemy e: enemies) {
+            e.save(output);
+        }
     }
 
     //generates entity objects depending on the difficulty selected by the player
@@ -99,6 +127,9 @@ public class room {
     public void addEntity(entity e) {
         entityList.add(e);
     }
+    public void removeEntity(entity e) {
+        entityList.remove(e);
+    }
     @Override
     public String toString() {
        String toStringEntityList = "";
@@ -107,7 +138,11 @@ public class room {
             
         }
         //remove the last comma and space
-        toStringEntityList = toStringEntityList.substring(0, toStringEntityList.length()-2);
+        //check to see if the list is empty
+        if(toStringEntityList.length() > 0){
+            toStringEntityList = toStringEntityList.substring(0, toStringEntityList.length() - 2);
+        }
+        //toStringEntityList = toStringEntityList.substring(0, toStringEntityList.length()-2);
         return "room [x=" + x + ", y=" + y + ", entityList=" + toStringEntityList + "]";
     }
     

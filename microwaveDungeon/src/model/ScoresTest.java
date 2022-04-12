@@ -7,7 +7,7 @@ import java.util.*;
 public class ScoresTest {
 
     @Test
-    void testReadData() {
+    void testSaveData() {
         ScoreList List = new ScoreList();
 
         String name1 = "Bob";
@@ -59,7 +59,7 @@ public class ScoresTest {
         List.add(s2);
         List.add(s3);
 
-        List.getScores();
+        List.loadData();
 
         assertEquals(List.get(0).getName(), "Joe");
         assertEquals(List.get(0).getName(), "920");

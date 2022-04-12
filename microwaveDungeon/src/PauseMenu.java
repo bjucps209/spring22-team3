@@ -1,3 +1,4 @@
+import java.io.*;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
@@ -13,7 +14,14 @@ public class PauseMenu {
 
     // TODO: Saves the game
     @FXML
-    void onSaveClicked(ActionEvent e){
+    void onSaveClicked(ActionEvent e) throws IOException{
+        File file = new File("microwaveDungeonSaveFile.txt");
+        if(file.exists())
+            file.delete();
+        file.createNewFile();
+        try(DataOutputStream writer = new DataOutputStream(new FileOutputStream(file))) {
+            
+        }
     }
 
     // TODO: Closes game and opens main menu/restarts game

@@ -8,4 +8,10 @@
 
     <Pane fx:id="pane" prefHeight="500" prefWidth="700" styleClass="GamePane" />
 
-</VBox> 
+    <HBox>
+
+        <Button text="Pause" onAction="#onPauseClicked" />
+
+    </HBox>
+
+</HBox> 
