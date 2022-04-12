@@ -45,7 +45,7 @@ public class TitleWindow {
     }
 
     // Identical to onLoadClicked, but returns the level object for testing
-    static Level loadSave() {
+    static Level loadSave(String fileName) {
         throw new RuntimeException("Method not implemented");
     }
 

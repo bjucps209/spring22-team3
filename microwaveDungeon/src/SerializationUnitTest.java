@@ -22,7 +22,13 @@ public class SerializationUnitTest {
         Level l = new Level(testRooms, difficulties.MEDIUM);
         try(DataOutputStream writer = new DataOutputStream(new FileOutputStream(file))) {
             l.save(writer);}
-        assertEquals(l, TitleWindow.loadSave());
+        assertEquals(l, TitleWindow.loadSave("microwaveDungeonTestSave.txt"));
     }
 
+    // Tests the load function with SampleSave.txt
+    @Test
+    void LoadTest() {
+        TitleWindow.loadSave("Saves/SampleSave.txt");
+        
+    }
 }
