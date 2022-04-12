@@ -3,8 +3,10 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<VBox fx:controller="GameWindow" xmlns:fx="http://javafx.com/fxml"  stylesheets="@GameWindow.css"
-    spacing="10" prefHeight="400" prefWidth="250">
+<VBox fx:controller="CharWindow" xmlns:fx="http://javafx.com/fxml"  stylesheets="@GameWindow.css"
+    spacing="10" prefHeight="500" prefWidth="700">
+
+    <Button onAction="#onBackClicked" text="Back to Title" />
 
     <HBox>
 
@@ -14,12 +16,12 @@
 
     <Button fx:id="ramenCharacter" onAction="#selectRamenCharacter" />
 
-    <Button fx:id="macCharacter" onAction="selectMacCharacter" />
+    <Button fx:id="macCharacter" onAction="#selectMacCharacter" />
     
 
     </HBox>
 
-    <TextField />
+    <TextField fx:id="nameInput" text="Type your name here!" />
 
     <Button text="Into the Dungeon!" onAction="#onStartClicked" />
 

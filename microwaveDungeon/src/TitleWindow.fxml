@@ -4,22 +4,17 @@
 <?import javafx.scene.layout.*?>
 
 <VBox fx:controller="TitleWindow" xmlns:fx="http://javafx.com/fxml"  stylesheets="@TitleWindow.css"
-    spacing="10" prefHeight="400" prefWidth="250">
+    spacing="10" prefHeight="500" prefWidth="700">
 
     <Label text="Microwave Dungeon!" />
 
-    <Button fx:id="start" />
+    <Button fx:id="start" onAction="#startGame" text="start" />
 
     <Button fx:id="load" onAction="#onLoadClicked" text="Load Saved Game" />
 
-    <Button fx:id="credits" />
+    <Button fx:id="credits" onAction="#onCreditsClicked" text="Credits" />
 
-    <Button fx:id="leaderboard" />
+    <Button fx:id="leaderboard" onAction="#onLeaderboardClicked" text="Leaderboard" />
 
-    <Button fx:id="hardDifficulty" />
-
-    <Button fx:id="medDifficulty" />
-
-    <Button fx:id="easyDifficulty" />
 
 </VBox> 
