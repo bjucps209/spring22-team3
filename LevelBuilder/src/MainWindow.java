@@ -69,7 +69,7 @@ public class MainWindow {
     room currentRoom;
     LevelData currentLevel;
     static ImageView entitySelected;
-    ArrayList<ImageView> critters = new ArrayList<ImageView>();
+    ArrayList<ImageView> entitiesImages = new ArrayList<ImageView>();
     int roomCounter = 0;
     @FXML
     void createRoom(ActionEvent event) {
@@ -114,7 +114,7 @@ public class MainWindow {
         img.relocate(enemy.getXcoord(), enemy.getYcoord());
         pane.getChildren().add(img);
         img.setUserData(enemy);
-        critters.add(img);
+        entitiesImages.add(img);
         img.setOnMouseClicked(e -> {
             onCritterClicked(event, img);
         });
@@ -124,7 +124,7 @@ public class MainWindow {
     void selectEntity(Node img) {
 
         if (entitySelected != null) {
-            for (ImageView c : critters) {
+            for (ImageView c : entitiesImages) {
 
                 c.getStyleClass().remove("current");
 
@@ -163,7 +163,7 @@ public class MainWindow {
         img.relocate(enemy.getXcoord(), enemy.getYcoord());
         pane.getChildren().add(img);
         img.setUserData(enemy);
-        critters.add(img);
+        entitiesImages.add(img);
         img.setOnMouseClicked(e -> {
             onCritterClicked(event, img);
         });
