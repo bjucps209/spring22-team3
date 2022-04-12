@@ -95,7 +95,7 @@ public class TitleWindow {
 
     // Uses the save file and loads a game based off the values in that file
     @FXML
-    void onLoadClicked(ActionEvent e) throws IOException { //TODO: finish
+    void onLoadClicked(ActionEvent e) throws IOException { 
         var loader = new FXMLLoader(getClass().getResource("GameWindow.fxml"));
         var scene = new Scene(loader.load());
 
@@ -107,7 +107,7 @@ public class TitleWindow {
         titleStage.close();
 
         GameWindow gameWindow = loader.getController();
-        //gameWindow.load();
+        gameWindow.load();
     }
 
     // Identical to onLoadClicked, but returns the level object for testing

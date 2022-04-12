@@ -55,4 +55,9 @@ public class GameWindow {
         
     }
 
+    // This method is called to call the load method in the game object
+    public void load() {
+        game.load();
+    }
+
 }
