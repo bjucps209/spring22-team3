@@ -20,14 +20,15 @@ public class LevelData {
      */
     public void load() {
 
-        File dir = new File("microwaveDungeon/src/Levels");
+        File dir = new File("src/Levels");
+        
         File[] directoryListing = dir.listFiles();
         if (directoryListing != null) {
             for (File child : directoryListing) {
                 // only load the level we want
                 String[] list = child.toString().split("\\\\");
 
-                if (list[3].equals(numLevel + ".txt")) {
+                if (list[2].equals(numLevel + ".txt")) {
 
                     try {
                         ;
@@ -83,7 +84,7 @@ public class LevelData {
                                         break;
                                     case "startpt":
                                         startpt s1 = new startpt(health, speed, damage, id, x, y);
-                                        roomList.get(roomId).addEntity(s1);
+                                        roomList.get(roomId - 1).addEntity(s1);
                                         break;
                                     default:
                                         break;
