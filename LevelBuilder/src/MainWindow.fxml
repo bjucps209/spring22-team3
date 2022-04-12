@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.VBox?>
+
+<VBox alignment="CENTER" spacing="10" stylesheets="@MainWindow.css" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="MainWindow">
+
+    <ImageView><image><Image url="@images/logo.png" /></image></ImageView>
+    <HBox spacing="10">
+        <VBox spacing="10">
+            <Button onAction="#onWaveClicked" styleClass="leftbutton"><graphic><ImageView fitHeight="74.0" fitWidth="77.0"><image><Image url="@images/wave.png" /></image></ImageView></graphic></Button>
+            <Button onAction="#onBombClicked" styleClass="leftbutton"><graphic><ImageView><image><Image url="@images/bomb.png" /></image></ImageView></graphic></Button>
+            <Button onAction="#onDeleteClicked" styleClass="leftbutton"><graphic><ImageView><image><Image url="@images/delete-icon.png" /></image></ImageView></graphic></Button>
+            <Button styleClass="leftbutton"><graphic><ImageView><image><Image url="@images/undo-icon.png" /></image></ImageView></graphic></Button>
+        </VBox>
+        <Pane fx:id="pane" prefHeight="500" prefWidth="800.0" style="-fx-background-color: lightgray">
+         <children>
+            <Button onAction= "#createRoom" fx:id="leftBtn" layoutY="228.0" mnemonicParsing="false" prefHeight="45.0" prefWidth="30.0" text="+" />
+            <Button onAction= "#createRoom" fx:id="upBtn" layoutX="377.0" layoutY="1.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="46.0" text="+" />
+            <Button onAction= "#createRoom" fx:id="downBtn" layoutX="377.0" layoutY="473.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="46.0" text="+" />
+            <Button onAction= "#createRoom" fx:id="rightBtn" layoutX="771.0" layoutY="228.0" mnemonicParsing="false" prefHeight="45.0" prefWidth="30.0" text="+" />
+         </children></Pane>
+        <HBox spacing="10" styleClass="propview">
+            <VBox spacing="10">
+                <Label prefHeight="18.0" prefWidth="14.0" text="Id:" />
+                <Label prefHeight="23.0" prefWidth="46.0" text="Position:" />
+                <Label prefHeight="29.0" prefWidth="38.0" text="Health:" />
+                <Label prefHeight="26.0" prefWidth="42.0" text="Speed:" />
+                <Label prefHeight="36.0" prefWidth="47.0" text="Damage:" />
+            </VBox>
+            <VBox minWidth="50" spacing="15.0">
+                <Label fx:id="lblId" text="" />
+                <Label fx:id="lblLoc" text="" />
+            <TextField fx:id="txthealth" prefHeight="15.0" prefWidth="50.0" />
+            <TextField fx:id="txtSpeed" prefHeight="15.0" prefWidth="50.0" />
+            <TextField fx:id="txtDamage" prefHeight="15.0" prefWidth="50.0" />
+            <Button fx:id="saveBtn" onAction = "#onSaveEntityClicked" mnemonicParsing="false" prefHeight="26.0" prefWidth="50.0" text="Save" />
+            </VBox>
+        </HBox>
+    </HBox>
+
+
+</VBox>
