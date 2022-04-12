@@ -15,7 +15,7 @@
     <HBox spacing="10">
         <VBox spacing="10">
             <Button onAction="#onWaveClicked" styleClass="leftbutton"><graphic><ImageView fitHeight="74.0" fitWidth="77.0"><image><Image url="@images/wave.png" /></image></ImageView></graphic></Button>
-            <Button onAction="#onBombClicked" styleClass="leftbutton"><graphic><ImageView><image><Image url="@images/bomb.png" /></image></ImageView></graphic></Button>
+            <Button onAction="#ongunWaveClicked" styleClass="leftbutton"><graphic><ImageView fitHeight="74.0" fitWidth="77.0"><image><Image url="@images/microwave.gif" /></image></ImageView></graphic></Button>
             <Button onAction="#onDeleteClicked" styleClass="leftbutton"><graphic><ImageView><image><Image url="@images/delete-icon.png" /></image></ImageView></graphic></Button>
             <Button styleClass="leftbutton"><graphic><ImageView><image><Image url="@images/undo-icon.png" /></image></ImageView></graphic></Button>
         </VBox>

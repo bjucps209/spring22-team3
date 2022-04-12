@@ -17,12 +17,12 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
 import javafx.scene.media.Track;
-import model.Critter;
-import model.CritterHandler;
+
+
 import model.CritterType;
 import model.Level;
 import model.LevelData;
-import model.World;
+
 import model.enemy;
 import model.entity;
 import model.room;
@@ -52,7 +52,7 @@ public class MainWindow {
 
     @FXML
     void initialize() {
-        Critter.setHandler(this::updateTable);
+        
         entity.setHandler(this::updateTable);
         LevelData level = new LevelData(1);
         room r = new room(0, 0);
@@ -69,7 +69,7 @@ public class MainWindow {
     room currentRoom;
     LevelData currentLevel;
     static ImageView entitySelected;
-    ArrayList<ImageView> critters = new ArrayList<ImageView>();
+    ArrayList<ImageView> entitiesImages = new ArrayList<ImageView>();
     int roomCounter = 0;
     @FXML
     void createRoom(ActionEvent event) {
@@ -114,7 +114,7 @@ public class MainWindow {
         img.relocate(enemy.getXcoord(), enemy.getYcoord());
         pane.getChildren().add(img);
         img.setUserData(enemy);
-        critters.add(img);
+        entitiesImages.add(img);
         img.setOnMouseClicked(e -> {
             onCritterClicked(event, img);
         });
@@ -124,7 +124,7 @@ public class MainWindow {
     void selectEntity(Node img) {
 
         if (entitySelected != null) {
-            for (ImageView c : critters) {
+            for (ImageView c : entitiesImages) {
 
                 c.getStyleClass().remove("current");
 
@@ -155,13 +155,15 @@ public class MainWindow {
     }
 
     @FXML
-    void onBombClicked(ActionEvent event) {
-        Critter wanderer = World.instance().create(CritterType.WANDERER);
-        var img = new ImageView(IMG_BOMB);
-        img.relocate(wanderer.getX(), wanderer.getY());
+    void ongunWaveClicked(ActionEvent event) {
+        enemy enemy = new enemy(100, 10, 20, 1, new Random().nextInt(780), new Random().nextInt(480));
+        var img = new ImageView(IMG_MICROWAVE);
+        img.setFitHeight(50);
+        img.setFitWidth(50);
+        img.relocate(enemy.getXcoord(), enemy.getYcoord());
         pane.getChildren().add(img);
-        img.setUserData(wanderer);
-        critters.add(img);
+        img.setUserData(enemy);
+        entitiesImages.add(img);
         img.setOnMouseClicked(e -> {
             onCritterClicked(event, img);
         });
