@@ -26,6 +26,7 @@ import model.LevelData;
 import model.enemy;
 import model.entity;
 import model.room;
+import java.io.*;
 
 public class MainWindow {
     @FXML
@@ -139,6 +140,7 @@ public class MainWindow {
         entity.setHealth(Integer.parseInt(txthealth.getText()));
         entity.setSpeed(Integer.parseInt(txtSpeed.getText()));
         entity.setDamage(Integer.parseInt(txtDamage.getText()));
+        currentLevel.save();
         
        
     }
@@ -158,6 +160,7 @@ public class MainWindow {
     void ongunWaveClicked(ActionEvent event) {
         enemy enemy = new enemy(100, 10, 20, 1, new Random().nextInt(780), new Random().nextInt(480));
         var img = new ImageView(IMG_MICROWAVE);
+        currentRoom.addEntity(enemy);
         img.setFitHeight(50);
         img.setFitWidth(50);
         img.relocate(enemy.getXcoord(), enemy.getYcoord());

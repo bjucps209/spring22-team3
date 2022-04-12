@@ -134,6 +134,22 @@ public class LevelData {
     // created.
     // It will save the location of all the rooms.
     public void save() {
+        try {
+            
+          
+            FileWriter fw = new FileWriter("../microwaveDungeon/src/Levels/" + numLevel + ".txt");
+            BufferedWriter bw = new BufferedWriter(fw);
+            for (room r : roomList) {
+                bw.write("Room-" + r.getId() + "-" + r.getX() + "," + r.getY() + "\n");
+                for (entity e : r.getEntityList()) {
+                    bw.write(e.getClass().getSimpleName() + "," + e.getId() + "," + e.getXcoord() + "," + e.getYcoord() + "," + e.getHealth() + "," + e.getDamage() + "," + e.getSpeed() + "," + 1 + "," + r.getId() + "\n");
+                }
+                bw.write("End\n");
+            }
+            bw.close();
+        } catch (IOException e) {
+            System.out.println("Problem writing file");
+        }
 
     }
 

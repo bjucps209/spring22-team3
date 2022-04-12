@@ -1,6 +1,6 @@
 //-----------------------------------------------------------
-//File:   CritterHandler.java
-//Desc:   This is the Custom event handler for the Critter class.
+//File:   EntityHandler.java
+//Desc:   This is the Custom event handler for the entity class.
 //----------------------------------------------------------- 
 package model;
 
