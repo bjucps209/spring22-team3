@@ -29,6 +29,11 @@ public class Game {
 
             case EASY:
             User = new player(25, 10, 2, 1, 0, 0);
+
+            Level firstLevel = new Level(difficulties.EASY);
+            Level secondLevel = new Level(difficulties.EASY);
+            Level ThirdLevel = new Level(difficulties.EASY);
+            //firstLevel.getRooms().add();
             break;
 
             case MEDIUM:

@@ -15,8 +15,7 @@ public class Level {
     private difficulties difficultyLevel;
 
     // Constructor -Added for save/load tests. Feel free to make changes as you see fit
-    public Level(ArrayList<room> rooms, difficulties difficultyLevel) {
-        Rooms = rooms;
+    public Level(difficulties difficultyLevel) {
         this.difficultyLevel = difficultyLevel;
     }
 
