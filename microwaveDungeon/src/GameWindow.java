@@ -1,15 +1,27 @@
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.layout.Pane;
+import model.*;
 
 public class GameWindow {
     
     @FXML
     Pane GamePane;
 
+    private Game game;
+
+    private difficulties diff;
+
+    private characters character;
+
     //initializes the view by calling the necesary methods
-    public void initialize(){
-        throw new RuntimeException("Method not implemented");
+    public void initialize(difficulties setDiff, characters setCharacter){
+
+        diff = setDiff;
+        character = setCharacter;
+        
+        game = new Game();
+        game.initialize(diff, character);
     }
 
     @FXML

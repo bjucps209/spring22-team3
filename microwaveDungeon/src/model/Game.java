@@ -3,30 +3,31 @@ package model;
 import java.util.ArrayList;
 
 public class Game {
-    private ArrayList<Level> levelList = new ArrayList<Level>();
+    private ArrayList<Level> easyLevelList = new ArrayList<Level>();
 
-    private player player;
+    private ArrayList<Level> mediumLevelList = new ArrayList<Level>();
+
+    private ArrayList<Level> hardLevelList = new ArrayList<Level>();
+
+    private ArrayList<Level> nukeLevelList = new ArrayList<Level>();
+
+    private characters character;
 
     private difficulties diff;
 
-    public Game(){
-
+    public void initialize(difficulties setDiff, characters setCharacter){
+        diff = setDiff;
+        character = setCharacter;
     }
 
-    public ArrayList<Level> getLevelList() {
-        return levelList;
+
+
+    public characters getCharacter() {
+        return character;
     }
 
-    public void setLevelList(ArrayList<Level> levelList) {
-        this.levelList = levelList;
-    }
-
-    public player getPlayer() {
-        return player;
-    }
-
-    public void setPlayer(player player) {
-        this.player = player;
+    public void setCharacter(characters character) {
+        this.character = character;
     }
 
     public difficulties getDiff() {
