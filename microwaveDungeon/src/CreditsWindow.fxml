@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<VBox fx:controller="CreditsWindow" xmlns:fx="http://javafx.com/fxml"  stylesheets="@CreditsWindow.css"
+    spacing="10" prefHeight="500" prefWidth="700">
+
+    <Label text="Credits" />
+
+    <Button fx:id="back" onAction="#onBackClicked" text="Back to Title" />
+
+</VBox> 

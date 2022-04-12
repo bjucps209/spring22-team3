@@ -7,7 +7,7 @@ public class staircase extends entity {
  
     directions dir;
 
-    public staircase(int setHealth, int setSpeed, int setDamage, int setId, int xcoord, int ycoord) {
+    public staircase(int setHealth, double setSpeed, double setDamage, int setId, int xcoord, int ycoord) {
         super(setHealth, setSpeed, setDamage, setId, xcoord, ycoord);
         //TODO Auto-generated constructor stub
     }

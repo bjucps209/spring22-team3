@@ -4,7 +4,7 @@
 <?import javafx.scene.layout.*?>
 
 <VBox fx:controller="LeaderboardWindow" xmlns:fx="http://javafx.com/fxml"  stylesheets="@LeaderboardWindow.css"
-    spacing="10" prefHeight="400" prefWidth="250">
+    spacing="10" prefHeight="500" prefWidth="700">
 
     <Label text="High Scores" />
 
