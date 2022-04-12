@@ -1,5 +1,6 @@
 package model;
 
+import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
 
@@ -71,14 +72,23 @@ public class player extends entity {
     // Given an OutputStream, this method saves the player's attributes 
     @Override
     public void save(DataOutputStream output) throws IOException {
-        output.writeInt(getId());
         output.writeInt(getHealth());
-        output.writeInt(getXcoord());
-        output.writeInt(getYcoord());
         output.writeDouble(getSpeed());
         output.writeDouble(getDamage());
+        output.writeDouble(getId());
+        output.writeInt(getXcoord());
+        output.writeInt(getYcoord());
         output.writeInt(roomXCoord);
         output.writeInt(roomYCoord);
         output.writeInt(floor);
+    }
+
+    // Factory Method that builds/loads a player based off a DataInputStream
+    public static player load(DataInputStream input) throws IOException {
+        player output = new player(input.readInt(), input.readInt(), input.readInt(), input.readInt(), input.readInt(), input.readInt());
+        output.setRoomXCoord(input.readInt());
+        output.setRoomYCoord(input.readInt());
+        output.setFloor(input.readInt());
+        return output;
     }
 }

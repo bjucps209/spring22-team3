@@ -49,7 +49,7 @@ public class LevelData {
                                 // create a new roomCoord to hold the room's location
 
                                 // set room coordinates to the room
-                                room newRoom = new room(x, y);
+                                room newRoom = new room(x, y, true);
                                 roomList.add(newRoom);
 
                                 line = rd.readLine();

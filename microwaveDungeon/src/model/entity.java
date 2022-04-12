@@ -86,12 +86,12 @@ public class entity {
 
     // Given an OutputStream, this method saves the entity's attributes 
     public void save(DataOutputStream output) throws IOException {
-            output.writeInt(id);
-            output.writeInt(Xcoord);
-            output.writeInt(Ycoord);
             output.writeInt(health);
             output.writeDouble(speed);
             output.writeDouble(damage); //changed these from int to Double for more specific numbers
+            output.writeInt(id);
+            output.writeInt(Xcoord);
+            output.writeInt(Ycoord);
     }
     
 }

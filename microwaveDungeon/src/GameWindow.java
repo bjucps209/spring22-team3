@@ -20,8 +20,7 @@ public class GameWindow {
         diff = setDiff;
         character = setCharacter;
         
-        game = new Game();
-        game.initialize(diff, character);
+        game = new Game(diff, character);
     }
 
     @FXML

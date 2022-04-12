@@ -1,6 +1,7 @@
 package model;
 
 import java.util.ArrayList;
+import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
 
@@ -22,16 +23,17 @@ public class room {
     // List of all entities in the room
     ArrayList<entity> entityList = new ArrayList<entity>();
 
-    public room(int x, int y){
+    public room(int x, int y, Boolean isNotForLoad){ // isNotForLoad determines whether if generate() is used as when loading, generate is not nessesary
         this.x = x;
 
         this.y = y;
 
-        generate();
+        if(isNotForLoad)
+            generate();
     }
     
 
-    // TODO: Given an OutputStream, this method saves the room's attributes 
+    // Given an OutputStream, this method saves the room's attributes 
     public void save(DataOutputStream output) throws IOException {
         output.writeInt(x);
         output.writeInt(y);
@@ -60,6 +62,22 @@ public class room {
         for(enemy e: enemies) {
             e.save(output);
         }
+    }
+
+    // Factory Method that builds/loads a room based off a DataInputStream
+    public static room load(DataInputStream input) throws IOException {
+        room output = new room(input.readInt(), input.readInt(), false);
+        if(input.readBoolean()) 
+            output.addEntity(new staircase(-1, 0, 0, -1, input.readInt(), input.readInt())); // TODO: Parameters for health and such good?
+        for(int i = 0; i < input.readInt(); ++i) {
+            output.addEntity(new obstacle(-1, 0, 0, -1, input.readInt(), input.readInt())); // TODO: Parameters for health and such good?
+        }
+        for(int i = 0; i < input.readInt(); ++i) {
+            enemy e = new enemy(input.readInt(), input.readDouble(), input.readDouble(), input.readInt(), input.readInt(), input.readInt());
+            e.setSize(input.readInt());
+            output.addEntity(e);
+        }
+        return output;
     }
 
     //generates entity objects depending on the difficulty selected by the player

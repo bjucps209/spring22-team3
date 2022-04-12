@@ -15,11 +15,12 @@ public class SerializationUnitTest {
         file.createNewFile();
         player p = new player( 5, 5, 5, 0, 0, 0);
         ArrayList<room> testRooms = new ArrayList<room>();
-        testRooms.add(0, new room(0, 0));
-        testRooms.add(0, new room(1, 0));
-        testRooms.add(0, new room(0, 1));
-        testRooms.add(0, new room(1, 1));
-        Level l = new Level(testRooms, difficulties.MEDIUM);
+        testRooms.add(0, new room(0, 0, true));
+        testRooms.add(0, new room(1, 0, true));
+        testRooms.add(0, new room(0, 1, true));
+        testRooms.add(0, new room(1, 1, true));
+        Level l = new Level(difficulties.MEDIUM);
+        l.setRooms(testRooms);
         try(DataOutputStream writer = new DataOutputStream(new FileOutputStream(file))) {
             l.save(writer);}
         assertEquals(l, TitleWindow.loadSave("microwaveDungeonTestSave.txt"));

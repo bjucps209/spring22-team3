@@ -1,3 +1,4 @@
+import java.io.File;
 import java.io.IOException;
 
 import javafx.event.ActionEvent;
@@ -33,7 +34,9 @@ public class TitleWindow {
     // Checks if there is a save file, if not, disables load button
     @FXML
     void initialize() {
-
+        File file = new File("Saves/SavedGame.txt");
+        if(!file.exists())
+            load.setDisable(true);
     }
 
 
@@ -92,8 +95,19 @@ public class TitleWindow {
 
     // Uses the save file and loads a game based off the values in that file
     @FXML
-    void onLoadClicked(ActionEvent e) {
-        throw new RuntimeException("Method not implemented");
+    void onLoadClicked(ActionEvent e) throws IOException { //TODO: finish
+        var loader = new FXMLLoader(getClass().getResource("GameWindow.fxml"));
+        var scene = new Scene(loader.load());
+
+        var stage = new Stage();
+        stage.setScene(scene);
+        stage.show();
+
+        Stage titleStage = (Stage) ((Button) e.getSource()).getScene().getWindow();
+        titleStage.close();
+
+        GameWindow gameWindow = loader.getController();
+        //gameWindow.load();
     }
 
     // Identical to onLoadClicked, but returns the level object for testing
