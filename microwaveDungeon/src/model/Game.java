@@ -38,18 +38,22 @@ public class Game {
 
             case EASY:
             User = new player(25, 10, 2, 1, 0, 0);
+            levelSet = easyLevelList;
             break;
 
             case MEDIUM:
             User = new player(25, 10, 2, 1, 0, 0);
+            levelSet = mediumLevelList;
             break;
 
             case HARD:
             User = new player(20, 10, 2, 1, 0, 0);
+            levelSet = hardLevelList;
             break;
 
             case NUKE:
             User = new player(15, 10, 1.5, 1, 0, 0);
+            levelSet = nukeLevelList;
             break;
         }
         Level firstLevel = new Level(diff); // Moved this out of Switch for simplification
@@ -81,6 +85,11 @@ public class Game {
 
     public void setDiff(difficulties diff) {
         this.diff = diff;
+    }
+
+    // Added for Unit testing
+    public ArrayList<Level> getLevelSet() {
+        return levelSet;
     }
 
     // Saves the Game
@@ -122,6 +131,23 @@ public class Game {
         catch (IOException e) {
             Alert a = new Alert(AlertType.ERROR, "There was a problem reading the save file.");
             a.show();
+        }
+    }
+
+    // Loads a specified saved game file -Made for testing
+    public void load(String filename) {
+        try(DataInputStream input = new DataInputStream(new FileInputStream(filename))) {
+            score = input.readInt();
+            timePassed = input.readInt();
+            levelSet = new ArrayList<Level>();
+            for(int i = 0; i < input.readInt(); ++i) {
+                levelSet.add(Level.load(input));
+            }
+            User = player.load(input);
+        }
+        catch (IOException e) {
+            e.printStackTrace();
+            throw new IllegalArgumentException("Problem reading from given filename");
         }
     }
 }

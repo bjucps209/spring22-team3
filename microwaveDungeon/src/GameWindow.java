@@ -52,7 +52,7 @@ public class GameWindow {
     }
 
     void onPauseClicked(ActionEvent event) {
-        
+        throw new RuntimeException("Method not implemented");
     }
 
     // This method is called to call the load method in the game object

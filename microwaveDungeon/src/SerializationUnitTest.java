@@ -1,4 +1,6 @@
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
+
 import java.io.*;
 import java.util.ArrayList;
 import org.junit.Test;
@@ -7,29 +9,13 @@ import model.*;
 // Unit test for save and load methods
 public class SerializationUnitTest {
     
+    // Loads the sample save file and checks if the load worked properly
     @Test
-    void SaveAndLoadTest() throws FileNotFoundException, IOException {
-        File file = new File("microwaveDungeonTestSave.txt");
-        if(file.exists())
-            file.delete();
-        file.createNewFile();
-        player p = new player( 5, 5, 5, 0, 0, 0);
-        ArrayList<room> testRooms = new ArrayList<room>();
-        testRooms.add(0, new room(0, 0, true));
-        testRooms.add(0, new room(1, 0, true));
-        testRooms.add(0, new room(0, 1, true));
-        testRooms.add(0, new room(1, 1, true));
-        Level l = new Level(difficulties.MEDIUM);
-        l.setRooms(testRooms);
-        try(DataOutputStream writer = new DataOutputStream(new FileOutputStream(file))) {
-            l.save(writer);}
-        assertEquals(l, TitleWindow.loadSave("microwaveDungeonTestSave.txt"));
-    }
-
-    // Tests the load function with SampleSave.txt
-    @Test
-    void LoadTest() {
-        TitleWindow.loadSave("Saves/SampleSave.txt");
-        
+    public void loadTest() {
+        Game testGame = new Game(difficulties.MEDIUM, characters.HPOCKET);
+        testGame.load("src\\Saves\\SampleSave.txt");
+        assertEquals(100, testGame.getScore());
+        assertEquals(55, testGame.getTimePassed());
+        // TODO: Add assertions for the objects in rooms using testGame.getLevelSet()
     }
 }
