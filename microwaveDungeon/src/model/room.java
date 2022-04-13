@@ -13,13 +13,13 @@ public class room {
     private int y;
 
     //Each direction holds the coordinate of the corresponding room (i.e. North[0] = x, North[1] = y)
-    private int[] North = new int[2];
+    private position North;
 
-    private int[] South = new int[2];
+    private position South;
 
-    private int[] East = new int[2];
+    private position East;
 
-    private int[] West = new int[2];
+    private position West;
     // List of all entities in the room
     ArrayList<entity> entityList = new ArrayList<entity>();
 
@@ -112,35 +112,44 @@ public class room {
         this.entityList = entityList;
     }
 
-    public int[] getNorth() {
+    
+
+    public position getNorth() {
         return North;
     }
 
-    public void setNorth(int[] north) {
+
+    public void setNorth(position north) {
         North = north;
     }
 
-    public int[] getSouth() {
+
+    public position getSouth() {
         return South;
     }
 
-    public void setSouth(int[] south) {
+
+    public void setSouth(position south) {
         South = south;
     }
 
-    public int[] getEast() {
+
+    public position getEast() {
         return East;
     }
 
-    public void setEast(int[] east) {
+
+    public void setEast(position east) {
         East = east;
     }
 
-    public int[] getWest() {
+
+    public position getWest() {
         return West;
     }
 
-    public void setWest(int[] west) {
+
+    public void setWest(position west) {
         West = west;
     }
 
