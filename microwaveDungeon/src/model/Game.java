@@ -4,6 +4,8 @@ import java.io.*;
 import java.util.ArrayList;
 import java.util.Arrays;
 
+import javax.crypto.spec.RC2ParameterSpec;
+
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
@@ -50,7 +52,7 @@ public class Game {
         switch(diff){
 
             case EASY:
-            User = new player(25, 10, 2, 1, 0, 0);
+            User = new player(25, 10, 2, 0, 0, 0);
             levelSet = easyLevelList;
             currentLevel = 1;
             currentRoom.setX(levelSet.get(0).getRooms().get(0).getX());
@@ -90,6 +92,36 @@ public class Game {
 
     public void onStaircaseReached(){
         
+    }
+
+    public void generateLevels(difficulties diff){
+        easyLevelList.add(new Level(difficulties.EASY));
+        easyLevelList.add(new Level(difficulties.EASY));
+        easyLevelList.add(new Level(difficulties.EASY));
+        
+        //level 1
+        easyLevelList.get(0).addRoom(new room(0, 2, false));
+        easyLevelList.get(0).addRoom(new room(1, 2, false));
+        easyLevelList.get(0).addRoom(new room(2, 2, false));
+        
+        //level 2
+        easyLevelList.get(1).addRoom(new room(2, 2, false));
+        easyLevelList.get(1).getRooms().get(0).addEntity(new enemy(5, 10, 2, 1, 450, 500));
+        easyLevelList.get(1).addRoom(new room(1, 2, false));
+        easyLevelList.get(1).addRoom(new room(2, 1, false));
+        easyLevelList.get(1).addRoom(new room(2, 0, false));
+        easyLevelList.get(1).addRoom(new room(3, 2, false));
+        easyLevelList.get(1).addRoom(new room(2, 3, false));
+        easyLevelList.get(1).addRoom(new room(3, 3, false));
+
+        //level 3
+        easyLevelList.get(2).addRoom(new room(2, 2, false));
+        easyLevelList.get(2).addRoom(new room(1, 2, false));
+        easyLevelList.get(2).addRoom(new room(2, 1, false));
+        easyLevelList.get(2).addRoom(new room(2, 0, false));
+        easyLevelList.get(2).addRoom(new room(3, 2, false));
+        easyLevelList.get(2).addRoom(new room(2, 3, false));
+        easyLevelList.get(2).addRoom(new room(3, 3, false));
     }
 
     public void onDoorReached(){

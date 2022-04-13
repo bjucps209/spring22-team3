@@ -25,7 +25,9 @@ public class GameWindow {
 
     @FXML
     public void generate(){
-        
+        for (int i = 0; i < game.getLevelSet().get(0).getRooms().get(0).getEntityList().size(); ++i){
+            
+        }
     }
 
     //updates the view based on changes in the model
