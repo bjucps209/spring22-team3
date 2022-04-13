@@ -30,7 +30,13 @@ public class GameWindow {
 
     //updates the view based on changes in the model
     @FXML
-    public void update(){
+    public void updateView(){
+        throw new RuntimeException("Method not implemented");
+    }
+
+    //updates entities when a collision is detected
+    @FXML
+    public void findCollision(){
         throw new RuntimeException("Method not implemented");
     }
 
@@ -47,6 +53,7 @@ public class GameWindow {
     }
 
     //sets the cursor to crosshairs and tracks it on the pane
+    @FXML
     public void trackCursor(){
         throw new RuntimeException("Method not implemented");
     }
@@ -54,6 +61,11 @@ public class GameWindow {
     @FXML
     void onPauseClicked(ActionEvent event) {
         throw new RuntimeException("Method not implemented");
+    }
+
+    public void tickProcessing(){
+        //calls updateView(), and trackCursor() every tick, and every time the player moves or shoots.
+        //calls updatePosition() on all moving entities in the current loaded room each tick.
     }
 
     // This method is called to call the load method in the game object
