@@ -57,7 +57,7 @@ public class CharWindow {
 
     //sets the diff variable to EASY, which is then passed into the GameWindow initialize method
     @FXML
-    public void selectEasy(ActionEvent e){
+    public void selectEasy(ActionEvent e){ 
         diff = difficulties.EASY;
     }
 

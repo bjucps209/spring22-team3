@@ -25,7 +25,7 @@ public class GameWindow {
 
     @FXML
     public void generate(){
-        throw new RuntimeException("Method not implemented");
+        
     }
 
     //updates the view based on changes in the model
@@ -51,6 +51,7 @@ public class GameWindow {
         throw new RuntimeException("Method not implemented");
     }
 
+    @FXML
     void onPauseClicked(ActionEvent event) {
         throw new RuntimeException("Method not implemented");
     }

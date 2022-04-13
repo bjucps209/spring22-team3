@@ -21,6 +21,19 @@
 
     </HBox>
 
+    <HBox>
+
+    <Button fx:id="Easy" onAction="#selectEasy" />
+
+    <Button fx:id="Medium" onAction="#selectMedium" />
+
+    <Button fx:id="Hard" onAction="#selectHard" />
+
+    <Button fx:id="NUKE" onAction="#selectNuke" />
+    
+
+    </HBox>
+
     <TextField fx:id="nameInput" text="Type your name here!" />
 
     <Button text="Into the Dungeon!" onAction="#onStartClicked" />

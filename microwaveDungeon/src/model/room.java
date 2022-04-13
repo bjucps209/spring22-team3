@@ -82,6 +82,9 @@ public class room {
 
     //generates entity objects depending on the difficulty selected by the player
     private void generate(){
+        for (int i = 0; i < entityList.size() - 1; ++i){
+            entityList.get(i);
+        }
 
     } 
 
