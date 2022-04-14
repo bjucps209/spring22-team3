@@ -33,9 +33,11 @@ public class Game {
 
     private player User;
 
-    private position currentRoom;
+    private int currentRoom;
 
-    private int currentLevel;
+    private position currentRoomCoords;
+
+    private int currentLevel = 0;
 
 
     @FXML
@@ -55,38 +57,38 @@ public class Game {
             User = new player(25, 10, 2, 0, 0, 0);
             levelSet = easyLevelList;
             currentLevel = 1;
-            currentRoom.setX(levelSet.get(0).getRooms().get(0).getX());
-            currentRoom.setY(levelSet.get(0).getRooms().get(0).getY());
+            currentRoomCoords.setX(levelSet.get(0).getRooms().get(0).getX());
+            currentRoomCoords.setY(levelSet.get(0).getRooms().get(0).getY());
             break;
 
             case MEDIUM:
             User = new player(25, 10, 2, 1, 0, 0);
             levelSet = mediumLevelList;
             currentLevel = 1;
-            currentRoom.setX(levelSet.get(0).getRooms().get(0).getX());
-            currentRoom.setY(levelSet.get(0).getRooms().get(0).getY());
+            currentRoomCoords.setX(levelSet.get(0).getRooms().get(0).getX());
+            currentRoomCoords.setY(levelSet.get(0).getRooms().get(0).getY());
             break;
 
             case HARD:
             User = new player(20, 10, 2, 1, 0, 0);
             levelSet = hardLevelList;
             currentLevel = 1;
-            currentRoom.setX(levelSet.get(0).getRooms().get(0).getX());
-            currentRoom.setY(levelSet.get(0).getRooms().get(0).getY());
+            currentRoomCoords.setX(levelSet.get(0).getRooms().get(0).getX());
+            currentRoomCoords.setY(levelSet.get(0).getRooms().get(0).getY());
             break;
 
             case NUKE:
             User = new player(15, 10, 1.5, 1, 0, 0);
             levelSet = nukeLevelList;
             currentLevel = 1;
-            currentRoom.setX(levelSet.get(0).getRooms().get(0).getX());
-            currentRoom.setY(levelSet.get(0).getRooms().get(0).getY());
+            currentRoomCoords.setX(levelSet.get(0).getRooms().get(0).getX());
+            currentRoomCoords.setY(levelSet.get(0).getRooms().get(0).getY());
             break;
         }
         Level firstLevel = new Level(diff); // Moved this out of Switch for simplification
         Level secondLevel = new Level(diff);
         Level ThirdLevel = new Level(diff);
-        //firstLevel.getRooms().add();
+        firstLevel.getRooms().add();
         levelSet = new ArrayList<Level>(Arrays.asList(firstLevel, secondLevel, ThirdLevel));
     }
 
@@ -125,17 +127,17 @@ public class Game {
     }
 
     public void onDoorReached(){
-        //for (int i = 0; i < levelSet.size() - 1; ++i){
-        //    for (int j = 0; j < levelSet.get(i).getRooms().size() -1; ++i){
-        //        int x = levelSet.get(i).getRooms().get(j).getX();
-        //        int y = levelSet.get(i).getRooms().get(j).getY();
-        //        if(x == roomCoord.getX() && y == roomCoord.getY()){
-        //            loadRoom(x, y);
-        //            roomCoord.setX(x);
-        //            roomCoord.setY(y);
-        //        }
-        //    }
-        //}
+        for (int i = 0; i < levelSet.size() - 1; ++i){
+           for (int j = 0; j < levelSet.get(i).getRooms().size() -1; ++i){
+               int x = levelSet.get(i).getRooms().get(j).getX();
+               int y = levelSet.get(i).getRooms().get(j).getY();
+               if(x == roomCoord.getX() && y == roomCoord.getY()){
+                   loadRoom(x, y);
+                   roomCoord.setX(x);
+                   roomCoord.setY(y);
+               }
+           }
+        }
 
     }
 
@@ -173,6 +175,44 @@ public class Game {
     // Added for Unit testing
     public ArrayList<Level> getLevelSet() {
         return levelSet;
+    }
+
+    
+
+    public void setScore(int score) {
+        this.score = score;
+    }
+
+    public player getUser() {
+        return User;
+    }
+
+    public void setUser(player user) {
+        User = user;
+    }
+
+    public position getCurrentRoomCoords() {
+        return currentRoomCoords;
+    }
+
+    public void setCurrentRoomCoords(position currentRoomCoords) {
+        this.currentRoomCoords = currentRoomCoords;
+    }
+
+    public int getCurrentLevel() {
+        return currentLevel;
+    }
+
+    public void setCurrentLevel(int currentLevel) {
+        this.currentLevel = currentLevel;
+    }
+
+    public void setCurrentRoom(int currentRoom) {
+        this.currentRoom = currentRoom;
+    }
+
+    public int getCurrentRoom() {
+        return currentRoom;
     }
 
     // Saves the Game

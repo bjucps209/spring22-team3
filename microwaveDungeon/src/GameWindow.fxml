@@ -4,7 +4,7 @@
 <?import javafx.scene.layout.*?>
 
 <VBox fx:controller="GameWindow" xmlns:fx="http://javafx.com/fxml"  stylesheets="@GameWindow.css"
-    spacing="10" prefHeight="700" prefWidth="1000">
+    spacing="10" prefHeight="700" prefWidth="1000" fx:id="masterVbox">
 
     <HBox>
 
@@ -12,7 +12,7 @@
 
     </HBox>
 
-    <Pane fx:id="pane" prefHeight="500" prefWidth="700" styleClass="GamePane" />
+    <Pane fx:id="Gamepane" prefHeight="500" prefWidth="700" styleClass="GamePane" />
 
     
 

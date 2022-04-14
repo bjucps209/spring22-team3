@@ -66,7 +66,7 @@ public class room {
         }
     }
 
-    // Factory Method that builds/loads a room based off a DataInputStream
+    //Factory Method that builds/loads a room based off a DataInputStream
     public static room load(DataInputStream input) throws IOException {
         room output = new room(input.readInt(), input.readInt(), false);
         if(input.readBoolean()) 

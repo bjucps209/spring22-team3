@@ -44,7 +44,7 @@ public class Level {
         }
     }
 
-    // Factory Method that builds/loads a level based off a DataInputStream
+    //Factory Method that builds/loads a level based off a DataInputStream
     public static Level load(DataInputStream input) throws IOException {
         Level output = new Level(difficulties.MEDIUM);
         for(int i = 0; i < input.readInt(); ++i) {

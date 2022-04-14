@@ -1,10 +1,11 @@
 import java.io.IOException;
-
+import javafx.scene.layout.BackgroundImage;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
-import javafx.scene.layout.Pane;
+import javafx.scene.image.*;
+import javafx.scene.layout.*;
 import javafx.stage.Stage;
 import model.*;
 
@@ -13,11 +14,20 @@ public class GameWindow {
     @FXML
     Pane GamePane;
 
+    @FXML
+    VBox MasterVbox;
+
     private Game game;
 
     private difficulties diff;
 
     private characters character;
+
+    final private Image background = new Image("../img/room.png");
+
+    //BackgroundImage bgimg = new BackgroundImage(background, BackgroundRepeat.NO_REPEAT, BackgroundRepeat.NO_REPEAT, BackgroundPosition.CENTER, BackgroundSize.AUTO); 
+
+    //Background bg = new Background(bgimg);
 
     //initializes the view by calling the necesary methods
     public void initialize(difficulties setDiff, characters setCharacter){
@@ -30,7 +40,12 @@ public class GameWindow {
 
     @FXML
     public void generate(){
-        for (int i = 0; i < game.getLevelSet().get(0).getRooms().get(0).getEntityList().size(); ++i){
+
+        //MasterVbox.setBackground(bg);
+
+        for (int i = 0; i < game.getLevelSet().get(0).getRooms().get(0).getEnemyList().size(); ++i){
+            room room = game.getLevelSet().get(game.getCurrentLevel()).getRooms().get(game.getCurrentRoom());
+            room.getEnemyList().get(i);
             
         }
     }
