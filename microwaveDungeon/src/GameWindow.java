@@ -1,6 +1,11 @@
+import java.io.IOException;
+
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Scene;
 import javafx.scene.layout.Pane;
+import javafx.stage.Stage;
 import model.*;
 
 public class GameWindow {
@@ -51,8 +56,14 @@ public class GameWindow {
         throw new RuntimeException("Method not implemented");
     }
 
-    void onPauseClicked(ActionEvent event) {
-        throw new RuntimeException("Method not implemented");
+    void onPauseClicked(ActionEvent event) throws IOException {
+        var loader = new FXMLLoader(getClass().getResource("PauseMenu.fxml"));
+        var scene = new Scene(loader.load());
+
+        var stage = new Stage();
+        stage.setScene(scene);
+        stage.show();
+        stage.setTitle("Pause Menu");
     }
 
     // This method is called to call the load method in the game object
