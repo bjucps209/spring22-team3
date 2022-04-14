@@ -30,12 +30,20 @@ public class GameWindow {
 
     @FXML
     public void generate(){
-        throw new RuntimeException("Method not implemented");
+        for (int i = 0; i < game.getLevelSet().get(0).getRooms().get(0).getEntityList().size(); ++i){
+            
+        }
     }
 
     //updates the view based on changes in the model
     @FXML
-    public void update(){
+    public void updateView(){
+        throw new RuntimeException("Method not implemented");
+    }
+
+    //updates entities when a collision is detected
+    @FXML
+    public void findCollision(){
         throw new RuntimeException("Method not implemented");
     }
 
@@ -52,10 +60,12 @@ public class GameWindow {
     }
 
     //sets the cursor to crosshairs and tracks it on the pane
+    @FXML
     public void trackCursor(){
         throw new RuntimeException("Method not implemented");
     }
 
+<<<<<<< HEAD
     void onPauseClicked(ActionEvent event) throws IOException {
         var loader = new FXMLLoader(getClass().getResource("PauseMenu.fxml"));
         var scene = new Scene(loader.load());
@@ -64,6 +74,16 @@ public class GameWindow {
         stage.setScene(scene);
         stage.show();
         stage.setTitle("Pause Menu");
+=======
+    @FXML
+    void onPauseClicked(ActionEvent event) {
+        throw new RuntimeException("Method not implemented");
+>>>>>>> 75ce5868d3d78d19cd5c1a8ef63fc42e0775f921
+    }
+
+    public void tickProcessing(){
+        //calls updateView(), and trackCursor() every tick, and every time the player moves or shoots.
+        //calls updatePosition() on all moving entities in the current loaded room each tick.
     }
 
     // This method is called to call the load method in the game object

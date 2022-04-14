@@ -16,12 +16,6 @@ public class Level {
         this.difficultyLevel = difficultyLevel;
     }
 
-    // Will generate room objects depending on the level of difficulty
-    // chosen by the player
-    public void makeRooms() {
-        throw new RuntimeException("Method not implemented");
-    }
-
     public ArrayList<room> getRooms() {
         return Rooms;
     }
