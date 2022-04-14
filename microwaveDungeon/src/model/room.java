@@ -28,13 +28,10 @@ public class room {
 
     ArrayList<obstacle> obstacleList = new ArrayList<obstacle>();
 
-    public room(int x, int y, Boolean isNotForLoad){ // isNotForLoad determines whether if generate() is used as when loading, generate is not nessesary
-        this.x = x;
+    public room(int setX, int setY, Boolean isNotForLoad){ // isNotForLoad determines whether if generate() is used as when loading, generate is not nessesary
+        x = setX;
 
-        this.y = y;
-
-        if(isNotForLoad)
-            generate();
+        y = setY;
     }
     
 
@@ -73,14 +70,6 @@ public class room {
         }
         return output;
     }
-
-    //generates enemy objects depending on the difficulty selected by the player
-    private void generate(){
-        for (int i = 0; i < enemyList.size() - 1; ++i){
-            enemyList.get(i);
-        }
-
-    } 
 
     public void setX(int x) {
         this.x = x;

@@ -33,6 +33,7 @@ public class LeaderboardWindow {
         var stage = new Stage();
         stage.setScene(scene);
         stage.show();
+        stage.setTitle("Microwave Dungeon");
 
         Stage titleStage = (Stage) ((Button) event.getSource()).getScene().getWindow();
         titleStage.close();

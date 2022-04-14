@@ -16,6 +16,7 @@ public class CreditsWindow {
         var stage = new Stage();
         stage.setScene(scene);
         stage.show();
+        stage.setTitle("MicrowaveDungeon");
 
         Stage titleStage = (Stage) ((Button) event.getSource()).getScene().getWindow();
         titleStage.close();

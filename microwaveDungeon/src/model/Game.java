@@ -46,7 +46,9 @@ public class Game {
     public Game(difficulties setDiff, characters setCharacter){
         diff = setDiff;
         character = setCharacter;
+        generateLevels(setDiff);
         generateGame(); // Move this method into Constructor?
+        
     }
 
     public void generateGame(){
@@ -56,15 +58,15 @@ public class Game {
             case EASY:
             User = new player(25, 10, 2, 0, 0, 0);
             levelSet = easyLevelList;
-            currentLevel = 1;
-            currentRoomCoords.setX(levelSet.get(0).getRooms().get(0).getX());
-            currentRoomCoords.setY(levelSet.get(0).getRooms().get(0).getY());
+            currentLevel = 0;
+            currentRoom = 0;
+            currentRoomCoords = new position(levelSet.get(0).getRooms().get(0).getX(), levelSet.get(0).getRooms().get(0).getY());
             break;
 
             case MEDIUM:
             User = new player(25, 10, 2, 1, 0, 0);
             levelSet = mediumLevelList;
-            currentLevel = 1;
+            currentLevel = 0;
             currentRoomCoords.setX(levelSet.get(0).getRooms().get(0).getX());
             currentRoomCoords.setY(levelSet.get(0).getRooms().get(0).getY());
             break;
@@ -72,7 +74,7 @@ public class Game {
             case HARD:
             User = new player(20, 10, 2, 1, 0, 0);
             levelSet = hardLevelList;
-            currentLevel = 1;
+            currentLevel = 0;
             currentRoomCoords.setX(levelSet.get(0).getRooms().get(0).getX());
             currentRoomCoords.setY(levelSet.get(0).getRooms().get(0).getY());
             break;
@@ -80,7 +82,7 @@ public class Game {
             case NUKE:
             User = new player(15, 10, 1.5, 1, 0, 0);
             levelSet = nukeLevelList;
-            currentLevel = 1;
+            currentLevel = 0;
             currentRoomCoords.setX(levelSet.get(0).getRooms().get(0).getX());
             currentRoomCoords.setY(levelSet.get(0).getRooms().get(0).getY());
             break;
@@ -88,7 +90,6 @@ public class Game {
         Level firstLevel = new Level(diff); // Moved this out of Switch for simplification
         Level secondLevel = new Level(diff);
         Level ThirdLevel = new Level(diff);
-        firstLevel.getRooms().add();
         levelSet = new ArrayList<Level>(Arrays.asList(firstLevel, secondLevel, ThirdLevel));
     }
 
@@ -103,12 +104,12 @@ public class Game {
         
         //level 1
         easyLevelList.get(0).addRoom(new room(0, 2, false));
+        easyLevelList.get(0).getRooms().get(0).addEnemy(new enemy(5, 10, 2, 1, 450, 500));
         easyLevelList.get(0).addRoom(new room(1, 2, false));
         easyLevelList.get(0).addRoom(new room(2, 2, false));
         
         //level 2
         easyLevelList.get(1).addRoom(new room(2, 2, false));
-        easyLevelList.get(1).getRooms().get(0).addEnemy(new enemy(5, 10, 2, 1, 450, 500));
         easyLevelList.get(1).addRoom(new room(1, 2, false));
         easyLevelList.get(1).addRoom(new room(2, 1, false));
         easyLevelList.get(1).addRoom(new room(2, 0, false));
@@ -126,20 +127,20 @@ public class Game {
         easyLevelList.get(2).addRoom(new room(3, 3, false));
     }
 
-    public void onDoorReached(){
-        for (int i = 0; i < levelSet.size() - 1; ++i){
-           for (int j = 0; j < levelSet.get(i).getRooms().size() -1; ++i){
-               int x = levelSet.get(i).getRooms().get(j).getX();
-               int y = levelSet.get(i).getRooms().get(j).getY();
-               if(x == roomCoord.getX() && y == roomCoord.getY()){
-                   loadRoom(x, y);
-                   roomCoord.setX(x);
-                   roomCoord.setY(y);
-               }
-           }
-        }
+    // public void onDoorReached(){
+    //     for (int i = 0; i < levelSet.size() - 1; ++i){
+    //        for (int j = 0; j < levelSet.get(i).getRooms().size() -1; ++i){
+    //            int x = levelSet.get(i).getRooms().get(j).getX();
+    //            int y = levelSet.get(i).getRooms().get(j).getY();
+    //            if(x == roomCoord.getX() && y == roomCoord.getY()){
+    //                loadRoom(x, y);
+    //                roomCoord.setX(x);
+    //                roomCoord.setY(y);
+    //            }
+    //        }
+    //     }
 
-    }
+    // }
 
     public void loadRoom(int x, int y){
         //for (){

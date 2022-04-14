@@ -23,11 +23,7 @@ public class GameWindow {
 
     private characters character;
 
-    final private Image background = new Image("../img/room.png");
-
-    //BackgroundImage bgimg = new BackgroundImage(background, BackgroundRepeat.NO_REPEAT, BackgroundRepeat.NO_REPEAT, BackgroundPosition.CENTER, BackgroundSize.AUTO); 
-
-    //Background bg = new Background(bgimg);
+    final Image enemies = new Image("/imgs/microwave.gif");
 
     //initializes the view by calling the necesary methods
     public void initialize(difficulties setDiff, characters setCharacter){
@@ -36,16 +32,16 @@ public class GameWindow {
         character = setCharacter;
         
         game = new Game(diff, character);
+        generate();
     }
 
     @FXML
     public void generate(){
-
-        //MasterVbox.setBackground(bg);
-
-        for (int i = 0; i < game.getLevelSet().get(0).getRooms().get(0).getEnemyList().size(); ++i){
-            room room = game.getLevelSet().get(game.getCurrentLevel()).getRooms().get(game.getCurrentRoom());
-            room.getEnemyList().get(i);
+        int roomIndex = game.getCurrentRoom();
+        room room = game.getLevelSet().get(roomIndex).getRooms().get(roomIndex);
+        for (int i = 0; i < room.getEnemyList().size() - 1; ++i){
+            makeImage(enemies, room.getEnemyList().get(i));
+            
             
         }
     }
@@ -98,6 +94,14 @@ public class GameWindow {
     // This method is called to call the load method in the game object
     public void load() {
         game.load();
+    }
+
+    //method for generating images in the Game pane
+    void makeImage(Image pic, entity e){
+        var img = new ImageView(pic);
+        img.setTranslateX(e.getXcoord());
+        img.setTranslateY(e.getYcoord());
+        GamePane.getChildren().add(img);
     }
 
 }
