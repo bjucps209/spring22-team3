@@ -32,7 +32,7 @@ public class GameWindow {
 
     //updates the view based on changes in the model
     @FXML
-    public void updateView(){
+    public void updatePositions(){
         throw new RuntimeException("Method not implemented");
     }
 

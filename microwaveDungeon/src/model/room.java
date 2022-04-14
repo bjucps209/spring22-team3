@@ -21,7 +21,9 @@ public class room {
 
     private position West;
     // List of all entities in the room
-    ArrayList<entity> entityList = new ArrayList<entity>();
+    ArrayList<enemy> enemyList = new ArrayList<enemy>();
+
+    ArrayList<obstacle> obstacleList = new ArrayList<obstacle>();
 
     public room(int x, int y, Boolean isNotForLoad){ // isNotForLoad determines whether if generate() is used as when loading, generate is not nessesary
         this.x = x;
@@ -40,7 +42,7 @@ public class room {
         ArrayList<enemy> enemies = new ArrayList<enemy>();
         ArrayList<obstacle> obstacles = new ArrayList<obstacle>();
         staircase s = null;
-        for(entity e: entityList) {
+        for(enemy e: enemyList) {
             if(e instanceof enemy)
                 enemies.add((enemy) e);
             else if(e instanceof obstacle)
@@ -80,10 +82,10 @@ public class room {
         return output;
     }
 
-    //generates entity objects depending on the difficulty selected by the player
+    //generates enemy objects depending on the difficulty selected by the player
     private void generate(){
-        for (int i = 0; i < entityList.size() - 1; ++i){
-            entityList.get(i);
+        for (int i = 0; i < enemyList.size() - 1; ++i){
+            enemyList.get(i);
         }
 
     } 
@@ -104,12 +106,12 @@ public class room {
         this.y = y;
     }
 
-    public ArrayList<entity> getEntityList() {
-        return entityList;
+    public ArrayList<enemy> getEnemyList() {
+        return enemyList;
     }
 
-    public void setEntityList(ArrayList<entity> entityList) {
-        this.entityList = entityList;
+    public void setEntityList(ArrayList<enemy> enemyList) {
+        this.enemyList = enemyList;
     }
 
     
@@ -154,16 +156,16 @@ public class room {
     }
 
 
-    public void addEntity(entity e) {
-        entityList.add(e);
+    public void addEntity(enemy e) {
+        enemyList.add(e);
     }
-    public void removeEntity(entity e) {
-        entityList.remove(e);
+    public void removeEntity(enemy e) {
+        enemyList.remove(e);
     }
     @Override
     public String toString() {
        String toStringEntityList = "";
-        for( entity e : entityList){
+        for( enemy e : enemyList){
             toStringEntityList += e.toString() + ", ";
             
         }
@@ -173,7 +175,7 @@ public class room {
             toStringEntityList = toStringEntityList.substring(0, toStringEntityList.length() - 2);
         }
         //toStringEntityList = toStringEntityList.substring(0, toStringEntityList.length()-2);
-        return "room [x=" + x + ", y=" + y + ", entityList=" + toStringEntityList + "]";
+        return "room [x=" + x + ", y=" + y + ", enemyList=" + toStringEntityList + "]";
     }
     
 }
