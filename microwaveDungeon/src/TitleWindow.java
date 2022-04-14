@@ -109,12 +109,4 @@ public class TitleWindow {
         GameWindow gameWindow = loader.getController();
         gameWindow.load();
     }
-
-    // Identical to onLoadClicked, but returns the level object for testing
-    static Level loadSave(String fileName) {
-        throw new RuntimeException("Method not implemented");
-    }
-
-
-
 }

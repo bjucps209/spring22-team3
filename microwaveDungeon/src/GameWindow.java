@@ -1,6 +1,11 @@
+import java.io.IOException;
+
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Scene;
 import javafx.scene.layout.Pane;
+import javafx.stage.Stage;
 import model.*;
 
 public class GameWindow {
@@ -60,9 +65,20 @@ public class GameWindow {
         throw new RuntimeException("Method not implemented");
     }
 
+<<<<<<< HEAD
+    void onPauseClicked(ActionEvent event) throws IOException {
+        var loader = new FXMLLoader(getClass().getResource("PauseMenu.fxml"));
+        var scene = new Scene(loader.load());
+
+        var stage = new Stage();
+        stage.setScene(scene);
+        stage.show();
+        stage.setTitle("Pause Menu");
+=======
     @FXML
     void onPauseClicked(ActionEvent event) {
         throw new RuntimeException("Method not implemented");
+>>>>>>> 75ce5868d3d78d19cd5c1a8ef63fc42e0775f921
     }
 
     public void tickProcessing(){
