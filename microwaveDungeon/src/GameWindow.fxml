@@ -8,7 +8,7 @@
 
     <HBox>
 
-        <Button text="Pause" onAction="#onPauseClicked" />
+        <Button text="_Pause"/>
 
     </HBox>
 

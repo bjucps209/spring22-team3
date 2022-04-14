@@ -63,8 +63,8 @@ public class Game {
             User = new player(25, 10, 2, 1, 0, 0);
             levelSet = mediumLevelList;
             currentLevel = 1;
-            currentRoom.setX(levelSet.get(0).getRooms().get(0).getX());
-            currentRoom.setY(levelSet.get(0).getRooms().get(0).getY());
+            // currentRoom.setX(levelSet.get(0).getRooms().get(0).getX()); TODO: These two lines are causing index out of range exceptions
+            // currentRoom.setY(levelSet.get(0).getRooms().get(0).getY()); 
             break;
 
             case HARD:
@@ -170,6 +170,16 @@ public class Game {
         this.diff = diff;
     }
 
+    // Added for serialization testing purposes
+    public player getUser() {
+        return User;
+    }
+
+    // Added for serialization testing purposes
+    public void setUser(player p) {
+        User = p;
+    }
+    
     // Added for Unit testing
     public ArrayList<Level> getLevelSet() {
         return levelSet;
@@ -183,7 +193,7 @@ public class Game {
         try {
             file.createNewFile();
         } catch (IOException e) {
-            Alert a = new Alert(AlertType.ERROR, "There was a problem with creating a file.");
+            Alert a = new Alert(AlertType.ERROR, "There was a problem with creating a file: " + e.getMessage());
             a.show();
         }
         try (DataOutputStream writer = new DataOutputStream(new FileOutputStream(file))) {
@@ -195,7 +205,7 @@ public class Game {
             }
             User.save(writer);
         } catch (IOException e) {
-            Alert a = new Alert(AlertType.ERROR, "There was a problem with saving the data.");
+            Alert a = new Alert(AlertType.ERROR, "There was a problem with saving the data: " + e.getMessage());
             a.show();
         }
     }
@@ -212,7 +222,7 @@ public class Game {
             User = player.load(input);
         }
         catch (IOException e) {
-            Alert a = new Alert(AlertType.ERROR, "There was a problem reading the save file.");
+            Alert a = new Alert(AlertType.ERROR, "There was a problem reading the save file: " + e.getMessage());
             a.show();
         }
     }
@@ -230,7 +240,6 @@ public class Game {
         }
         catch (IOException e) {
             e.printStackTrace();
-            throw new IllegalArgumentException("Problem reading from given filename");
         }
     }
 }
