@@ -1,18 +1,22 @@
 import java.io.IOException;
 import javafx.scene.layout.BackgroundImage;
+import javafx.animation.KeyFrame;
+import javafx.animation.Timeline;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.geometry.Side;
 import javafx.scene.Scene;
 import javafx.scene.image.*;
 import javafx.scene.layout.*;
 import javafx.stage.Stage;
+import javafx.util.Duration;
 import model.*;
 
 public class GameWindow {
     
     @FXML
-    Pane GamePane;
+    Pane Gamepane;
 
     @FXML
     VBox MasterVbox;
@@ -23,7 +27,7 @@ public class GameWindow {
 
     private characters character;
 
-    final Image enemies = new Image("/imgs/microwave.gif");
+    final Image enemies = new Image("/imgs/microwave2.gif");
 
     //initializes the view by calling the necesary methods
     public void initialize(difficulties setDiff, characters setCharacter){
@@ -33,13 +37,14 @@ public class GameWindow {
         
         game = new Game(diff, character);
         generate();
+        tickProcessing();
     }
 
     @FXML
     public void generate(){
         int roomIndex = game.getCurrentRoom();
         room room = game.getLevelSet().get(roomIndex).getRooms().get(roomIndex);
-        for (int i = 0; i < room.getEnemyList().size() - 1; ++i){
+        for (int i = 0; i < room.getEnemyList().size(); ++i){
             makeImage(enemies, room.getEnemyList().get(i));
             
             
@@ -48,8 +53,14 @@ public class GameWindow {
 
     //updates the view based on changes in the model
     @FXML
-    public void updatePositions(){
-        throw new RuntimeException("Method not implemented");
+    public void updatePositions(ActionEvent e){
+        var ls = game.getLevelSet().get(game.getCurrentLevel()).getRooms().get(game.getCurrentRoom()).getEnemyList();
+        int len = ls.size();
+        for (int i = 0; i < len; ++i){
+            ls.get(i).updatePosition();
+            Gamepane.getChildren().get(i).setLayoutX(ls.get(i).getXcoord());
+            Gamepane.getChildren().get(i).setLayoutY(ls.get(i).getYcoord());
+        }
     }
 
     //updates entities when a collision is detected
@@ -76,6 +87,7 @@ public class GameWindow {
         throw new RuntimeException("Method not implemented");
     }
 
+    @FXML
     void onPauseClicked(ActionEvent event) throws IOException {
         var loader = new FXMLLoader(getClass().getResource("PauseMenu.fxml"));
         var scene = new Scene(loader.load());
@@ -86,9 +98,14 @@ public class GameWindow {
         stage.setTitle("Pause Menu");
     }
 
+    @FXML
     public void tickProcessing(){
         //calls updateView(), and trackCursor() every tick, and every time the player moves or shoots.
         //calls updatePosition() on all moving entities in the current loaded room each tick.
+        KeyFrame kf = new KeyFrame(Duration.millis(100), this::updatePositions);
+        var timer = new Timeline(kf);
+        timer.setCycleCount(Timeline.INDEFINITE);
+        timer.play();
     }
 
     // This method is called to call the load method in the game object
@@ -97,11 +114,13 @@ public class GameWindow {
     }
 
     //method for generating images in the Game pane
-    void makeImage(Image pic, entity e){
+    ImageView makeImage(Image pic, entity e){
         var img = new ImageView(pic);
-        img.setTranslateX(e.getXcoord());
-        img.setTranslateY(e.getYcoord());
-        GamePane.getChildren().add(img);
+        Gamepane.getChildren().add(img);
+        Gamepane.getChildren().get(Gamepane.getChildren().size() - 1).setLayoutX(e.getXcoord());
+        Gamepane.getChildren().get(Gamepane.getChildren().size() - 1).setLayoutY(e.getYcoord());
+
+        return img;
     }
 
 }

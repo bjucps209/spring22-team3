@@ -166,7 +166,7 @@ public class room {
         if(toStringEntityList.length() > 0){
             toStringEntityList = toStringEntityList.substring(0, toStringEntityList.length() - 2);
         }
-        //toStringEntityList = toStringEntityList.substring(0, toStringEntityList.length()-2);
+        toStringEntityList = toStringEntityList.substring(0, toStringEntityList.length()-2);
         return "room [x=" + x + ", y=" + y + ", enemyList=" + toStringEntityList + "]";
     }
     

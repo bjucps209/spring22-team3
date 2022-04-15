@@ -4,15 +4,15 @@
 <?import javafx.scene.layout.*?>
 
 <VBox fx:controller="GameWindow" xmlns:fx="http://javafx.com/fxml"  stylesheets="@GameWindow.css"
-    spacing="10" prefHeight="700" prefWidth="1000" fx:id="masterVbox">
+    spacing="10" prefHeight="700" prefWidth="800" alignment="TOP_CENTER">
 
     <HBox>
 
-        <Button text="_Pause"/>
+        <Button text="_Pause" onAction="#onPauseClicked" />
 
     </HBox>
 
-    <Pane fx:id="Gamepane" prefHeight="500" prefWidth="700" styleClass="GamePane" />
+    <Pane fx:id="Gamepane" minHeight="600" minWidth="800" maxHeight="600" maxWidth="800" styleClass="Gamepane" />
 
     
 

@@ -7,17 +7,19 @@ public class entity {
 
 
     //instance variables for storing properties of entities
-    private int health;
+    protected int health;
 
-    private double speed;
+    protected double speed;
 
-    private int id;
+    protected int id;
+
+    protected int direction;
     
-    private double damage;
+    protected double damage;
     
-    private int Xcoord;
+    protected int Xcoord;
 
-    private int Ycoord;
+    protected int Ycoord;
     
     
     //setters/getters for the instance variables
@@ -81,6 +83,21 @@ public class entity {
         id = setId;
         Xcoord = xcoord;
         Ycoord = ycoord;
+
+    }
+
+    public void updatePosition() {
+        Xcoord += speed * Math.cos(direction * Math.PI / 180);
+        Ycoord += speed * Math.sin(direction * Math.PI / 180);
+        if (Xcoord > 710){
+            Xcoord -= 710;
+        } else if (Ycoord > 550){
+            Ycoord -= 550;
+        } else if (Xcoord < 0){
+            Xcoord += 710;
+        } else if (Ycoord < 0){
+            Ycoord += 550;
+        }
 
     }
 

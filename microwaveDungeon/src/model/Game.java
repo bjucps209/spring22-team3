@@ -87,10 +87,6 @@ public class Game {
             currentRoomCoords.setY(levelSet.get(0).getRooms().get(0).getY());
             break;
         }
-        Level firstLevel = new Level(diff); // Moved this out of Switch for simplification
-        Level secondLevel = new Level(diff);
-        Level ThirdLevel = new Level(diff);
-        levelSet = new ArrayList<Level>(Arrays.asList(firstLevel, secondLevel, ThirdLevel));
     }
 
     public void onStaircaseReached(){
@@ -104,7 +100,7 @@ public class Game {
         
         //level 1
         easyLevelList.get(0).addRoom(new room(0, 2, false));
-        easyLevelList.get(0).getRooms().get(0).addEnemy(new enemy(5, 10, 2, 1, 450, 500));
+        easyLevelList.get(0).getRooms().get(0).addEnemy(new enemy(5, 10, 2, 1, 300, 250));
         easyLevelList.get(0).addRoom(new room(1, 2, false));
         easyLevelList.get(0).addRoom(new room(2, 2, false));
         

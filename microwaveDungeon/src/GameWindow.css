@@ -2,10 +2,7 @@
     -fx-padding: 10; /* Add a small padding around the window */
     -fx-font-family: 'Helvetica', Arial, sans-serif;
 
-    -fx-background-size: contain, contain, contain, contain, contain, contain;
-    -fx-background-position: bottom, bottom, bottom, bottom, bottom, bottom;
-    -fx-background-repeat: repeat-x, repeat-x, repeat-x, repeat-x, repeat-x, repeat-x;
-    -fx-background-image: url(imgs/room.png);
+    
 }
 
 /* for Macs */
@@ -13,6 +10,10 @@
     -fx-font-family: 'Helvetica', Arial, sans-serif;
 }
 
-.GamePane{
-    
+.Gamepane{
+    -fx-background-size: stretch, stretch, stretch, stretch, stretch, stretch;
+    -fx-background-position: bottom, bottom, bottom, bottom, bottom, bottom;
+    -fx-background-repeat: NO-REPEAT, NO-REPEAT, NO-REPEAT, NO-REPEAT, NO-REPEAT, NO-REPEAT;
+    -fx-background-image:
+        url("imgs/room.png");
 }

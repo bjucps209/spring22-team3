@@ -10,26 +10,26 @@
 
     <HBox>
 
-    <Button fx:id="pizzaCharacter" onAction="#selectPizzaCharacter" />
+    <Button fx:id="pizzaCharacter" onAction="#selectPizzaCharacter" text="Leftover Pizza" />
 
-    <Button fx:id="hotPocketCharacter" onAction="#selectHPocketCharacter" />
+    <Button fx:id="hotPocketCharacter" onAction="#selectHPocketCharacter" text="Hot Pocket" />
 
-    <Button fx:id="ramenCharacter" onAction="#selectRamenCharacter" />
+    <Button fx:id="ramenCharacter" onAction="#selectRamenCharacter" text="Ramen" />
 
-    <Button fx:id="macCharacter" onAction="#selectMacCharacter" />
+    <Button fx:id="macCharacter" onAction="#selectMacCharacter" text="Mac n Cheese" />
     
 
     </HBox>
 
     <HBox>
 
-    <Button fx:id="Easy" onAction="#selectEasy" />
+    <Button fx:id="Easy" onAction="#selectEasy" text="Easy" />
 
-    <Button fx:id="Medium" onAction="#selectMedium" />
+    <Button fx:id="Medium" onAction="#selectMedium" text="Medium" />
 
-    <Button fx:id="Hard" onAction="#selectHard" />
+    <Button fx:id="Hard" onAction="#selectHard" text="Hard" />
 
-    <Button fx:id="NUKE" onAction="#selectNuke" />
+    <Button fx:id="NUKE" onAction="#selectNuke" text="Nuclear" />
     
 
     </HBox>
