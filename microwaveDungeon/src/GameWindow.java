@@ -52,7 +52,7 @@ public class GameWindow {
         for (int i = 0; i < room.getEnemyList().size(); ++i){
             makeImage(enemies, room.getEnemyList().get(i));
         }
-        player = new player(25, 0, 1, 0,  69, 0, 300);
+        player = new player(25, 0, 1, 69, 0, 300);
         makeImage(pizza, player);
     }
 
@@ -122,6 +122,7 @@ public class GameWindow {
 
     // This method is called to call the load method in the game object
     public void load() {
+        game = new Game(difficulties.MEDIUM, characters.HPOCKET); //TODO: Add difficulty and character to save/load
         game.load();
     }
 
@@ -133,6 +134,11 @@ public class GameWindow {
         Gamepane.getChildren().get(Gamepane.getChildren().size() - 1).setLayoutY(e.getYcoord());
 
         return img;
+    }
+
+    // Added for implementing save function with pause window
+    public Game getGame() {
+        return game;
     }
 
 }

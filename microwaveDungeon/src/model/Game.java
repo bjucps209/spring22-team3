@@ -56,7 +56,7 @@ public class Game {
         switch(diff){
 
             case EASY:
-            User = new player(25, 10, 2, 0, 0, 0, 0);
+            User = new player(25, 10, 2, 0, 0, 0);
             levelSet = easyLevelList;
             currentLevel = 0;
             currentRoom = 0;
@@ -64,7 +64,7 @@ public class Game {
             break;
 
             case MEDIUM:
-            User = new player(25, 10, 2, 0, 1, 0, 0);
+            User = new player(25, 10, 2, 1, 0, 0);
             levelSet = mediumLevelList;
             currentLevel = 0;
             currentRoomCoords.setX(levelSet.get(0).getRooms().get(0).getX());
@@ -72,7 +72,7 @@ public class Game {
             break;
 
             case HARD:
-            User = new player(20, 10, 2, 0, 1, 0, 0);
+            User = new player(20, 10, 2, 1, 0, 0);
             levelSet = hardLevelList;
             currentLevel = 0;
             currentRoomCoords.setX(levelSet.get(0).getRooms().get(0).getX());
@@ -80,7 +80,7 @@ public class Game {
             break;
 
             case NUKE:
-            User = new player(15, 10, 1.5, 0, 1, 0, 0);
+            User = new player(15, 10, 1.5, 1, 0, 0);
             levelSet = nukeLevelList;
             currentLevel = 0;
             currentRoomCoords.setX(levelSet.get(0).getRooms().get(0).getX());
@@ -100,7 +100,7 @@ public class Game {
         
         //level 1
         easyLevelList.get(0).addRoom(new room(0, 2, false));
-        easyLevelList.get(0).getRooms().get(0).addEnemy(new enemy(5, 10, 2, 1, 1, 300, 250));
+        easyLevelList.get(0).getRooms().get(0).addEnemy(new enemy(5, 10, 2, 1, 300, 250));
         easyLevelList.get(0).addRoom(new room(1, 2, false));
         easyLevelList.get(0).addRoom(new room(2, 2, false));
         
@@ -214,13 +214,13 @@ public class Game {
 
     // Saves the Game
     public void save() {
-        File file = new File("Saves/SavedGame.txt");
+        File file = new File("src\\Saves\\SavedGame.txt");
         if(file.exists())
             file.delete();
         try {
             file.createNewFile();
         } catch (IOException e) {
-            Alert a = new Alert(AlertType.ERROR, "There was a problem with creating a file: " + e.getMessage());
+            Alert a = new Alert(AlertType.ERROR, "There was a problem with creating a file: \n" + e.getLocalizedMessage());
             a.show();
         }
         try (DataOutputStream writer = new DataOutputStream(new FileOutputStream(file))) {
@@ -232,14 +232,14 @@ public class Game {
             }
             User.save(writer);
         } catch (IOException e) {
-            Alert a = new Alert(AlertType.ERROR, "There was a problem with saving the data: " + e.getMessage());
+            Alert a = new Alert(AlertType.ERROR, "There was a problem with saving the data: \n" + e.getLocalizedMessage());
             a.show();
         }
     }
 
     // Loads a Saved Game
     public void load() {
-        try(DataInputStream input = new DataInputStream(new FileInputStream("Saves/SavedGame.txt"))) {
+        try(DataInputStream input = new DataInputStream(new FileInputStream("src\\Saves\\SavedGame.txt"))) {
             score = input.readInt();
             timePassed = input.readInt();
             levelSet = new ArrayList<Level>();

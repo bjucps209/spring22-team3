@@ -34,7 +34,7 @@ public class TitleWindow {
     // Checks if there is a save file, if not, disables load button
     @FXML
     void initialize() {
-        File file = new File("Saves/SavedGame.txt");
+        File file = new File("src\\Saves\\SavedGame.txt");
         if(!file.exists())
             load.setDisable(true);
     }

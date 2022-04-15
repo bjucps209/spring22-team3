@@ -4,10 +4,10 @@
 <?import javafx.scene.layout.*?>
 
 <VBox fx:controller="PauseMenu" xmlns:fx="http://javafx.com/fxml"  stylesheets="@PauseWindow.css"
-    spacing="10" prefHeight="200" prefWidth="100" alignment="CENTER">
+    spacing="10" prefHeight="180" prefWidth="140" alignment="CENTER">
 
     <Button onAction="#onResumeClicked" text="Resume"/>
-    <Button onAction="#onSaveClicked" text="Save"/>
+    <Button fx:id="saveButton" onAction="#onSaveClicked" text="Save"/>
     <Button onAction="#onQuitMainMenuClicked" text="Quit to Main Menu"/>
     <Button onAction="#onQuitDesktopClicked" text="Quit to Desktop"/>
 

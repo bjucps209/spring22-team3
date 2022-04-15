@@ -84,7 +84,7 @@ public class entity {
     }
 
     //constructor
-    public entity(int setHealth, double setSpeed, double setDamage, int direction, int setId, int xcoord, int ycoord){
+    public entity(int setHealth, double setSpeed, double setDamage, int setId, int xcoord, int ycoord){
         health = setHealth;
         speed = setSpeed;
         damage = setDamage;

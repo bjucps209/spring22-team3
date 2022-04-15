@@ -11,6 +11,10 @@ import model.characters;
 import model.difficulties;
 
 public class CharWindow {
+
+    static Stage gameStage; // Added to allow the pause window to close the game window
+
+    static GameWindow staticGameWindow; // Added to allow saving from pause menu
     
     @FXML
     Button pizzaCharacter;
@@ -102,6 +106,7 @@ public class CharWindow {
         var scene = new Scene(loader.load());
 
         var stage = new Stage();
+        gameStage = stage;
         stage.setScene(scene);
         stage.show();
         stage.setTitle("Welcome to the Dungeon!");
@@ -111,5 +116,14 @@ public class CharWindow {
 
         GameWindow gameWindow = loader.getController();
         gameWindow.initialize(diff, character);
+        staticGameWindow = gameWindow;
+    }
+
+    public static Stage getGameStage() {
+        return gameStage;
+    }
+
+    public static GameWindow getGameWindow() {
+        return staticGameWindow;
     }
 }

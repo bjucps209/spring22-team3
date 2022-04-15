@@ -8,8 +8,8 @@ public class player extends entity {
     
 
 
-    public player(int setHealth, double setSpeed, double setDamage, int direction, int setId, int xcoord, int ycoord) {
-        super(setHealth, setSpeed, setDamage, direction, setId, xcoord, ycoord);
+    public player(int setHealth, double setSpeed, double setDamage, int setId, int xcoord, int ycoord) {
+        super(setHealth, setSpeed, setDamage, setId, xcoord, ycoord);
         //TODO Auto-generated constructor stub
     }
 
