@@ -75,8 +75,16 @@ public class entity {
         return "entity [health=" + health + ", speed=" + speed + ", id=" + id + ", damage=" + damage + ", Xcoord=" + Xcoord + ", Ycoord=" + Ycoord + "]";
     }
 
+    public int getDirection() {
+        return direction;
+    }
+
+    public void setDirection(int direction) {
+        this.direction = direction;
+    }
+
     //constructor
-    public entity(int setHealth, double setSpeed, double setDamage, int setId, int xcoord, int ycoord){
+    public entity(int setHealth, double setSpeed, double setDamage, int direction, int setId, int xcoord, int ycoord){
         health = setHealth;
         speed = setSpeed;
         damage = setDamage;

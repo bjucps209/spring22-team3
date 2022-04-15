@@ -6,12 +6,14 @@ import java.util.Random;
 
 public class enemy extends entity {
 
+    public enemy(int setHealth, double setSpeed, double setDamage, int direction, int setId, int xcoord, int ycoord) {
+        super(setHealth, setSpeed, setDamage, direction, setId, xcoord, ycoord);
+        //TODO Auto-generated constructor stub
+    }
+
     private int updateCount = 0;
 
-    public enemy(int setHealth, double setSpeed, double setDamage, int setId, int xcoord, int ycoord) {
-        super(setHealth, setSpeed, setDamage, setId, xcoord, ycoord);
-        // TODO Auto-generated constructor stub
-    }
+
 
     @Override
     public void updatePosition() {

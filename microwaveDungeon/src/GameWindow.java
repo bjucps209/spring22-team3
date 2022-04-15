@@ -8,6 +8,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.geometry.Side;
 import javafx.scene.Scene;
 import javafx.scene.image.*;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.*;
 import javafx.stage.Stage;
 import javafx.util.Duration;
@@ -27,7 +28,11 @@ public class GameWindow {
 
     private characters character;
 
+    private player player;
+
     final Image enemies = new Image("/imgs/microwave2.gif");
+
+    final Image pizza = new Image("/imgs/pizza.png");
 
     //initializes the view by calling the necesary methods
     public void initialize(difficulties setDiff, characters setCharacter){
@@ -46,9 +51,9 @@ public class GameWindow {
         room room = game.getLevelSet().get(roomIndex).getRooms().get(roomIndex);
         for (int i = 0; i < room.getEnemyList().size(); ++i){
             makeImage(enemies, room.getEnemyList().get(i));
-            
-            
         }
+        player = new player(25, 0, 1, 0,  69, 0, 300);
+        makeImage(pizza, player);
     }
 
     //updates the view based on changes in the model
@@ -77,8 +82,15 @@ public class GameWindow {
 
     //moves the player character when WASD is pressed
     @FXML
-    public void move(){
-        throw new RuntimeException("Method not implemented");
+    public void move(KeyEvent k){
+        String dir = k.getCharacter();
+        switch(dir){
+            case "w":
+                player.setDirection(1);
+                player.setSpeed(0);
+
+        }
+        
     }
 
     //sets the cursor to crosshairs and tracks it on the pane
