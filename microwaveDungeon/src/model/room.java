@@ -28,6 +28,8 @@ public class room {
 
     ArrayList<obstacle> obstacleList = new ArrayList<obstacle>();
 
+    player player;
+
     public room(int setX, int setY, Boolean isNotForLoad){ // isNotForLoad determines whether if generate() is used as when loading, generate is not nessesary
         x = setX;
 
@@ -96,6 +98,16 @@ public class room {
     }
 
     
+
+    public player getPlayer() {
+        return player;
+    }
+
+
+    public void setPlayer(player player) {
+        this.player = player;
+    }
+
 
     public position getNorth() {
         return North;

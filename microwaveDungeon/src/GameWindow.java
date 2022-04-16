@@ -8,6 +8,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.geometry.Side;
 import javafx.scene.Scene;
 import javafx.scene.image.*;
+import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.*;
 import javafx.stage.Stage;
@@ -30,9 +31,13 @@ public class GameWindow {
 
     private player player;
 
+    private KeyFrame kf = new KeyFrame(Duration.millis(10), this::updatePlayer);
+
+    private Timeline timer = new Timeline(kf);
+
     final Image enemies = new Image("/imgs/microwave2.gif");
 
-    final Image pizza = new Image("/imgs/pizza.png");
+    final Image pizza = new Image("/imgs/pizza2.png");
 
     //initializes the view by calling the necesary methods
     public void initialize(difficulties setDiff, characters setCharacter){
@@ -44,6 +49,7 @@ public class GameWindow {
         game.generateGame();
         generate();
         tickProcessing();
+        Gamepane.requestFocus();
     }
 
     @FXML
@@ -59,7 +65,7 @@ public class GameWindow {
 
     //updates the view based on changes in the model
     @FXML
-    public void updatePositions(ActionEvent e){
+    public void updateEnemyPositions(ActionEvent e){
         var ls = game.getLevelSet().get(game.getCurrentLevel()).getRooms().get(game.getCurrentRoom()).getEnemyList();
         int len = ls.size();
         for (int i = 0; i < len; ++i){
@@ -84,14 +90,61 @@ public class GameWindow {
     //moves the player character when WASD is pressed
     @FXML
     public void move(KeyEvent k){
-        String dir = k.getCharacter();
-        switch(dir){
-            case "w":
-                player.setDirection(1);
-                player.setSpeed(0);
+        KeyCode dir = k.getCode();
+ 
+        switch (dir) {
+
+            case W :
+                player.setDirection(270);
+                player.setSpeed(5);
+                timer.setCycleCount(Timeline.INDEFINITE);
+                timer.play();
+                break;
+
+            case A :
+                player.setDirection(180);
+                player.setSpeed(5);
+                timer.setCycleCount(Timeline.INDEFINITE);
+                timer.play();
+                break;
+
+            case S :
+                player.setDirection(90);
+                player.setSpeed(5);
+                timer.setCycleCount(Timeline.INDEFINITE);
+                timer.play();
+                break;
+
+            case D :
+                player.setDirection(360);
+                player.setSpeed(5);
+                timer.setCycleCount(Timeline.INDEFINITE);
+                timer.play();
+                break;
 
         }
         
+        
+    
+    }
+
+    @FXML
+    public void stopMove(KeyEvent k){
+        player.setDirection(0);
+                player.setSpeed(0);
+                timer.stop();
+    }
+
+    @FXML
+    public void updatePlayer(ActionEvent e){
+        player.updatePosition();  
+        Gamepane.getChildren().get(Gamepane.getChildren().size() - 1).setLayoutX(player.getXcoord());
+        Gamepane.getChildren().get(Gamepane.getChildren().size() - 1).setLayoutY(player.getYcoord());
+        
+            
+        
+        
+
     }
 
     //sets the cursor to crosshairs and tracks it on the pane
@@ -115,7 +168,7 @@ public class GameWindow {
     public void tickProcessing(){
         //calls updateView(), and trackCursor() every tick, and every time the player moves or shoots.
         //calls updatePosition() on all moving entities in the current loaded room each tick.
-        KeyFrame kf = new KeyFrame(Duration.millis(100), this::updatePositions);
+        KeyFrame kf = new KeyFrame(Duration.millis(100), this::updateEnemyPositions);
         var timer = new Timeline(kf);
         timer.setCycleCount(Timeline.INDEFINITE);
         timer.play();
@@ -133,7 +186,7 @@ public class GameWindow {
         Gamepane.getChildren().add(img);
         Gamepane.getChildren().get(Gamepane.getChildren().size() - 1).setLayoutX(e.getXcoord());
         Gamepane.getChildren().get(Gamepane.getChildren().size() - 1).setLayoutY(e.getYcoord());
-
+        Gamepane.getChildren().get(Gamepane.getChildren().size() - 1).setUserData(e.getClass());
         return img;
     }
 

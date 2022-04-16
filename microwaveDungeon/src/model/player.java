@@ -20,6 +20,11 @@ public class player extends entity {
     private characters Character;
 
 
+    public void updatePosition(){
+        Xcoord += speed * Math.cos(direction * Math.PI / 180);
+        Ycoord += speed * Math.sin(direction * Math.PI / 180);
+    }
+
 
     public String getPowerup() {
         return powerup;
