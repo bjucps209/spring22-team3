@@ -49,92 +49,136 @@ public class Game {
         generateLevels(setDiff);
     }
 
-    public void generateGame(){
-
-        switch(diff){
-
-            case EASY:
-            User = new player(25, 10, 2, 0, 0, 0);
-            levelSet = easyLevelList;
-            currentLevel = 0;
-            currentRoom = 0;
-            currentRoomCoords = new position(levelSet.get(0).getRooms().get(0).getX(), levelSet.get(0).getRooms().get(0).getY());
-            break;
-
-            case MEDIUM:
-            User = new player(25, 10, 2, 1, 0, 0);
-            levelSet = mediumLevelList;
-            currentLevel = 0;
-            currentRoomCoords.setX(levelSet.get(0).getRooms().get(0).getX());
-            currentRoomCoords.setY(levelSet.get(0).getRooms().get(0).getY());
-            break;
-
-            case HARD:
-            User = new player(20, 10, 2, 1, 0, 0);
-            levelSet = hardLevelList;
-            currentLevel = 0;
-            currentRoomCoords.setX(levelSet.get(0).getRooms().get(0).getX());
-            currentRoomCoords.setY(levelSet.get(0).getRooms().get(0).getY());
-            break;
-
-            case NUKE:
-            User = new player(15, 10, 1.5, 1, 0, 0);
-            levelSet = nukeLevelList;
-            currentLevel = 0;
-            currentRoomCoords.setX(levelSet.get(0).getRooms().get(0).getX());
-            currentRoomCoords.setY(levelSet.get(0).getRooms().get(0).getY());
-            break;
-        }
-    }
 
     public void onStaircaseReached(){
         
     }
 
     public void generateLevels(difficulties diff){
-        easyLevelList.add(new Level(difficulties.EASY));
-        easyLevelList.add(new Level(difficulties.EASY));
-        easyLevelList.add(new Level(difficulties.EASY));
-        
-        //level 1
-        easyLevelList.get(0).addRoom(new room(0, 2, false));
-        easyLevelList.get(0).getRooms().get(0).addEnemy(new enemy(5, 10, 2, 1, 300, 250));
-        easyLevelList.get(0).addRoom(new room(1, 2, false));
-        easyLevelList.get(0).addRoom(new room(2, 2, false));
-        
-        //level 2
-        easyLevelList.get(1).addRoom(new room(2, 2, false));
-        easyLevelList.get(1).addRoom(new room(1, 2, false));
-        easyLevelList.get(1).addRoom(new room(2, 1, false));
-        easyLevelList.get(1).addRoom(new room(2, 0, false));
-        easyLevelList.get(1).addRoom(new room(3, 2, false));
-        easyLevelList.get(1).addRoom(new room(2, 3, false));
-        easyLevelList.get(1).addRoom(new room(3, 3, false));
 
-        //level 3
-        easyLevelList.get(2).addRoom(new room(2, 2, false));
-        easyLevelList.get(2).addRoom(new room(1, 2, false));
-        easyLevelList.get(2).addRoom(new room(2, 1, false));
-        easyLevelList.get(2).addRoom(new room(2, 0, false));
-        easyLevelList.get(2).addRoom(new room(3, 2, false));
-        easyLevelList.get(2).addRoom(new room(2, 3, false));
-        easyLevelList.get(2).addRoom(new room(3, 3, false));
+        switch (diff){
+            case EASY:
+                easyLevelList.add(new Level(difficulties.EASY));
+                easyLevelList.add(new Level(difficulties.EASY));
+                easyLevelList.add(new Level(difficulties.EASY));
+                
+                //level 1
+                easyLevelList.get(0).addRoom(new room(0, 2, false));
+                easyLevelList.get(0).getRooms().get(0).addEnemy(new enemy(5, 10, 2, 1, 300, 250));
+                easyLevelList.get(0).addRoom(new room(1, 2, false));
+                easyLevelList.get(0).addRoom(new room(2, 2, false));
+                
+                //level 2
+                easyLevelList.get(1).addRoom(new room(2, 2, false));
+                easyLevelList.get(1).addRoom(new room(1, 2, false));
+                easyLevelList.get(1).addRoom(new room(2, 1, false));
+                easyLevelList.get(1).addRoom(new room(2, 0, false));
+                easyLevelList.get(1).addRoom(new room(3, 2, false));
+                easyLevelList.get(1).addRoom(new room(2, 3, false));
+                easyLevelList.get(1).addRoom(new room(3, 3, false));
+
+                //level 3
+                easyLevelList.get(2).addRoom(new room(2, 2, false));
+                easyLevelList.get(2).addRoom(new room(1, 2, false));
+                easyLevelList.get(2).addRoom(new room(2, 1, false));
+                easyLevelList.get(2).addRoom(new room(2, 0, false));
+                easyLevelList.get(2).addRoom(new room(3, 2, false));
+                easyLevelList.get(2).addRoom(new room(2, 3, false));
+                easyLevelList.get(2).addRoom(new room(3, 3, false));
+                levelSet = easyLevelList;
+
+            case MEDIUM:
+                mediumLevelList.add(new Level(difficulties.MEDIUM));
+                mediumLevelList.add(new Level(difficulties.MEDIUM));
+                mediumLevelList.add(new Level(difficulties.MEDIUM));
+                
+                //level 1
+                mediumLevelList.get(0).addRoom(new room(0, 2, false));
+                mediumLevelList.get(0).getRooms().get(0).addEnemy(new enemy(5, 10, 2, 1, 300, 250));
+                mediumLevelList.get(0).addRoom(new room(1, 2, false));
+                mediumLevelList.get(0).addRoom(new room(2, 2, false));
+                
+                //level 2
+                mediumLevelList.get(1).addRoom(new room(2, 2, false));
+                mediumLevelList.get(1).addRoom(new room(1, 2, false));
+                mediumLevelList.get(1).addRoom(new room(2, 1, false));
+                mediumLevelList.get(1).addRoom(new room(2, 0, false));
+                mediumLevelList.get(1).addRoom(new room(3, 2, false));
+                mediumLevelList.get(1).addRoom(new room(2, 3, false));
+                mediumLevelList.get(1).addRoom(new room(3, 3, false));
+
+                //level 3
+                mediumLevelList.get(2).addRoom(new room(2, 2, false));
+                mediumLevelList.get(2).addRoom(new room(1, 2, false));
+                mediumLevelList.get(2).addRoom(new room(2, 1, false));
+                mediumLevelList.get(2).addRoom(new room(2, 0, false));
+                mediumLevelList.get(2).addRoom(new room(3, 2, false));
+                mediumLevelList.get(2).addRoom(new room(2, 3, false));
+                mediumLevelList.get(2).addRoom(new room(3, 3, false));
+                levelSet = mediumLevelList;
+
+            case HARD:
+                hardLevelList.add(new Level(difficulties.HARD));
+                hardLevelList.add(new Level(difficulties.HARD));
+                hardLevelList.add(new Level(difficulties.HARD));
+                
+                //level 1
+                hardLevelList.get(0).addRoom(new room(0, 2, false));
+                hardLevelList.get(0).getRooms().get(0).addEnemy(new enemy(5, 10, 2, 1, 300, 250));
+                hardLevelList.get(0).addRoom(new room(1, 2, false));
+                hardLevelList.get(0).addRoom(new room(2, 2, false));
+                
+                //level 2
+                hardLevelList.get(1).addRoom(new room(2, 2, false));
+                hardLevelList.get(1).addRoom(new room(1, 2, false));
+                hardLevelList.get(1).addRoom(new room(2, 1, false));
+                hardLevelList.get(1).addRoom(new room(2, 0, false));
+                hardLevelList.get(1).addRoom(new room(3, 2, false));
+                hardLevelList.get(1).addRoom(new room(2, 3, false));
+                hardLevelList.get(1).addRoom(new room(3, 3, false));
+
+                //level 3
+                hardLevelList.get(2).addRoom(new room(2, 2, false));
+                hardLevelList.get(2).addRoom(new room(1, 2, false));
+                hardLevelList.get(2).addRoom(new room(2, 1, false));
+                hardLevelList.get(2).addRoom(new room(2, 0, false));
+                hardLevelList.get(2).addRoom(new room(3, 2, false));
+                hardLevelList.get(2).addRoom(new room(2, 3, false));
+                hardLevelList.get(2).addRoom(new room(3, 3, false));
+                levelSet = hardLevelList;
+
+            case NUKE:
+                nukeLevelList.add(new Level(difficulties.NUKE));
+                nukeLevelList.add(new Level(difficulties.NUKE));
+                nukeLevelList.add(new Level(difficulties.NUKE));
+                
+                //level 1
+                nukeLevelList.get(0).addRoom(new room(0, 2, false));
+                nukeLevelList.get(0).getRooms().get(0).addEnemy(new enemy(5, 10, 2, 1, 300, 250));
+                nukeLevelList.get(0).addRoom(new room(1, 2, false));
+                nukeLevelList.get(0).addRoom(new room(2, 2, false));
+                
+                //level 2
+                nukeLevelList.get(1).addRoom(new room(2, 2, false));
+                nukeLevelList.get(1).addRoom(new room(1, 2, false));
+                nukeLevelList.get(1).addRoom(new room(2, 1, false));
+                nukeLevelList.get(1).addRoom(new room(2, 0, false));
+                nukeLevelList.get(1).addRoom(new room(3, 2, false));
+                nukeLevelList.get(1).addRoom(new room(2, 3, false));
+                nukeLevelList.get(1).addRoom(new room(3, 3, false));
+
+                //level 3
+                nukeLevelList.get(2).addRoom(new room(2, 2, false));
+                nukeLevelList.get(2).addRoom(new room(1, 2, false));
+                nukeLevelList.get(2).addRoom(new room(2, 1, false));
+                nukeLevelList.get(2).addRoom(new room(2, 0, false));
+                nukeLevelList.get(2).addRoom(new room(3, 2, false));
+                nukeLevelList.get(2).addRoom(new room(2, 3, false));
+                nukeLevelList.get(2).addRoom(new room(3, 3, false));
+                levelSet = nukeLevelList;
+        }
+        
     }
-
-    // public void onDoorReached(){
-    //     for (int i = 0; i < levelSet.size() - 1; ++i){
-    //        for (int j = 0; j < levelSet.get(i).getRooms().size() -1; ++i){
-    //            int x = levelSet.get(i).getRooms().get(j).getX();
-    //            int y = levelSet.get(i).getRooms().get(j).getY();
-    //            if(x == roomCoord.getX() && y == roomCoord.getY()){
-    //                loadRoom(x, y);
-    //                roomCoord.setX(x);
-    //                roomCoord.setY(y);
-    //            }
-    //        }
-    //     }
-
-    // }
 
     public void loadRoom(int x, int y){
         //for (){

@@ -39,6 +39,12 @@ public class GameWindow {
 
     final Image pizza = new Image("/imgs/pizza2.png");
 
+    final Image mac = new Image("/imgs/mac2.png");
+
+    final Image hPocket = new Image("/imgs/hp2.png");
+
+    final Image ramen = new Image("/imgs/ramen2.png");
+
     //initializes the view by calling the necesary methods
     public void initialize(difficulties setDiff, characters setCharacter){
 
@@ -46,7 +52,6 @@ public class GameWindow {
         character = setCharacter;
         
         game = new Game(diff, character);
-        game.generateGame();
         generate();
         tickProcessing();
         Gamepane.requestFocus();
@@ -59,8 +64,30 @@ public class GameWindow {
         for (int i = 0; i < room.getEnemyList().size(); ++i){
             makeImage(enemies, room.getEnemyList().get(i));
         }
+
         player = new player(25, 0, 1, 69, 0, 300);
-        makeImage(pizza, player);
+
+        switch (character){
+
+            case PIZZA:
+                makeImage(pizza, player);
+                break;
+
+            case MAC:
+                makeImage(mac, player);
+                break;
+
+            case RAMEN:
+                makeImage(ramen, player);
+                break;
+
+            case HPOCKET:
+                makeImage(hPocket, player);
+                break;
+
+        }
+        
+        
     }
 
     //updates the view based on changes in the model
