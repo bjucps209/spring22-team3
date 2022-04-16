@@ -13,7 +13,7 @@ public class SerializationUnitTest {
     //@Test
     public static void loadTest() {
         Game testGame = new Game(difficulties.MEDIUM, characters.HPOCKET);
-        testGame.load("src\\Saves\\SampleSave.txt");
+        //testGame.load("src\\Saves\\SampleSave.txt");
         assertEquals(100, testGame.getScore());
         assertEquals(55, testGame.getTimePassed());
         player loadedPlayer = testGame.getUser();

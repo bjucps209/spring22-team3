@@ -28,9 +28,9 @@
 
         <VBox alignment="BASELINE_LEFT">
 
-            <Label text="Health: " />
-            <Label text="Score: " />
-            <Label text="Time: " />
+            <Label fx:id="healthLbl" text="Health: " />
+            <Label fx:id="scoreLbl" text="Score: " />
+            <Label fx:id="timeLbl" text="Time: " />
 
         </VBox>
 

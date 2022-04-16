@@ -4,8 +4,6 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
-import javafx.scene.control.Alert.AlertType;
-import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 
 public class PauseMenu {
@@ -20,7 +18,7 @@ public class PauseMenu {
         pauseStage.close();
     }
 
-    // TODO: Saves the game
+    // Saves the game
     @FXML
     void onSaveClicked(ActionEvent e) throws IOException {
         File file = new File("microwaveDungeonSaveFile.txt");
@@ -30,8 +28,9 @@ public class PauseMenu {
         try(DataOutputStream writer = new DataOutputStream(new FileOutputStream(file))) {
             try {CharWindow.getGameWindow().getGame().save();
             saveButton.setText("Saved");
-            saveButton.setDisable(true); }
-            catch (Exception ex) {}
+            saveButton.setDisable(true); 
+            CharWindow.getGameWindow().getPlayer().save(writer); }
+            catch (Exception ex) { ex.printStackTrace();}
         }
     }
 
