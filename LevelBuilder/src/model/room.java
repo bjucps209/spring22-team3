@@ -1,6 +1,10 @@
 package model;
 
 import java.util.ArrayList;
+
+import javafx.scene.image.ImageView;
+
+import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
 
@@ -12,69 +16,65 @@ public class room {
     private int y;
 
     //Each direction holds the coordinate of the corresponding room (i.e. North[0] = x, North[1] = y)
-    private int[] North = new int[2];
+    private position North;
 
-    private int[] South = new int[2];
+    private position South;
 
-    private int[] East = new int[2];
+    private position East;
 
-    private int[] West = new int[2];
+    private position West;
     // List of all entities in the room
-    ArrayList<entity> entityList = new ArrayList<entity>();
-    static int nextId = 0;
-    int id;
 
-    public room(int x, int y){
-        this.x = x;
+    staircase stairs = null; // Added for saving method
 
-        this.y = y;
-        nextId++;
-        this.id = nextId;
+    ArrayList<enemy> enemyList = new ArrayList<enemy>();
 
-        generate();
+    ArrayList<obstacle> obstacleList = new ArrayList<obstacle>();
+    ArrayList<ImageView> imageList = new ArrayList<ImageView>();
+    player player;
+
+    public room(int setX, int setY, Boolean isNotForLoad){ // isNotForLoad determines whether if generate() is used as when loading, generate is not nessesary
+        x = setX;
+
+        y = setY;
     }
     
-    public int getId(){
-        return id;
-    }
-    
-    // TODO: Given an OutputStream, this method saves the room's attributes 
+
+    // Given an OutputStream, this method saves the room's attributes 
     public void save(DataOutputStream output) throws IOException {
         output.writeInt(x);
         output.writeInt(y);
-        ArrayList<enemy> enemies = new ArrayList<enemy>();
-        ArrayList<obstacle> obstacles = new ArrayList<obstacle>();
-        staircase s = null;
-        for(entity e: entityList) {
-            if(e instanceof enemy)
-                enemies.add((enemy) e);
-            else if(e instanceof obstacle)
-                obstacles.add((obstacle) e);
-            else if(e instanceof staircase)
-                s = (staircase) e;
-        }
-        if(s != null) {
+        if(stairs != null) {
             output.writeBoolean(true);
-            s.save(output);
+            stairs.save(output);
         }
         else
             output.writeBoolean(false);
-        output.writeInt(obstacles.size());
-        for(obstacle o: obstacles) {
+        output.writeInt(obstacleList.size());
+        for(obstacle o: obstacleList) {
             o.save(output);
         }
-        output.writeInt(enemies.size());
-        for(enemy e: enemies) {
+        output.writeInt(enemyList.size());
+        for(enemy e: enemyList) {
             e.save(output);
         }
     }
 
-    //generates entity objects depending on the difficulty selected by the player
-    private void generate(
-        
-    ){
-
-    } 
+    //Factory Method that builds/loads a room based off a DataInputStream
+    public static room load(DataInputStream input) throws IOException {
+        room output = new room(input.readInt(), input.readInt(), false);
+        if(input.readBoolean()) 
+            output.setStaircase(new staircase(-1, 0, 0, -1, input.readInt(), input.readInt())); // TODO: Parameters for health and such good?
+        for(int i = 0; i < input.readInt(); ++i) {
+            output.addObstacle(new obstacle(-1, 0, 0, -1, input.readInt(), input.readInt())); // TODO: Parameters for health and such good?
+        }
+        for(int i = 0; i < input.readInt(); ++i) {
+            enemy e = new enemy(input.readInt(), input.readDouble(), input.readDouble(), input.readInt(), input.readInt(), input.readInt());
+            e.setSize(input.readInt());
+            output.addEnemy(e);
+        }
+        return output;
+    }
 
     public void setX(int x) {
         this.x = x;
@@ -92,62 +92,94 @@ public class room {
         this.y = y;
     }
 
-    public ArrayList<entity> getEntityList() {
-        return entityList;
+    public ArrayList<enemy> getEnemyList() {
+        return enemyList;
     }
 
-    public void setEntityList(ArrayList<entity> entityList) {
-        this.entityList = entityList;
+    public void setEntityList(ArrayList<enemy> enemyList) {
+        this.enemyList = enemyList;
+    }
+    public void addImage(ImageView img ) {
+        imageList.add(img);
+        
+    }
+    public ArrayList<ImageView> getImageList() {
+        return imageList;
     }
 
-    public int[] getNorth() {
+    
+
+    public player getPlayer() {
+        return player;
+    }
+
+
+    public void setPlayer(player player) {
+        this.player = player;
+    }
+
+
+    public position getNorth() {
         return North;
     }
 
-    public void setNorth(int[] north) {
+
+    public void setNorth(position north) {
         North = north;
     }
 
-    public int[] getSouth() {
+
+    public position getSouth() {
         return South;
     }
 
-    public void setSouth(int[] south) {
+
+    public void setSouth(position south) {
         South = south;
     }
 
-    public int[] getEast() {
+
+    public position getEast() {
         return East;
     }
 
-    public void setEast(int[] east) {
+
+    public void setEast(position east) {
         East = east;
     }
 
-    public int[] getWest() {
+
+    public position getWest() {
         return West;
     }
 
-    public void setWest(int[] west) {
+
+    public void setWest(position west) {
         West = west;
     }
 
-
-    public void addEntity(entity e) {
-        entityList.add(e);
+    // added for load method
+    public void setStaircase(staircase s) {
+        stairs = s;
     }
-    public void removeEntity(entity e) {
-        //change the ids of the entities in the room
-        for(entity e1: entityList) {
-            if(e1.getId() > e.getId())
-                e1.setId(e1.getId() - 1);
-        }
-        entityList.remove(e);
+
+    public void addEnemy(enemy e) {
+        enemyList.add(e);
+    }
+    public void removeEnemy(enemy e) {
+        enemyList.remove(e);
+    }
+
+    public void addObstacle(obstacle e) {
+        obstacleList.add(e);
+    }
+    public void removeObstacle(obstacle e) {
+        obstacleList.remove(e);
     }
     @Override
     public String toString() {
        String toStringEntityList = "";
-        for( entity e : entityList){
+        for( enemy e : enemyList){
             toStringEntityList += e.toString() + ", ";
             
         }
@@ -156,8 +188,13 @@ public class room {
         if(toStringEntityList.length() > 0){
             toStringEntityList = toStringEntityList.substring(0, toStringEntityList.length() - 2);
         }
-        //toStringEntityList = toStringEntityList.substring(0, toStringEntityList.length()-2);
-        return "room [x=" + x + ", y=" + y + ", entityList=" + toStringEntityList + "]";
+        toStringEntityList = toStringEntityList.substring(0, toStringEntityList.length()-2);
+        return "room [x=" + x + ", y=" + y + ", enemyList=" + toStringEntityList + "]";
     }
+
+
+   
+
+    
     
 }

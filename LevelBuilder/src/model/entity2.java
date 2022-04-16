@@ -3,31 +3,30 @@ package model;
 import java.io.DataOutputStream;
 import java.io.IOException;
 
-public class entity {
+public class entity2 {
 
     private static int nextId =0;
     //instance variables for storing properties of entities
-    protected int health;
+    private int health;
 
-    protected double speed;
+    private int speed;
 
-    protected int id;
-
-    protected int direction;
+    private int id;
     
-    protected double damage;
+    private int damage;
     
-    protected int Xcoord;
+    private int Xcoord;
 
-    protected int Ycoord;
+    private int Ycoord;
     public static EntityHandler handler;
 
     public static void setHandler(EntityHandler newHandler) {
         handler = newHandler;
     }
-    public void updateLocationTable() {
+    public void updateLocation() {
         handler.updateTable(Xcoord, Ycoord, id, health, speed, damage);
     }
+    
     
     //setters/getters for the instance variables
     public int getXcoord() {
@@ -56,11 +55,11 @@ public class entity {
         this.health = health;
     }
 
-    public double getSpeed() {
+    public int getSpeed() {
         return speed;
     }
 
-    public void setSpeed(double speed) {
+    public void setSpeed(int speed) {
         this.speed = speed;
     }
 
@@ -72,11 +71,11 @@ public class entity {
         this.id = id;
     }
 
-    public double getDamage() {
+    public int getDamage() {
         return damage;
     }
 
-    public void setDamage(double damage) {
+    public void setDamage(int damage) {
         this.damage = damage;
     }
     @Override
@@ -84,16 +83,8 @@ public class entity {
         return "entity [health=" + health + ", speed=" + speed + ", id=" + id + ", damage=" + damage + ", Xcoord=" + Xcoord + ", Ycoord=" + Ycoord + "]";
     }
 
-    public int getDirection() {
-        return direction;
-    }
-
-    public void setDirection(int direction) {
-        this.direction = direction;
-    }
-
     //constructor
-    public entity(int setHealth, double setSpeed, double setDamage, int setId, int xcoord, int ycoord){
+    public entity2(int setHealth, int setSpeed, int setDamage, int setId, int xcoord, int ycoord){
         health = setHealth;
         speed = setSpeed;
         damage = setDamage;
@@ -104,29 +95,14 @@ public class entity {
 
     }
 
-    public void updatePosition() {
-        Xcoord += speed * Math.cos(direction * Math.PI / 180);
-        Ycoord += speed * Math.sin(direction * Math.PI / 180);
-        if (Xcoord > 710){
-            Xcoord -= 710;
-        } else if (Ycoord > 550){
-            Ycoord -= 550;
-        } else if (Xcoord < 0){
-            Xcoord += 710;
-        } else if (Ycoord < 0){
-            Ycoord += 550;
-        }
-
-    }
-
     // Given an OutputStream, this method saves the entity's attributes 
     public void save(DataOutputStream output) throws IOException {
-            output.writeInt(health);
-            output.writeDouble(speed);
-            output.writeDouble(damage); //changed these from int to Double for more specific numbers
             output.writeInt(id);
             output.writeInt(Xcoord);
             output.writeInt(Ycoord);
+            output.writeInt(health);
+            output.writeInt(speed);
+            output.writeInt(damage);
     }
     
 }
