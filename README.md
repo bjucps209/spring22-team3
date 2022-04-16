@@ -46,6 +46,6 @@ Upon opening the game, you are presented with 4 buttons. Click start to begin th
 | Edward Taylor | etayl261 | Basic Game Play | 10 | 40 | [Time Journal](https://github.com/bjucps209/spring22-team3/wiki/Time-Journal#edward-taylor) |
 | Ethan Wood | thethanwood | Serialization | 22 | 27 | [Time Journal](https://github.com/bjucps209/spring22-team3/wiki/Time-Journal#ethan-wood) |
 | David Hayes | dhaye039 | Auxiliary screens | 5 | 45 | [Time Journal](https://github.com/bjucps209/spring22-team3/wiki/Time-Journal#david-hayes) |
-| Ryan Kuhn | rkuhn153 | Level Builder | 15 | 35 | [Time Journal](https://github.com/bjucps209/spring22-team3/wiki/Time-Journal#ryan-kuhn) |
+| Ryan Kuhn | rkuhn153 | Level Builder | 20 | 30 | [Time Journal](https://github.com/bjucps209/spring22-team3/wiki/Time-Journal#ryan-kuhn) |
 
 ***
