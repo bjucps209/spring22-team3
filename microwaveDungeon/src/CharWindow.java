@@ -123,7 +123,15 @@ public class CharWindow {
         return gameStage;
     }
 
+    public static void setGameStage(Stage s) {
+        gameStage = s;
+    }
+
     public static GameWindow getGameWindow() {
         return staticGameWindow;
+    }
+
+    public static void setGameWindow(GameWindow input) {
+        staticGameWindow = input;
     }
 }

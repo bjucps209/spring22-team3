@@ -41,6 +41,7 @@ public class GameWindow {
         character = setCharacter;
         
         game = new Game(diff, character);
+        game.generateGame();
         generate();
         tickProcessing();
     }

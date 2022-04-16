@@ -102,11 +102,13 @@ public class TitleWindow {
         var stage = new Stage();
         stage.setScene(scene);
         stage.show();
+        CharWindow.setGameStage(stage);
 
         Stage titleStage = (Stage) ((Button) e.getSource()).getScene().getWindow();
         titleStage.close();
 
         GameWindow gameWindow = loader.getController();
+        CharWindow.setGameWindow(gameWindow);
         gameWindow.load();
     }
 }

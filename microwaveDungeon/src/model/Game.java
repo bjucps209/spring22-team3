@@ -47,8 +47,6 @@ public class Game {
         diff = setDiff;
         character = setCharacter;
         generateLevels(setDiff);
-        generateGame(); // Move this method into Constructor?
-        
     }
 
     public void generateGame(){
