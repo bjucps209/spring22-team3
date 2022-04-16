@@ -8,6 +8,18 @@ Upon opening the game, you are presented with 4 buttons. Click start to begin th
 
 ## Work Completed
 
+### Basic Gameplay
+
+### Serialization
+
+- Implemented save and load methods for model classes
+- Created a functional pause menu
+- Connected save/load with GUI
+
+### Auxilary Screens
+
+### Level Builder
+
 ***
 
 ## Known Issues
