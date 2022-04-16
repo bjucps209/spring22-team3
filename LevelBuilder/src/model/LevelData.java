@@ -49,7 +49,7 @@ public class LevelData {
                                 // create a new roomCoord to hold the room's location
 
                                 // set room coordinates to the room
-                                room newRoom = new room(x, y);
+                                room newRoom = new room(x, y, true);
                                 roomList.add(newRoom);
 
                                 line = rd.readLine();
@@ -71,20 +71,20 @@ public class LevelData {
                                         enemy enemy1 = new enemy(health, speed, damage, id, x, y);
                                         // ad the entity to the room using the roomId
                                         enemy1.setSize(scale);
-                                        roomList.get(roomId - 1).addEntity(enemy1);
+                                        //roomList.get(roomId - 1).addEntity(enemy1);
                                         break;
                                     case "obstacle":
                                         obstacle o = new obstacle(health, speed, damage, id, x, y);
-                                        roomList.get(roomId - 1).addEntity(o);
+                                        //roomList.get(roomId - 1).addEntity(o);
                                         break;
                                     // staircase
                                     case "staircase":
                                         staircase s = new staircase(health, speed, damage, id, x, y);
-                                        roomList.get(roomId - 1).addEntity(s);
+                                        //roomList.get(roomId - 1).addEntity(s);
                                         break;
                                     case "startpt":
                                         startpt s1 = new startpt(health, speed, damage, id, x, y);
-                                        roomList.get(roomId - 1).addEntity(s1);
+                                        //roomList.get(roomId - 1).addEntity(s1);
                                         break;
                                     default:
                                         break;
@@ -133,7 +133,8 @@ public class LevelData {
     // It will loop through all the rooms and save them in order the rooms were
     // created.
     // It will save the location of all the rooms.
-    public void save() {
+   public void save() {
+       /*
         try {
             
           
@@ -150,8 +151,9 @@ public class LevelData {
         } catch (IOException e) {
             System.out.println("Problem writing file");
         }
-
+*/
     }
+
 
     // This will add a room to the level.
     public void addRoom(room r) {

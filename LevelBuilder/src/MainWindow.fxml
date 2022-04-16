@@ -15,16 +15,31 @@
     <HBox spacing="10">
         <VBox spacing="10">
             <Button onAction="#onWaveClicked" styleClass="leftbutton"><graphic><ImageView fitHeight="74.0" fitWidth="77.0"><image><Image url="@images/wave.png" /></image></ImageView></graphic></Button>
-            <Button onAction="#ongunWaveClicked" styleClass="leftbutton"><graphic><ImageView fitHeight="74.0" fitWidth="77.0"><image><Image url="@images/microwave.gif" /></image></ImageView></graphic></Button>
+            <Button onAction="#ongunWaveClicked" styleClass="leftbutton"><graphic><ImageView fitHeight="74.0" fitWidth="77.0"><image><Image url="@images/microwave.png" /></image></ImageView></graphic></Button>
+         <Button onAction="#onObstacleClicked" styleClass="leftbutton">
+            <graphic>
+               <ImageView fitHeight="74.0" fitWidth="77.0">
+                  <image>
+                     <Image url="@images/obstacle.png" />
+                  </image>
+               </ImageView>
+            </graphic>
+         </Button>
             <Button onAction="#onDeleteClicked" styleClass="leftbutton"><graphic><ImageView><image><Image url="@images/delete-icon.png" /></image></ImageView></graphic></Button>
             <Button styleClass="leftbutton"><graphic><ImageView><image><Image url="@images/undo-icon.png" /></image></ImageView></graphic></Button>
         </VBox>
-        <Pane fx:id="pane" prefHeight="500" prefWidth="800.0" style="-fx-background-color: lightgray">
+        <Pane fx:id="pane" prefHeight="600.0" prefWidth="800.0" style="-fx-background-color: lightgray">
          <children>
-            <Button onAction= "#createRoom" fx:id="leftBtn" layoutY="228.0" mnemonicParsing="false" prefHeight="45.0" prefWidth="30.0" text="+" />
-            <Button onAction= "#createRoom" fx:id="upBtn" layoutX="377.0" layoutY="1.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="46.0" text="+" />
-            <Button onAction= "#createRoom" fx:id="downBtn" layoutX="377.0" layoutY="473.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="46.0" text="+" />
-            <Button onAction= "#createRoom" fx:id="rightBtn" layoutX="771.0" layoutY="228.0" mnemonicParsing="false" prefHeight="45.0" prefWidth="30.0" text="+" />
+            <ImageView fitHeight="600.0" fitWidth="800.0" layoutY="1.0" pickOnBounds="true">
+                <image>
+                   <Image url="@images/room.png" />
+                </image>
+             </ImageView>
+            <Button fx:id="leftBtn" layoutX="-1.0" layoutY="227.0" mnemonicParsing="false" onAction="#createRoom" prefHeight="118.0" prefWidth="30.0" text="+" />
+            <Button fx:id="upBtn" layoutX="319.0" layoutY="1.0" mnemonicParsing="false" onAction="#createRoom" prefHeight="30.0" prefWidth="122.0" text="+" />
+            <Button fx:id="downBtn" layoutX="316.0" layoutY="556.0" mnemonicParsing="false" onAction="#createRoom" prefHeight="46.0" prefWidth="129.0" text="+" />
+            <Button fx:id="rightBtn" layoutX="767.0" layoutY="218.0" mnemonicParsing="false" onAction="#createRoom" prefHeight="135.0" prefWidth="38.0" text="+" />
+            
          </children></Pane>
         <HBox spacing="10" styleClass="propview">
             <VBox spacing="10">
@@ -40,7 +55,7 @@
             <TextField fx:id="txthealth" prefHeight="15.0" prefWidth="50.0" />
             <TextField fx:id="txtSpeed" prefHeight="15.0" prefWidth="50.0" />
             <TextField fx:id="txtDamage" prefHeight="15.0" prefWidth="50.0" />
-            <Button fx:id="saveBtn" onAction = "#onSaveEntityClicked" mnemonicParsing="false" prefHeight="26.0" prefWidth="50.0" text="Save" />
+            <Button fx:id="saveBtn" mnemonicParsing="false" onAction="#onSaveEntityClicked" prefHeight="26.0" prefWidth="50.0" text="Save" />
             </VBox>
         </HBox>
     </HBox>
