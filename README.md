@@ -24,6 +24,15 @@ Upon opening the game, you are presented with 4 buttons. Click start to begin th
 
 ## Known Issues
 
+### Basic Gameplay
+
+### Serialization
+
+### Auxilary Screens
+
+### Level Builder
+
+
 ***
 
 ## Recording:
