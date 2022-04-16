@@ -2,18 +2,29 @@
 
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
+<?import javafx.scene.image.*?>
 
 <VBox fx:controller="GameWindow" xmlns:fx="http://javafx.com/fxml"  stylesheets="@GameWindow.css"
     spacing="10" prefHeight="700" prefWidth="800" alignment="TOP_CENTER">
 
     <HBox>
 
-        <Button text="_Pause" onAction="#onPauseClicked" />
+        <Button onAction="#onPauseClicked"><graphic><ImageView fitWidth="20" fitHeight="25"><image><Image url="@imgs/pause.png" /></image></ImageView></graphic></Button>
 
     </HBox>
 
     <Pane fx:id="Gamepane" minHeight="600" minWidth="800" maxHeight="600" maxWidth="800" styleClass="Gamepane" />
 
-    
+    <HBox>
+
+        <VBox alignment="BASELINE_LEFT">
+
+            <Label text="Health: " />
+            <Label text="Score: " />
+            <Label text="Time: " />
+
+        </VBox>
+
+    </HBox>
 
 </VBox> 
