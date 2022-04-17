@@ -13,7 +13,7 @@ public class Scores {
 
     @Override
     public String toString() {
-        return "Student [score=" + score + ", name=" + name + "]";
+        return "\t" + name + " || Score: " + score;
     }
 
 

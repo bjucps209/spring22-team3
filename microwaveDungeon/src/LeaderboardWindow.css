@@ -7,3 +7,22 @@
 .dialog-pane  {
     -fx-font-family: 'Helvetica', Arial, sans-serif;
 }
+
+.title {
+    -fx-font-size: 45px;
+    -fx-font-family: "Impact", Arial, bold;
+    -fx-text-fill: black;
+}
+
+Label {
+    -fx-text-align: center;
+    -fx-font-size: 24px;
+
+}
+
+VBox {
+    -fx-alignment: center;
+}
+
+
+

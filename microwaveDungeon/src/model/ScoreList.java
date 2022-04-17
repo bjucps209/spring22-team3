@@ -13,7 +13,7 @@ import java.util.ArrayList;
 public class ScoreList {
 
     private ArrayList<Scores> scoreList;
-    static final String FILENAME = "scores.txt";
+    static final String FILENAME = "microwaveDungeon/src/Saves/scores.txt";
 
     public ScoreList() {
         scoreList = new ArrayList<Scores>();
@@ -66,7 +66,7 @@ public class ScoreList {
     // getter method
     public ArrayList<Scores> getScoreList() throws IOException {
         loadData();
-        return this.scoreList;
+        return scoreList;
     }
 
 }
