@@ -4,11 +4,8 @@ import java.io.DataOutputStream;
 import java.io.IOException;
 
 public class staircase extends entity {
- 
 
-
-    public staircase(int setHealth, double setSpeed, double setDamage, int setId, int xcoord,
-            int ycoord) {
+    public staircase(int setHealth, double setSpeed, double setDamage, int setId, int xcoord, int ycoord) {
         super(setHealth, setSpeed, setDamage, setId, xcoord, ycoord);
         //TODO Auto-generated constructor stub
     }

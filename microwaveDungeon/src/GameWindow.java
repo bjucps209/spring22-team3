@@ -96,7 +96,7 @@ public class GameWindow {
         var ls = game.getLevelSet().get(game.getCurrentLevel()).getRooms().get(game.getCurrentRoom()).getEnemyList();
         int len = ls.size();
         for (int i = 0; i < len; ++i){
-            ls.get(i).updatePosition();
+            ls.get(i).updatePosition(Gamepane.getChildren().get(Gamepane.getChildren().size() - 1).getLayoutX(), Gamepane.getChildren().get(Gamepane.getChildren().size() - 1).getLayoutY());
             Gamepane.getChildren().get(i).setLayoutX(ls.get(i).getXcoord());
             Gamepane.getChildren().get(i).setLayoutY(ls.get(i).getYcoord());
         }

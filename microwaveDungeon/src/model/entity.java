@@ -13,7 +13,7 @@ public class entity {
 
     protected int id;
 
-    protected int direction;
+    protected double direction;
     
     protected double damage;
     
@@ -75,11 +75,11 @@ public class entity {
         return "entity [health=" + health + ", speed=" + speed + ", id=" + id + ", damage=" + damage + ", Xcoord=" + Xcoord + ", Ycoord=" + Ycoord + "]";
     }
 
-    public int getDirection() {
+    public double getDirection() {
         return direction;
     }
 
-    public void setDirection(int direction) {
+    public void setDirection(double direction) {
         this.direction = direction;
     }
 
@@ -94,20 +94,6 @@ public class entity {
 
     }
 
-    public void updatePosition() {
-        Xcoord += speed * Math.cos(direction * Math.PI / 180);
-        Ycoord += speed * Math.sin(direction * Math.PI / 180);
-        if (Xcoord > 710){
-            Xcoord -= 710;
-        } else if (Ycoord > 550){
-            Ycoord -= 550;
-        } else if (Xcoord < 0){
-            Xcoord += 710;
-        } else if (Ycoord < 0){
-            Ycoord += 550;
-        }
-
-    }
 
     // Given an OutputStream, this method saves the entity's attributes 
     public void save(DataOutputStream output) throws IOException {
