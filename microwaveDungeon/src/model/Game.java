@@ -339,7 +339,7 @@ public class Game {
             output.setTimePassed(input.readInt());
             ArrayList<Level> loadLevelSet = new ArrayList<Level>();
             for(int i = 0; i < input.readInt(); ++i) {
-                loadLevelSet.add(Level.load(input));
+                loadLevelSet.add(Level.load(input, output.getDiff()));
             }
             output.setLevelSet(loadLevelSet);
         }

@@ -4,6 +4,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
+import javafx.scene.control.Alert.AlertType;
 import javafx.stage.Stage;
 
 public class PauseMenu {
@@ -27,10 +28,13 @@ public class PauseMenu {
         file.createNewFile();
         try(DataOutputStream writer = new DataOutputStream(new FileOutputStream(file))) {
             try {CharWindow.getGameWindow().getGame().save();
-            saveButton.setText("Saved");
-            saveButton.setDisable(true); 
-            CharWindow.getGameWindow().getPlayer().save(writer); }
-            catch (Exception ex) { ex.printStackTrace();}
+                saveButton.setText("Saved");
+                saveButton.setDisable(true); 
+                CharWindow.getGameWindow().getPlayer().save(writer); }
+            catch (Exception ex) { 
+                Alert a = new Alert(AlertType.ERROR, "There was a problem saving the game.");
+                a.show();
+                ex.printStackTrace();}
         }
     }
 
