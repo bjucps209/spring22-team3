@@ -6,9 +6,9 @@
 <VBox fx:controller="TitleWindow" xmlns:fx="http://javafx.com/fxml"  stylesheets="@TitleWindow.css"
     spacing="10" prefHeight="500" prefWidth="700">
 
-    <Label text="Microwave Dungeon!" />
+    <Label text="Microwave Dungeon!" styleClass="title"/>
 
-    <Button fx:id="start" onAction="#startGame" text="start" />
+    <Button fx:id="start" onAction="#startGame" text="Start" />
 
     <Button fx:id="load" onAction="#onLoadClicked" text="Load Saved Game" />
 

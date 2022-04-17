@@ -2,6 +2,8 @@ package model;
 
 import org.junit.Test;
 import static org.junit.Assert.*;
+
+import java.io.IOException;
 import java.util.*;
 
 public class ScoresTest {
@@ -11,21 +13,21 @@ public class ScoresTest {
         ScoreList List = new ScoreList();
 
         String name1 = "Bob";
-        String score1 = "500";
+        int score1 = 500;
 
         String name2 = "Sally";
-        String score2 = "360";
+        int score2 = 360;
 
         String name3 = "Joe";
-        String score3 = "920";
+        int score3 = 920;
 
         Scores s1 = new Scores(name1, score1);
         Scores s2 = new Scores(name2, score2);
         Scores s3 = new Scores(name3, score3);
 
-        List.add(s1);
-        List.add(s2);
-        List.add(s3);
+        // List.add(s1);
+        // List.add(s2);
+        // List.add(s3);
 
         assertEquals(List.get(0).getName(), "Bob");
         assertEquals(List.get(0).getName(), "500");
@@ -39,25 +41,25 @@ public class ScoresTest {
     }
 
     @Test
-    void testSort_byUsing_getScores() {
+    void testSort_byUsing_getScores() throws IOException {
         ScoreList List = new ScoreList();
 
         String name1 = "Bob";
-        String score1 = "500";
+        int score1 = 500;
 
         String name2 = "Sally";
-        String score2 = "360";
+        int score2 = 360;
 
         String name3 = "Joe";
-        String score3 = "920";
+        int score3 = 920;
 
         Scores s1 = new Scores(name1, score1);
         Scores s2 = new Scores(name2, score2);
         Scores s3 = new Scores(name3, score3);
 
-        List.add(s1);
-        List.add(s2);
-        List.add(s3);
+        // List.add(s1);
+        // List.add(s2);
+        // List.add(s3);
 
         List.loadData();
 
