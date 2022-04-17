@@ -23,7 +23,9 @@ Upon opening the game, you are presented with 4 buttons. Click start to begin th
 - High Scores will load from the .txt file into the High Score window
 
 ### Level Builder
-
+-Implemeted placing down enemies and obstacles
+-Added the ability to make multiple rooms
+-5x5 is the maximum level size
 ***
 
 ## Known Issues
