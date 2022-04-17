@@ -36,7 +36,7 @@ Upon opening the game, you are presented with 4 buttons. Click start to begin th
 
 ### Auxilary Screens
 
-- None Known
+- None known
 
 ### Level Builder
 
