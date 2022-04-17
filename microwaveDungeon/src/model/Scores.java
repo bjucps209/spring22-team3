@@ -2,14 +2,20 @@ package model;
 
 public class Scores {
 
-    String name;
-    String score;
+    private String name;
+    private int score;
 
     // TODO: this will be called after a player dies. Their score and name will be added to the .txt file
-    public Scores(String name, String score) {
+    public Scores(String name, int score) {
         this.name = name;
         this.score = score;
     }
+
+    @Override
+    public String toString() {
+        return "\t" + name + " || Score: " + score;
+    }
+
 
     public String getName() {
         return name;
@@ -19,13 +25,14 @@ public class Scores {
         this.name = name;
     }
 
-    public String getScore() {
+    public int getScore() {
         return score;
     }
 
-    public void setScore(String score) {
+    public void setScore(int score) {
         this.score = score;
     }
 
     
 }
+

@@ -186,9 +186,6 @@ public class Game {
         //}
     }
 
-    public void setTimePassed(int time) {
-        timePassed = time;
-    }
 
     public int getTimePassed() {
         return timePassed;
@@ -214,10 +211,6 @@ public class Game {
         this.diff = diff;
     }
     
-    public void setLevelSet(ArrayList<Level> input) {
-        levelSet = input;
-    }
-
     // Added for Unit testing
     public ArrayList<Level> getLevelSet() {
         return levelSet;
@@ -273,26 +266,6 @@ public class Game {
             a.show();
         }
         try (DataOutputStream writer = new DataOutputStream(new FileOutputStream(file))) {
-            switch(character) {
-                case HPOCKET:
-                    writer.writeInt(1);
-                case PIZZA:
-                    writer.writeInt(2);
-                case RAMEN:
-                    writer.writeInt(3);
-                case MAC:
-                    writer.writeInt(4);
-            }
-            switch(diff) {
-                case EASY:
-                    writer.writeInt(1);
-                case MEDIUM:
-                    writer.writeInt(2);
-                case HARD:
-                    writer.writeInt(3);
-                case NUKE:
-                    writer.writeInt(4);
-            }
             writer.writeInt(score);
             writer.writeInt(timePassed);
             writer.writeInt(levelSet.size());
@@ -306,48 +279,36 @@ public class Game {
         }
     }
 
-    // Factory Method that returns a loaded game
-    public static Game load() {
-        Game output = null;
+    // Loads a Saved Game
+    public void load() {
         try(DataInputStream input = new DataInputStream(new FileInputStream("src\\Saves\\SavedGame.txt"))) {
-            int charInt = input.readInt();
-            characters loadCharacter = characters.HPOCKET;
-            switch(charInt) {
-                case 1:
-                    loadCharacter = characters.HPOCKET;
-                case 2:
-                    loadCharacter = characters.PIZZA;
-                case 3:
-                    loadCharacter = characters.RAMEN;
-                case 4:
-                    loadCharacter = characters.MAC;
-            }
-            int diffInt = input.readInt();
-            difficulties loadDiff = difficulties.EASY;
-            switch(diffInt) {
-                case 1:
-                    loadDiff = difficulties.EASY;
-                case 2:
-                    loadDiff = difficulties.MEDIUM;
-                case 3:
-                    loadDiff = difficulties.HARD;
-                case 4:
-                    loadDiff = difficulties.NUKE;
-            }
-            output = new Game(loadDiff, loadCharacter);
-            output.setScore(input.readInt());
-            output.setTimePassed(input.readInt());
-            ArrayList<Level> loadLevelSet = new ArrayList<Level>();
+            score = input.readInt();
+            timePassed = input.readInt();
+            levelSet = new ArrayList<Level>();
             for(int i = 0; i < input.readInt(); ++i) {
-                loadLevelSet.add(Level.load(input, output.getDiff()));
+                levelSet.add(Level.load(input));
             }
-            output.setLevelSet(loadLevelSet);
+            User = player.load(input);
         }
         catch (IOException e) {
-            e.printStackTrace();
             Alert a = new Alert(AlertType.ERROR, "There was a problem reading the save file: " + e.getMessage());
             a.show();
         }
-        return output;
+    }
+
+    // Loads a specified saved game file -Made for testing
+    public void load(String filename) {
+        try(DataInputStream input = new DataInputStream(new FileInputStream(filename))) {
+            score = input.readInt();
+            timePassed = input.readInt();
+            levelSet = new ArrayList<Level>();
+            for(int i = 0; i < input.readInt(); ++i) {
+                levelSet.add(Level.load(input));
+            }
+            User = player.load(input);
+        }
+        catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 }

@@ -1,3 +1,5 @@
+import java.io.DataInputStream;
+import java.io.FileInputStream;
 import java.io.IOException;
 import javafx.scene.layout.BackgroundImage;
 import javafx.animation.KeyFrame;
@@ -7,6 +9,9 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Side;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Label;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.image.*;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
@@ -22,6 +27,8 @@ public class GameWindow {
 
     @FXML
     VBox MasterVbox;
+
+    @FXML Label healthLbl, scoreLbl, timeLbl;
 
     private Game game;
 
@@ -66,6 +73,7 @@ public class GameWindow {
         }
 
         player = new player(25, 0, 1, 69, 0, 300);
+        game.setUser(player);
 
         switch (character){
 
@@ -100,6 +108,9 @@ public class GameWindow {
             Gamepane.getChildren().get(i).setLayoutX(ls.get(i).getXcoord());
             Gamepane.getChildren().get(i).setLayoutY(ls.get(i).getYcoord());
         }
+        healthLbl.setText("Health: " + player.getHealth()); // Update health, score, & time labels
+        scoreLbl.setText("Score: " + game.getScore());
+        timeLbl.setText("Time: " + game.getTimePassed());
     }
 
     //updates entities when a collision is detected
@@ -168,7 +179,6 @@ public class GameWindow {
         Gamepane.getChildren().get(Gamepane.getChildren().size() - 1).setLayoutX(player.getXcoord());
         Gamepane.getChildren().get(Gamepane.getChildren().size() - 1).setLayoutY(player.getYcoord());
         
-            
         
         
 
@@ -203,8 +213,20 @@ public class GameWindow {
 
     // This method is called to call the load method in the game object
     public void load() {
-        game = new Game(difficulties.MEDIUM, characters.HPOCKET); //TODO: Add difficulty and character to save/load
-        game.load();
+        game = game.load();
+        try(DataInputStream input = new DataInputStream(new FileInputStream("src\\Saves\\SavedGame.txt"))) {
+            player = player.load(input);
+            game.setUser(player);
+        }
+        catch (IOException e) {
+            e.printStackTrace();
+            Alert a = new Alert(AlertType.ERROR, "There was a problem reading the save file: " + e.getMessage());
+            a.show();
+        }
+        character = game.getCharacter();
+        generate();
+        tickProcessing();
+        Gamepane.requestFocus();
     }
 
     //method for generating images in the Game pane
@@ -222,4 +244,7 @@ public class GameWindow {
         return game;
     }
 
+    public player getPlayer() {
+        return player;
+    }
 }
