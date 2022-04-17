@@ -9,6 +9,10 @@ Upon opening the game, you are presented with 4 buttons. Click start to begin th
 ## Work Completed
 
 ### Basic Gameplay
+- Implemented GameWindow visuals
+- Implemented player movement
+- Implemented basic Enemy movement
+- Implemented visual projectiles
 
 ### Serialization
 
@@ -47,6 +51,8 @@ Upon opening the game, you are presented with 4 buttons. Click start to begin th
 ***
 
 ## Recording:
+
+https://youtu.be/9ogX3OZSppQ
 
 ***
 
