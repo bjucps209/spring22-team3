@@ -8,6 +8,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Side;
+import javafx.scene.Cursor;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Label;
@@ -15,6 +16,7 @@ import javafx.scene.control.Alert.AlertType;
 import javafx.scene.image.*;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.*;
 import javafx.stage.Stage;
 import javafx.util.Duration;
@@ -52,6 +54,8 @@ public class GameWindow {
 
     final Image ramen = new Image("/imgs/ramen2.png");
 
+    final Image bullet = new Image("/imgs/IAMALSOBULLET.png");
+
     //initializes the view by calling the necesary methods
     public void initialize(difficulties setDiff, characters setCharacter){
 
@@ -68,9 +72,6 @@ public class GameWindow {
     public void generate(){
         int roomIndex = game.getCurrentRoom();
         room room = game.getLevelSet().get(roomIndex).getRooms().get(roomIndex);
-        for (int i = 0; i < room.getEnemyList().size(); ++i){
-            makeImage(enemies, room.getEnemyList().get(i));
-        }
 
         player = new player(25, 0, 1, 69, 0, 300);
         game.setUser(player);
@@ -95,7 +96,15 @@ public class GameWindow {
 
         }
         
+        for (int i = 0; i < room.getEnemyList().size(); ++i){
+            makeImage(enemies, room.getEnemyList().get(i));
+        }
         
+    }
+
+    @FXML
+    public void setCursor(MouseEvent m){
+        Gamepane.getScene().setCursor(Cursor.CROSSHAIR);
     }
 
     //updates the view based on changes in the model
@@ -105,8 +114,8 @@ public class GameWindow {
         int len = ls.size();
         for (int i = 0; i < len; ++i){
             ls.get(i).updatePosition(Gamepane.getChildren().get(Gamepane.getChildren().size() - 1).getLayoutX(), Gamepane.getChildren().get(Gamepane.getChildren().size() - 1).getLayoutY());
-            Gamepane.getChildren().get(i).setLayoutX(ls.get(i).getXcoord());
-            Gamepane.getChildren().get(i).setLayoutY(ls.get(i).getYcoord());
+            Gamepane.getChildren().get(i + 1).setLayoutX(ls.get(i).getXcoord());
+            Gamepane.getChildren().get(i + 1).setLayoutY(ls.get(i).getYcoord());
         }
         healthLbl.setText("Health: " + player.getHealth()); // Update health, score, & time labels
         scoreLbl.setText("Score: " + game.getScore());
@@ -121,8 +130,26 @@ public class GameWindow {
 
     //fires at enemies when the mouse is clicked
     @FXML
-    public void openFire(){
-        throw new RuntimeException("Method not implemented");
+    public void openFire(MouseEvent e){
+        int roomIndex = game.getCurrentRoom();
+        room room = game.getLevelSet().get(roomIndex).getRooms().get(roomIndex);
+        room.getBulletList().add(new projectile(1000, 15, 1, 5, player.getXcoord(), player.getYcoord()));
+        makeImage(bullet, room.getBulletList().get(room.getBulletList().size() - 1));
+        KeyFrame kf = new KeyFrame(Duration.millis(100), this::movebullet);
+        var timer = new Timeline(kf);
+        timer.setCycleCount(100);
+        timer.play();
+        
+    }
+
+    @FXML
+    public void movebullet(ActionEvent e){
+        int roomIndex = game.getCurrentRoom();
+        room room = game.getLevelSet().get(roomIndex).getRooms().get(roomIndex);
+        projectile p = room.getBulletList().get(room.getBulletList().size() - 1);
+        p.updatePosition();
+        Gamepane.getChildren().get(Gamepane.getChildren().size() - 1).setLayoutX(p.getXcoord());
+        Gamepane.getChildren().get(Gamepane.getChildren().size() - 1).setLayoutY(p.getYcoord());
     }
 
     //moves the player character when WASD is pressed
@@ -176,8 +203,8 @@ public class GameWindow {
     @FXML
     public void updatePlayer(ActionEvent e){
         player.updatePosition();  
-        Gamepane.getChildren().get(Gamepane.getChildren().size() - 1).setLayoutX(player.getXcoord());
-        Gamepane.getChildren().get(Gamepane.getChildren().size() - 1).setLayoutY(player.getYcoord());
+        Gamepane.getChildren().get(0).setLayoutX(player.getXcoord());
+        Gamepane.getChildren().get(0).setLayoutY(player.getYcoord());
         
         
         

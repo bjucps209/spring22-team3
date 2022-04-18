@@ -22,15 +22,15 @@
 
     </HBox>
 
-    <Pane fx:id="Gamepane" onKeyPressed="#move" onKeyReleased="#stopMove" minHeight="600" minWidth="800" maxHeight="600" maxWidth="800" styleClass="Gamepane" />
+    <Pane fx:id="Gamepane" onMouseEntered="#setCursor" onMouseClicked="#openFire" onKeyPressed="#move" onKeyReleased="#stopMove" minHeight="600" minWidth="800" maxHeight="600" maxWidth="800" styleClass="Gamepane" />
 
     <HBox>
 
         <VBox alignment="BASELINE_LEFT">
 
-            <Label fx:id="healthLbl" text="Health: " />
-            <Label fx:id="scoreLbl" text="Score: " />
-            <Label fx:id="timeLbl" text="Time: " />
+            <Label text="Health: " />
+            <Label text="Score: " />
+            <Label text="Time: " />
 
         </VBox>
 

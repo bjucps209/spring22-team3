@@ -28,6 +28,8 @@ public class room {
 
     ArrayList<obstacle> obstacleList = new ArrayList<obstacle>();
 
+    ArrayList<projectile> bulletList = new ArrayList<projectile>();
+
     player player;
 
     public room(int setX, int setY, Boolean isNotForLoad){ // isNotForLoad determines whether if generate() is used as when loading, generate is not nessesary
@@ -166,6 +168,18 @@ public class room {
     public void removeObstacle(obstacle e) {
         obstacleList.remove(e);
     }
+
+    
+    public ArrayList<projectile> getBulletList() {
+        return bulletList;
+    }
+
+
+    public void setBulletList(ArrayList<projectile> bulletList) {
+        this.bulletList = bulletList;
+    }
+
+
     @Override
     public String toString() {
        String toStringEntityList = "";
