@@ -71,20 +71,20 @@ public class LevelData {
                                         enemy enemy1 = new enemy(health, speed, damage, id, x, y);
                                         // ad the entity to the room using the roomId
                                         enemy1.setSize(scale);
-                                        //roomList.get(roomId - 1).addEntity(enemy1);
+                                        roomList.get(roomId - 1).addEnemy(enemy1);
                                         break;
                                     case "obstacle":
                                         obstacle o = new obstacle(health, speed, damage, id, x, y);
-                                        //roomList.get(roomId - 1).addEntity(o);
+                                        roomList.get(roomId - 1).addObstacle(o);
                                         break;
                                     // staircase
                                     case "staircase":
                                         staircase s = new staircase(health, speed, damage, id, x, y);
-                                        //roomList.get(roomId - 1).addEntity(s);
+                                        roomList.get(roomId - 1).setStaircase(s);
                                         break;
                                     case "startpt":
                                         startpt s1 = new startpt(health, speed, damage, id, x, y);
-                                        //roomList.get(roomId - 1).addEntity(s1);
+                                        //roomList.get(roomId - 1).setStartpt(s1);
                                         break;
                                     default:
                                         break;

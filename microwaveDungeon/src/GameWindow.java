@@ -4,6 +4,7 @@ import java.io.IOException;
 import javafx.scene.layout.BackgroundImage;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
+import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -23,14 +24,15 @@ import javafx.util.Duration;
 import model.*;
 
 public class GameWindow {
-    
+
     @FXML
     Pane Gamepane;
 
     @FXML
     VBox MasterVbox;
 
-    @FXML Label healthLbl, scoreLbl, timeLbl;
+    @FXML
+    Label healthLbl, scoreLbl, timeLbl;
 
     private Game game;
 
@@ -39,6 +41,8 @@ public class GameWindow {
     private characters character;
 
     private player player;
+
+    private Thread moveThread;
 
     private KeyFrame kf = new KeyFrame(Duration.millis(10), this::updatePlayer);
 
@@ -56,12 +60,12 @@ public class GameWindow {
 
     final Image bullet = new Image("/imgs/IAMALSOBULLET.png");
 
-    //initializes the view by calling the necesary methods
-    public void initialize(difficulties setDiff, characters setCharacter){
+    // initializes the view by calling the necesary methods
+    public void initialize(difficulties setDiff, characters setCharacter) {
 
         diff = setDiff;
         character = setCharacter;
-        
+
         game = new Game(diff, character);
         generate();
         tickProcessing();
@@ -69,14 +73,14 @@ public class GameWindow {
     }
 
     @FXML
-    public void generate(){
+    public void generate() {
         int roomIndex = game.getCurrentRoom();
         room room = game.getLevelSet().get(roomIndex).getRooms().get(roomIndex);
 
         player = new player(25, 0, 1, 69, 0, 300);
         game.setUser(player);
 
-        switch (character){
+        switch (character) {
 
             case PIZZA:
                 makeImage(pizza, player);
@@ -95,125 +99,136 @@ public class GameWindow {
                 break;
 
         }
-        
-        for (int i = 0; i < room.getEnemyList().size(); ++i){
+
+        for (int i = 0; i < room.getEnemyList().size(); ++i) {
             makeImage(enemies, room.getEnemyList().get(i));
         }
-        
+
     }
 
     @FXML
-    public void setCursor(MouseEvent m){
+    public void setCursor(MouseEvent m) {
         Gamepane.getScene().setCursor(Cursor.CROSSHAIR);
     }
 
-    //updates the view based on changes in the model
+    // updates the view based on changes in the model
     @FXML
-    public void updateEnemyPositions(ActionEvent e){
+    public void updateEnemyPositions(ActionEvent e) {
         var ls = game.getLevelSet().get(game.getCurrentLevel()).getRooms().get(game.getCurrentRoom()).getEnemyList();
         int len = ls.size();
-        for (int i = 0; i < len; ++i){
-            ls.get(i).updatePosition(Gamepane.getChildren().get(Gamepane.getChildren().size() - 1).getLayoutX(), Gamepane.getChildren().get(Gamepane.getChildren().size() - 1).getLayoutY());
-            Gamepane.getChildren().get(i + 1).setLayoutX(ls.get(i).getXcoord());
-            Gamepane.getChildren().get(i + 1).setLayoutY(ls.get(i).getYcoord());
+        for (int i = 0; i < len; ++i) {
+            final int currentI = i;
+            ls.get(i).updatePosition(Gamepane.getChildren().get(Gamepane.getChildren().size() - 1).getLayoutX(),
+                    Gamepane.getChildren().get(Gamepane.getChildren().size() - 1).getLayoutY());
+            Platform.runLater(() -> {
+                Gamepane.getChildren().get(currentI + 1).setLayoutX(ls.get(currentI).getXcoord());
+                Gamepane.getChildren().get(currentI + 1).setLayoutY(ls.get(currentI).getYcoord());
+            });
+
         }
-        healthLbl.setText("Health: " + player.getHealth()); // Update health, score, & time labels
-        scoreLbl.setText("Score: " + game.getScore());
-        timeLbl.setText("Time: " + game.getTimePassed());
+        Platform.runLater(() -> {
+            healthLbl.setText("Health: " + player.getHealth()); // Update health, score, & time labels
+            scoreLbl.setText("Score: " + game.getScore());
+            timeLbl.setText("Time: " + game.getTimePassed());
+        });
+
     }
 
-    //updates entities when a collision is detected
+    // updates entities when a collision is detected
     @FXML
-    public void findCollision(){
+    public void findCollision() {
         throw new RuntimeException("Method not implemented");
     }
 
-    //fires at enemies when the mouse is clicked
+    // fires at enemies when the mouse is clicked
     @FXML
-    public void openFire(MouseEvent e){
+    public void openFire(MouseEvent e) {
         int roomIndex = game.getCurrentRoom();
         room room = game.getLevelSet().get(roomIndex).getRooms().get(roomIndex);
         room.getBulletList().add(new projectile(1000, 15, 1, 5, player.getXcoord(), player.getYcoord()));
-        makeImage(bullet, room.getBulletList().get(room.getBulletList().size() - 1));
+        makeImage(bullet, room.getBulletList().get(room.getBulletList().size() - 1)); 
         KeyFrame kf = new KeyFrame(Duration.millis(100), this::movebullet);
         var timer = new Timeline(kf);
         timer.setCycleCount(100);
         timer.play();
-        
+
     }
 
     @FXML
-    public void movebullet(ActionEvent e){
+    public void movebullet(ActionEvent e) {
         int roomIndex = game.getCurrentRoom();
         room room = game.getLevelSet().get(roomIndex).getRooms().get(roomIndex);
-        projectile p = room.getBulletList().get(room.getBulletList().size() - 1);
-        p.updatePosition();
-        Gamepane.getChildren().get(Gamepane.getChildren().size() - 1).setLayoutX(p.getXcoord());
-        Gamepane.getChildren().get(Gamepane.getChildren().size() - 1).setLayoutY(p.getYcoord());
+
+        for (int i = 0; i < room.getBulletList().size(); ++i) {
+            projectile p = room.getBulletList().get(i);
+            p.updatePosition();
+            Gamepane.getChildren().get(Gamepane.getChildren().size() - i - 1).setLayoutX(p.getXcoord());
+            Gamepane.getChildren().get(Gamepane.getChildren().size() - i - 1).setLayoutY(p.getYcoord());
+
+        }
+
     }
 
-    //moves the player character when WASD is pressed
+    // moves the player character when WASD is pressed
     @FXML
-    public void move(KeyEvent k){
+    public void move(KeyEvent k) {
         KeyCode dir = k.getCode();
- 
+
         switch (dir) {
 
-            case W :
+            case W:
                 player.setDirection(270);
                 player.setSpeed(5);
                 timer.setCycleCount(Timeline.INDEFINITE);
                 timer.play();
                 break;
 
-            case A :
+            case A:
                 player.setDirection(180);
                 player.setSpeed(5);
                 timer.setCycleCount(Timeline.INDEFINITE);
                 timer.play();
                 break;
 
-            case S :
+            case S:
                 player.setDirection(90);
                 player.setSpeed(5);
                 timer.setCycleCount(Timeline.INDEFINITE);
                 timer.play();
                 break;
 
-            case D :
+            case D:
                 player.setDirection(360);
                 player.setSpeed(5);
                 timer.setCycleCount(Timeline.INDEFINITE);
                 timer.play();
                 break;
+                //added default case to prevent lots of warnings
+            default:
+                break;
 
         }
-        
-        
-    
+
     }
 
     @FXML
-    public void stopMove(KeyEvent k){
+    public void stopMove(KeyEvent k) {
         player.setDirection(0);
-                player.setSpeed(0);
-                timer.stop();
+        player.setSpeed(0);
+        timer.stop();
     }
 
     @FXML
-    public void updatePlayer(ActionEvent e){
-        player.updatePosition();  
+    public void updatePlayer(ActionEvent e) {
+        player.updatePosition();
         Gamepane.getChildren().get(0).setLayoutX(player.getXcoord());
         Gamepane.getChildren().get(0).setLayoutY(player.getYcoord());
-        
-        
-        
 
     }
 
-    //sets the cursor to crosshairs and tracks it on the pane
+    // sets the cursor to crosshairs and tracks it on the pane
     @FXML
-    public void trackCursor(){
+    public void trackCursor() {
         throw new RuntimeException("Method not implemented");
     }
 
@@ -229,23 +244,27 @@ public class GameWindow {
     }
 
     @FXML
-    public void tickProcessing(){
-        //calls updateView(), and trackCursor() every tick, and every time the player moves or shoots.
-        //calls updatePosition() on all moving entities in the current loaded room each tick.
-        KeyFrame kf = new KeyFrame(Duration.millis(100), this::updateEnemyPositions);
-        var timer = new Timeline(kf);
-        timer.setCycleCount(Timeline.INDEFINITE);
-        timer.play();
+    public void tickProcessing() {
+        // calls updateView(), and trackCursor() every tick, and every time the player
+        // moves or shoots.
+        // calls updatePosition() on all moving entities in the current loaded room each
+        // tick.
+        Thread t = new Thread(() -> {
+            KeyFrame kf = new KeyFrame(Duration.millis(100), this::updateEnemyPositions);
+            var timer = new Timeline(kf);
+            timer.setCycleCount(Timeline.INDEFINITE);
+            timer.play();
+        });
+        t.start();
     }
 
     // This method is called to call the load method in the game object
     public void load() {
         game = game.load();
-        try(DataInputStream input = new DataInputStream(new FileInputStream("src\\Saves\\SavedGame.txt"))) {
+        try (DataInputStream input = new DataInputStream(new FileInputStream("src\\Saves\\SavedGame.txt"))) {
             player = player.load(input);
             game.setUser(player);
-        }
-        catch (IOException e) {
+        } catch (IOException e) {
             e.printStackTrace();
             Alert a = new Alert(AlertType.ERROR, "There was a problem reading the save file: " + e.getMessage());
             a.show();
@@ -277,8 +296,8 @@ public class GameWindow {
         Gamepane.requestFocus();
     }
 
-    //method for generating images in the Game pane
-    ImageView makeImage(Image pic, entity e){
+    // method for generating images in the Game pane
+    ImageView makeImage(Image pic, entity e) {
         var img = new ImageView(pic);
         Gamepane.getChildren().add(img);
         Gamepane.getChildren().get(Gamepane.getChildren().size() - 1).setLayoutX(e.getXcoord());
