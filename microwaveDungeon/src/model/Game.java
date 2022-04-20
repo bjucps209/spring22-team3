@@ -315,24 +315,32 @@ public class Game {
             switch(charInt) {
                 case 1:
                     loadCharacter = characters.HPOCKET;
+                    break;
                 case 2:
                     loadCharacter = characters.PIZZA;
+                    break;
                 case 3:
                     loadCharacter = characters.RAMEN;
+                    break;
                 case 4:
                     loadCharacter = characters.MAC;
+                    break;
             }
             int diffInt = input.readInt();
             difficulties loadDiff = difficulties.EASY;
             switch(diffInt) {
                 case 1:
                     loadDiff = difficulties.EASY;
+                    break;
                 case 2:
                     loadDiff = difficulties.MEDIUM;
+                    break;
                 case 3:
                     loadDiff = difficulties.HARD;
+                    break;
                 case 4:
                     loadDiff = difficulties.NUKE;
+                    break;
             }
             output = new Game(loadDiff, loadCharacter);
             output.setScore(input.readInt());
