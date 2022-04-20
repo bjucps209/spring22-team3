@@ -136,8 +136,20 @@ public class GameWindow {
 
     // updates entities when a collision is detected
     @FXML
-    public void findCollision() {
-        throw new RuntimeException("Method not implemented");
+    public void findCollision(ActionEvent e) {
+        int enemies = game.getLevelSet().get(game.getCurrentLevel()).getRooms().get(game.getCurrentRoom()).getEnemyList().size();
+
+        
+        for (int i = 1 + enemies; i < Gamepane.getChildren().size(); ++i){
+            for (int j = 1; j < enemies; ++j){
+                boolean xAxis = (Gamepane.getChildren().get(i).getLayoutX() == Gamepane.getChildren().get(j).getLayoutX());
+                boolean yAxis = (Gamepane.getChildren().get(i).getLayoutY() == Gamepane.getChildren().get(j).getLayoutY());
+                if (xAxis && yAxis){
+                    Gamepane.getChildren().remove(i);
+                    Gamepane.getChildren().remove(j);
+                }
+            }
+        }
     }
 
     // fires at enemies when the mouse is clicked
@@ -203,9 +215,6 @@ public class GameWindow {
                 timer.setCycleCount(Timeline.INDEFINITE);
                 timer.play();
                 break;
-                //added default case to prevent lots of warnings
-            default:
-                break;
 
         }
 
@@ -250,10 +259,15 @@ public class GameWindow {
         // calls updatePosition() on all moving entities in the current loaded room each
         // tick.
         Thread t = new Thread(() -> {
-            KeyFrame kf = new KeyFrame(Duration.millis(100), this::updateEnemyPositions);
-            var timer = new Timeline(kf);
-            timer.setCycleCount(Timeline.INDEFINITE);
-            timer.play();
+            KeyFrame enemykf = new KeyFrame(Duration.millis(100), this::updateEnemyPositions);
+            var enemytimer = new Timeline(enemykf);
+            enemytimer.setCycleCount(Timeline.INDEFINITE);
+            enemytimer.play();
+
+            KeyFrame collisionkf = new KeyFrame(Duration.millis(100), this::findCollision);
+            var collisionTimer = new Timeline(collisionkf);
+            collisionTimer.setCycleCount(Timeline.INDEFINITE);
+            collisionTimer.play();
         });
         t.start();
     }
