@@ -14,7 +14,7 @@ public class PauseMenu {
     // Resumes the game
     @FXML
     void onResumeClicked(ActionEvent e) {
-        // TODO: code to unpause once pauseing function is implemented*
+        CharWindow.getGameWindow().resume();
         Stage pauseStage = (Stage) ((Button) e.getSource()).getScene().getWindow();
         pauseStage.close();
     }
@@ -26,7 +26,7 @@ public class PauseMenu {
         if(file.exists())
             file.delete();
         file.createNewFile();
-        try(DataOutputStream writer = new DataOutputStream(new FileOutputStream(file))) {
+        try(var writer = new PrintWriter(new FileWriter(file))) {
             try {CharWindow.getGameWindow().getGame().save();
                 saveButton.setText("Saved");
                 saveButton.setDisable(true); 

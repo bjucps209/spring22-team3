@@ -1,7 +1,7 @@
 package model;
 
-import java.io.DataOutputStream;
 import java.io.IOException;
+import java.io.PrintWriter;
 
 public class staircase extends entity {
 
@@ -23,9 +23,9 @@ public class staircase extends entity {
     }
 
    @Override
-   public void save(DataOutputStream output) throws IOException {
-       output.writeInt(getXcoord());
-       output.writeInt(getYcoord());
+   public void save(PrintWriter output) throws IOException {
+       output.println(getXcoord());
+       output.println(getYcoord());
    }
 
 

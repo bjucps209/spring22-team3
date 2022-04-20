@@ -1,7 +1,7 @@
 package model;
 
-import java.io.DataOutputStream;
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.Random;
 
 public class enemy extends entity {
@@ -54,8 +54,8 @@ public class enemy extends entity {
 
     // Given an OutputStream, this method saves the enemy's attributes
     @Override
-    public void save(DataOutputStream output) throws IOException {
+    public void save(PrintWriter output) throws IOException {
         super.save(output);
-        output.writeInt(size);
+        output.println(size);
     }
 }
