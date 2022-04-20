@@ -284,7 +284,28 @@ public class GameWindow {
             a.show();
         }
         character = game.getCharacter();
-        generate();
+        switch (character){
+            case PIZZA:
+                makeImage(pizza, player);
+                break;
+
+            case MAC:
+                makeImage(mac, player);
+                break;
+
+            case RAMEN:
+                makeImage(ramen, player);
+                break;
+
+            case HPOCKET:
+                makeImage(hPocket, player);
+                break;
+        }
+        int roomIndex = game.getCurrentRoom();
+        room room = game.getLevelSet().get(roomIndex).getRooms().get(roomIndex);
+        for (int i = 0; i < room.getEnemyList().size(); ++i){
+            makeImage(enemies, room.getEnemyList().get(i));
+        }
         tickProcessing();
         Gamepane.requestFocus();
     }
