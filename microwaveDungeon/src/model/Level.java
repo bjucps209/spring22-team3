@@ -47,7 +47,8 @@ public class Level {
     //Factory Method that builds/loads a level based off a DataInputStream
     public static Level load(BufferedReader input, difficulties diff) throws IOException {
         Level output = new Level(diff);
-        for(int i = 0; i < Integer.parseInt(input.readLine()); ++i) {
+        int levelCount = Integer.parseInt(input.readLine());
+        for(int i = 0; i < levelCount; ++i) {
             output.addRoom(room.load(input));
         }
         return output;

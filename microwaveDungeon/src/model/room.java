@@ -61,13 +61,17 @@ public class room {
 
     //Factory Method that builds/loads a room based off a DataInputStream
     public static room load(BufferedReader input) throws IOException {
-        room output = new room(Integer.parseInt(input.readLine()), Integer.parseInt(input.readLine()), false);
+        String x = input.readLine();
+        String y = input.readLine();
+        room output = new room(Integer.parseInt(x), Integer.parseInt(y), false);
         if(Boolean.parseBoolean(input.readLine())) 
             output.setStaircase(new staircase(0, 0, 0, 0, Integer.parseInt(input.readLine()), Integer.parseInt(input.readLine()))); // TODO: Parameters for health and such good?
-        for(int i = 0; i < Integer.parseInt(input.readLine()); ++i) {
+        int obstacleCount = Integer.parseInt(input.readLine());
+        for(int i = 0; i < obstacleCount; ++i) {
             output.addObstacle(new obstacle(-1, 0, 0, -1, Integer.parseInt(input.readLine()), Integer.parseInt(input.readLine()))); // TODO: Parameters for health and such good?
         }
-        for(int i = 0; i < Integer.parseInt(input.readLine()); ++i) {
+        int enemyCount = Integer.parseInt(input.readLine());
+        for(int i = 0; i < enemyCount; ++i) {
             enemy e = new enemy(Integer.parseInt(input.readLine()), Double.parseDouble(input.readLine()), Double.parseDouble(input.readLine()), Integer.parseInt(input.readLine()), Integer.parseInt(input.readLine()), Integer.parseInt(input.readLine()));
             e.setSize(Integer.parseInt(input.readLine()));
             output.addEnemy(e);

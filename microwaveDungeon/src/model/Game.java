@@ -363,7 +363,8 @@ public class Game {
             output.setScore(Integer.parseInt(input.readLine()));
             output.setTimePassed(Integer.parseInt(input.readLine()));
             ArrayList<Level> loadLevelSet = new ArrayList<Level>();
-            for(int i = 0; i < Integer.parseInt(input.readLine()); ++i) {
+            int levelCount = Integer.parseInt(input.readLine());
+            for(int i = 0; i < levelCount; ++i) {
                 loadLevelSet.add(Level.load(input, output.getDiff()));
             }
             output.setLevelSet(loadLevelSet);
