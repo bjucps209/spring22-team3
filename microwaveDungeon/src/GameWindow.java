@@ -203,6 +203,9 @@ public class GameWindow {
                 timer.setCycleCount(Timeline.INDEFINITE);
                 timer.play();
                 break;
+                //added default case to prevent lots of warnings
+            default:
+                break;
 
         }
 

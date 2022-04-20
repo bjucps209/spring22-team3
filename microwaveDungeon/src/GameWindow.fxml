@@ -27,10 +27,12 @@
     <HBox>
 
         <VBox alignment="BASELINE_LEFT">
-
-            <Label text="Health: " />
-            <Label text="Score: " />
-            <Label text="Time: " />
+            
+                <Label fx:id="healthLbl" />
+                <Label fx:id="scoreLbl" />
+                <Label fx:id="timeLbl" />
+           
+           
 
         </VBox>
 
