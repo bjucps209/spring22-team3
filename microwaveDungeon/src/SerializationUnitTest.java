@@ -1,8 +1,5 @@
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
-
 import java.io.*;
-import java.util.ArrayList;
 import org.junit.Test;
 import model.*;
 
@@ -13,13 +10,13 @@ public class SerializationUnitTest {
     @Test
     public void loadTest() {
         Game testGame = Game.load(true);
-        assertEquals(difficulties.EASY, testGame.getDiff());
-        assertEquals(characters.HPOCKET, testGame.getCharacter());
+        assertEquals(difficulties.NUKE, testGame.getDiff());
+        assertEquals(characters.RAMEN, testGame.getCharacter());
         assertEquals(100, testGame.getScore());
         assertEquals(55, testGame.getTimePassed());
-        assertEquals(1, testGame.getLevelSet().size());
-        Level testLevel = testGame.getLevelSet().get(0);
-        assertEquals(2, testLevel.getRooms().size());
+        assertEquals(3, testGame.getLevelSet().size());
+        assertEquals(18, testGame.getUser().getHealth());
+        assertEquals(320, testGame.getUser().getXcoord());
     }
 
     @Test
@@ -31,8 +28,8 @@ public class SerializationUnitTest {
         assertEquals(difficulties.MEDIUM, testGameTwo.getDiff());
         assertEquals(characters.HPOCKET, testGameTwo.getCharacter());
         assertEquals(3, testGameTwo.getLevelSet().size());
-        assertEquals(4, testGameTwo.getLevelSet().get(0).getRooms().size());
-        assertEquals(1, testGameTwo.getLevelSet().get(0).getRooms().get(1).getEnemyList().size());
+        assertEquals(3, testGameTwo.getLevelSet().get(0).getRooms().size());
+        assertEquals(0, testGameTwo.getLevelSet().get(0).getRooms().get(1).getEnemyList().size());
         assertEquals(50, testGameTwo.getUser().getHealth());
     }
 }
