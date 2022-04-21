@@ -1,6 +1,7 @@
 package model;
 
 import java.util.*;
+import java.util.stream.Stream;
 import java.io.File;
 import java.io.*;
 
@@ -21,7 +22,7 @@ public class LevelData {
     public void load() {
 
         File dir = new File("src/Levels");
-        
+
         File[] directoryListing = dir.listFiles();
         if (directoryListing != null) {
             for (File child : directoryListing) {
@@ -71,20 +72,20 @@ public class LevelData {
                                         enemy enemy1 = new enemy(health, speed, damage, id, x, y);
                                         // ad the entity to the room using the roomId
                                         enemy1.setSize(scale);
-                                        //roomList.get(roomId - 1).addEntity(enemy1);
+                                        // roomList.get(roomId - 1).addEntity(enemy1);
                                         break;
                                     case "obstacle":
                                         obstacle o = new obstacle(health, speed, damage, id, x, y);
-                                        //roomList.get(roomId - 1).addEntity(o);
+                                        // roomList.get(roomId - 1).addEntity(o);
                                         break;
                                     // staircase
                                     case "staircase":
                                         staircase s = new staircase(health, speed, damage, id, x, y);
-                                        //roomList.get(roomId - 1).addEntity(s);
+                                        // roomList.get(roomId - 1).addEntity(s);
                                         break;
                                     case "startpt":
                                         startpt s1 = new startpt(health, speed, damage, id, x, y);
-                                        //roomList.get(roomId - 1).addEntity(s1);
+                                        // roomList.get(roomId - 1).addEntity(s1);
                                         break;
                                     default:
                                         break;
@@ -124,36 +125,60 @@ public class LevelData {
         return null;
 
     }
+
     @Override
     public String toString() {
         return "LevelData [numLevel=" + numLevel + ", roomList=" + roomList + "]";
     }
+
     // This method will be in the Level Builder to save all the rooms and entities
     // in those rooms
     // It will loop through all the rooms and save them in order the rooms were
     // created.
     // It will save the location of all the rooms.
-   public void save() {
-       /*
+    public void save() {
+
         try {
-            
-          
+
+            // loop through all the levels in the directory
+            File dir = new File("../microwaveDungeon/src/Levels");
+            int level;
+            File[] directoryListing = dir.listFiles();
+            for (File file : directoryListing) {
+                String[] list = file.toString().split("\\\\");
+
+                level = Integer.parseInt(list[4].split("\\.")[0]);
+
+                numLevel = level + 1;
+            }
+
             FileWriter fw = new FileWriter("../microwaveDungeon/src/Levels/" + numLevel + ".txt");
             BufferedWriter bw = new BufferedWriter(fw);
+            int id = 1;
             for (room r : roomList) {
-                bw.write("Room-" + r.getId() + "-" + r.getX() + "," + r.getY() + "\n");
-                for (entity e : r.getEntityList()) {
-                    bw.write(e.getClass().getSimpleName() + "," + e.getId() + "," + e.getXcoord() + "," + e.getYcoord() + "," + e.getHealth() + "," + e.getDamage() + "," + e.getSpeed() + "," + 1 + "," + r.getId() + "\n");
+
+                bw.write("Room-" + id + "-" + r.getX() + "," + r.getY() + "\n");
+                for (enemy e : r.getEnemyList()) {
+                    bw.write(e.getClass().getSimpleName() + "," + e.getId() + "," + e.getXcoord() + "," + e.getYcoord()
+                            + "," + e.getHealth() + "," + e.getDamage() + "," + e.getSpeed() + "," + 1 + "," + id
+                            + "\n");
                 }
+                for (obstacle o : r.getObstacleList()) {
+                    bw.write(o.getClass().getSimpleName() + "," + o.getId() + "," + o.getXcoord() + "," + o.getYcoord()
+                            + "," + o.getHealth() + "," + o.getDamage() + "," + o.getSpeed() + "," + 1 + "," + id
+                            + "\n");
+                }
+                
+
                 bw.write("End\n");
+                id++;
             }
             bw.close();
         } catch (IOException e) {
             System.out.println("Problem writing file");
         }
-*/
-    }
 
+    }
 
     // This will add a room to the level.
     public void addRoom(room r) {

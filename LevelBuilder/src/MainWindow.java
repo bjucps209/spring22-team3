@@ -3,31 +3,18 @@
 //File:   MainWindow.java
 //Desc:   This is the main window for the program.
 //----------------------------------------------------------- 
-import java.util.ArrayList;
-import java.util.Random;
 
-import javafx.beans.binding.IntegerBinding;
+import java.util.Random;
 import javafx.event.ActionEvent;
 import javafx.event.Event;
 import javafx.fxml.FXML;
 import javafx.scene.Cursor;
 import javafx.scene.Node;
 import javafx.scene.control.*;
-import javafx.scene.control.Alert.AlertType;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
-import javafx.scene.media.Track;
-
-import model.CritterType;
-import model.Level;
-import model.LevelData;
-import model.directions;
-import model.enemy;
-import model.entity;
-import model.obstacle;
-import model.room;
-import model.staircase;
+import model.*;
 
 import java.io.*;
 
@@ -52,6 +39,12 @@ public class MainWindow {
     Button upBtn;
     @FXML
     Button downBtn;
+    @FXML
+    Button startBtn;
+    @FXML
+    Button deletestartptBtn;
+    ImageView tempImage = new ImageView();
+    room tempRoom = new room(0, 0, true);
 
     @FXML
     void initialize() {
@@ -63,6 +56,11 @@ public class MainWindow {
         currentRoom = r;
         currentLevel = level;
         checkBounds();
+        deletestartptBtn.disableProperty().set(true);
+        leftBtn.setUserData(new String("left"));
+        rightBtn.setUserData(new String("right"));
+        upBtn.setUserData(new String("up"));
+        downBtn.setUserData(new String("down"));
 
     }
 
@@ -71,188 +69,122 @@ public class MainWindow {
     final Image IMG_WAVE = new Image("images/wave.png");
     final Image IMG_MICROWAVE = new Image("images/microwave.png");
     final Image IMG_OBSTACLE = new Image("images/obstacle.png");
+    final Image IMG_STAIRCASE = new Image("images/staircase.png");
+    final Image IMG_SPAWN = new Image("images/spawn.png");
+    final Image IMG_RED = new Image("images/red.png");
     room currentRoom;
     LevelData currentLevel;
     static ImageView entitySelected;
+    Boolean startPlaced = false;
 
     int roomCounter = 0;
 
-Boolean checkRoomsAround(String direction) {
+    Boolean checkRoomsAround(String direction) {
         // check if there is a room to the left using findRoom
-        switch (direction) {
-            case "left":
-                if(currentLevel.findRoom(currentRoom.getX() - 1, currentRoom.getY()) == null) {
-                    return false;
-               
-                    
-                }
-                else{
-                    return true;
-                }
-                
-            case "right":
-
-                if(currentLevel.findRoom(currentRoom.getX() + 1, currentRoom.getY()) == null) {
-                    return false;
-                }
-                else{
-                    return true;
-                }
-            case "up":
-                if(currentLevel.findRoom(currentRoom.getX(), currentRoom.getY() + 1) == null) {
-                    return false;
-                }
-                else{
-                    return true;
-                }
-
-               
-            case "down":
-                if(currentLevel.findRoom(currentRoom.getX(), currentRoom.getY() - 1) == null) {
-                    return false;
-                }
-                else{
-                    return true;
-                }
-
-                
-
-            default:
-                return false;
-        }
+        Boolean check =  currentLevel.findRoom(currentRoom.getX() + Integer.parseInt(checkDirection(direction).split(",")[0]), currentRoom.getY() +Integer.parseInt(checkDirection(direction).split(",")[1]) ) != null;
+        return check;
 
     }
 
     @FXML
-    void createRoom(ActionEvent event) {
+    void setSpawnPoint(ActionEvent event) {
+        startPlaced = true;
+        Button source = (Button) event.getSource();
+        source.disableProperty().set(true);
+        deletestartptBtn.disableProperty().set(false);
+        ImageView img = new ImageView(IMG_SPAWN);
 
-        Object button = event.getSource();
-        if (button == leftBtn) {
-            if(checkRoomsAround("left")){
-                clearPane();
-               currentRoom = currentLevel.findRoom(currentRoom.getX() - 1, currentRoom.getY());
-               loadRoom(currentRoom.getX(), currentRoom.getY());
-            }       
-            else{
-                clearPane();
-                room r = new room(currentRoom.getX() - 1, currentRoom.getY(), false);
-                // print coordinates
-                
-                System.out.println("Room created at: " + r.getX() + "," + r.getY());
-                currentLevel.addRoom(r);
-                loadRoom(currentRoom.getX() - 1, currentRoom.getY());
-                currentRoom = r;
-            }
-        
-
-        } else if (button == rightBtn) {
-            if(checkRoomsAround("right")){
-                clearPane();
-                currentRoom = currentLevel.findRoom(currentRoom.getX() + 1, currentRoom.getY());
-                loadRoom(currentRoom.getX(), currentRoom.getY());
-            }
-            else{
-                clearPane();
-                room r = new room(currentRoom.getX() + 1, currentRoom.getY(), false);
-                // print coordinates
-    
-                System.out.println("Room created at: " + r.getX() + "," + r.getY());
-                currentLevel.addRoom(r);
-                loadRoom(currentRoom.getX() + 1, currentRoom.getY());
-                currentRoom = r;
-            }
-            
-
-        } else if (button == upBtn) {
-            if(checkRoomsAround("up")){
-                clearPane();
-                currentRoom = currentLevel.findRoom(currentRoom.getX(), currentRoom.getY() + 1);
-                loadRoom(currentRoom.getX(), currentRoom.getY());
-            }
-            else{
-                clearPane();
-                room r = new room(currentRoom.getX(), currentRoom.getY() + 1, false);
-                // print coordinates
-    
-                System.out.println("Room created at: " + r.getX() + "," + r.getY());
-                currentLevel.addRoom(r);
-                loadRoom(currentRoom.getX(), currentRoom.getY() + 1);
-                currentRoom = r;
-            }
-            
-        } else if (button == downBtn) {
-            if(checkRoomsAround("down")){
-                clearPane();
-                currentRoom = currentLevel.findRoom(currentRoom.getX(), currentRoom.getY() - 1);
-                loadRoom(currentRoom.getX(), currentRoom.getY());
-            }
-            else{
-                clearPane();
-                room r = new room(currentRoom.getX(), currentRoom.getY() - 1, false);
-                // print coordinates
-    
-                System.out.println("Room created at: " + r.getX() + "," + r.getY());
-                currentLevel.addRoom(r);
-                loadRoom(currentRoom.getX(), currentRoom.getY() - 1);
-                currentRoom = r;
-            }
-           
-           
-        }
-        checkBounds();
-
-    }
-   
-
-    void checkBounds() {
-        // check to see if the room to the left is not -1 and if it is disable the left
-        // button
-        if (currentRoom.getX() == 0) {
-            leftBtn.setDisable(true);
-        } else {
-            leftBtn.setDisable(false);
-        }
-        // check to see if the room to the right is not 5 and if it is disable the right
-        // button
-        if (currentRoom.getX() == 4) {
-            rightBtn.setDisable(true);
-        } else {
-            rightBtn.setDisable(false);
-        }
-        // check to see if the room to the top is not 5 and if it is disable the up
-        // button
-        if (currentRoom.getY() == 4) {
-            upBtn.setDisable(true);
-        } else {
-            upBtn.setDisable(false);
-        }
-        // check to see if the room to the bottom is not -1 and if it is disable the
-        // down button
-        if (currentRoom.getY() == 0) {
-            downBtn.setDisable(true);
-        } else {
-            downBtn.setDisable(false);
-        }
-
-    }
-
-    @FXML
-    void onWaveClicked(ActionEvent event) {
-        enemy enemy = new enemy(100, 10, 20, 1, new Random().nextInt(780), new Random().nextInt(480));
-        currentRoom.addEnemy(enemy);
-        var img = new ImageView(IMG_WAVE);
-        img.setFitHeight(100);
-        img.setFitWidth(100);
-        System.out.println(enemy.getId());
-
-        img.relocate(enemy.getXcoord(), enemy.getYcoord());
+        startpt s = new startpt(0, 0, 0, 0, 300, 300);
+        currentRoom.setStart(s);
+        img.setFitHeight(50);
+        img.setFitWidth(50);
         pane.getChildren().add(img);
-        img.setUserData(enemy);
+        img.setUserData(s);
         currentRoom.addImage(img);
-
+        img.relocate(s.getXcoord(), s.getYcoord());
         img.setOnMouseClicked(e -> {
             onCritterClicked(event, img);
         });
+
+    }
+
+    @FXML
+    void deleteSpawnPoint(ActionEvent event) {
+        Button source = (Button) event.getSource();
+        source.disableProperty().set(true);
+        startPlaced = false;
+        startBtn.disableProperty().set(false);
+
+        currentLevel.getRoomList().forEach(room -> {
+            room.getImageList().forEach(image -> {
+                if (image.getUserData() instanceof startpt) {
+                    tempImage = image;
+                    tempRoom = room;
+
+                }
+            });
+        });
+        pane.getChildren().remove(tempImage);
+        tempRoom.getImageList().remove(tempImage);
+        tempRoom.setStart(null);
+    }
+    void moveRoom(String dir){
+      
+        currentRoom = currentLevel.findRoom(currentRoom.getX() + Integer.parseInt(checkDirection(dir).split(",")[0]), currentRoom.getY() +Integer.parseInt(checkDirection(dir).split(",")[1]));
+        loadRoom(currentRoom.getX(), currentRoom.getY());
+        checkBounds();
+    }
+    String checkDirection(String dir){
+        //get an input like "left" and return something like (-1,0) to signal in what direction to move
+        switch (dir){
+            case "left":
+                return "-1,0";
+            case "right":
+                return "1,0";
+            case "up":
+                return "0,1";
+            case "down":
+                return "0,-1";
+            default:
+                return "";
+        }
+
+    }
+    @FXML
+    void createRoom(ActionEvent event) {
+        clearPane();
+        Button button = (Button) event.getSource();
+       String direction =(String) button.getUserData();
+       Boolean canMove = checkRoomsAround(direction);
+         if(canMove){
+              moveRoom(direction);
+         }
+         else{
+             
+             room r = new room(currentRoom.getX() + Integer.parseInt(checkDirection(direction).split(",")[0]), currentRoom.getY() +Integer.parseInt(checkDirection(direction).split(",")[1]), false);
+             currentLevel.addRoom(r);
+            currentRoom = r;
+            
+         }
+        checkBounds();
+
+
+
+    }
+
+    void checkBounds() {
+        // check to the left
+        Boolean check = currentRoom.getX() == 0 ? true : false;
+        leftBtn.setDisable(check);
+        // check to the right
+        check = currentRoom.getX() == 4 ? true : false;
+        rightBtn.setDisable(check);
+        // check to the top
+        check = currentRoom.getY() == 4 ? true : false;
+        upBtn.setDisable(check);
+        // check to the bottom
+        check = currentRoom.getY() == 0 ? true : false;
+        downBtn.setDisable(check);
 
     }
 
@@ -273,7 +205,8 @@ Boolean checkRoomsAround(String direction) {
         });
 
     }
-    void clearPane(){
+
+    void clearPane() {
         entitySelected = null;
         // clear the table
         lblId.setText("");
@@ -289,12 +222,12 @@ Boolean checkRoomsAround(String direction) {
         for (ImageView img : currentRoom.getImageList()) {
             pane.getChildren().remove(img);
         }
-        
+
     }
+
     void loadRoom(int x, int y) {
         // find the room, if there is one and load it placing the images on the pane
         // clear all the entity images from the pane
-        
 
         for (ImageView e : currentLevel.findRoom(x, y).getImageList()) {
 
@@ -307,12 +240,9 @@ Boolean checkRoomsAround(String direction) {
     void selectEntity(Node img) {
 
         if (entitySelected != null) {
-            for (ImageView c : currentRoom.getImageList()) {
-
+            currentRoom.getImageList().forEach(c -> {
                 c.getStyleClass().remove("current");
-
-            }
-
+            });
         }
         img.getStyleClass().add("current");
     }
@@ -323,13 +253,12 @@ Boolean checkRoomsAround(String direction) {
         entity.setHealth(Integer.parseInt(txthealth.getText()));
         entity.setSpeed(Double.parseDouble(txtSpeed.getText()));
         entity.setDamage(Double.parseDouble(txtDamage.getText()));
-        // currentLevel.save();
+        currentLevel.save();
 
     }
 
     @FXML
     void onCritterClicked(Event event, ImageView img) {
-        entity enemy = (entity) img.getUserData();
 
         makeDraggable(img);
         selectEntity(img);
@@ -341,9 +270,15 @@ Boolean checkRoomsAround(String direction) {
     }
 
     @FXML
-    void ongunWaveClicked(ActionEvent event) {
+    void placeEntity(ActionEvent event) {
+
+        // get the button that was clicked
+        var img = new ImageView(
+                ((ImageView) (((Button) event.getSource())
+                .getChildrenUnmodifiable().get(0))).getImage());
+        // TODO: add the ability to add an obstacle
+
         enemy enemy = new enemy(100, 10, 20, 1, new Random().nextInt(780), new Random().nextInt(480));
-        var img = new ImageView(IMG_MICROWAVE);
         currentRoom.addEnemy(enemy);
         img.setFitHeight(100);
         img.setFitWidth(100);
@@ -366,8 +301,15 @@ Boolean checkRoomsAround(String direction) {
             // check to see what kind of entity it is
             if (entitySelected.getUserData() instanceof enemy) {
                 currentRoom.removeEnemy((enemy) entitySelected.getUserData());
+                // remove the image from the room
+                currentRoom.removeImage(entitySelected);
             } else if (entitySelected.getUserData() instanceof obstacle) {
                 currentRoom.removeObstacle((obstacle) entitySelected.getUserData());
+                currentRoom.removeImage(entitySelected);
+            } // startPoint
+            else if (entitySelected.getUserData() instanceof startpt) {
+                // currentRoom.removeStartPoint((startpt) entitySelected.getUserData());
+                currentRoom.removeImage(entitySelected);
             }
 
             entitySelected = null;
@@ -395,15 +337,11 @@ Boolean checkRoomsAround(String direction) {
     void updateTable(int x, int y, int id, int health, double speed, double damage) {
         lblId.setText(String.valueOf(id));
         lblLoc.setText(String.valueOf(x + "," + y));
-        if (entitySelected.getUserData() instanceof obstacle) {
-            txtDamage.disableProperty().set(true);
-            txthealth.disableProperty().set(true);
-            txtSpeed.disableProperty().set(true);
-        } else {
-            txtDamage.disableProperty().set(false);
-            txthealth.disableProperty().set(false);
-            txtSpeed.disableProperty().set(false);
-        }
+        Boolean isEnemy = entitySelected.getUserData() instanceof enemy;
+        txtDamage.disableProperty().set(!isEnemy);
+        txthealth.disableProperty().set(!isEnemy);
+        txtSpeed.disableProperty().set(!isEnemy);
+
         txthealth.setText(String.valueOf(((entity) (entitySelected.getUserData())).getHealth()));
         txtSpeed.setText(String.valueOf(((entity) entitySelected.getUserData()).getSpeed()));
         txtDamage.setText(String.valueOf(((entity) entitySelected.getUserData()).getDamage()));
