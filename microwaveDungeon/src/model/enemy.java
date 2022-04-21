@@ -38,10 +38,10 @@ public class enemy extends entity {
             direction2 = Math.atan((playerY - Ycoord)/(playerX - Xcoord)) *(180 / Math.PI) + 180;
         } else if (playerX < Xcoord && playerY > Ycoord){
             direction = Math.atan((playerY - Ycoord)/(playerX - Xcoord)) *(180 / Math.PI) + 180;
-            direction2 = Math.atan((playerY - Ycoord)/(playerX - Xcoord)) *(180 / Math.PI);
+            direction2 = Math.atan((playerY - Ycoord)/(playerX - Xcoord)) *(180 / Math.PI) + 180;
         } else if (playerX > Xcoord && playerY < Ycoord){
             direction = Math.atan((playerY - Ycoord)/(playerX - Xcoord)) *(180 / Math.PI);
-            direction2 = Math.atan((playerY - Ycoord)/(playerX - Xcoord)) *(180 / Math.PI) + 180;
+            direction2 = Math.atan((playerY - Ycoord)/(playerX - Xcoord)) *(180 / Math.PI);
         } else if (playerX > Xcoord && playerY > Ycoord){
             direction = Math.atan((playerY - Ycoord)/(playerX - Xcoord)) *(180 / Math.PI);
             direction2 = Math.atan((playerY - Ycoord)/(playerX - Xcoord)) *(180 / Math.PI);
