@@ -1,7 +1,7 @@
 package model;
 
-import java.io.DataOutputStream;
 import java.io.IOException;
+import java.io.PrintWriter;
 
 public class obstacle extends entity {
 
@@ -15,8 +15,8 @@ public class obstacle extends entity {
 
     @Override
     // Given an OutputStream, this method saves the obstacle's attributes 
-    public void save(DataOutputStream output) throws IOException {
-        output.writeInt(getXcoord());
-        output.writeInt(getYcoord());
+    public void save(PrintWriter output) throws IOException {
+        output.println(getXcoord());
+        output.println(getYcoord());
     }
 }

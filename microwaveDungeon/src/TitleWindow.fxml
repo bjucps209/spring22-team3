@@ -16,5 +16,7 @@
 
     <Button fx:id="leaderboard" onAction="#onLeaderboardClicked" text="Leaderboard" />
 
+    <Button onAction="#onQuitClicked" text="Quit" />
+
 
 </VBox> 

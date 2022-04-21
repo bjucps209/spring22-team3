@@ -1,5 +1,7 @@
+import java.io.BufferedReader;
 import java.io.DataInputStream;
 import java.io.FileInputStream;
+import java.io.FileReader;
 import java.io.IOException;
 import javafx.scene.layout.BackgroundImage;
 import javafx.animation.KeyFrame;
@@ -20,6 +22,7 @@ import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.*;
 import javafx.stage.Stage;
+import javafx.stage.WindowEvent;
 import javafx.util.Duration;
 import model.*;
 
@@ -35,6 +38,8 @@ public class GameWindow {
     Label healthLbl, scoreLbl, timeLbl;
 
     private Game game;
+
+    boolean isNotPaused = true; // Value that if false when the pause window is open
 
     private difficulties diff;
 
@@ -114,23 +119,25 @@ public class GameWindow {
     // updates the view based on changes in the model
     @FXML
     public void updateEnemyPositions(ActionEvent e) {
-        var ls = game.getLevelSet().get(game.getCurrentLevel()).getRooms().get(game.getCurrentRoom()).getEnemyList();
-        int len = ls.size();
-        for (int i = 0; i < len; ++i) {
-            final int currentI = i;
-            ls.get(i).updatePosition(Gamepane.getChildren().get(0).getLayoutX(),Gamepane.getChildren().get(0).getLayoutY());
+        if(isNotPaused) {
+            var ls = game.getLevelSet().get(game.getCurrentLevel()).getRooms().get(game.getCurrentRoom()).getEnemyList();
+            int len = ls.size();
+            for (int i = 0; i < len; ++i) {
+                final int currentI = i;
+                ls.get(i).updatePosition(Gamepane.getChildren().get(0).getLayoutX(),
+                        Gamepane.getChildren().get(0).getLayoutY());
+                Platform.runLater(() -> {
+                    Gamepane.getChildren().get(currentI + 1).setLayoutX(ls.get(currentI).getXcoord());
+                    Gamepane.getChildren().get(currentI + 1).setLayoutY(ls.get(currentI).getYcoord());
+                });
+
+            }
             Platform.runLater(() -> {
-                Gamepane.getChildren().get(currentI + 1).setLayoutX(ls.get(currentI).getXcoord());
-                Gamepane.getChildren().get(currentI + 1).setLayoutY(ls.get(currentI).getYcoord());
+                healthLbl.setText("Health: " + player.getHealth()); // Update health, score, & time labels
+                scoreLbl.setText("Score: " + game.getScore());
+                timeLbl.setText("Time: " + game.getTimePassed());
             });
-
         }
-        Platform.runLater(() -> {
-            healthLbl.setText("Health: " + player.getHealth()); // Update health, score, & time labels
-            scoreLbl.setText("Score: " + game.getScore());
-            timeLbl.setText("Time: " + game.getTimePassed());
-        });
-
     }
 
     // updates entities when a collision is detected
@@ -215,6 +222,18 @@ public class GameWindow {
                 timer.play();
                 break;
 
+            case ESCAPE: // Added to make it easier to open the pause menu
+                try {
+                    onPauseClicked(new ActionEvent());
+                } catch (IOException e) {
+                    Alert a = new Alert(AlertType.ERROR, "There was a problem when opening the pause menu.");
+                    a.show();
+                }
+
+                //added default case to prevent lots of warnings
+            default:
+                break;
+
         }
 
     }
@@ -240,8 +259,10 @@ public class GameWindow {
         throw new RuntimeException("Method not implemented");
     }
 
+    // Pauses the game and opens the Pause Menu
     @FXML
     void onPauseClicked(ActionEvent event) throws IOException {
+        isNotPaused = false;
         var loader = new FXMLLoader(getClass().getResource("PauseMenu.fxml"));
         var scene = new Scene(loader.load());
 
@@ -249,6 +270,7 @@ public class GameWindow {
         stage.setScene(scene);
         stage.show();
         stage.setTitle("Pause Menu");
+        
     }
 
     @FXML
@@ -273,15 +295,8 @@ public class GameWindow {
 
     // This method is called to call the load method in the game object
     public void load() {
-        game = game.load();
-        try (DataInputStream input = new DataInputStream(new FileInputStream("src\\Saves\\SavedGame.txt"))) {
-            player = player.load(input);
-            game.setUser(player);
-        } catch (IOException e) {
-            e.printStackTrace();
-            Alert a = new Alert(AlertType.ERROR, "There was a problem reading the save file: " + e.getMessage());
-            a.show();
-        }
+        game = game.load(false);
+        player = game.getUser();
         character = game.getCharacter();
         switch (character){
             case PIZZA:
@@ -326,5 +341,11 @@ public class GameWindow {
 
     public player getPlayer() {
         return player;
+    }
+
+    // Unpauses the game when called
+    public void resume() {
+        isNotPaused = true;
+        Gamepane.requestFocus();
     }
 }

@@ -1,48 +1,109 @@
-100 (Score)
-55 (Time)
-1 (# of Levels)
-2 (# of Rooms)
-0 (Room X)
-0 (Room Y)
-true (stairs?)
-5 (stairs x)
-5 (stairs y)
-2 (# of Obstacles)
-45 (Obstacle X)
-23 (Obstacle Y)
-14 (Obstacle X)
-76 (Obstacle Y)
-2 (# of Enemies)
-001 (Enemy id)
-32 (Enemy X)
-9 (Enemy Y)
-34 (Enemy Health)
-5 (Enemy Speed)
-10 (Enemy Damage)
-002 (Enemy id)
-312 (Enemy X)
-20 (Enemy Y)
-58 (Enemy Health)
-3 (Enemy Speed)
-13 (Enemy Damage)
-0 (Room X)
-1 (Room Y)
-1 (# of Obstacles)
-55 (Obstacle X)
-5 (Obstacle Y)
-1 (# of Enemies)
-003 (Enemy id)
-47 (Enemy X)
-490 (Enemy Y)
-98 (Enemy Health)
-6 (Enemy Speed)
-24 (Enemy Damage)
-120 (Player Health)
-15 (Player Speed)
-20 (Player Damage)
-000 (Player Id)
-50 (Player X)
-50 (Player Y)
-0 (Player Room Coord X)
-0 (Player Room Coord Y)
-0 (Player floor)
+3
+4
+100
+55
+3
+3
+0
+2
+false
+0
+1
+5
+10.0
+2.0
+1
+425
+275
+0
+1
+2
+false
+0
+0
+2
+2
+false
+0
+0
+7
+2
+2
+false
+0
+0
+1
+2
+false
+0
+0
+2
+1
+false
+0
+0
+2
+0
+false
+0
+0
+3
+2
+false
+0
+0
+2
+3
+false
+0
+0
+3
+3
+false
+0
+0
+7
+2
+2
+false
+0
+0
+1
+2
+false
+0
+0
+2
+1
+false
+0
+0
+2
+0
+false
+0
+0
+3
+2
+false
+0
+0
+2
+3
+false
+0
+0
+3
+3
+false
+0
+0
+18
+2.0
+2.0
+69
+320
+180
+0
+0
+0

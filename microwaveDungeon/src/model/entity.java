@@ -1,7 +1,7 @@
 package model;
 
-import java.io.DataOutputStream;
 import java.io.IOException;
+import java.io.PrintWriter;
 
 public class entity {
 
@@ -96,13 +96,13 @@ public class entity {
 
 
     // Given an OutputStream, this method saves the entity's attributes 
-    public void save(DataOutputStream output) throws IOException {
-            output.writeInt(health);
-            output.writeDouble(speed);
-            output.writeDouble(damage); //changed these from int to Double for more specific numbers
-            output.writeInt(id);
-            output.writeInt(Xcoord);
-            output.writeInt(Ycoord);
+    public void save(PrintWriter output) throws IOException {
+            output.println(health);
+            output.println(speed);
+            output.println(damage); 
+            output.println(id);
+            output.println(Xcoord);
+            output.println(Ycoord);
     }
     
 }

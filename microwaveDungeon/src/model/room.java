@@ -1,9 +1,9 @@
 package model;
 
 import java.util.ArrayList;
-import java.io.DataInputStream;
-import java.io.DataOutputStream;
+import java.io.BufferedReader;
 import java.io.IOException;
+import java.io.PrintWriter;
 
 public class room {
     
@@ -39,37 +39,41 @@ public class room {
     }
     
 
-    // Given an OutputStream, this method saves the room's attributes 
-    public void save(DataOutputStream output) throws IOException {
-        output.writeInt(x);
-        output.writeInt(y);
+    // Given an PrintWriter, this method saves the room's attributes 
+    public void save(PrintWriter output) throws IOException {
+        output.println(x);
+        output.println(y);
         if(stairs != null) {
-            output.writeBoolean(true);
+            output.println(true);
             stairs.save(output);
         }
         else
-            output.writeBoolean(false);
-        output.writeInt(obstacleList.size());
+            output.println(false);
+        output.println(obstacleList.size());
         for(obstacle o: obstacleList) {
             o.save(output);
         }
-        output.writeInt(enemyList.size());
+        output.println(enemyList.size());
         for(enemy e: enemyList) {
             e.save(output);
         }
     }
 
     //Factory Method that builds/loads a room based off a DataInputStream
-    public static room load(DataInputStream input) throws IOException {
-        room output = new room(input.readInt(), input.readInt(), false);
-        if(input.readBoolean()) 
-            output.setStaircase(new staircase(-1, 0, 0, -1, input.readInt(), input.readInt())); // TODO: Parameters for health and such good?
-        for(int i = 0; i < input.readInt(); ++i) {
-            output.addObstacle(new obstacle(-1, 0, 0, -1, input.readInt(), input.readInt())); // TODO: Parameters for health and such good?
+    public static room load(BufferedReader input) throws IOException {
+        String x = input.readLine();
+        String y = input.readLine();
+        room output = new room(Integer.parseInt(x), Integer.parseInt(y), false);
+        if(Boolean.parseBoolean(input.readLine())) 
+            output.setStaircase(new staircase(0, 0, 0, 0, Integer.parseInt(input.readLine()), Integer.parseInt(input.readLine()))); // TODO: Parameters for health and such good?
+        int obstacleCount = Integer.parseInt(input.readLine());
+        for(int i = 0; i < obstacleCount; ++i) {
+            output.addObstacle(new obstacle(-1, 0, 0, -1, Integer.parseInt(input.readLine()), Integer.parseInt(input.readLine()))); // TODO: Parameters for health and such good?
         }
-        for(int i = 0; i < input.readInt(); ++i) {
-            enemy e = new enemy(input.readInt(), input.readDouble(), input.readDouble(), input.readInt(), input.readInt(), input.readInt());
-            e.setSize(input.readInt());
+        int enemyCount = Integer.parseInt(input.readLine());
+        for(int i = 0; i < enemyCount; ++i) {
+            enemy e = new enemy(Integer.parseInt(input.readLine()), Double.parseDouble(input.readLine()), Double.parseDouble(input.readLine()), Integer.parseInt(input.readLine()), Integer.parseInt(input.readLine()), Integer.parseInt(input.readLine()));
+            e.setSize(Integer.parseInt(input.readLine()));
             output.addEnemy(e);
         }
         return output;
