@@ -21,39 +21,39 @@ public class LevelDataTest {
         LevelData level = new LevelData(1);
 
         level.load();
-        assertEquals(2, level.getRoomList().size());
+        assertEquals(1, level.getRoomList().size());
         assertEquals(
-            "LevelData [numLevel=1, roomList=[room [x=0, y=0, entityList=entity [health=100, speed=10, id=1, damage=20, Xcoord=400, Ycoord=300]], room [x=1, y=0, entityList=entity [health=11, speed=32, id=1, damage=12, Xcoord=43, Ycoord=32], entity [health=33, speed=33, id=2, damage=33, Xcoord=24, Ycoord=54]]]]", level.toString());
+            "LevelData [numLevel=1, roomList=[room [x=0, y=0, enemyList=entity [health=100, speed=10.0, id=1, damage=20.0, Xcoord=438, Ycoord=438], entity [health=100, speed=10.0, id=2, damage=20.0, Xcoord=446, Ycoord=211], entity [health=100, speed=10.0, id=3, damage=20.0, Xcoord=155, Ycoord=204], entity [health=100, speed=10.0, id=4, damage=20.0, Xcoord=284, Ycoord=16]]]", level.toString());
 
     }
 
-    // @Test
-    // public void test_AddEntity() {
-    //     LevelData level = new LevelData(1);
-    //     level.addRoom(new room(0, 0, true));
-    //     level.findRoom(0, 0).addEntity(new enemy(10, 10, 10, 10, 100, 100));
-    //     assertEquals(1, level.findRoom(0, 0).getEntityList().size());
+     @Test
+     public void test_AddEntity() {
+        LevelData level = new LevelData(1);
+         level.addRoom(new room(0, 0, true));
+         level.findRoom(0, 0).addEnemy(new enemy(10, 10, 10, 10, 100, 100));
+        assertEquals(1, level.findRoom(0, 0).getEnemyList().size());
 
-    // }
+     }
 
-    // @Test
-    // public void test_Save() throws IOException {
+     @Test
+     public void test_Save() throws IOException {
 
-    //     LevelData level = new LevelData(1);
-    //     level.addRoom(new room(0, 0, true));
-    //     level.findRoom(0, 0).addEntity(new enemy(10, 10, 10, 10, 100, 100));
-    //     level.save();
-    //     assertEquals(1, level.getRoomList().size());
-    // }
+         LevelData level = new LevelData(1);
+         level.addRoom(new room(0, 0, true));
+         level.findRoom(0, 0).addEnemy(new enemy(10, 10, 10, 10, 100, 100));
+         level.save();
+         assertEquals(1, level.getRoomList().size());
+     }
 
-    // @Test
-    // public void test_findRoom() {
-    //     LevelData level = new LevelData(1);
-    //     level.addRoom(new room(0, 0, true));
-    //     level.findRoom(0, 0).addEntity(new enemy(10, 10, 10, 10, 100, 100));
-    //     assertEquals(1, level.findRoom(0, 0).getEntityList().size());
+     @Test
+     public void test_findRoom() {
+        LevelData level = new LevelData(1);
+        level.addRoom(new room(0, 0, true));
+         level.findRoom(0, 0).addEnemy(new enemy(10, 10, 10, 10, 100, 100));
+         assertEquals(1, level.findRoom(0, 0).getEnemyList().size());
 
-    // }
+     }
 
     @Test
     public void test_getRoomList() {

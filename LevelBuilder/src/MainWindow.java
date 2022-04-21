@@ -4,19 +4,26 @@
 //Desc:   This is the main window for the program.
 //----------------------------------------------------------- 
 
+import java.io.File;
+import java.io.IOException;
 import java.util.Random;
+
+import javax.naming.spi.DirStateFactory.Result;
+
 import javafx.event.ActionEvent;
 import javafx.event.Event;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.scene.Cursor;
 import javafx.scene.Node;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
+import javafx.stage.Stage;
 import model.*;
-
-import java.io.*;
 
 public class MainWindow {
     @FXML
@@ -45,22 +52,45 @@ public class MainWindow {
     Button deletestartptBtn;
     ImageView tempImage = new ImageView();
     room tempRoom = new room(0, 0, true);
+    String type = "";
+    int numLevel = 0;
 
     @FXML
-    void initialize() {
-
-        entity.setHandler(this::updateTable);
-        LevelData level = new LevelData(1);
-        room r = new room(0, 0, null);
-        level.addRoom(r);
-        currentRoom = r;
-        currentLevel = level;
-        checkBounds();
-        deletestartptBtn.disableProperty().set(true);
+    void initialize(int setLevel, String setType) {
         leftBtn.setUserData(new String("left"));
         rightBtn.setUserData(new String("right"));
         upBtn.setUserData(new String("up"));
         downBtn.setUserData(new String("down"));
+        entity.setHandler(this::updateTable);
+        deletestartptBtn.disableProperty().set(true);
+        type = setType;
+        
+      
+        if (setLevel == 0) {
+            // loop through all the levels in the directory
+            File dir = new File("../microwaveDungeon/src/Levels");
+            int level;
+            File[] directoryListing = dir.listFiles();
+            for (File file : directoryListing) {
+                String[] list = file.toString().split("\\\\");
+
+                level = Integer.parseInt(list[4].split("\\.")[0]);
+                
+                numLevel = level + 1;
+            }
+
+            LevelData newlevel = new LevelData(numLevel);
+            room r = new room(0, 0, null);
+            newlevel.addRoom(r);
+            currentRoom = r;
+            currentLevel = newlevel;
+            checkBounds();
+        } else {
+            loadLevel(setLevel, new ActionEvent());
+            
+        }
+    
+       
 
     }
 
@@ -81,13 +111,34 @@ public class MainWindow {
 
     Boolean checkRoomsAround(String direction) {
         // check if there is a room to the left using findRoom
-        Boolean check =  currentLevel.findRoom(currentRoom.getX() + Integer.parseInt(checkDirection(direction).split(",")[0]), currentRoom.getY() +Integer.parseInt(checkDirection(direction).split(",")[1]) ) != null;
+        Boolean check = currentLevel.findRoom(
+                currentRoom.getX() + Integer.parseInt(checkDirection(direction).split(",")[0]),
+                currentRoom.getY() + Integer.parseInt(checkDirection(direction).split(",")[1])) != null;
         return check;
 
     }
+    void loadLevel(int levelnum, ActionEvent event) {
+        LevelData level = new LevelData(levelnum);
+        level.load();
+        currentLevel = level;
+        loadRoom(0,0);
+        currentRoom = currentLevel.findRoom(0, 0);
+        checkBounds();
+        for( room r : currentLevel.getRoomList()){
+            for( ImageView i : r.getImageList()){
+                i.setOnMouseClicked(e -> {
+                    onCritterClicked(event, i);
+                });
+            }
+        }
+        
+            
+            
+        }
 
+    
     @FXML
-    void setSpawnPoint(ActionEvent event) {
+    void setSpawnPoint(Event event) {
         startPlaced = true;
         Button source = (Button) event.getSource();
         source.disableProperty().set(true);
@@ -128,15 +179,19 @@ public class MainWindow {
         tempRoom.getImageList().remove(tempImage);
         tempRoom.setStart(null);
     }
-    void moveRoom(String dir){
-      
-        currentRoom = currentLevel.findRoom(currentRoom.getX() + Integer.parseInt(checkDirection(dir).split(",")[0]), currentRoom.getY() +Integer.parseInt(checkDirection(dir).split(",")[1]));
+
+    void moveRoom(String dir) {
+
+        currentRoom = currentLevel.findRoom(currentRoom.getX() + Integer.parseInt(checkDirection(dir).split(",")[0]),
+                currentRoom.getY() + Integer.parseInt(checkDirection(dir).split(",")[1]));
         loadRoom(currentRoom.getX(), currentRoom.getY());
         checkBounds();
     }
-    String checkDirection(String dir){
-        //get an input like "left" and return something like (-1,0) to signal in what direction to move
-        switch (dir){
+
+    String checkDirection(String dir) {
+        // get an input like "left" and return something like (-1,0) to signal in what
+        // direction to move
+        switch (dir) {
             case "left":
                 return "-1,0";
             case "right":
@@ -150,25 +205,24 @@ public class MainWindow {
         }
 
     }
+
     @FXML
     void createRoom(ActionEvent event) {
         clearPane();
         Button button = (Button) event.getSource();
-       String direction =(String) button.getUserData();
-       Boolean canMove = checkRoomsAround(direction);
-         if(canMove){
-              moveRoom(direction);
-         }
-         else{
-             
-             room r = new room(currentRoom.getX() + Integer.parseInt(checkDirection(direction).split(",")[0]), currentRoom.getY() +Integer.parseInt(checkDirection(direction).split(",")[1]), false);
-             currentLevel.addRoom(r);
+        String direction = (String) button.getUserData();
+        Boolean canMove = checkRoomsAround(direction);
+        if (canMove) {
+            moveRoom(direction);
+        } else {
+
+            room r = new room(currentRoom.getX() + Integer.parseInt(checkDirection(direction).split(",")[0]),
+                    currentRoom.getY() + Integer.parseInt(checkDirection(direction).split(",")[1]), false);
+            currentLevel.addRoom(r);
             currentRoom = r;
-            
-         }
+
+        }
         checkBounds();
-
-
 
     }
 
@@ -253,9 +307,14 @@ public class MainWindow {
         entity.setHealth(Integer.parseInt(txthealth.getText()));
         entity.setSpeed(Double.parseDouble(txtSpeed.getText()));
         entity.setDamage(Double.parseDouble(txtDamage.getText()));
-        currentLevel.save();
+       
 
     }
+    @FXML
+    void onSaveLevelClicked(ActionEvent event){
+        currentLevel.save(type);
+    }
+    
 
     @FXML
     void onCritterClicked(Event event, ImageView img) {
@@ -275,7 +334,7 @@ public class MainWindow {
         // get the button that was clicked
         var img = new ImageView(
                 ((ImageView) (((Button) event.getSource())
-                .getChildrenUnmodifiable().get(0))).getImage());
+                        .getChildrenUnmodifiable().get(0))).getImage());
         // TODO: add the ability to add an obstacle
 
         enemy enemy = new enemy(100, 10, 20, 1, new Random().nextInt(780), new Random().nextInt(480));

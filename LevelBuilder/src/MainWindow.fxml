@@ -28,6 +28,8 @@
          <Button fx:id="startBtn" mnemonicParsing="false" onAction="#setSpawnPoint" prefHeight="26.0" prefWidth="98.0" text="Set Start" />
          <Button fx:id="deletestartptBtn" mnemonicParsing="false" onAction="#deleteSpawnPoint" prefHeight="26.0" prefWidth="98.0" text="Remove Start" />
             <Button onAction="#onDeleteClicked" styleClass="leftbutton"><graphic><ImageView><image><Image url="@images/delete-icon.png" /></image></ImageView></graphic></Button>
+         
+         <Button mnemonicParsing="false" onAction="#onSaveLevelClicked" prefHeight="26.0" prefWidth="99.0" text="Save Level" />
             <Button styleClass="leftbutton"><graphic><ImageView><image><Image url="@images/undo-icon.png" /></image></ImageView></graphic></Button>
         </VBox>
         <Pane fx:id="pane" prefHeight="600.0" prefWidth="800.0" style="-fx-background-color: lightgray">

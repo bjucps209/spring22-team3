@@ -61,8 +61,8 @@ public class LevelData {
                                 int x = Integer.parseInt(lineList[2]);
                                 int y = Integer.parseInt(lineList[3]);
                                 int health = Integer.parseInt(lineList[4]);
-                                int damage = Integer.parseInt(lineList[5]);
-                                int speed = Integer.parseInt(lineList[6]);
+                                double damage = Double.parseDouble(lineList[5]);
+                                double speed = Double.parseDouble(lineList[6]);
                                 int scale = Integer.parseInt(lineList[7]);
                                 int roomId = Integer.parseInt(lineList[8]);
                                 // check which entity to create

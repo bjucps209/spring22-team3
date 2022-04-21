@@ -2,16 +2,22 @@ package model;
 
 import java.util.*;
 import java.util.stream.Stream;
+
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
+
 import java.io.File;
 import java.io.*;
 
 public class LevelData {
     int numLevel;
+    int numLevelOld;
     ArrayList<room> roomList = new ArrayList<room>();
 
     // constructor to create a level
     public LevelData(int numLevel) {
         this.numLevel = numLevel;
+        this.numLevelOld = numLevel;
 
     }
 
@@ -21,15 +27,15 @@ public class LevelData {
      */
     public void load() {
 
-        File dir = new File("src/Levels");
-
+        File dir = new File("../microwaveDungeon/src/Levels");
+        
         File[] directoryListing = dir.listFiles();
         if (directoryListing != null) {
             for (File child : directoryListing) {
                 // only load the level we want
                 String[] list = child.toString().split("\\\\");
 
-                if (list[2].equals(numLevel + ".txt")) {
+                if (list[4].equals(numLevel + ".txt")) {
 
                     try {
                         ;
@@ -62,30 +68,43 @@ public class LevelData {
                                 int x = Integer.parseInt(lineList[2]);
                                 int y = Integer.parseInt(lineList[3]);
                                 int health = Integer.parseInt(lineList[4]);
-                                int damage = Integer.parseInt(lineList[5]);
-                                int speed = Integer.parseInt(lineList[6]);
+                                double damage = Double.parseDouble(lineList[5]);
+                                double speed = Double.parseDouble(lineList[6]);
                                 int scale = Integer.parseInt(lineList[7]);
                                 int roomId = Integer.parseInt(lineList[8]);
                                 // check which entity to create
                                 switch (enemy) {
                                     case "enemy":
                                         enemy enemy1 = new enemy(health, speed, damage, id, x, y);
-                                        // ad the entity to the room using the roomId
+                                        ImageView enemyImage = new ImageView(new Image("images/microwave.png"));
+                                        enemyImage.setFitHeight(100);
+                                        enemyImage.setFitWidth(100);
+                                        // add the entity to the room using the roomId
                                         enemy1.setSize(scale);
-                                        // roomList.get(roomId - 1).addEntity(enemy1);
+                                        roomList.get(roomId - 1).addEnemy(enemy1);
+                                       
+                                        roomList.get(roomId - 1).addImage(enemyImage);
+                                        enemyImage.setUserData(enemy1);
+                                        
                                         break;
                                     case "obstacle":
                                         obstacle o = new obstacle(health, speed, damage, id, x, y);
-                                        // roomList.get(roomId - 1).addEntity(o);
+                                        ImageView obstacleImage = new ImageView(new Image("images/obstacle.png"));
+                                        obstacleImage.setFitHeight(50);
+                                        obstacleImage.setFitWidth(50);
+                                        roomList.get(roomId - 1).addObstacle(o);
+                                        roomList.get(roomId - 1).addImage(obstacleImage);
+                                        obstacleImage.setUserData(o);
+                                        
                                         break;
                                     // staircase
                                     case "staircase":
                                         staircase s = new staircase(health, speed, damage, id, x, y);
-                                        // roomList.get(roomId - 1).addEntity(s);
+                                        roomList.get(roomId - 1).setStaircase(s);
                                         break;
                                     case "startpt":
                                         startpt s1 = new startpt(health, speed, damage, id, x, y);
-                                        // roomList.get(roomId - 1).addEntity(s1);
+                                        //roomList.get(roomId - 1).setStartpt(s1);
                                         break;
                                     default:
                                         break;
@@ -136,22 +155,11 @@ public class LevelData {
     // It will loop through all the rooms and save them in order the rooms were
     // created.
     // It will save the location of all the rooms.
-    public void save() {
+    public void save(String type) {
 
         try {
 
-            // loop through all the levels in the directory
-            File dir = new File("../microwaveDungeon/src/Levels");
-            int level;
-            File[] directoryListing = dir.listFiles();
-            for (File file : directoryListing) {
-                String[] list = file.toString().split("\\\\");
-
-                level = Integer.parseInt(list[4].split("\\.")[0]);
-
-                numLevel = level + 1;
-            }
-
+            
             FileWriter fw = new FileWriter("../microwaveDungeon/src/Levels/" + numLevel + ".txt");
             BufferedWriter bw = new BufferedWriter(fw);
             int id = 1;
