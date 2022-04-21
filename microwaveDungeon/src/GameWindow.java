@@ -47,10 +47,13 @@ public class GameWindow {
 
     private player player;
 
+    private double cursorX;
+
+    private double cursorY;
+
     private Thread moveThread;
 
     private KeyFrame kf = new KeyFrame(Duration.millis(10), this::updatePlayer);
-
     private Timeline timer = new Timeline(kf);
 
     final Image enemies = new Image("/imgs/microwave2.gif");
@@ -161,9 +164,13 @@ public class GameWindow {
     // fires at enemies when the mouse is clicked
     @FXML
     public void openFire(MouseEvent e) {
+        cursorX = e.getX();
+        cursorY = e.getY();
+
         int roomIndex = game.getCurrentRoom();
         room room = game.getLevelSet().get(roomIndex).getRooms().get(roomIndex);
-        room.getBulletList().add(new projectile(1000, 15, 1, 5, player.getXcoord(), player.getYcoord()));
+        room.getBulletList().add(new projectile(1000, 10, 1, 5, player.getXcoord(), player.getYcoord()));
+        room.getBulletList().get(room.getBulletList().size() - 1).setDirection(cursorX, cursorY);
         makeImage(bullet, room.getBulletList().get(room.getBulletList().size() - 1)); 
         KeyFrame kf = new KeyFrame(Duration.millis(100), this::movebullet);
         var timer = new Timeline(kf);
