@@ -11,8 +11,6 @@ public class enemy extends entity {
         //TODO Auto-generated constructor stub
     }
 
-    private int updateCount = 0;
-
 
     public void updatePosition(Double playerX, Double playerY) {
 
