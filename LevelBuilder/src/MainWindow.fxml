@@ -14,8 +14,8 @@
     <ImageView><image><Image url="@images/logo.png" /></image></ImageView>
     <HBox spacing="10">
         <VBox spacing="10">
-            <Button onAction="#onWaveClicked" styleClass="leftbutton"><graphic><ImageView fitHeight="74.0" fitWidth="77.0"><image><Image url="@images/wave.png" /></image></ImageView></graphic></Button>
-            <Button onAction="#ongunWaveClicked" styleClass="leftbutton"><graphic><ImageView fitHeight="74.0" fitWidth="77.0"><image><Image url="@images/microwave.png" /></image></ImageView></graphic></Button>
+            <Button onAction="#placeEntity" styleClass="leftbutton"><graphic><ImageView fitHeight="74.0" fitWidth="77.0"><image><Image url="@images/wave.png" /></image></ImageView></graphic></Button>
+            <Button onAction="#placeEntity" styleClass="leftbutton"><graphic><ImageView fitHeight="74.0" fitWidth="77.0"><image><Image url="@images/microwave.png" /></image></ImageView></graphic></Button>
          <Button onAction="#onObstacleClicked" styleClass="leftbutton">
             <graphic>
                <ImageView fitHeight="74.0" fitWidth="77.0">
@@ -25,6 +25,8 @@
                </ImageView>
             </graphic>
          </Button>
+         <Button fx:id="startBtn" mnemonicParsing="false" onAction="#setSpawnPoint" prefHeight="26.0" prefWidth="98.0" text="Set Start" />
+         <Button fx:id="deletestartptBtn" mnemonicParsing="false" onAction="#deleteSpawnPoint" prefHeight="26.0" prefWidth="98.0" text="Remove Start" />
             <Button onAction="#onDeleteClicked" styleClass="leftbutton"><graphic><ImageView><image><Image url="@images/delete-icon.png" /></image></ImageView></graphic></Button>
             <Button styleClass="leftbutton"><graphic><ImageView><image><Image url="@images/undo-icon.png" /></image></ImageView></graphic></Button>
         </VBox>
@@ -35,10 +37,10 @@
                    <Image url="@images/room.png" />
                 </image>
              </ImageView>
-            <Button fx:id="leftBtn" layoutX="-1.0" layoutY="227.0" mnemonicParsing="false" onAction="#createRoom" prefHeight="118.0" prefWidth="30.0" text="+" />
-            <Button fx:id="upBtn" layoutX="319.0" layoutY="1.0" mnemonicParsing="false" onAction="#createRoom" prefHeight="30.0" prefWidth="122.0" text="+" />
+            <Button fx:id="leftBtn" layoutX="-1.0" layoutY="226.0" mnemonicParsing="false" onAction="#createRoom" prefHeight="124.0" prefWidth="30.0" text="+" />
+            <Button fx:id="upBtn" layoutX="323.0" layoutY="1.0" mnemonicParsing="false" onAction="#createRoom" prefHeight="36.0" prefWidth="120.0" text="+" />
             <Button fx:id="downBtn" layoutX="316.0" layoutY="556.0" mnemonicParsing="false" onAction="#createRoom" prefHeight="46.0" prefWidth="129.0" text="+" />
-            <Button fx:id="rightBtn" layoutX="767.0" layoutY="218.0" mnemonicParsing="false" onAction="#createRoom" prefHeight="135.0" prefWidth="38.0" text="+" />
+            <Button fx:id="rightBtn" layoutX="764.0" layoutY="220.0" mnemonicParsing="false" onAction="#createRoom" prefHeight="124.0" prefWidth="38.0" text="+" />
             
          </children></Pane>
         <HBox spacing="10" styleClass="propview">
