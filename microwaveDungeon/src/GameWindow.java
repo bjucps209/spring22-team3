@@ -118,8 +118,7 @@ public class GameWindow {
         int len = ls.size();
         for (int i = 0; i < len; ++i) {
             final int currentI = i;
-            ls.get(i).updatePosition(Gamepane.getChildren().get(Gamepane.getChildren().size() - 1).getLayoutX(),
-                    Gamepane.getChildren().get(Gamepane.getChildren().size() - 1).getLayoutY());
+            ls.get(i).updatePosition(Gamepane.getChildren().get(0).getLayoutX(),Gamepane.getChildren().get(0).getLayoutY());
             Platform.runLater(() -> {
                 Gamepane.getChildren().get(currentI + 1).setLayoutX(ls.get(currentI).getXcoord());
                 Gamepane.getChildren().get(currentI + 1).setLayoutY(ls.get(currentI).getYcoord());
