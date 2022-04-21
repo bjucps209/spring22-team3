@@ -17,8 +17,8 @@ Upon opening the game, you are presented with 4 buttons. Click start to begin th
 ### Serialization
 
 - Implemented save and load methods for model classes
-- Created a functional pause menu
-- Connected save/load with GUI
+- Created a functional pause menu that pauses the game when opened
+- Working save and load functions
 
 ### Auxilary Screens
 
@@ -36,10 +36,11 @@ Upon opening the game, you are presented with 4 buttons. Click start to begin th
 
 ### Basic Gameplay
 
+- None Known
+
 ### Serialization
 
-- Unit test not complete
-- Logic error in loading
+- None Known
 
 ### Auxilary Screens
 
@@ -47,6 +48,7 @@ Upon opening the game, you are presented with 4 buttons. Click start to begin th
 
 ### Level Builder
 
+- None Known
 
 ***
 
@@ -61,7 +63,7 @@ https://youtu.be/9ogX3OZSppQ
 | Team Member Name | Github Username | Ownership Area | Hours contributed| Hours Remaining | TimeJournal |
 | :---|:---|:---|:---|:---|:---|
 | Edward Taylor | etayl261 | Basic Game Play | 30 | 20 | [Time Journal](https://github.com/bjucps209/spring22-team3/wiki/Time-Journal#edward-taylor) |
-| Ethan Wood | thethanwood | Serialization | 26 | 24 | [Time Journal](https://github.com/bjucps209/spring22-team3/wiki/Time-Journal#ethan-wood) |
+| Ethan Wood | thethanwood | Serialization | 29 | 21 | [Time Journal](https://github.com/bjucps209/spring22-team3/wiki/Time-Journal#ethan-wood) |
 | David John Hayes | dhaye039 | Auxiliary screens | 16 | 34 | [Time Journal](https://github.com/bjucps209/spring22-team3/wiki/Time-Journal#david-hayes) |
 | Ryan Kuhn | rkuhn153 | Level Builder | 20 | 30 | [Time Journal](https://github.com/bjucps209/spring22-team3/wiki/Time-Journal#ryan-kuhn) |
 
