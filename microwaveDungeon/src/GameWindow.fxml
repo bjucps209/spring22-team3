@@ -22,7 +22,7 @@
 
     </HBox>
 
-    <Pane fx:id="Gamepane" onMouseEntered="#setCursor" onMouseClicked="#openFire" onKeyPressed="#move" onKeyReleased="#stopMove" minHeight="600" minWidth="800" maxHeight="600" maxWidth="800" styleClass="Gamepane" />
+    <Pane fx:id="Gamepane" onMouseEntered="#setCursor" onMouseClicked="#openFire" minHeight="600" minWidth="800" maxHeight="600" maxWidth="800" styleClass="Gamepane" />
 
     <HBox>
 

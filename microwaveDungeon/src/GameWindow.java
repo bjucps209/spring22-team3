@@ -8,6 +8,7 @@ import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Side;
@@ -47,6 +48,8 @@ public class GameWindow {
 
     private player player;
 
+    private boolean goNorth, goEast, goSouth, goWest;
+
     private double cursorX;
 
     private double cursorY;
@@ -78,6 +81,49 @@ public class GameWindow {
         generate();
         tickProcessing();
         Gamepane.requestFocus();
+
+        setmovement();
+    }
+
+    public void setmovement() {
+
+        //Scene scene = new Scene(Gamepane, Gamepane.widthProperty().get(), Gamepane.heightProperty().get());
+        Scene scene = Gamepane.getScene();
+
+        scene.setOnKeyPressed(new EventHandler<KeyEvent>() {
+            @Override
+            public void handle(KeyEvent event) {
+                switch (event.getCode()) {
+                    case W:    goNorth = true; break;
+                    case S:  goSouth = true; break;
+                    case A:  goWest  = true; break;
+                    case D: goEast  = true; break;
+                    default:   break;
+                }
+                UpdateMove();
+            }
+        });
+
+        scene.setOnKeyReleased(new EventHandler<KeyEvent>() {
+            @Override
+            public void handle(KeyEvent event) {
+                switch (event.getCode()) {
+                    case W:    goNorth = false; break;
+                    case S:  goSouth = false; break;
+                    case A:  goWest  = false; break;
+                    case D: goEast  = false; break;
+                    default:  break;
+                }
+                if (!goNorth && !goSouth && !goWest && !goEast) {
+                    System.out.println("Stopped");
+                    stopMove();
+                } else {
+                    System.out.println("Still moving");
+                    UpdateMove();
+                }
+                
+            }
+        });
     }
 
     @FXML
@@ -195,58 +241,54 @@ public class GameWindow {
     }
 
     // moves the player character when WASD is pressed
-    @FXML
-    public void move(KeyEvent k) {
-        KeyCode dir = k.getCode();
+    public void UpdateMove() {
+        System.out.println("Moving");
 
-        switch (dir) {
+        boolean moving = goNorth || goSouth || goWest || goEast;
 
-            case W:
-                player.setDirection(270);
-                player.setSpeed(5);
-                timer.setCycleCount(Timeline.INDEFINITE);
-                timer.play();
-                break;
+        double direction = 0;
 
-            case A:
-                player.setDirection(180);
-                player.setSpeed(5);
-                timer.setCycleCount(Timeline.INDEFINITE);
-                timer.play();
-                break;
-
-            case S:
-                player.setDirection(90);
-                player.setSpeed(5);
-                timer.setCycleCount(Timeline.INDEFINITE);
-                timer.play();
-                break;
-
-            case D:
-                player.setDirection(360);
-                player.setSpeed(5);
-                timer.setCycleCount(Timeline.INDEFINITE);
-                timer.play();
-                break;
-
-            case ESCAPE: // Added to make it easier to open the pause menu
-                try {
-                    onPauseClicked(new ActionEvent());
-                } catch (IOException e) {
-                    Alert a = new Alert(AlertType.ERROR, "There was a problem when opening the pause menu.");
-                    a.show();
+        if (moving) {
+            if (goNorth) {
+                direction = 270;
+                if (goEast) {
+                    direction += 45;
+                } else if (goWest) {
+                    direction -= 45;
                 }
+            } else if (goSouth) {
+                direction = 90;
+                if (goEast) {
+                    direction -= 45;
+                } else if (goWest) {
+                    direction += 45;
+                }
+            } else if (goWest) {
+                direction = 180;
+            } else if (goEast) {
+                direction = 0;
+            }
+            
 
-                //added default case to prevent lots of warnings
-            default:
-                break;
+            player.setDirection(direction);
+            player.setSpeed(5);
+            timer.setCycleCount(Timeline.INDEFINITE);
+            timer.play();
 
         }
 
+
+        //case ESCAPE: // Added to make it easier to open the pause menu
+        //    try {
+        //        onPauseClicked(new ActionEvent());
+        //    } catch (IOException e) {
+        //        Alert a = new Alert(AlertType.ERROR, "There was a problem when opening the pause menu.");
+        //        a.show();
+        //    }
+
     }
 
-    @FXML
-    public void stopMove(KeyEvent k) {
+    public void stopMove() {
         player.setDirection(0);
         player.setSpeed(0);
         timer.stop();
