@@ -120,10 +120,8 @@ public class GameWindow {
                     default:  break;
                 }
                 if (!goNorth && !goSouth && !goWest && !goEast) {
-                    System.out.println("Stopped");
                     stopMove();
                 } else {
-                    System.out.println("Still moving");
                     UpdateMove();
                 }
                 
@@ -263,7 +261,7 @@ public class GameWindow {
 
     // moves the player character when WASD is pressed
     public void UpdateMove() {
-        System.out.println("Moving");
+      
 
         boolean moving = goNorth || goSouth || goWest || goEast;
 
