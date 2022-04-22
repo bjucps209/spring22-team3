@@ -9,6 +9,7 @@ import java.io.IOException;
 import java.util.Random;
 
 import javax.naming.spi.DirStateFactory.Result;
+import javax.swing.Action;
 
 import javafx.event.ActionEvent;
 import javafx.event.Event;
@@ -22,6 +23,7 @@ import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
+import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import model.*;
 
@@ -49,6 +51,15 @@ public class MainWindow {
     @FXML
     Button startBtn;
     @FXML
+    Label lblRoomCoord;
+    @FXML
+    Button saveBtn;
+    @FXML
+    Button setStairsBtn;
+    @FXML
+    Button removeStairsBtn;
+
+    @FXML
     Button deletestartptBtn;
     ImageView tempImage = new ImageView();
     room tempRoom = new room(0, 0, true);
@@ -64,8 +75,9 @@ public class MainWindow {
         entity.setHandler(this::updateTable);
         deletestartptBtn.disableProperty().set(true);
         type = setType;
-        
-      
+        saveBtn.disableProperty().set(true);
+        removeStairsBtn.disableProperty().set(true);
+
         if (setLevel == 0) {
             // loop through all the levels in the directory
             File dir = new File("../microwaveDungeon/src/Levels");
@@ -75,7 +87,7 @@ public class MainWindow {
                 String[] list = file.toString().split("\\\\");
 
                 level = Integer.parseInt(list[4].split("\\.")[0]);
-                
+
                 numLevel = level + 1;
             }
 
@@ -87,15 +99,12 @@ public class MainWindow {
             checkBounds();
         } else {
             loadLevel(setLevel, new ActionEvent());
-            
+
         }
-    
-       
+        displayCoord();
 
     }
 
-    final Image IMG_ROBOT = new Image("images/robot.png");
-    final Image IMG_BOMB = new Image("images/bomb.png");
     final Image IMG_WAVE = new Image("images/wave.png");
     final Image IMG_MICROWAVE = new Image("images/microwave.png");
     final Image IMG_OBSTACLE = new Image("images/obstacle.png");
@@ -109,6 +118,52 @@ public class MainWindow {
 
     int roomCounter = 0;
 
+    void displayCoord() {
+        lblRoomCoord.setText("(" + currentRoom.getX() + "," + currentRoom.getY() + ")");
+
+    }
+
+    @FXML
+    void setStairs(ActionEvent event) {
+
+        setStairsBtn.disableProperty().set(true);
+        removeStairsBtn.disableProperty().set(false);
+        ImageView img = new ImageView(IMG_STAIRCASE);
+
+        staircase s = new staircase(0, 0, 0, 0, 300, 300);
+        currentRoom.setStaircase(s);
+        img.setFitHeight(50);
+        img.setFitWidth(50);
+        pane.getChildren().add(img);
+        img.setUserData(s);
+        currentRoom.addImage(img);
+        img.relocate(s.getXcoord(), s.getYcoord());
+        img.setOnMouseClicked(e -> {
+            onCritterClicked(event, img);
+        });
+    }
+
+    @FXML
+    void removeStairs(ActionEvent event) {
+
+        removeStairsBtn.disableProperty().set(true);
+
+        setStairsBtn.disableProperty().set(false);
+
+        currentLevel.getRoomList().forEach(room -> {
+            room.getImageList().forEach(image -> {
+                if (image.getUserData() instanceof staircase) {
+                    tempImage = image;
+                    tempRoom = room;
+
+                }
+            });
+        });
+        pane.getChildren().remove(tempImage);
+        tempRoom.getImageList().remove(tempImage);
+        tempRoom.setStart(null);
+    }
+
     Boolean checkRoomsAround(String direction) {
         // check if there is a room to the left using findRoom
         Boolean check = currentLevel.findRoom(
@@ -117,31 +172,42 @@ public class MainWindow {
         return check;
 
     }
+
     void loadLevel(int levelnum, ActionEvent event) {
         LevelData level = new LevelData(levelnum);
         level.load();
         currentLevel = level;
-        loadRoom(0,0);
         currentRoom = currentLevel.findRoom(0, 0);
+        loadRoom(0, 0);
+
         checkBounds();
-        for( room r : currentLevel.getRoomList()){
-            for( ImageView i : r.getImageList()){
+        displayCoord();
+        for (room r : currentLevel.getRoomList()) {
+            for (ImageView i : r.getImageList()) {
                 i.setOnMouseClicked(e -> {
                     onCritterClicked(event, i);
+
                 });
+                if (i.getUserData() instanceof startpt) {
+                    deletestartptBtn.disableProperty().set(false);
+                    startBtn.disableProperty().set(true);
+
+                }
+                if (i.getUserData() instanceof staircase) {
+                    setStairsBtn.disableProperty().set(true);
+                    removeStairsBtn.disableProperty().set(false);
+                }
             }
-        }
-        
-            
-            
+
         }
 
-    
+    }
+
     @FXML
     void setSpawnPoint(Event event) {
         startPlaced = true;
-        Button source = (Button) event.getSource();
-        source.disableProperty().set(true);
+
+        startBtn.disableProperty().set(true);
         deletestartptBtn.disableProperty().set(false);
         ImageView img = new ImageView(IMG_SPAWN);
 
@@ -180,12 +246,53 @@ public class MainWindow {
         tempRoom.setStart(null);
     }
 
+    @FXML
+    void seeLayout(ActionEvent event) {
+        // open RoomView.fxml
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("RoomView.fxml"));
+            Parent root = loader.load();
+            RoomView controller = loader.getController();
+            controller.initialize(currentLevel, currentRoom);
+            Stage stage = new Stage();
+            stage.setTitle("Room Layout");
+            stage.setScene(new Scene(root));
+            stage.show();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+    }
+
     void moveRoom(String dir) {
 
         currentRoom = currentLevel.findRoom(currentRoom.getX() + Integer.parseInt(checkDirection(dir).split(",")[0]),
                 currentRoom.getY() + Integer.parseInt(checkDirection(dir).split(",")[1]));
         loadRoom(currentRoom.getX(), currentRoom.getY());
         checkBounds();
+
+    }
+
+    void checkifOutofBounds(ImageView e) {
+        // check to see if the entity is out of bounds and if so, move it back in bounds
+        entity e1 = (entity) e.getUserData();
+        if (e1.getXcoord() > 700) {
+            e1.setXcoord(700);
+            e.relocate(e1.getXcoord(), e1.getYcoord());
+        }
+        if (e1.getYcoord() > 480) {
+            e1.setYcoord(480);
+            e.relocate(e1.getXcoord(), e1.getYcoord());
+        }
+        if (e1.getXcoord() < 0) {
+            e1.setXcoord(0);
+            e.relocate(e1.getXcoord(), e1.getYcoord());
+        }
+        if (e1.getYcoord() < 0) {
+            e1.setYcoord(0);
+            e.relocate(e1.getXcoord(), e1.getYcoord());
+        }
+
     }
 
     String checkDirection(String dir) {
@@ -223,6 +330,7 @@ public class MainWindow {
 
         }
         checkBounds();
+        displayCoord();
 
     }
 
@@ -268,6 +376,8 @@ public class MainWindow {
         txthealth.setText("");
         txtSpeed.setText("");
         txtDamage.setText("");
+        saveBtn.disableProperty().set(true);
+
         for (ImageView c : currentRoom.getImageList()) {
 
             c.getStyleClass().remove("current");
@@ -289,6 +399,7 @@ public class MainWindow {
             e.relocate(((entity) e.getUserData()).getXcoord(), ((entity) e.getUserData()).getYcoord());
 
         }
+        displayCoord();
     }
 
     void selectEntity(Node img) {
@@ -307,14 +418,13 @@ public class MainWindow {
         entity.setHealth(Integer.parseInt(txthealth.getText()));
         entity.setSpeed(Double.parseDouble(txtSpeed.getText()));
         entity.setDamage(Double.parseDouble(txtDamage.getText()));
-       
 
     }
+
     @FXML
-    void onSaveLevelClicked(ActionEvent event){
+    void onSaveLevelClicked(ActionEvent event) {
         currentLevel.save(type);
     }
-    
 
     @FXML
     void onCritterClicked(Event event, ImageView img) {
@@ -368,7 +478,18 @@ public class MainWindow {
             } // startPoint
             else if (entitySelected.getUserData() instanceof startpt) {
                 // currentRoom.removeStartPoint((startpt) entitySelected.getUserData());
+                currentRoom.setStart(null);
                 currentRoom.removeImage(entitySelected);
+                startBtn.setDisable(false);
+                deletestartptBtn.setDisable(true);
+
+            } else if (entitySelected.getUserData() instanceof staircase) {
+                // currentRoom.removeStaircase((staircase) entitySelected.getUserData());
+                currentRoom.removeImage(entitySelected);
+                currentRoom.setStaircase(null);
+                setStairsBtn.setDisable(false);
+                removeStairsBtn.setDisable(true);
+
             }
 
             entitySelected = null;
@@ -378,6 +499,7 @@ public class MainWindow {
             txthealth.setText("");
             txtSpeed.setText("");
             txtDamage.setText("");
+            saveBtn.disableProperty().set(true);
         }
     }
 
@@ -404,7 +526,7 @@ public class MainWindow {
         txthealth.setText(String.valueOf(((entity) (entitySelected.getUserData())).getHealth()));
         txtSpeed.setText(String.valueOf(((entity) entitySelected.getUserData()).getSpeed()));
         txtDamage.setText(String.valueOf(((entity) entitySelected.getUserData()).getDamage()));
-
+        saveBtn.disableProperty().set(false);
         // txtDamage.setText(String.valueOf(c.getState()));
     }
 
@@ -434,6 +556,7 @@ public class MainWindow {
             entity entity = (entity) node.getUserData();
             entity.setXcoord((int) node.getLayoutX());
             entity.setYcoord((int) node.getLayoutY());
+            checkifOutofBounds((ImageView) node);
 
         });
 

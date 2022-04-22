@@ -8,6 +8,7 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
 
 <VBox alignment="CENTER" spacing="10" stylesheets="@MainWindow.css" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="MainWindow">
 
@@ -27,10 +28,9 @@
          </Button>
          <Button fx:id="startBtn" mnemonicParsing="false" onAction="#setSpawnPoint" prefHeight="26.0" prefWidth="98.0" text="Set Start" />
          <Button fx:id="deletestartptBtn" mnemonicParsing="false" onAction="#deleteSpawnPoint" prefHeight="26.0" prefWidth="98.0" text="Remove Start" />
-            <Button onAction="#onDeleteClicked" styleClass="leftbutton"><graphic><ImageView><image><Image url="@images/delete-icon.png" /></image></ImageView></graphic></Button>
-         
-         <Button mnemonicParsing="false" onAction="#onSaveLevelClicked" prefHeight="26.0" prefWidth="99.0" text="Save Level" />
-            <Button styleClass="leftbutton"><graphic><ImageView><image><Image url="@images/undo-icon.png" /></image></ImageView></graphic></Button>
+         <Button fx:id="setStairsBtn" mnemonicParsing="false" onAction="#setStairs" prefHeight="26.0" prefWidth="98.0" text="Set Stairs" />
+         <Button fx:id="removeStairsBtn" mnemonicParsing="false" onAction="#removeStairs" prefHeight="26.0" prefWidth="99.0" text="Remove Stairs" />
+            <Button onAction="#onDeleteClicked" prefHeight="53.0" prefWidth="98.0" styleClass="leftbutton"><graphic><ImageView><image><Image url="@images/delete-icon.png" /></image></ImageView></graphic></Button>
         </VBox>
         <Pane fx:id="pane" prefHeight="600.0" prefWidth="800.0" style="-fx-background-color: lightgray">
          <children>
@@ -43,6 +43,11 @@
             <Button fx:id="upBtn" layoutX="323.0" layoutY="1.0" mnemonicParsing="false" onAction="#createRoom" prefHeight="36.0" prefWidth="120.0" text="+" />
             <Button fx:id="downBtn" layoutX="316.0" layoutY="556.0" mnemonicParsing="false" onAction="#createRoom" prefHeight="46.0" prefWidth="129.0" text="+" />
             <Button fx:id="rightBtn" layoutX="764.0" layoutY="220.0" mnemonicParsing="false" onAction="#createRoom" prefHeight="124.0" prefWidth="38.0" text="+" />
+            <Label fx:id="lblRoomCoord" layoutX="764.0" layoutY="2.0" prefHeight="30.0" prefWidth="38.0" text="(5,0)">
+               <font>
+                  <Font size="19.0" />
+               </font>
+            </Label>
             
          </children></Pane>
         <HBox spacing="10" styleClass="propview">
@@ -59,7 +64,10 @@
             <TextField fx:id="txthealth" prefHeight="15.0" prefWidth="50.0" />
             <TextField fx:id="txtSpeed" prefHeight="15.0" prefWidth="50.0" />
             <TextField fx:id="txtDamage" prefHeight="15.0" prefWidth="50.0" />
-            <Button fx:id="saveBtn" mnemonicParsing="false" onAction="#onSaveEntityClicked" prefHeight="26.0" prefWidth="50.0" text="Save" />
+            <Button fx:id="saveBtn" mnemonicParsing="false" onAction="#onSaveEntityClicked" prefHeight="26.0" prefWidth="98.0" text="Save Entity" />
+            
+                     <Button mnemonicParsing="false" onAction="#onSaveLevelClicked" prefHeight="26.0" prefWidth="99.0" text="Save Level" />
+            <Button mnemonicParsing="false" onAction="#seeLayout" prefHeight="26.0" prefWidth="99.0" text="See layout" />
             </VBox>
         </HBox>
     </HBox>
