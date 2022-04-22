@@ -1,11 +1,15 @@
 .root {
     -fx-padding: 10; /* Add a small padding around the window */
-    -fx-font-family: 'Helvetica', Arial, sans-serif;
+    -fx-font-family: "Cambria", Arial, sans-serif;
 }
 
 /* for Macs */
 .dialog-pane  {
     -fx-font-family: 'Helvetica', Arial, sans-serif;
+}
+
+.main {
+    -fx-alignment: center;
 }
 
 .title {
@@ -18,6 +22,14 @@ Label {
     -fx-text-align: center;
     -fx-font-size: 24px;
 
+}
+
+VBox {
+    -fx-background-color: lightgray;
+}
+
+.vbox {
+    -fx-spacing: 10
 }
 
 

@@ -4,25 +4,25 @@
 <?import javafx.scene.layout.*?>
 
 <VBox fx:controller="LeaderboardWindow" xmlns:fx="http://javafx.com/fxml"  stylesheets="@LeaderboardWindow.css"
-    spacing="10" prefHeight="500" prefWidth="700">
+    spacing="10" prefHeight="500" prefWidth="700" styleClass="main">
     
 
     <Label text="High Score Leaderboard Top 10" styleClass="title" />
     <HBox spacing="20">
         <VBox styleClass="vbox">
-            <HBox><Label text="          Player Name:" /></HBox>
-            <HBox><Label text="1" /><Label fx:id="name0" text="" /></HBox>
-            <HBox><Label text="2" /><Label fx:id="name1" text="" /></HBox>
-            <HBox><Label text="3" /><Label fx:id="name2" text="" /></HBox>
-            <HBox><Label text="4" /><Label fx:id="name3" text="" /></HBox>
-            <HBox><Label text="5" /><Label fx:id="name4" text="" /></HBox>
-            <HBox><Label text="6" /><Label fx:id="name5" text="" /></HBox>
-            <HBox><Label text="7" /><Label fx:id="name6" text="" /></HBox>
-            <HBox><Label text="8" /><Label fx:id="name7" text="" /></HBox>
-            <HBox><Label text="9" /><Label fx:id="name8" text="" /></HBox>
-            <HBox><Label text="10" /><Label fx:id="name9" text="" /></HBox>
+            <HBox><Label text="           Player Name:" /></HBox>
+            <HBox><Label text="1." /><Label fx:id="name0" text="" /></HBox>
+            <HBox><Label text="2." /><Label fx:id="name1" text="" /></HBox>
+            <HBox><Label text="3." /><Label fx:id="name2" text="" /></HBox>
+            <HBox><Label text="4." /><Label fx:id="name3" text="" /></HBox>
+            <HBox><Label text="5." /><Label fx:id="name4" text="" /></HBox>
+            <HBox><Label text="6." /><Label fx:id="name5" text="" /></HBox>
+            <HBox><Label text="7." /><Label fx:id="name6" text="" /></HBox>
+            <HBox><Label text="8." /><Label fx:id="name7" text="" /></HBox>
+            <HBox><Label text="9." /><Label fx:id="name8" text="" /></HBox>
+            <HBox><Label text="10." /><Label fx:id="name9" text="" /></HBox>
         </VBox>
-        <VBox>
+        <VBox styleClass="vbox">
             <Label text="Score:" />
             <Label fx:id="score0" text="" />
             <Label fx:id="score1" text="" />
