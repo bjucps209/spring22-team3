@@ -33,7 +33,7 @@ public class ScoreList {
     // Reads the data from the file and places them into the scoreList variable
     // then sorts the list from highest score to lowest score.
     public void loadData() throws IOException {
-        if (Files.exists(Paths.get(FILENAME))) {
+        // if (Files.exists(Paths.get(FILENAME))) {
             try (BufferedReader br = new BufferedReader(new FileReader(FILENAME))) {
                 String str;
                 while ((str = br.readLine()) != null) {
@@ -44,7 +44,7 @@ public class ScoreList {
                     this.scoreList.add(scoreObj);
                 }
             }
-        }
+        // }
         sortList();
     }
 
@@ -66,7 +66,7 @@ public class ScoreList {
     // getter method
     public ArrayList<Scores> getScoreList() throws IOException {
         loadData();
-        return scoreList;
+        return this.scoreList;
     }
 
 }

@@ -17,3 +17,11 @@
 VBox {
     -fx-alignment: center;
 }
+
+.vboxTitle {
+    -fx-background-image: url("/imgs/title3.gif");
+    -fx-background-repeat: stretch;   
+    -fx-background-size: 700 506;
+    -fx-background-position: center center;
+    -fx-spacing: 20
+}
