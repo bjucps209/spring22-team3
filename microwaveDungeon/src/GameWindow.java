@@ -151,8 +151,8 @@ public class GameWindow {
         
         for (int i = 1 + enemies; i < Gamepane.getChildren().size(); ++i){
             for (int j = 1; j < enemies; ++j){
-                boolean xAxis = (Gamepane.getChildren().get(i).getLayoutX() == Gamepane.getChildren().get(j).getLayoutX());
-                boolean yAxis = (Gamepane.getChildren().get(i).getLayoutY() == Gamepane.getChildren().get(j).getLayoutY());
+                boolean xAxis = ((Gamepane.getChildren().get(j).getLayoutX() <= Gamepane.getChildren().get(i).getLayoutX()) && (Gamepane.getChildren().get(i).getLayoutX() <= Gamepane.getChildren().get(j).getLayoutX() + 85));
+                boolean yAxis = ((Gamepane.getChildren().get(j).getLayoutY() <= Gamepane.getChildren().get(i).getLayoutY()) && (Gamepane.getChildren().get(i).getLayoutY() <= Gamepane.getChildren().get(j).getLayoutY() + 45));
                 if (xAxis && yAxis){
                     Gamepane.getChildren().remove(i);
                     Gamepane.getChildren().remove(j);
