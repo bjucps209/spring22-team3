@@ -29,5 +29,9 @@ VBox {
     -fx-spacing: 10
 }
 
+.heading {
+    -fx-font-style: italic;
+}
+
 
 
