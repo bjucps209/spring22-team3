@@ -9,7 +9,7 @@
 
     <Label text="High Score Leaderboard Top 10" styleClass="title" />
     <HBox spacing="20">
-        <VBox styleClass="vbox">
+        <VBox>
             <HBox><Label text="           Player Name:" /></HBox>
             <HBox><Label text="1." /><Label fx:id="name0" text="" /></HBox>
             <HBox><Label text="2." /><Label fx:id="name1" text="" /></HBox>
@@ -22,7 +22,7 @@
             <HBox><Label text="9." /><Label fx:id="name8" text="" /></HBox>
             <HBox><Label text="10." /><Label fx:id="name9" text="" /></HBox>
         </VBox>
-        <VBox styleClass="vbox">
+        <VBox>
             <Label text="Score:" />
             <Label fx:id="score0" text="" />
             <Label fx:id="score1" text="" />

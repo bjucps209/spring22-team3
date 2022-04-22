@@ -26,9 +26,6 @@ Label {
 
 VBox {
     -fx-background-color: lightgray;
-}
-
-.vbox {
     -fx-spacing: 10
 }
 
