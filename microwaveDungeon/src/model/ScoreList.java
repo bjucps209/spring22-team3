@@ -19,7 +19,10 @@ public class ScoreList {
         scoreList = new ArrayList<Scores>();
     }
 
-    // Writes the data from the list to the txt file, is used after getScores()
+    /**
+     * Writes the data from the list to the txt file, is used after getScores().
+     * @throws IOException
+     */
     public void saveData() throws IOException {
         try (var writer = new PrintWriter(new FileWriter(FILENAME))) {
             for (Scores obj : this.scoreList) {
@@ -30,10 +33,13 @@ public class ScoreList {
         }
     }
 
-    // Reads the data from the file and places them into the scoreList variable
-    // then sorts the list from highest score to lowest score.
+    /**
+     * Reads the data from the file and places them into the scoreList variable
+     * then sorts the list from highest score to lowest score.
+     * @throws IOException
+     */
     public void loadData() throws IOException {
-        // if (Files.exists(Paths.get(FILENAME))) {
+        if (Files.exists(Paths.get(FILENAME))) {
             try (BufferedReader br = new BufferedReader(new FileReader(FILENAME))) {
                 String str;
                 while ((str = br.readLine()) != null) {
@@ -44,26 +50,41 @@ public class ScoreList {
                     this.scoreList.add(scoreObj);
                 }
             }
-        // }
+        }
         sortList();
     }
 
-    // Sorts the array list from highest score to lowest
+    /**
+     * Sorts the array list from highest score to lowest.
+     * @return the sorted ArrayList of scores
+     */
     public ArrayList<Scores> sortList() {
         scoreList.sort((o1, o2) -> o2.getScore() - o1.getScore());
         return scoreList;
     }
 
-    // adds a score to the list
+    /**
+     * Adds a score to the list.
+     * @param score
+     */
     public void addScore(Scores score) {
         this.scoreList.add(score);
     }
-
+    
+    /**
+     * Gets a score at a certain index.
+     * @param index
+     * @return the score at the designated index
+     */
     public Scores get(int index) {
         return this.scoreList.get(index);
     }
 
-    // getter method
+    /**
+     * Gets the score list by ;loading from scores.txt
+     * @return the list of scores from scores.txt
+     * @throws IOException
+     */
     public ArrayList<Scores> getScoreList() throws IOException {
         loadData();
         return this.scoreList;
