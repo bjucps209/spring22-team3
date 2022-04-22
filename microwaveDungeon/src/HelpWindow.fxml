@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<VBox fx:controller="HelpWindow" xmlns:fx="http://javafx.com/fxml"  stylesheets="@HelpWindow.css"
+    spacing="10" prefHeight="500" prefWidth="700">
+
+    <Button text="Back" onAction="#onBackClicked" />
+
+</VBox>

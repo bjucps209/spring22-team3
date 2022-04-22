@@ -6,7 +6,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.stage.Stage;
 
-public class CreditsWindow {
+public class HelpWindow {
 
     @FXML
     void onBackClicked(ActionEvent event) throws IOException{
@@ -21,7 +21,5 @@ public class CreditsWindow {
         Stage titleStage = (Stage) ((Button) event.getSource()).getScene().getWindow();
         titleStage.close();
     }
-
     
-
 }

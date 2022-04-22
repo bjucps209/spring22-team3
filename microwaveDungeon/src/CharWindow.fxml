@@ -38,4 +38,6 @@
 
     <Button text="Into the Dungeon!" onAction="#onStartClicked" />
 
+    <Label fx:id="errorLabel" />
+
 </VBox> 

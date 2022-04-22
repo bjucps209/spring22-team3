@@ -5,7 +5,6 @@ public class Scores {
     private String name;
     private int score;
 
-    // TODO: this will be called after a player dies. Their score and name will be added to the .txt file
     public Scores(String name, int score) {
         this.name = name;
         this.score = score;
@@ -16,7 +15,7 @@ public class Scores {
         return "\t" + name + " || Score: " + score;
     }
 
-
+    // getters and setters
     public String getName() {
         return name;
     }

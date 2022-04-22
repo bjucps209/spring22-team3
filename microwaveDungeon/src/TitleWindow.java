@@ -92,6 +92,21 @@ public class TitleWindow {
         titleStage.close();
     }
 
+        //opens the credit screen when the credits button is pressed
+        @FXML
+        public void onHelpClicked(ActionEvent e) throws IOException {
+            var loader = new FXMLLoader(getClass().getResource("HelpWindow.fxml"));
+            var scene = new Scene(loader.load());
+    
+            var stage = new Stage();
+            stage.setScene(scene);
+            stage.show();
+            stage.setTitle("Help");
+    
+            Stage titleStage = (Stage) ((Button) e.getSource()).getScene().getWindow();
+            titleStage.close();
+        }
+
 
     // Uses the save file and loads a game based off the values in that file
     @FXML

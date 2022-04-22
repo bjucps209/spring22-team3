@@ -1,6 +1,4 @@
 import java.io.BufferedReader;
-import java.io.DataInputStream;
-import java.io.FileInputStream;
 import java.io.FileReader;
 import java.io.IOException;
 import javafx.scene.layout.BackgroundImage;
@@ -54,6 +52,8 @@ public class GameWindow {
 
     private double cursorY;
 
+    private room room;
+
     private Thread moveThread;
 
     private KeyFrame kf = new KeyFrame(Duration.millis(10), this::updatePlayer);
@@ -73,9 +73,14 @@ public class GameWindow {
 
     // initializes the view by calling the necesary methods
     public void initialize(difficulties setDiff, characters setCharacter) {
-
-        diff = setDiff;
-        character = setCharacter;
+        if(setDiff != null) // Default values to prevent exceptions when character and/or diff not selected
+            diff = setDiff;
+        else
+            diff = difficulties.MEDIUM;
+        if(setCharacter != null)
+            character = setCharacter;
+        else
+            character = characters.HPOCKET;
 
         game = new Game(diff, character);
         generate();
@@ -189,19 +194,35 @@ public class GameWindow {
         }
     }
 
-    // updates entities when a collision is detected
+    // updates entities when collision from a bullet is detected
     @FXML
     public void findCollision(ActionEvent e) {
         int enemies = game.getLevelSet().get(game.getCurrentLevel()).getRooms().get(game.getCurrentRoom()).getEnemyList().size();
 
         
         for (int i = 1 + enemies; i < Gamepane.getChildren().size(); ++i){
-            for (int j = 1; j < enemies; ++j){
-                boolean xAxis = (Gamepane.getChildren().get(i).getLayoutX() == Gamepane.getChildren().get(j).getLayoutX());
-                boolean yAxis = (Gamepane.getChildren().get(i).getLayoutY() == Gamepane.getChildren().get(j).getLayoutY());
-                if (xAxis && yAxis){
-                    Gamepane.getChildren().remove(i);
-                    Gamepane.getChildren().remove(j);
+            for (int j = 1; j < enemies + 1; ++j){
+                Double bulletX = Gamepane.getChildren().get(i).getLayoutX();
+                Double bulletY = Gamepane.getChildren().get(i).getLayoutY();
+                Double entityX = Gamepane.getChildren().get(j).getLayoutX();
+                Double entityY = Gamepane.getChildren().get(j).getLayoutY();
+                boolean isCollision = (Math.abs(Math.sqrt(Math.pow(bulletX - entityX, 2) + Math.pow(bulletY - entityY, 2))) <= 30.0); // 30.0 stands for the hitbox radius
+                if (isCollision){
+                    Platform.runLater(() -> System.out.println("Hit"));
+                    entity bulletShot = (entity) ((ImageView) Gamepane.getChildren().get(j)).getUserData(); //TODO: Cast exception -Not sure why it is being thrown
+                    room.getBulletList().remove(bulletShot);
+                    Gamepane.getChildren().remove(j); // Remove bullet
+                    Platform.runLater(() -> System.out.println("Bullet removed"));
+                    entity entityInflicted = (entity) ((ImageView) Gamepane.getChildren().get(i)).getUserData();
+                    double damageDealt = player.getDamage();
+                    entityInflicted.setHealth((int) (entityInflicted.getHealth() - damageDealt)); // Deal damage to entity
+                    Label damageMarker = new Label(String.valueOf(damageDealt)); // Add damage marker that disappears
+                    damageMarker.setLayoutX(entityX);
+                    damageMarker.setLayoutY(entityY);
+                    Gamepane.getChildren().add(damageMarker);
+                    KeyFrame keyframe = new KeyFrame(Duration.seconds(3), event -> Gamepane.getChildren().remove(damageMarker));  
+                    Timeline markerTimer = new Timeline(keyframe);
+                    markerTimer.play();         
                 }
             }
         }
@@ -214,7 +235,7 @@ public class GameWindow {
         cursorY = e.getY();
 
         int roomIndex = game.getCurrentRoom();
-        room room = game.getLevelSet().get(roomIndex).getRooms().get(roomIndex);
+        room = game.getLevelSet().get(roomIndex).getRooms().get(roomIndex);
         room.getBulletList().add(new projectile(1000, 10, 1, 5, player.getXcoord(), player.getYcoord()));
         room.getBulletList().get(room.getBulletList().size() - 1).setDirection(cursorX, cursorY);
         makeImage(bullet, room.getBulletList().get(room.getBulletList().size() - 1)); 
@@ -376,6 +397,7 @@ public class GameWindow {
     // method for generating images in the Game pane
     ImageView makeImage(Image pic, entity e) {
         var img = new ImageView(pic);
+        img.setUserData(e);
         Gamepane.getChildren().add(img);
         Gamepane.getChildren().get(Gamepane.getChildren().size() - 1).setLayoutX(e.getXcoord());
         Gamepane.getChildren().get(Gamepane.getChildren().size() - 1).setLayoutY(e.getYcoord());

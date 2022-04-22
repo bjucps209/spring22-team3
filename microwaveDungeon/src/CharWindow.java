@@ -3,8 +3,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.stage.Stage;
 import model.Game;
 import model.characters;
@@ -15,7 +14,7 @@ public class CharWindow {
     static Stage gameStage; // Added to allow the pause window to close the game window
 
     static GameWindow staticGameWindow; // Added to allow saving from pause menu
-    
+
     @FXML
     Button pizzaCharacter;
 
@@ -31,64 +30,71 @@ public class CharWindow {
     @FXML
     TextField nameInput;
 
+    @FXML
+    Label errorLabel;
+
     private characters character;
 
     private difficulties diff;
 
-    //sets the character variable to PIZZA which is passed into the gameWindow initialize method
+    // sets the character variable to PIZZA which is passed into the gameWindow
+    // initialize method
     @FXML
-    public void selectPizzaCharacter(ActionEvent e){
+    public void selectPizzaCharacter(ActionEvent e) {
         character = characters.PIZZA;
     }
 
-    //sets the character variable to HPOCKET which is passed into the gameWindow initialize method
+    // sets the character variable to HPOCKET which is passed into the gameWindow
+    // initialize method
     @FXML
-    public void selectHPocketCharacter(ActionEvent e){
+    public void selectHPocketCharacter(ActionEvent e) {
         character = characters.HPOCKET;
     }
 
-    //sets the character variable to RAMEN which is passed into the gameWindow initialize method
+    // sets the character variable to RAMEN which is passed into the gameWindow
+    // initialize method
     @FXML
-    public void selectRamenCharacter(ActionEvent e){
+    public void selectRamenCharacter(ActionEvent e) {
         character = characters.RAMEN;
     }
 
-    //sets the character variable to MAC which is passed into the gameWindow initialize method
+    // sets the character variable to MAC which is passed into the gameWindow
+    // initialize method
     @FXML
-    public void selectMacCharacter(ActionEvent e){
+    public void selectMacCharacter(ActionEvent e) {
         character = characters.MAC;
     }
 
-    //sets the diff variable to EASY, which is then passed into the GameWindow initialize method
+    // sets the diff variable to EASY, which is then passed into the GameWindow
+    // initialize method
     @FXML
-    public void selectEasy(ActionEvent e){  
+    public void selectEasy(ActionEvent e) {
         diff = difficulties.EASY;
     }
 
-    //sets the diff variable to MEDIUM, which is then passed into the GameWindow initialize method
+    // sets the diff variable to MEDIUM, which is then passed into the GameWindow
+    // initialize method
     @FXML
-    public void selectMedium(ActionEvent e){
+    public void selectMedium(ActionEvent e) {
         diff = difficulties.MEDIUM;
     }
 
-    //sets the diff variable to HARD, which is then passed into the GameWindow initialize method
+    // sets the diff variable to HARD, which is then passed into the GameWindow
+    // initialize method
     @FXML
-    public void selectHard(ActionEvent e){
+    public void selectHard(ActionEvent e) {
         diff = difficulties.HARD;
     }
 
-    //sets the diff variable to NUKE, which is then passed into the GameWindow initialize method
+    // sets the diff variable to NUKE, which is then passed into the GameWindow
+    // initialize method
     @FXML
-    public void selectNuke(ActionEvent e){
+    public void selectNuke(ActionEvent e) {
         diff = difficulties.NUKE;
     }
 
-
-
-
-
     @FXML
-    void onBackClicked(ActionEvent e) throws IOException{
+    void onBackClicked(ActionEvent e) throws IOException {
         var loader = new FXMLLoader(getClass().getResource("TitleWindow.fxml"));
         var scene = new Scene(loader.load());
 
@@ -102,7 +108,8 @@ public class CharWindow {
     }
 
     public void onStartClicked(ActionEvent e) throws IOException{
-        var loader = new FXMLLoader(getClass().getResource("GameWindow.fxml"));
+        if ((character != null) && (diff != null)) {
+            var loader = new FXMLLoader(getClass().getResource("GameWindow.fxml"));
         var scene = new Scene(loader.load());
 
         var stage = new Stage();
@@ -117,6 +124,10 @@ public class CharWindow {
         GameWindow gameWindow = loader.getController();
         gameWindow.initialize(diff, character);
         staticGameWindow = gameWindow;
+        } else{
+            errorLabel.setText("Please select a character AND a  difficulty!");
+        }
+        
     }
 
     public static Stage getGameStage() {

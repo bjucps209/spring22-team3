@@ -24,14 +24,12 @@ public class LeaderboardWindow {
     void initialize() throws IOException {
         ScoreList List = new ScoreList();
         scoreList = List.getScoreList();
-        // List.loadData();
-        // var lst = List.getScoreList();
 
-        // make sure to check to see if the list is right, if it isnt, rewrite the data
-        // from the file onto the scoreList
-        for (Scores sc : scoreList) {
-            System.out.println(sc.getName());
-        }
+        // System.out.println(scoreList.size());
+        // for (Scores sc : scoreList) {
+        //     System.out.println(sc.getName());
+        // }
+        
         for (int i = 0; i < scoreList.size(); ++i) {
             Scores s = scoreList.get(i);
             if (i > scoreList.size()) {
