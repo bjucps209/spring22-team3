@@ -21,7 +21,7 @@ VBox {
 .vboxTitle {
     -fx-background-image: url("/imgs/title3.gif");
     -fx-background-repeat: stretch;   
-    -fx-background-size: 700 506;
+    -fx-background-size: 700 506; /* this is the width and height, I don't know what the actual numbers are so feel free to change it */
     -fx-background-position: center center;
     -fx-spacing: 20
 }
