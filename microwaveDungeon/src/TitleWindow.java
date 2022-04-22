@@ -111,4 +111,11 @@ public class TitleWindow {
         CharWindow.setGameWindow(gameWindow);
         gameWindow.load();
     }
+
+    // Closes the title window
+    @FXML
+    void onQuitClicked(ActionEvent e) {
+        Stage titleStage = (Stage) ((Button) e.getSource()).getScene().getWindow();
+        titleStage.close();
+    }
 }

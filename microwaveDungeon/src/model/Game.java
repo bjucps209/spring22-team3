@@ -272,30 +272,38 @@ public class Game {
             Alert a = new Alert(AlertType.ERROR, "There was a problem with creating a file: \n" + e.getLocalizedMessage());
             a.show();
         }
-        try (DataOutputStream writer = new DataOutputStream(new FileOutputStream(file))) {
+        try (var writer = new PrintWriter(new FileWriter(file))) {
             switch(character) {
                 case HPOCKET:
-                    writer.writeInt(1);
+                    writer.println(1);
+                    break;
                 case PIZZA:
-                    writer.writeInt(2);
+                    writer.println(2);
+                    break;
                 case RAMEN:
-                    writer.writeInt(3);
+                    writer.println(3);
+                    break;
                 case MAC:
-                    writer.writeInt(4);
+                    writer.println(4);
+                    break;
             }
             switch(diff) {
                 case EASY:
-                    writer.writeInt(1);
+                    writer.println(1);
+                    break;
                 case MEDIUM:
-                    writer.writeInt(2);
+                    writer.println(2);
+                    break;
                 case HARD:
-                    writer.writeInt(3);
+                    writer.println(3);
+                    break;
                 case NUKE:
-                    writer.writeInt(4);
+                    writer.println(4);
+                    break;
             }
-            writer.writeInt(score);
-            writer.writeInt(timePassed);
-            writer.writeInt(levelSet.size());
+            writer.println(score);
+            writer.println(timePassed);
+            writer.println(levelSet.size());
             for(Level l: levelSet) {
                 l.save(writer);
             }
@@ -307,41 +315,60 @@ public class Game {
     }
 
     // Factory Method that returns a loaded game
-    public static Game load() {
+    public static Game load(boolean isTest) {
+        String filename;
+        if(isTest)
+            filename = "src\\Saves\\SampleSave.txt";
+        else
+            filename = "src\\Saves\\SavedGame.txt";
         Game output = null;
-        try(DataInputStream input = new DataInputStream(new FileInputStream("src\\Saves\\SavedGame.txt"))) {
-            int charInt = input.readInt();
-            characters loadCharacter = characters.HPOCKET;
-            switch(charInt) {
+        try(BufferedReader input = new BufferedReader(new FileReader(filename))) {
+            characters loadCharacter;
+            switch(Integer.parseInt(input.readLine())) {
                 case 1:
                     loadCharacter = characters.HPOCKET;
+                    break;
                 case 2:
                     loadCharacter = characters.PIZZA;
+                    break;
                 case 3:
                     loadCharacter = characters.RAMEN;
+                    break;
                 case 4:
                     loadCharacter = characters.MAC;
+                    break;
+                default:
+                    loadCharacter = characters.HPOCKET;
+                    break;
             }
-            int diffInt = input.readInt();
-            difficulties loadDiff = difficulties.EASY;
-            switch(diffInt) {
+            difficulties loadDiff;
+            switch(Integer.parseInt(input.readLine())) {
                 case 1:
                     loadDiff = difficulties.EASY;
+                    break;
                 case 2:
                     loadDiff = difficulties.MEDIUM;
+                    break;
                 case 3:
                     loadDiff = difficulties.HARD;
+                    break;
                 case 4:
                     loadDiff = difficulties.NUKE;
+                    break;
+                default:
+                    loadDiff = difficulties.EASY;
+                    break;
             }
             output = new Game(loadDiff, loadCharacter);
-            output.setScore(input.readInt());
-            output.setTimePassed(input.readInt());
+            output.setScore(Integer.parseInt(input.readLine()));
+            output.setTimePassed(Integer.parseInt(input.readLine()));
             ArrayList<Level> loadLevelSet = new ArrayList<Level>();
-            for(int i = 0; i < input.readInt(); ++i) {
-                loadLevelSet.add(Level.load(input));
+            int levelCount = Integer.parseInt(input.readLine());
+            for(int i = 0; i < levelCount; ++i) {
+                loadLevelSet.add(Level.load(input, output.getDiff()));
             }
             output.setLevelSet(loadLevelSet);
+            output.setUser(player.load(input));
         }
         catch (IOException e) {
             e.printStackTrace();

@@ -9,12 +9,16 @@ Upon opening the game, you are presented with 4 buttons. Click start to begin th
 ## Work Completed
 
 ### Basic Gameplay
+- Implemented GameWindow visuals
+- Implemented player movement
+- Implemented basic Enemy movement
+- Implemented visual projectiles
 
 ### Serialization
 
 - Implemented save and load methods for model classes
-- Created a functional pause menu
-- Connected save/load with GUI
+- Created a functional pause menu that pauses the game when opened
+- Working save and load functions
 
 ### Auxilary Screens
 
@@ -23,25 +27,34 @@ Upon opening the game, you are presented with 4 buttons. Click start to begin th
 - High Scores will load from the .txt file into the High Score window
 
 ### Level Builder
-
+- Implemeted placing down enemies and obstacles
+- Added the ability to make multiple rooms
+- 5x5 is the maximum level size
 ***
 
 ## Known Issues
 
 ### Basic Gameplay
 
-### Serialization
+- None Known
 
-### Auxilary Screens
+### Serialization
 
 - None Known
 
+### Auxilary Screens
+
+- None known
+
 ### Level Builder
 
+- None Known
 
 ***
 
 ## Recording:
+
+https://youtu.be/9ogX3OZSppQ
 
 ***
 
@@ -49,8 +62,8 @@ Upon opening the game, you are presented with 4 buttons. Click start to begin th
 
 | Team Member Name | Github Username | Ownership Area | Hours contributed| Hours Remaining | TimeJournal |
 | :---|:---|:---|:---|:---|:---|
-| Edward Taylor | etayl261 | Basic Game Play | 10 | 40 | [Time Journal](https://github.com/bjucps209/spring22-team3/wiki/Time-Journal#edward-taylor) |
-| Ethan Wood | thethanwood | Serialization | 22 | 27 | [Time Journal](https://github.com/bjucps209/spring22-team3/wiki/Time-Journal#ethan-wood) |
+| Edward Taylor | etayl261 | Basic Game Play | 30 | 20 | [Time Journal](https://github.com/bjucps209/spring22-team3/wiki/Time-Journal#edward-taylor) |
+| Ethan Wood | thethanwood | Serialization | 29 | 21 | [Time Journal](https://github.com/bjucps209/spring22-team3/wiki/Time-Journal#ethan-wood) |
 | David John Hayes | dhaye039 | Auxiliary screens | 16 | 34 | [Time Journal](https://github.com/bjucps209/spring22-team3/wiki/Time-Journal#david-hayes) |
 | Ryan Kuhn | rkuhn153 | Level Builder | 20 | 30 | [Time Journal](https://github.com/bjucps209/spring22-team3/wiki/Time-Journal#ryan-kuhn) |
 

@@ -61,8 +61,8 @@ public class LevelData {
                                 int x = Integer.parseInt(lineList[2]);
                                 int y = Integer.parseInt(lineList[3]);
                                 int health = Integer.parseInt(lineList[4]);
-                                int damage = Integer.parseInt(lineList[5]);
-                                int speed = Integer.parseInt(lineList[6]);
+                                double damage = Double.parseDouble(lineList[5]);
+                                double speed = Double.parseDouble(lineList[6]);
                                 int scale = Integer.parseInt(lineList[7]);
                                 int roomId = Integer.parseInt(lineList[8]);
                                 // check which entity to create
@@ -71,20 +71,20 @@ public class LevelData {
                                         enemy enemy1 = new enemy(health, speed, damage, id, x, y);
                                         // ad the entity to the room using the roomId
                                         enemy1.setSize(scale);
-                                        //roomList.get(roomId - 1).addEntity(enemy1);
+                                        roomList.get(roomId - 1).addEnemy(enemy1);
                                         break;
                                     case "obstacle":
                                         obstacle o = new obstacle(health, speed, damage, id, x, y);
-                                        //roomList.get(roomId - 1).addEntity(o);
+                                        roomList.get(roomId - 1).addObstacle(o);
                                         break;
                                     // staircase
                                     case "staircase":
                                         staircase s = new staircase(health, speed, damage, id, x, y);
-                                        //roomList.get(roomId - 1).addEntity(s);
+                                        roomList.get(roomId - 1).setStaircase(s);
                                         break;
                                     case "startpt":
                                         startpt s1 = new startpt(health, speed, damage, id, x, y);
-                                        //roomList.get(roomId - 1).addEntity(s1);
+                                        //roomList.get(roomId - 1).setStartpt(s1);
                                         break;
                                     default:
                                         break;

@@ -1,8 +1,8 @@
 package model;
 
-import java.io.DataInputStream;
-import java.io.DataOutputStream;
+import java.io.BufferedReader;
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.ArrayList;
 
 public class Level {
@@ -37,17 +37,18 @@ public class Level {
     }
 
     // Given an OutputStream, this method saves the Level's attributes 
-    public void save(DataOutputStream output) throws IOException {
-        output.writeInt(Rooms.size());
+    public void save(PrintWriter output) throws IOException {
+        output.println(Rooms.size());
         for(room r: Rooms) {
             r.save(output);
         }
     }
 
     //Factory Method that builds/loads a level based off a DataInputStream
-    public static Level load(DataInputStream input) throws IOException {
-        Level output = new Level(difficulties.MEDIUM);
-        for(int i = 0; i < input.readInt(); ++i) {
+    public static Level load(BufferedReader input, difficulties diff) throws IOException {
+        Level output = new Level(diff);
+        int levelCount = Integer.parseInt(input.readLine());
+        for(int i = 0; i < levelCount; ++i) {
             output.addRoom(room.load(input));
         }
         return output;

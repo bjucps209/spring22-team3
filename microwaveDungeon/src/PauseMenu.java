@@ -4,6 +4,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
+import javafx.scene.control.Alert.AlertType;
 import javafx.stage.Stage;
 
 public class PauseMenu {
@@ -13,7 +14,7 @@ public class PauseMenu {
     // Resumes the game
     @FXML
     void onResumeClicked(ActionEvent e) {
-        // TODO: code to unpause once pauseing function is implemented*
+        CharWindow.getGameWindow().resume();
         Stage pauseStage = (Stage) ((Button) e.getSource()).getScene().getWindow();
         pauseStage.close();
     }
@@ -25,12 +26,15 @@ public class PauseMenu {
         if(file.exists())
             file.delete();
         file.createNewFile();
-        try(DataOutputStream writer = new DataOutputStream(new FileOutputStream(file))) {
+        try(var writer = new PrintWriter(new FileWriter(file))) {
             try {CharWindow.getGameWindow().getGame().save();
-            saveButton.setText("Saved");
-            saveButton.setDisable(true); 
-            CharWindow.getGameWindow().getPlayer().save(writer); }
-            catch (Exception ex) { ex.printStackTrace();}
+                saveButton.setText("Saved");
+                saveButton.setDisable(true); 
+                CharWindow.getGameWindow().getPlayer().save(writer); }
+            catch (Exception ex) { 
+                Alert a = new Alert(AlertType.ERROR, "There was a problem saving the game.");
+                a.show();
+                ex.printStackTrace();}
         }
     }
 

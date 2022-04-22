@@ -20,5 +20,7 @@
 
     
 
+    <Button onAction="#onQuitClicked" text="Quit" />
+
 
 </VBox> 

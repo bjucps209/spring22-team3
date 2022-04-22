@@ -1,12 +1,11 @@
 package model;
 
-import java.io.DataInputStream;
-import java.io.DataOutputStream;
+import java.io.BufferedReader;
 import java.io.IOException;
+import java.io.PrintWriter;
 
 public class player extends entity {
     
-
 
     public player(int setHealth, double setSpeed, double setDamage, int setId, int xcoord, int ycoord) {
         super(setHealth, setSpeed, setDamage, setId, xcoord, ycoord);
@@ -79,24 +78,25 @@ public class player extends entity {
 
     // Given an OutputStream, this method saves the player's attributes 
     @Override
-    public void save(DataOutputStream output) throws IOException {
-        output.writeInt(getHealth());
-        output.writeDouble(getSpeed());
-        output.writeDouble(getDamage());
-        output.writeDouble(getId());
-        output.writeInt(getXcoord());
-        output.writeInt(getYcoord());
-        output.writeInt(roomXCoord);
-        output.writeInt(roomYCoord);
-        output.writeInt(floor);
+    public void save(PrintWriter output) throws IOException {
+        output.println(getHealth());
+        output.println(getSpeed());
+        output.println(getDamage());
+        output.println(getId());
+        output.println(getXcoord());
+        output.println(getYcoord());
+        output.println(roomXCoord);
+        output.println(roomYCoord);
+        output.println(floor);
     }
 
     // Factory Method that builds/loads a player based off a DataInputStream
-    public static player load(DataInputStream input) throws IOException {
-        player output = new player(input.readInt(), input.readInt(), input.readInt(), input.readInt(), input.readInt(), input.readInt());
-        output.setRoomXCoord(input.readInt());
-        output.setRoomYCoord(input.readInt());
-        output.setFloor(input.readInt());
+    public static player load(BufferedReader input) throws IOException {
+        player output = new player(Integer.parseInt(input.readLine()), Double.parseDouble(input.readLine()), Double.parseDouble(input.readLine()), Integer.parseInt(input.readLine()), Integer.parseInt(input.readLine()), Integer.parseInt(input.readLine()));
+        System.out.println(output);
+        output.setRoomXCoord(Integer.parseInt(input.readLine()));
+        output.setRoomYCoord(Integer.parseInt(input.readLine()));
+        output.setFloor(Integer.parseInt(input.readLine()));
         return output;
     }
 }

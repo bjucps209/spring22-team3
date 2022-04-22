@@ -28,6 +28,17 @@ public class room {
     staircase stairs = null; // Added for saving method
 
     ArrayList<enemy> enemyList = new ArrayList<enemy>();
+    startpt start = null;
+
+    public startpt getStart() {
+        return start;
+    }
+
+
+    public void setStart(startpt start) {
+        this.start = start;
+    }
+
 
     ArrayList<obstacle> obstacleList = new ArrayList<obstacle>();
     ArrayList<ImageView> imageList = new ArrayList<ImageView>();
@@ -39,7 +50,7 @@ public class room {
         y = setY;
     }
     
-
+    
     // Given an OutputStream, this method saves the room's attributes 
     public void save(DataOutputStream output) throws IOException {
         output.writeInt(x);
@@ -95,6 +106,9 @@ public class room {
     public ArrayList<enemy> getEnemyList() {
         return enemyList;
     }
+    public ArrayList<obstacle> getObstacleList() {
+        return obstacleList;
+    }
 
     public void setEntityList(ArrayList<enemy> enemyList) {
         this.enemyList = enemyList;
@@ -106,6 +120,7 @@ public class room {
     public ArrayList<ImageView> getImageList() {
         return imageList;
     }
+    
 
     
 
@@ -191,6 +206,19 @@ public class room {
         toStringEntityList = toStringEntityList.substring(0, toStringEntityList.length()-2);
         return "room [x=" + x + ", y=" + y + ", enemyList=" + toStringEntityList + "]";
     }
+
+
+    public void removeImage(ImageView entitySelected) {
+        imageList.remove(entitySelected);
+    }
+
+
+    public staircase getStaircase() {
+        return stairs;
+    }
+
+
+  
 
 
    
