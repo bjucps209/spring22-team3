@@ -213,6 +213,11 @@ public class room {
     }
 
 
+    public staircase getStaircase() {
+        return stairs;
+    }
+
+
   
 
 

@@ -13,8 +13,10 @@ import javafx.scene.control.ChoiceBox;
 import javafx.stage.Stage;
 
 public class TitleWindow {
-    @FXML ChoiceBox<String> levelCB;
-    @FXML 
+    @FXML
+    ChoiceBox<String> levelCB;
+
+    @FXML
     void initialize() {
         File dir = new File("../microwaveDungeon/src/Levels");
         int level;
@@ -26,19 +28,26 @@ public class TitleWindow {
             levelCB.getItems().add(Integer.toString(level));
 
         }
-        
+
     }
+
     @FXML
     void newGame(ActionEvent event) throws IOException {
-    
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("MainWindow.fxml"));
-        Parent root = loader.load();
-        MainWindow controller = loader.getController();
-        controller.initialize(0, "new");
-        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-        stage.setScene(new Scene(root));
+
+        var loader = new FXMLLoader(getClass().getResource("MainWindow.fxml"));
+        var scene = new Scene(loader.load());
+
+        var stage = new Stage();
+        stage.setScene(scene);
         stage.show();
+        MainWindow gameWindow = loader.getController();
+
+        gameWindow.initialize(0, "old");
         stage.setTitle("LevelBuilder");
+
+        Stage titleStage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        titleStage.close();
+
     }
 
     @FXML
@@ -50,23 +59,16 @@ public class TitleWindow {
 
         if (alert.showAndWait().get() == ButtonType.OK) {
             var loader = new FXMLLoader(getClass().getResource("MainWindow.fxml"));
-        var scene = new Scene(loader.load());
+            var scene = new Scene(loader.load());
 
-
-        var stage = new Stage();
-        stage.setScene(scene);
-        stage.show();
-        MainWindow gameWindow = loader.getController();
-        int level = Integer.parseInt(levelCB.getValue());
-        gameWindow.initialize(level, "old");
+            var stage = new Stage();
+            stage.setScene(scene);
+            stage.show();
+            MainWindow gameWindow = loader.getController();
+            int level = Integer.parseInt(levelCB.getValue());
+            gameWindow.initialize(level, "old");
             stage.setTitle("LevelBuilder");
-            
-         
 
-            
-            
-    
-                    
             Stage titleStage = (Stage) ((Node) event.getSource()).getScene().getWindow();
             titleStage.close();
 

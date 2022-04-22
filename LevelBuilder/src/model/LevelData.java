@@ -100,7 +100,14 @@ public class LevelData {
                                     // staircase
                                     case "staircase":
                                         staircase s = new staircase(health, speed, damage, id, x, y);
+                                        ImageView stairsImage = new ImageView(new Image("images/staircase.png"));
+                                        stairsImage.setFitHeight(50);
+                                        stairsImage.setFitWidth(50);
+                                       
                                         roomList.get(roomId - 1).setStaircase(s);
+                                        roomList.get(roomId - 1).addImage(stairsImage);
+                                        stairsImage.setUserData(s);
+
                                         break;
                                     case "startpt":
                                         startpt s1 = new startpt(health, speed, damage, id, x, y);
@@ -185,6 +192,11 @@ public class LevelData {
                 if (r.getStart() != null) {
                     bw.write(r.getStart().getClass().getSimpleName() + "," + r.getStart().getId() + "," + r.getStart().getXcoord() + "," + r.getStart().getYcoord()
                             + "," + r.getStart().getHealth() + "," + r.getStart().getDamage() + "," + r.getStart().getSpeed() + "," + 1 + "," + id
+                            + "\n");
+                }
+                if (r.getStaircase() != null) {
+                    bw.write(r.getStaircase().getClass().getSimpleName() + "," + r.getStaircase().getId() + "," + r.getStaircase().getXcoord() + "," + r.getStaircase().getYcoord()
+                            + "," + r.getStaircase().getHealth() + "," + r.getStaircase().getDamage() + "," + r.getStaircase().getSpeed() + "," + 1 + "," + id
                             + "\n");
                 }
                 

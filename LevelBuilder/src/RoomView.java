@@ -26,6 +26,13 @@ public class RoomView {
                     
                     
                 }
+                //if highlight the current room
+                if(currentRoom.getX() == i && currentRoom.getY() == j) {
+                    Button b = new Button();
+                    b.setPrefSize(65, 45);
+                    b.setBackground(new Background(new BackgroundFill(Color.RED, null, null)));
+                    grid.add(b, i, 4-j);
+                }
                
             }
         }
