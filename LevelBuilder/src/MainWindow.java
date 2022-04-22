@@ -22,6 +22,7 @@ import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
+import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import model.*;
 
@@ -48,6 +49,11 @@ public class MainWindow {
     Button downBtn;
     @FXML
     Button startBtn;
+    @FXML 
+    Label lblRoomCoord;
+    @FXML 
+    Button saveBtn;
+   
     @FXML
     Button deletestartptBtn;
     ImageView tempImage = new ImageView();
@@ -64,6 +70,7 @@ public class MainWindow {
         entity.setHandler(this::updateTable);
         deletestartptBtn.disableProperty().set(true);
         type = setType;
+        saveBtn.disableProperty().set(true);
         
       
         if (setLevel == 0) {
@@ -89,6 +96,7 @@ public class MainWindow {
             loadLevel(setLevel, new ActionEvent());
             
         }
+        displayCoord();
     
        
 
@@ -108,7 +116,10 @@ public class MainWindow {
     Boolean startPlaced = false;
 
     int roomCounter = 0;
-
+    void displayCoord() {
+        lblRoomCoord.setText("(" + currentRoom.getX() + "," + currentRoom.getY() + ")");
+        
+    }
     Boolean checkRoomsAround(String direction) {
         // check if there is a room to the left using findRoom
         Boolean check = currentLevel.findRoom(
@@ -121,15 +132,24 @@ public class MainWindow {
         LevelData level = new LevelData(levelnum);
         level.load();
         currentLevel = level;
-        loadRoom(0,0);
         currentRoom = currentLevel.findRoom(0, 0);
+        loadRoom(0,0);
+       
         checkBounds();
+        displayCoord();
         for( room r : currentLevel.getRoomList()){
             for( ImageView i : r.getImageList()){
                 i.setOnMouseClicked(e -> {
                     onCritterClicked(event, i);
+
                 });
+                if( i.getUserData() instanceof startpt){
+                    deletestartptBtn.disableProperty().set(false);
+                    startBtn.disableProperty().set(true);
+                    
+                }
             }
+            
         }
         
             
@@ -179,15 +199,54 @@ public class MainWindow {
         tempRoom.getImageList().remove(tempImage);
         tempRoom.setStart(null);
     }
+    @FXML
+    void seeLayout(ActionEvent event){
+     //open RoomView.fxml
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("RoomView.fxml"));
+            Parent root = loader.load();
+            RoomView controller = loader.getController();
+            controller.initialize(currentLevel, currentRoom);
+            Stage stage = new Stage();
+            stage.setTitle("Room Layout");
+            stage.setScene(new Scene(root));
+            stage.show();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+    }
 
     void moveRoom(String dir) {
-
+       
         currentRoom = currentLevel.findRoom(currentRoom.getX() + Integer.parseInt(checkDirection(dir).split(",")[0]),
                 currentRoom.getY() + Integer.parseInt(checkDirection(dir).split(",")[1]));
         loadRoom(currentRoom.getX(), currentRoom.getY());
         checkBounds();
+        
     }
-
+    void checkifOutofBounds(ImageView e){
+        //check to see if the entity is out of bounds and if so, move it back in bounds
+      entity e1 = (entity) e.getUserData();
+        if(e1.getXcoord() > 700){
+            e1.setXcoord(700);
+            e.relocate(e1.getXcoord(), e1.getYcoord());
+        }
+        if(e1.getYcoord() > 480){
+            e1.setYcoord(480);
+            e.relocate(e1.getXcoord(), e1.getYcoord());
+        }
+        if(e1.getXcoord() < 0){
+            e1.setXcoord(0);
+            e.relocate(e1.getXcoord(), e1.getYcoord());
+        }
+        if(e1.getYcoord() < 0){
+            e1.setYcoord(0);
+            e.relocate(e1.getXcoord(), e1.getYcoord());
+        }
+        
+        
+    }
     String checkDirection(String dir) {
         // get an input like "left" and return something like (-1,0) to signal in what
         // direction to move
@@ -220,9 +279,11 @@ public class MainWindow {
                     currentRoom.getY() + Integer.parseInt(checkDirection(direction).split(",")[1]), false);
             currentLevel.addRoom(r);
             currentRoom = r;
+            
 
         }
         checkBounds();
+        displayCoord();
 
     }
 
@@ -268,6 +329,8 @@ public class MainWindow {
         txthealth.setText("");
         txtSpeed.setText("");
         txtDamage.setText("");
+        saveBtn.disableProperty().set(true);
+
         for (ImageView c : currentRoom.getImageList()) {
 
             c.getStyleClass().remove("current");
@@ -289,6 +352,7 @@ public class MainWindow {
             e.relocate(((entity) e.getUserData()).getXcoord(), ((entity) e.getUserData()).getYcoord());
 
         }
+        displayCoord();
     }
 
     void selectEntity(Node img) {
@@ -378,6 +442,7 @@ public class MainWindow {
             txthealth.setText("");
             txtSpeed.setText("");
             txtDamage.setText("");
+            saveBtn.disableProperty().set(true);
         }
     }
 
@@ -404,7 +469,7 @@ public class MainWindow {
         txthealth.setText(String.valueOf(((entity) (entitySelected.getUserData())).getHealth()));
         txtSpeed.setText(String.valueOf(((entity) entitySelected.getUserData()).getSpeed()));
         txtDamage.setText(String.valueOf(((entity) entitySelected.getUserData()).getDamage()));
-
+        saveBtn.disableProperty().set(false);
         // txtDamage.setText(String.valueOf(c.getState()));
     }
 
@@ -434,6 +499,7 @@ public class MainWindow {
             entity entity = (entity) node.getUserData();
             entity.setXcoord((int) node.getLayoutX());
             entity.setYcoord((int) node.getLayoutY());
+            checkifOutofBounds((ImageView) node);
 
         });
 

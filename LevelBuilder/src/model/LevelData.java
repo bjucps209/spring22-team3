@@ -104,7 +104,13 @@ public class LevelData {
                                         break;
                                     case "startpt":
                                         startpt s1 = new startpt(health, speed, damage, id, x, y);
+                                        ImageView startptImage = new ImageView(new Image("images/spawn.png"));
                                         //roomList.get(roomId - 1).setStartpt(s1);
+                                        roomList.get(roomId - 1).setStart(s1);
+                                        startptImage.setFitHeight(50);
+                                        startptImage.setFitWidth(50);
+                                        startptImage.setUserData(s1);
+                                        roomList.get(roomId -1 ).addImage(startptImage);
                                         break;
                                     default:
                                         break;
@@ -174,6 +180,11 @@ public class LevelData {
                 for (obstacle o : r.getObstacleList()) {
                     bw.write(o.getClass().getSimpleName() + "," + o.getId() + "," + o.getXcoord() + "," + o.getYcoord()
                             + "," + o.getHealth() + "," + o.getDamage() + "," + o.getSpeed() + "," + 1 + "," + id
+                            + "\n");
+                }
+                if (r.getStart() != null) {
+                    bw.write(r.getStart().getClass().getSimpleName() + "," + r.getStart().getId() + "," + r.getStart().getXcoord() + "," + r.getStart().getYcoord()
+                            + "," + r.getStart().getHealth() + "," + r.getStart().getDamage() + "," + r.getStart().getSpeed() + "," + 1 + "," + id
                             + "\n");
                 }
                 
