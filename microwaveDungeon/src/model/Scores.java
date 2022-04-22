@@ -16,7 +16,6 @@ public class Scores {
         return "\t" + name + " || Score: " + score;
     }
 
-
     public String getName() {
         return name;
     }

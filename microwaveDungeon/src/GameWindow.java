@@ -45,8 +45,6 @@ public class GameWindow {
 
     private characters character;
 
-    private int score;
-
     private player player;
 
     private double cursorX;
