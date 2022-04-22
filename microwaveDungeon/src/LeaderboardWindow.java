@@ -25,10 +25,10 @@ public class LeaderboardWindow {
         ScoreList List = new ScoreList();
         scoreList = List.getScoreList();
 
-        System.out.println(scoreList.size());
-        for (Scores sc : scoreList) {
-            System.out.println(sc.getName());
-        }
+        // System.out.println(scoreList.size());
+        // for (Scores sc : scoreList) {
+        //     System.out.println(sc.getName());
+        // }
         
         for (int i = 0; i < scoreList.size(); ++i) {
             Scores s = scoreList.get(i);
