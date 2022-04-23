@@ -1,4 +1,5 @@
 import java.io.BufferedReader;
+import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
 import javafx.scene.layout.BackgroundImage;
@@ -16,6 +17,7 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.Label;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.image.*;
+import javax.sound.sampled.*;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
@@ -47,6 +49,8 @@ public class GameWindow {
     private player player;
 
     private boolean goNorth, goEast, goSouth, goWest;
+
+    private boolean playerModelFlipped = false; // For knowing when to flip the player model img when moving
 
     private double cursorX;
 
@@ -101,11 +105,11 @@ public class GameWindow {
                 switch (event.getCode()) {
                     case W:    goNorth = true; break;
                     case S:  goSouth = true; break;
-                    case A:  goWest  = true; break;
-                    case D: goEast  = true; break;
+                    case A:  goWest  = true; playerModelFlipped = true; break;
+                    case D: goEast  = true; playerModelFlipped = false; break;
                     case SHIFT: 
-                        player.setSpeed((int) player.getSpeed() + 4);
-                        var keyframe = new KeyFrame(Duration.millis(500), e -> {player.setSpeed((int) player.getSpeed() - 4);});
+                        player.setSpeed((int) player.getSpeed() + 8);
+                        var keyframe = new KeyFrame(Duration.millis(180), e -> {player.setSpeed((int) player.getSpeed() - 8);});
                         var DashTimer = new Timeline(keyframe);
                         DashTimer.play();
                         break; // TODO: Special ability - added basic dash
@@ -245,6 +249,8 @@ public class GameWindow {
     // fires at enemies when the mouse is clicked
     @FXML
     public void openFire(MouseEvent e) {
+        GameWindow.playAudio("src\\audio\\gunSound.wav"); // Plays gunfire sound effect
+        
         cursorX = e.getX();
         cursorY = e.getY();
 
@@ -304,9 +310,12 @@ public class GameWindow {
                 direction = 0;
             }
             
+            if(playerModelFlipped) 
+                Gamepane.getChildren().get(0).setScaleX(-1);
+            else 
+                Gamepane.getChildren().get(0).setScaleX(1);
 
             player.setDirection(direction);
-            //player.setSpeed(5);
             timer.setCycleCount(Timeline.INDEFINITE);
             timer.play();
 
@@ -337,6 +346,7 @@ public class GameWindow {
     // Pauses the game and opens the Pause Menu
     @FXML
     void onPauseClicked(ActionEvent event) throws IOException {
+        TitleWindow.beep();
         isNotPaused = false;
         var loader = new FXMLLoader(getClass().getResource("PauseMenu.fxml"));
         var scene = new Scene(loader.load());
@@ -435,5 +445,27 @@ public class GameWindow {
     public void resume() {
         isNotPaused = true;
         Gamepane.requestFocus();
+    }
+
+    public void onCheatClicked(ActionEvent e) {
+        TitleWindow.beep();
+        player.setHealth(player.getHealth() + 10000);
+        Gamepane.requestFocus();
+    }
+
+    // Uses an audio filepath string and plays it -Note, the file must be in the WAV format
+    public static Clip playAudio(String soundName) {
+        try {
+            AudioInputStream audioInputStream = AudioSystem.getAudioInputStream(new File(soundName).getAbsoluteFile());
+            Clip clip = AudioSystem.getClip();
+            clip.open(audioInputStream);
+            clip.start();
+            return clip;
+        }
+        catch(Exception e) {
+            Alert a = new Alert(AlertType.ERROR, "There was a problem with playing audio: " + e.getMessage());
+            a.show();
+            return null;
+        }
     }
 }

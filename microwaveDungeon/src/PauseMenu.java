@@ -14,6 +14,7 @@ public class PauseMenu {
     // Resumes the game
     @FXML
     void onResumeClicked(ActionEvent e) {
+        TitleWindow.beep();
         CharWindow.getGameWindow().resume();
         Stage pauseStage = (Stage) ((Button) e.getSource()).getScene().getWindow();
         pauseStage.close();
@@ -22,6 +23,7 @@ public class PauseMenu {
     // Saves the game
     @FXML
     void onSaveClicked(ActionEvent e) throws IOException {
+        TitleWindow.beep();
         File file = new File("microwaveDungeonSaveFile.txt");
         if(file.exists())
             file.delete();
@@ -41,6 +43,7 @@ public class PauseMenu {
     // Closes game and opens main menu/restarts game by opening the title menu
     @FXML
     void onQuitMainMenuClicked(ActionEvent e) throws IOException {
+        TitleWindow.beep();
         CharWindow.getGameStage().close();
         
         var loader = new FXMLLoader(getClass().getResource("TitleWindow.fxml"));
@@ -58,6 +61,7 @@ public class PauseMenu {
     // Closes entire game
     @FXML
     void onQuitDesktopClicked(ActionEvent e) {
+        TitleWindow.beep();
         CharWindow.getGameStage().close();
         Stage pauseStage = (Stage) ((Button) e.getSource()).getScene().getWindow();
         pauseStage.close();

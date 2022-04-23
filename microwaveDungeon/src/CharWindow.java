@@ -41,6 +41,7 @@ public class CharWindow {
     // initialize method
     @FXML
     public void selectPizzaCharacter(ActionEvent e) {
+        TitleWindow.beep();
         character = characters.PIZZA;
     }
 
@@ -48,6 +49,7 @@ public class CharWindow {
     // initialize method
     @FXML
     public void selectHPocketCharacter(ActionEvent e) {
+        TitleWindow.beep();
         character = characters.HPOCKET;
     }
 
@@ -55,6 +57,7 @@ public class CharWindow {
     // initialize method
     @FXML
     public void selectRamenCharacter(ActionEvent e) {
+        TitleWindow.beep();
         character = characters.RAMEN;
     }
 
@@ -62,6 +65,7 @@ public class CharWindow {
     // initialize method
     @FXML
     public void selectMacCharacter(ActionEvent e) {
+        TitleWindow.beep();
         character = characters.MAC;
     }
 
@@ -69,6 +73,7 @@ public class CharWindow {
     // initialize method
     @FXML
     public void selectEasy(ActionEvent e) {
+        TitleWindow.beep();
         diff = difficulties.EASY;
     }
 
@@ -76,6 +81,7 @@ public class CharWindow {
     // initialize method
     @FXML
     public void selectMedium(ActionEvent e) {
+        TitleWindow.beep();
         diff = difficulties.MEDIUM;
     }
 
@@ -83,6 +89,7 @@ public class CharWindow {
     // initialize method
     @FXML
     public void selectHard(ActionEvent e) {
+        TitleWindow.beep();
         diff = difficulties.HARD;
     }
 
@@ -90,11 +97,13 @@ public class CharWindow {
     // initialize method
     @FXML
     public void selectNuke(ActionEvent e) {
+        TitleWindow.beep();
         diff = difficulties.NUKE;
     }
 
     @FXML
     void onBackClicked(ActionEvent e) throws IOException {
+        TitleWindow.beep();
         var loader = new FXMLLoader(getClass().getResource("TitleWindow.fxml"));
         var scene = new Scene(loader.load());
 
@@ -108,6 +117,7 @@ public class CharWindow {
     }
 
     public void onStartClicked(ActionEvent e) throws IOException{
+        TitleWindow.beep();
         if ((character != null) && (diff != null)) {
             var loader = new FXMLLoader(getClass().getResource("GameWindow.fxml"));
         var scene = new Scene(loader.load());

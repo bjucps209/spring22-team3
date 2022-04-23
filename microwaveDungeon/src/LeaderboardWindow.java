@@ -72,6 +72,7 @@ public class LeaderboardWindow {
     // goes back to previous screen
     @FXML
     void onBackClicked(ActionEvent event) throws IOException {
+        TitleWindow.beep();
         var loader = new FXMLLoader(getClass().getResource("TitleWindow.fxml"));
         var scene = new Scene(loader.load());
 
