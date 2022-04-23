@@ -6,6 +6,28 @@
 <VBox fx:controller="HelpWindow" xmlns:fx="http://javafx.com/fxml"  stylesheets="@HelpWindow.css"
     spacing="10" prefHeight="500" prefWidth="700">
 
+    <Label text="How to Play" styleClass="title" />
+    <Label text="Goal: You have been trapped inside a microwave and must fight for your life as" />
+    <Label text="various energy waves come to fry you! Reach the end of the dungeon by fighting your way" />
+    <Label text="through the different rooms and finding the next floor (indicated by a staircase)." />
+    
+    <Label text="Getting Started" styleClass="heading"/>
+    <Label text="Begin by pressing the 'Start' button and choosing a character, difficulty,"/>
+    <Label text="and entering your username."/>
+
+    <Label text="Controls" styleClass="heading"/>
+    <Label text="Use WASD for movement, left-click to shoot, and shift to activate your character's ability." />
+    
+    <Label text="Abilties" styleClass="heading"/>
+    <Label text="Evade (Dash forward with temporary damage immunity: 5s cooldown)"/>
+    <Label text="Magic missiles (Homing projectiles: 10s cooldown)" />
+    <Label text="Rail gun (Powerful beam that destroys everything in its path: 40s cooldown)" />
+    <Label text="Pepperoni shield (A shield that repels projectiles: lasts 6 seconds w/ 20s cooldown)" />
+
+    <Label text="Scoring" styleClass="heading"/>
+    <Label text="Scoring is based off of how many enemies you eliminate before dying" />
+    <Label text="and how quivkly you beat each level."/>
+
     <Button text="Back" onAction="#onBackClicked" />
 
 </VBox>
