@@ -36,7 +36,7 @@ public class GameWindow {
     VBox MasterVbox;
 
     @FXML
-    Label healthLbl, scoreLbl, timeLbl;
+    Label healthLbl, scoreLbl, timeLbl, gunCooldownLbl, abilityCooldownLbl;
 
     private Game game;
 
@@ -56,9 +56,15 @@ public class GameWindow {
 
     private double cursorY;
 
+    private int gunFireCooldown = 0; // Time left until player can fire primary again
+
+    private int abilityCooldown = 0; // Time left until player can use ability again
+
     private room room;
 
     private Thread moveThread;
+
+    private Thread cooldownThread;
 
     private KeyFrame kf = new KeyFrame(Duration.millis(10), this::updatePlayer);
     private Timeline timer = new Timeline(kf);
@@ -92,6 +98,20 @@ public class GameWindow {
         Gamepane.requestFocus();
 
         setmovement();
+
+        cooldownThread = new Thread(() -> {
+            var keyframe = new KeyFrame(Duration.seconds(1), this::updateCooldowns);
+            var timer = new Timeline(keyframe);
+            timer.setCycleCount(Timeline.INDEFINITE);
+            timer.play();});
+        cooldownThread.start();
+    }
+
+    void updateCooldowns(ActionEvent e) {
+        if(gunFireCooldown > 0)
+            --gunFireCooldown;
+        if(abilityCooldown > 0)
+            --abilityCooldown;
     }
 
     public void setmovement() {
@@ -108,10 +128,13 @@ public class GameWindow {
                     case A:  goWest  = true; playerModelFlipped = true; break;
                     case D: goEast  = true; playerModelFlipped = false; break;
                     case SHIFT: 
-                        player.setSpeed((int) player.getSpeed() + 8);
-                        var keyframe = new KeyFrame(Duration.millis(180), e -> {player.setSpeed((int) player.getSpeed() - 8);});
-                        var DashTimer = new Timeline(keyframe);
-                        DashTimer.play();
+                        if(abilityCooldown <= 0.0) {
+                            player.setSpeed((int) player.getSpeed() + 8);
+                            var keyframe = new KeyFrame(Duration.millis(180), e -> {player.setSpeed((int) player.getSpeed() - 8);});
+                            var DashTimer = new Timeline(keyframe);
+                            DashTimer.play();
+                            abilityCooldown = 3;
+                        }
                         break; // TODO: Special ability - added basic dash
                     default:   break;
                 }
@@ -209,6 +232,14 @@ public class GameWindow {
                 if(timeLeft < 0)
                     timeLeft = 0;
                 timeLbl.setText("Time: " + String.valueOf(timeLeft)); // 600 second countdown for scoring purposes
+                if(gunFireCooldown > 0.0)
+                    gunCooldownLbl.setText("Primary: " + String.valueOf(gunFireCooldown));
+                else
+                gunCooldownLbl.setText("Primary: READY");
+                if(abilityCooldown > 0.0)
+                    abilityCooldownLbl.setText("Ablility: " + String.valueOf(abilityCooldown));
+                else
+                    abilityCooldownLbl.setText("Ablility: READY");
             });
         }
     }
@@ -249,21 +280,23 @@ public class GameWindow {
     // fires at enemies when the mouse is clicked
     @FXML
     public void openFire(MouseEvent e) {
-        GameWindow.playAudio("src\\audio\\gunSound.wav"); // Plays gunfire sound effect
-        
-        cursorX = e.getX();
-        cursorY = e.getY();
+        if(gunFireCooldown <= 0.0) {
+            GameWindow.playAudio("src\\audio\\gunSound.wav"); // Plays gunfire sound effect
+            
+            cursorX = e.getX();
+            cursorY = e.getY();
 
-        int roomIndex = game.getCurrentRoom();
-        room = game.getLevelSet().get(roomIndex).getRooms().get(roomIndex);
-        room.getBulletList().add(new projectile(1000, 10, 1, 5, player.getXcoord(), player.getYcoord()));
-        room.getBulletList().get(room.getBulletList().size() - 1).setDirection(cursorX, cursorY);
-        makeImage(bullet, room.getBulletList().get(room.getBulletList().size() - 1)); 
-        KeyFrame kf = new KeyFrame(Duration.millis(100), this::movebullet);
-        var timer = new Timeline(kf);
-        timer.setCycleCount(100);
-        timer.play();
-
+            int roomIndex = game.getCurrentRoom();
+            room = game.getLevelSet().get(roomIndex).getRooms().get(roomIndex);
+            room.getBulletList().add(new projectile(1000, 10, 1, 5, player.getXcoord(), player.getYcoord()));
+            room.getBulletList().get(room.getBulletList().size() - 1).setDirection(cursorX, cursorY);
+            makeImage(bullet, room.getBulletList().get(room.getBulletList().size() - 1)); 
+            KeyFrame kf = new KeyFrame(Duration.millis(100), this::movebullet);
+            var timer = new Timeline(kf);
+            timer.setCycleCount(100);
+            timer.play();
+            gunFireCooldown = 1; // TODO: Gunfire rate value
+        }
     }
 
     @FXML

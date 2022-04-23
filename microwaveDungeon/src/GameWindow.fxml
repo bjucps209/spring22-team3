@@ -29,13 +29,20 @@
 
     <HBox>
 
-        <VBox alignment="BASELINE_LEFT">
+        <VBox alignment="BASELINE_LEFT" prefWidth="58">
             
                 <Label fx:id="healthLbl" />
                 <Label fx:id="scoreLbl" />
                 <Label fx:id="timeLbl" />
-           
-           
+
+        </VBox>
+
+        <Separator orientation="VERTICAL" />
+
+        <VBox alignment="BASELINE_LEFT">
+            
+                <Label fx:id="gunCooldownLbl" />
+                <Label fx:id="abilityCooldownLbl" />
 
         </VBox>
 
