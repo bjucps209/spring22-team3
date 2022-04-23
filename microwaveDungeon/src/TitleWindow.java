@@ -11,7 +11,7 @@ import model.*;
 
 public class TitleWindow {
 
-    Clip titleMusic;
+    Clip titleMusic = GameWindow.playAudio("src\\audio\\xDeviruchi - The Final of The Fantasy.wav");;
 
     @FXML
     Button start;
@@ -37,7 +37,7 @@ public class TitleWindow {
     // Checks if there is a save file, if not, disables load button
     @FXML
     void initialize() {
-        titleMusic = GameWindow.playAudio("src\\audio\\xDeviruchi - The Final of The Fantasy.wav");
+        //titleMusic = GameWindow.playAudio("src\\audio\\xDeviruchi - The Final of The Fantasy.wav");
         File file = new File("src\\Saves\\SavedGame.txt");
         if(!file.exists())
             load.setDisable(true);
