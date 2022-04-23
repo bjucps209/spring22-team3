@@ -1,8 +1,5 @@
-import java.io.BufferedReader;
 import java.io.File;
-import java.io.FileReader;
 import java.io.IOException;
-import javafx.scene.layout.BackgroundImage;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.application.Platform;
@@ -10,20 +7,16 @@ import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-import javafx.geometry.Side;
-import javafx.scene.Cursor;
-import javafx.scene.Scene;
+import javafx.scene.*;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Label;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.image.*;
 import javax.sound.sampled.*;
-import javafx.scene.input.KeyCode;
-import javafx.scene.input.KeyEvent;
+import javafx.scene.input.*;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.*;
 import javafx.stage.Stage;
-import javafx.stage.WindowEvent;
 import javafx.util.Duration;
 import model.*;
 
@@ -83,20 +76,20 @@ public class GameWindow {
 
     // initializes the view by calling the necesary methods
     public void initialize(difficulties setDiff, characters setCharacter) {
-        if(setDiff != null) // Default values to prevent exceptions when character and/or diff not selected
+        if (setDiff != null) // Default values to prevent exceptions when character and/or diff not selected
             diff = setDiff;
         else
             diff = difficulties.MEDIUM;
-        if(setCharacter != null)
+        if (setCharacter != null)
             character = setCharacter;
         else
             character = characters.HPOCKET;
 
         game = new Game(diff, character);
+        int roomIndex = game.getCurrentRoom();
+        room = game.getLevelSet().get(roomIndex).getRooms().get(roomIndex);
         generate();
         tickProcessing();
-        Gamepane.requestFocus();
-
         setmovement();
 
         cooldownThread = new Thread(() -> {
@@ -114,66 +107,8 @@ public class GameWindow {
             --abilityCooldown;
     }
 
-    public void setmovement() {
-
-        //Scene scene = new Scene(Gamepane, Gamepane.widthProperty().get(), Gamepane.heightProperty().get());
-        Scene scene = Gamepane.getScene();
-
-        scene.setOnKeyPressed(new EventHandler<KeyEvent>() {
-            @Override
-            public void handle(KeyEvent event) {
-                switch (event.getCode()) {
-                    case W:    goNorth = true; break;
-                    case S:  goSouth = true; break;
-                    case A:  goWest  = true; playerModelFlipped = true; break;
-                    case D: goEast  = true; playerModelFlipped = false; break;
-                    case SHIFT: 
-                        if(abilityCooldown <= 0.0) {
-                            player.setSpeed((int) player.getSpeed() + 8);
-                            var keyframe = new KeyFrame(Duration.millis(180), e -> {player.setSpeed((int) player.getSpeed() - 8);});
-                            var DashTimer = new Timeline(keyframe);
-                            DashTimer.play();
-                            abilityCooldown = 3;
-                        }
-                        break; // TODO: Special ability - added basic dash
-                    default:   break;
-                }
-                UpdateMove();
-            }
-        });
-
-        scene.setOnKeyReleased(new EventHandler<KeyEvent>() {
-            @Override
-            public void handle(KeyEvent event) {
-                switch (event.getCode()) {
-                    case W:    goNorth = false; break;
-                    case S:  goSouth = false; break;
-                    case A:  goWest  = false; break;
-                    case D: goEast  = false; break;
-                    case ESCAPE: 
-                        try {
-                            onPauseClicked(new ActionEvent());
-                        } catch (IOException e) {
-                            Alert a = new Alert(AlertType.ERROR, "There was a problem with opening the pause menu: " + e.getMessage());
-                            a.show();
-                        }; 
-                        break;
-                    default:  break;
-                }
-                if (!goNorth && !goSouth && !goWest && !goEast) {
-                    stopMove();
-                } else {
-                    UpdateMove();
-                }
-                
-            }
-        });
-    }
-
     @FXML
     public void generate() {
-        int roomIndex = game.getCurrentRoom();
-        room room = game.getLevelSet().get(roomIndex).getRooms().get(roomIndex);
 
         player = new player(25, 3, 1, 69, 0, 300);
         game.setUser(player);
@@ -204,24 +139,122 @@ public class GameWindow {
 
     }
 
+    
+    @FXML
+    public void tickProcessing() {
+        // calls updateView(), and trackCursor() every tick, and every time the player
+        // moves or shoots.
+        // calls updatePosition() on all moving entities in the current loaded room each
+        // tick.
+        Thread t = new Thread(() -> {
+            KeyFrame enemykf = new KeyFrame(Duration.millis(100), this::updateEnemyPositions);
+            var enemytimer = new Timeline(enemykf);
+            enemytimer.setCycleCount(Timeline.INDEFINITE);
+            enemytimer.play();
+
+            KeyFrame collisionkf = new KeyFrame(Duration.millis(100), this::findCollision);
+            var collisionTimer = new Timeline(collisionkf);
+            collisionTimer.setCycleCount(Timeline.INDEFINITE);
+            collisionTimer.play();
+        });
+        t.start();
+    }
+    
+    public void setmovement() {
+
+        // Scene scene = new Scene(Gamepane, Gamepane.widthProperty().get(),
+        // Gamepane.heightProperty().get());
+        Scene scene = Gamepane.getScene();
+
+        scene.setOnKeyPressed(new EventHandler<KeyEvent>() {
+            @Override
+            public void handle(KeyEvent event) {
+                switch (event.getCode()) {
+                    case W:    goNorth = true; break;
+                    case S:  goSouth = true; break;
+                    case A:  goWest  = true; playerModelFlipped = true; break;
+                    case D: goEast  = true; playerModelFlipped = false; break;
+                    case SHIFT: 
+                    if(abilityCooldown <= 0.0) {
+                        player.setSpeed((int) player.getSpeed() + 8);
+                        var keyframe = new KeyFrame(Duration.millis(180), e -> {player.setSpeed((int) player.getSpeed() - 8);});
+                        var DashTimer = new Timeline(keyframe);
+                        DashTimer.play();
+                        abilityCooldown = 3;
+                    }
+                    break; // TODO: Special ability - added basic dash
+                    default:
+                        break;
+                }
+                UpdateMove();
+            }
+        });
+
+        scene.setOnKeyReleased(new EventHandler<KeyEvent>() {
+            @Override
+            public void handle(KeyEvent event) {
+                switch (event.getCode()) {
+                    case W:
+                        goNorth = false;
+                        break;
+                    case S:
+                        goSouth = false;
+                        break;
+                    case A:
+                        goWest = false;
+                        break;
+                    case D:
+                        goEast = false;
+                        break;
+                    case ESCAPE:
+                        try {
+                            onPauseClicked(new ActionEvent());
+                        } catch (IOException e) {
+                            Alert a = new Alert(AlertType.ERROR,
+                                    "There was a problem with opening the pause menu: " + e.getMessage());
+                            a.show();
+                        }
+                        ;
+                        break;
+                    default:
+                        break;
+                }
+                if (!goNorth && !goSouth && !goWest && !goEast) {
+                    stopMove();
+                } else {
+                    UpdateMove();
+                }
+
+            }
+        });
+    }
+
+    
     @FXML
     public void setCursor(MouseEvent m) {
         Gamepane.getScene().setCursor(Cursor.CROSSHAIR);
     }
 
+    
+    
     // updates the view based on changes in the model
     @FXML
     public void updateEnemyPositions(ActionEvent e) {
-        if(isNotPaused) {
-            var ls = game.getLevelSet().get(game.getCurrentLevel()).getRooms().get(game.getCurrentRoom()).getEnemyList();
+
+        if (isNotPaused) {
+            var ls = game.getLevelSet().get(game.getCurrentLevel()).getRooms().get(game.getCurrentRoom())
+                    .getEnemyList();
             int len = ls.size();
             for (int i = 0; i < len; ++i) {
                 final int currentI = i;
                 ls.get(i).updatePosition(Gamepane.getChildren().get(0).getLayoutX(),
                         Gamepane.getChildren().get(0).getLayoutY());
                 Platform.runLater(() -> {
-                    Gamepane.getChildren().get(currentI + 1).setLayoutX(ls.get(currentI).getXcoord());
-                    Gamepane.getChildren().get(currentI + 1).setLayoutY(ls.get(currentI).getYcoord());
+                    if (room.getEnemyList().size() != 0) {
+                        Gamepane.getChildren().get(currentI + 1).setLayoutX(ls.get(currentI).getXcoord());
+                        Gamepane.getChildren().get(currentI + 1).setLayoutY(ls.get(currentI).getYcoord());
+                    }
+
                 });
 
             }
@@ -229,7 +262,7 @@ public class GameWindow {
                 healthLbl.setText("Health: " + player.getHealth()); // Update health, score, & time labels
                 scoreLbl.setText("Score: " + game.getScore());
                 int timeLeft = 600 - game.getTimePassed();
-                if(timeLeft < 0)
+                if (timeLeft < 0)
                     timeLeft = 0;
                 timeLbl.setText("Time: " + String.valueOf(timeLeft)); // 600 second countdown for scoring purposes
                 if(gunFireCooldown > 0.0)
@@ -242,36 +275,32 @@ public class GameWindow {
                     abilityCooldownLbl.setText("Ablility: READY");
             });
         }
+
     }
 
     // updates entities when collision from a bullet is detected
     @FXML
     public void findCollision(ActionEvent e) {
-        int enemies = game.getLevelSet().get(game.getCurrentLevel()).getRooms().get(game.getCurrentRoom()).getEnemyList().size();
+        int enemies = game.getLevelSet().get(game.getCurrentLevel()).getRooms().get(game.getCurrentRoom())
+                .getEnemyList().size();
 
-        
-        for (int i = 1 + enemies; i < Gamepane.getChildren().size(); ++i){ // i = bullet index, j = enemy index, player index = 0
-            for (int j = 1; j < enemies + 1; ++j){
+        for (int i = 1 + enemies; i < Gamepane.getChildren().size(); ++i) { // i = bullet index, j = enemy index, player
+                                                                            // index = 0
+            for (int j = 1; j < enemies + 1; ++j) {
                 Double bulletX = Gamepane.getChildren().get(i).getLayoutX();
                 Double bulletY = Gamepane.getChildren().get(i).getLayoutY();
                 Double entityX = Gamepane.getChildren().get(j).getLayoutX();
                 Double entityY = Gamepane.getChildren().get(j).getLayoutY();
-                boolean isCollision = (Math.abs(Math.sqrt(Math.pow(bulletX - entityX, 2) + Math.pow(bulletY - entityY, 2))) <= 30.0); // checks to see if the bullet is within a 30.0 pixel radius of the target enemy
-                if (isCollision){
-                    Platform.runLater(() -> System.out.println("Hit"));
-                    entity bulletShot = (entity) ((ImageView) Gamepane.getChildren().get(j)).getUserData(); //TODO: Cast exception -Not sure why it is being thrown
-                    room.getBulletList().remove(bulletShot);
-                    Gamepane.getChildren().remove(j); // Remove bullet
-                    entity entityInflicted = (entity) ((ImageView) Gamepane.getChildren().get(i)).getUserData();
-                    double damageDealt = player.getDamage();
-                    entityInflicted.setHealth((int) (entityInflicted.getHealth() - damageDealt)); // Deal damage to entity
-                    Label damageMarker = new Label(String.valueOf(damageDealt)); // Add damage marker that disappears after 2 seconds pass
-                    damageMarker.setLayoutX(entityX + 40);
-                    damageMarker.setLayoutY(entityY);
-                    Gamepane.getChildren().add(damageMarker);
-                    KeyFrame keyframe = new KeyFrame(Duration.seconds(2), event -> Gamepane.getChildren().remove(damageMarker));  
-                    Timeline markerTimer = new Timeline(keyframe);
-                    markerTimer.play();         
+                boolean isCollision = (Math
+                        .abs(Math.sqrt(Math.pow(bulletX - entityX, 2) + Math.pow(bulletY - entityY, 2))) <= 30.0); // checks to see if the bullet is within a 30.0 pixel radius of the target enemy
+                if (isCollision) {
+                    if (room.getEnemyList().size() != 0){
+                        Gamepane.getChildren().remove(i);
+                        Gamepane.getChildren().remove(j);
+                        room.getBulletList().remove(i - enemies - 1);
+                        room.getEnemyList().remove(j - 1);
+                    }
+                    
                 }
             }
         }
@@ -316,7 +345,6 @@ public class GameWindow {
 
     // moves the player character when WASD is pressed
     public void UpdateMove() {
-      
 
         boolean moving = goNorth || goSouth || goWest || goEast;
 
@@ -388,7 +416,7 @@ public class GameWindow {
             @Override
             public void handle(KeyEvent event) {
                 switch (event.getCode()) {
-                    case ESCAPE: 
+                    case ESCAPE:
                         stage.close();
                         resume();
                         break;
@@ -400,27 +428,7 @@ public class GameWindow {
         stage.setScene(scene);
         stage.show();
         stage.setTitle("Pause Menu");
-        
-    }
 
-    @FXML
-    public void tickProcessing() {
-        // calls updateView(), and trackCursor() every tick, and every time the player
-        // moves or shoots.
-        // calls updatePosition() on all moving entities in the current loaded room each
-        // tick.
-        Thread t = new Thread(() -> {
-            KeyFrame enemykf = new KeyFrame(Duration.millis(100), this::updateEnemyPositions);
-            var enemytimer = new Timeline(enemykf);
-            enemytimer.setCycleCount(Timeline.INDEFINITE);
-            enemytimer.play();
-
-            KeyFrame collisionkf = new KeyFrame(Duration.millis(100), this::findCollision);
-            var collisionTimer = new Timeline(collisionkf);
-            collisionTimer.setCycleCount(Timeline.INDEFINITE);
-            collisionTimer.play();
-        });
-        t.start();
     }
 
     // This method is called to call the load method in the game object
@@ -428,7 +436,7 @@ public class GameWindow {
         game = game.load(false);
         player = game.getUser();
         character = game.getCharacter();
-        switch (character){
+        switch (character) {
             case PIZZA:
                 makeImage(pizza, player);
                 break;
@@ -447,7 +455,7 @@ public class GameWindow {
         }
         int roomIndex = game.getCurrentRoom();
         room room = game.getLevelSet().get(roomIndex).getRooms().get(roomIndex);
-        for (int i = 0; i < room.getEnemyList().size(); ++i){
+        for (int i = 0; i < room.getEnemyList().size(); ++i) {
             makeImage(enemies, room.getEnemyList().get(i));
         }
         tickProcessing();
