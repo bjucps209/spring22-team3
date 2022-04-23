@@ -14,7 +14,10 @@
     <Label text="David John Hayes - Auxiliary Screens" />
 
     <Label text="Copyright Information" styleClass="title" />
-    <Label text="Copyright info ooOoOooOoooO"/>
+    <Label text="Gun sound: Copyright © 2022. All rights reserved - Made by Envato Elements"/>
+    <Label text="Music: 'The Final of the Fantasy' by xDeviruchi ℗ 2021 Marllon Eduardo Martins Silva" />
+    <Label text="" />
+    <Label text="All images were created by Edward Taylor." />
 
     <Button fx:id="back" onAction="#onBackClicked" text="Back to Title" />
 
