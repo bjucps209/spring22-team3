@@ -10,6 +10,7 @@ public class CreditsWindow {
 
     @FXML
     void onBackClicked(ActionEvent event) throws IOException{
+        TitleWindow.beep();
         var loader = new FXMLLoader(getClass().getResource("TitleWindow.fxml"));
         var scene = new Scene(loader.load());
 

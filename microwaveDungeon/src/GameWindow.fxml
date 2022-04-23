@@ -12,13 +12,16 @@
         <Button onAction="#onPauseClicked">
             <graphic>
 
-            <ImageView fitWidth="20" fitHeight="25">
+                <ImageView fitWidth="20" fitHeight="25">
 
-            <image><Image url="@imgs/pause.png" /></image>
+                <image><Image url="@imgs/pause.png" /></image>
 
-            </ImageView>
+                </ImageView>
+            
             </graphic>
-            </Button>
+        </Button>
+
+        <Button onAction="#onCheatClicked" text="Cheat" />
 
     </HBox>
 
