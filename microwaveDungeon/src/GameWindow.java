@@ -103,7 +103,12 @@ public class GameWindow {
                     case S:  goSouth = true; break;
                     case A:  goWest  = true; break;
                     case D: goEast  = true; break;
-                    case SHIFT: break; // TODO: Special ability
+                    case SHIFT: 
+                        player.setSpeed((int) player.getSpeed() + 4);
+                        var keyframe = new KeyFrame(Duration.millis(500), e -> {player.setSpeed((int) player.getSpeed() - 4);});
+                        var DashTimer = new Timeline(keyframe);
+                        DashTimer.play();
+                        break; // TODO: Special ability - added basic dash
                     default:   break;
                 }
                 UpdateMove();
@@ -143,7 +148,7 @@ public class GameWindow {
         int roomIndex = game.getCurrentRoom();
         room room = game.getLevelSet().get(roomIndex).getRooms().get(roomIndex);
 
-        player = new player(25, 0, 1, 69, 0, 300);
+        player = new player(25, 3, 1, 69, 0, 300);
         game.setUser(player);
 
         switch (character) {
@@ -210,7 +215,7 @@ public class GameWindow {
         int enemies = game.getLevelSet().get(game.getCurrentLevel()).getRooms().get(game.getCurrentRoom()).getEnemyList().size();
 
         
-        for (int i = 1 + enemies; i < Gamepane.getChildren().size(); ++i){
+        for (int i = 1 + enemies; i < Gamepane.getChildren().size(); ++i){ // i = bullet index, j = enemy index, player index = 0
             for (int j = 1; j < enemies + 1; ++j){
                 Double bulletX = Gamepane.getChildren().get(i).getLayoutX();
                 Double bulletY = Gamepane.getChildren().get(i).getLayoutY();
@@ -222,15 +227,14 @@ public class GameWindow {
                     entity bulletShot = (entity) ((ImageView) Gamepane.getChildren().get(j)).getUserData(); //TODO: Cast exception -Not sure why it is being thrown
                     room.getBulletList().remove(bulletShot);
                     Gamepane.getChildren().remove(j); // Remove bullet
-                    Platform.runLater(() -> System.out.println("Bullet removed"));
                     entity entityInflicted = (entity) ((ImageView) Gamepane.getChildren().get(i)).getUserData();
                     double damageDealt = player.getDamage();
                     entityInflicted.setHealth((int) (entityInflicted.getHealth() - damageDealt)); // Deal damage to entity
-                    Label damageMarker = new Label(String.valueOf(damageDealt)); // Add damage marker that disappears
+                    Label damageMarker = new Label(String.valueOf(damageDealt)); // Add damage marker that disappears after 2 seconds pass
                     damageMarker.setLayoutX(entityX + 40);
                     damageMarker.setLayoutY(entityY);
                     Gamepane.getChildren().add(damageMarker);
-                    KeyFrame keyframe = new KeyFrame(Duration.seconds(3), event -> Gamepane.getChildren().remove(damageMarker));  
+                    KeyFrame keyframe = new KeyFrame(Duration.seconds(2), event -> Gamepane.getChildren().remove(damageMarker));  
                     Timeline markerTimer = new Timeline(keyframe);
                     markerTimer.play();         
                 }
@@ -302,7 +306,7 @@ public class GameWindow {
             
 
             player.setDirection(direction);
-            player.setSpeed(5);
+            //player.setSpeed(5);
             timer.setCycleCount(Timeline.INDEFINITE);
             timer.play();
 
