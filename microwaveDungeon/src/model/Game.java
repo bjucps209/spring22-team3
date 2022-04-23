@@ -1,16 +1,21 @@
 package model;
 
 import java.io.*;
+import java.sql.Time;
 import java.util.ArrayList;
 import java.util.Arrays;
 
 import javax.crypto.spec.RC2ParameterSpec;
 
+import javafx.animation.KeyFrame;
+import javafx.animation.Timeline;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.image.Image;
 import javafx.scene.layout.Pane;
+import javafx.util.Duration;
 
 public class Game {
     private ArrayList<Level> easyLevelList = new ArrayList<Level>();
@@ -47,6 +52,14 @@ public class Game {
         diff = setDiff;
         character = setCharacter;
         generateLevels(setDiff);
+        KeyFrame keyframe = new KeyFrame(Duration.seconds(1), this::incrementTimePassed);
+        Timeline timer = new Timeline(keyframe);
+        timer.setCycleCount(Timeline.INDEFINITE);
+        timer.play();
+    }
+
+    public void incrementTimePassed(ActionEvent e) {
+        ++timePassed;
     }
 
 
@@ -371,7 +384,6 @@ public class Game {
             output.setUser(player.load(input));
         }
         catch (IOException e) {
-            e.printStackTrace();
             Alert a = new Alert(AlertType.ERROR, "There was a problem reading the save file: " + e.getMessage());
             a.show();
         }

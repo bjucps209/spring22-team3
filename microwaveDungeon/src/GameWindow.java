@@ -103,6 +103,7 @@ public class GameWindow {
                     case S:  goSouth = true; break;
                     case A:  goWest  = true; break;
                     case D: goEast  = true; break;
+                    case SHIFT: break; // TODO: Special ability
                     default:   break;
                 }
                 UpdateMove();
@@ -117,6 +118,14 @@ public class GameWindow {
                     case S:  goSouth = false; break;
                     case A:  goWest  = false; break;
                     case D: goEast  = false; break;
+                    case ESCAPE: 
+                        try {
+                            onPauseClicked(new ActionEvent());
+                        } catch (IOException e) {
+                            Alert a = new Alert(AlertType.ERROR, "There was a problem with opening the pause menu: " + e.getMessage());
+                            a.show();
+                        }; 
+                        break;
                     default:  break;
                 }
                 if (!goNorth && !goSouth && !goWest && !goEast) {
@@ -187,7 +196,10 @@ public class GameWindow {
             Platform.runLater(() -> {
                 healthLbl.setText("Health: " + player.getHealth()); // Update health, score, & time labels
                 scoreLbl.setText("Score: " + game.getScore());
-                timeLbl.setText("Time: " + game.getTimePassed());
+                int timeLeft = 600 - game.getTimePassed();
+                if(timeLeft < 0)
+                    timeLeft = 0;
+                timeLbl.setText("Time: " + String.valueOf(timeLeft)); // 600 second countdown for scoring purposes
             });
         }
     }
@@ -204,7 +216,7 @@ public class GameWindow {
                 Double bulletY = Gamepane.getChildren().get(i).getLayoutY();
                 Double entityX = Gamepane.getChildren().get(j).getLayoutX();
                 Double entityY = Gamepane.getChildren().get(j).getLayoutY();
-                boolean isCollision = (Math.abs(Math.sqrt(Math.pow(bulletX - entityX, 2) + Math.pow(bulletY - entityY, 2))) <= 30.0); // 30.0 stands for the hitbox radius
+                boolean isCollision = (Math.abs(Math.sqrt(Math.pow(bulletX - entityX, 2) + Math.pow(bulletY - entityY, 2))) <= 30.0); // checks to see if the bullet is within a 30.0 pixel radius of the target enemy
                 if (isCollision){
                     Platform.runLater(() -> System.out.println("Hit"));
                     entity bulletShot = (entity) ((ImageView) Gamepane.getChildren().get(j)).getUserData(); //TODO: Cast exception -Not sure why it is being thrown
@@ -215,7 +227,7 @@ public class GameWindow {
                     double damageDealt = player.getDamage();
                     entityInflicted.setHealth((int) (entityInflicted.getHealth() - damageDealt)); // Deal damage to entity
                     Label damageMarker = new Label(String.valueOf(damageDealt)); // Add damage marker that disappears
-                    damageMarker.setLayoutX(entityX);
+                    damageMarker.setLayoutX(entityX + 40);
                     damageMarker.setLayoutY(entityY);
                     Gamepane.getChildren().add(damageMarker);
                     KeyFrame keyframe = new KeyFrame(Duration.seconds(3), event -> Gamepane.getChildren().remove(damageMarker));  
@@ -296,15 +308,6 @@ public class GameWindow {
 
         }
 
-
-        //case ESCAPE: // Added to make it easier to open the pause menu
-        //    try {
-        //        onPauseClicked(new ActionEvent());
-        //    } catch (IOException e) {
-        //        Alert a = new Alert(AlertType.ERROR, "There was a problem when opening the pause menu.");
-        //        a.show();
-        //    }
-
     }
 
     public void stopMove() {
@@ -333,8 +336,20 @@ public class GameWindow {
         isNotPaused = false;
         var loader = new FXMLLoader(getClass().getResource("PauseMenu.fxml"));
         var scene = new Scene(loader.load());
-
-        var stage = new Stage();
+        Stage stage = new Stage();
+        scene.setOnKeyReleased(new EventHandler<KeyEvent>() { // Unpauses the game when ESC is released
+            @Override
+            public void handle(KeyEvent event) {
+                switch (event.getCode()) {
+                    case ESCAPE: 
+                        stage.close();
+                        resume();
+                        break;
+                    default:
+                        break;
+                }
+            }
+        });
         stage.setScene(scene);
         stage.show();
         stage.setTitle("Pause Menu");
