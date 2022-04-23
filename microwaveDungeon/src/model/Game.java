@@ -78,6 +78,7 @@ public class Game {
                 //level 1
                 easyLevelList.get(0).addRoom(new room(0, 2, false));
                 easyLevelList.get(0).getRooms().get(0).addEnemy(new enemy(5, 10, 2, 1, 300, 250));
+                easyLevelList.get(0).getRooms().get(0).addDoor(new door(10000, 0, 0, 0, 600, 250));
                 easyLevelList.get(0).addRoom(new room(1, 2, false));
                 easyLevelList.get(0).addRoom(new room(2, 2, false));
                 

@@ -30,6 +30,8 @@ public class room {
 
     ArrayList<projectile> bulletList = new ArrayList<projectile>();
 
+    ArrayList<door> doorList = new ArrayList<door>();
+
     player player;
 
     public room(int setX, int setY, Boolean isNotForLoad){ // isNotForLoad determines whether if generate() is used as when loading, generate is not nessesary
@@ -173,7 +175,27 @@ public class room {
         obstacleList.remove(e);
     }
 
+    public void addDoor(door d) {
+        doorList.add(d);
+    }
     
+    public void removeDoor(door d) {
+        doorList.remove(d);
+    }
+
+    
+
+    
+    public ArrayList<door> getDoorList() {
+        return doorList;
+    }
+
+
+    public void setDoorList(ArrayList<door> doorList) {
+        this.doorList = doorList;
+    }
+
+
     public ArrayList<projectile> getBulletList() {
         return bulletList;
     }

@@ -68,6 +68,8 @@ public class GameWindow {
 
     final Image bullet = new Image("/imgs/IAMALSOBULLET.png");
 
+    final Image door = new Image("/imgs/door.png");
+
     // initializes the view by calling the necesary methods
     public void initialize(difficulties setDiff, characters setCharacter) {
         if (setDiff != null) // Default values to prevent exceptions when character and/or diff not selected
@@ -119,6 +121,10 @@ public class GameWindow {
             makeImage(enemies, room.getEnemyList().get(i));
         }
 
+        for (int i = 0; i < room.getDoorList().size(); ++i){
+            makeImage(door, room.getDoorList().get(i));
+        }
+
     }
 
     
@@ -138,6 +144,8 @@ public class GameWindow {
             var collisionTimer = new Timeline(collisionkf);
             collisionTimer.setCycleCount(Timeline.INDEFINITE);
             collisionTimer.play();
+
+            
         });
         t.start();
     }
@@ -198,6 +206,7 @@ public class GameWindow {
                     default:
                         break;
                 }
+                timer.stop();
                 if (!goNorth && !goSouth && !goWest && !goEast) {
                     stopMove();
                 } else {
@@ -207,6 +216,48 @@ public class GameWindow {
             }
         });
     }
+
+        // moves the player character when WASD is pressed
+        public void UpdateMove() {
+
+            boolean moving = goNorth || goSouth || goWest || goEast;
+    
+            double direction = 0;
+    
+            if (moving) {
+                if (goNorth) {
+                    direction = 270;
+                    if (goEast) {
+                        direction += 45;
+                    } else if (goWest) {
+                        direction -= 45;
+                    }
+                } else if (goSouth) {
+                    direction = 90;
+                    if (goEast) {
+                        direction -= 45;
+                    } else if (goWest) {
+                        direction += 45;
+                    }
+                } else if (goWest) {
+                    direction = 180;
+                } else if (goEast) {
+                    direction = 0;
+                }
+                
+                if(playerModelFlipped) 
+                    Gamepane.getChildren().get(0).setScaleX(-1);
+                else 
+                    Gamepane.getChildren().get(0).setScaleX(1);
+    
+                player.setDirection(direction);
+                timer.setCycleCount(Timeline.INDEFINITE);
+                timer.play();
+                
+    
+            }
+
+        }
 
     
     @FXML
@@ -309,47 +360,6 @@ public class GameWindow {
 
     }
 
-    // moves the player character when WASD is pressed
-    public void UpdateMove() {
-
-        boolean moving = goNorth || goSouth || goWest || goEast;
-
-        double direction = 0;
-
-        if (moving) {
-            if (goNorth) {
-                direction = 270;
-                if (goEast) {
-                    direction += 45;
-                } else if (goWest) {
-                    direction -= 45;
-                }
-            } else if (goSouth) {
-                direction = 90;
-                if (goEast) {
-                    direction -= 45;
-                } else if (goWest) {
-                    direction += 45;
-                }
-            } else if (goWest) {
-                direction = 180;
-            } else if (goEast) {
-                direction = 0;
-            }
-            
-            if(playerModelFlipped) 
-                Gamepane.getChildren().get(0).setScaleX(-1);
-            else 
-                Gamepane.getChildren().get(0).setScaleX(1);
-
-            player.setDirection(direction);
-            timer.setCycleCount(Timeline.INDEFINITE);
-            timer.play();
-
-        }
-
-    }
-
     public void stopMove() {
         player.setDirection(0);
         player.setSpeed(0);
@@ -362,12 +372,6 @@ public class GameWindow {
         Gamepane.getChildren().get(0).setLayoutX(player.getXcoord());
         Gamepane.getChildren().get(0).setLayoutY(player.getYcoord());
 
-    }
-
-    // sets the cursor to crosshairs and tracks it on the pane
-    @FXML
-    public void trackCursor() {
-        throw new RuntimeException("Method not implemented");
     }
 
     // Pauses the game and opens the Pause Menu
