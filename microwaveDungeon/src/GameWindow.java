@@ -1,8 +1,5 @@
-import java.io.BufferedReader;
 import java.io.File;
-import java.io.FileReader;
 import java.io.IOException;
-import javafx.scene.layout.BackgroundImage;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.application.Platform;
@@ -10,20 +7,16 @@ import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-import javafx.geometry.Side;
-import javafx.scene.Cursor;
-import javafx.scene.Scene;
+import javafx.scene.*;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Label;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.image.*;
 import javax.sound.sampled.*;
-import javafx.scene.input.KeyCode;
-import javafx.scene.input.KeyEvent;
+import javafx.scene.input.*;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.*;
 import javafx.stage.Stage;
-import javafx.stage.WindowEvent;
 import javafx.util.Duration;
 import model.*;
 
@@ -95,6 +88,60 @@ public class GameWindow {
         Gamepane.requestFocus();
     }
 
+
+    @FXML
+    public void generate() {
+
+        player = new player(25, 3, 1, 69, 0, 300);
+        game.setUser(player);
+
+        switch (character) {
+
+            case PIZZA:
+                makeImage(pizza, player);
+                break;
+
+            case MAC:
+                makeImage(mac, player);
+                break;
+
+            case RAMEN:
+                makeImage(ramen, player);
+                break;
+
+            case HPOCKET:
+                makeImage(hPocket, player);
+                break;
+
+        }
+
+        for (int i = 0; i < room.getEnemyList().size(); ++i) {
+            makeImage(enemies, room.getEnemyList().get(i));
+        }
+
+    }
+
+    
+    @FXML
+    public void tickProcessing() {
+        // calls updateView(), and trackCursor() every tick, and every time the player
+        // moves or shoots.
+        // calls updatePosition() on all moving entities in the current loaded room each
+        // tick.
+        Thread t = new Thread(() -> {
+            KeyFrame enemykf = new KeyFrame(Duration.millis(100), this::updateEnemyPositions);
+            var enemytimer = new Timeline(enemykf);
+            enemytimer.setCycleCount(Timeline.INDEFINITE);
+            enemytimer.play();
+
+            KeyFrame collisionkf = new KeyFrame(Duration.millis(100), this::findCollision);
+            var collisionTimer = new Timeline(collisionkf);
+            collisionTimer.setCycleCount(Timeline.INDEFINITE);
+            collisionTimer.play();
+        });
+        t.start();
+    }
+    
     public void setmovement() {
 
         // Scene scene = new Scene(Gamepane, Gamepane.widthProperty().get(),
@@ -161,43 +208,14 @@ public class GameWindow {
         });
     }
 
-    @FXML
-    public void generate() {
-
-        player = new player(25, 3, 1, 69, 0, 300);
-        game.setUser(player);
-
-        switch (character) {
-
-            case PIZZA:
-                makeImage(pizza, player);
-                break;
-
-            case MAC:
-                makeImage(mac, player);
-                break;
-
-            case RAMEN:
-                makeImage(ramen, player);
-                break;
-
-            case HPOCKET:
-                makeImage(hPocket, player);
-                break;
-
-        }
-
-        for (int i = 0; i < room.getEnemyList().size(); ++i) {
-            makeImage(enemies, room.getEnemyList().get(i));
-        }
-
-    }
-
+    
     @FXML
     public void setCursor(MouseEvent m) {
         Gamepane.getScene().setCursor(Cursor.CROSSHAIR);
     }
 
+    
+    
     // updates the view based on changes in the model
     @FXML
     public void updateEnemyPositions(ActionEvent e) {
@@ -377,26 +395,6 @@ public class GameWindow {
         stage.show();
         stage.setTitle("Pause Menu");
 
-    }
-
-    @FXML
-    public void tickProcessing() {
-        // calls updateView(), and trackCursor() every tick, and every time the player
-        // moves or shoots.
-        // calls updatePosition() on all moving entities in the current loaded room each
-        // tick.
-        Thread t = new Thread(() -> {
-            KeyFrame enemykf = new KeyFrame(Duration.millis(100), this::updateEnemyPositions);
-            var enemytimer = new Timeline(enemykf);
-            enemytimer.setCycleCount(Timeline.INDEFINITE);
-            enemytimer.play();
-
-            KeyFrame collisionkf = new KeyFrame(Duration.millis(100), this::findCollision);
-            var collisionTimer = new Timeline(collisionkf);
-            collisionTimer.setCycleCount(Timeline.INDEFINITE);
-            collisionTimer.play();
-        });
-        t.start();
     }
 
     // This method is called to call the load method in the game object
