@@ -60,7 +60,7 @@ public class LevelData {
                                 int id = Integer.parseInt(lineList[1]);
                                 int x = Integer.parseInt(lineList[2]);
                                 int y = Integer.parseInt(lineList[3]);
-                                int health = Integer.parseInt(lineList[4]);
+                                double health = Double.parseDouble(lineList[4]);
                                 double damage = Double.parseDouble(lineList[5]);
                                 double speed = Double.parseDouble(lineList[6]);
                                 int scale = Integer.parseInt(lineList[7]);

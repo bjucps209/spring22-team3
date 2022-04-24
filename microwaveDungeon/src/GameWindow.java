@@ -57,6 +57,9 @@ public class GameWindow {
 
     private room room;
 
+    private int enemyCount;
+    private int doorCount;
+
     private Thread moveThread;
 
     private Thread cooldownThread;
@@ -76,7 +79,7 @@ public class GameWindow {
 
     final Image bullet = new Image("/imgs/IAMALSOBULLET.png");
 
-    final Image door = new Image("/imgs/door.png");
+    final Image door = new Image("/imgs/door2.png");
 
     // initializes the view by calling the necesary methods
     public void initialize(difficulties setDiff, characters setCharacter) {
@@ -88,6 +91,9 @@ public class GameWindow {
         generate();
         tickProcessing();
         setmovement();
+
+        enemyCount = room.getEnemyList().size();
+        doorCount = room.getDoorList().size();
 
         cooldownThread = new Thread(() -> {
             var keyframe = new KeyFrame(Duration.seconds(1), this::updateCooldowns);
@@ -107,6 +113,7 @@ public class GameWindow {
 
     @FXML
     public void generate() {
+        // on generation, player is always slot 0 on the Gamepane, then enemies, then doors, everything beyond that is projectiles
 
         player = new player(25, 3, 1, 69, 0, 300);
         game.setUser(player);
@@ -130,12 +137,13 @@ public class GameWindow {
                 break;
 
         }
-        for (int j = 0; j < room.getDoorList().size(); ++j) {
-            makeImage(door, room.getDoorList().get(j));
-        }
 
         for (int i = 0; i < room.getEnemyList().size(); ++i) {
             makeImage(enemies, room.getEnemyList().get(i));
+        }
+
+        for (int j = 0; j < room.getDoorList().size(); ++j) {
+            makeImage(door, room.getDoorList().get(j));
         }
 
     }
@@ -152,7 +160,7 @@ public class GameWindow {
             enemytimer.setCycleCount(Timeline.INDEFINITE);
             enemytimer.play();
 
-            KeyFrame collisionkf = new KeyFrame(Duration.millis(100), this::findCollision);
+            KeyFrame collisionkf = new KeyFrame(Duration.millis(100), this::onHit);
             var collisionTimer = new Timeline(collisionkf);
             collisionTimer.setCycleCount(Timeline.INDEFINITE);
             collisionTimer.play();
@@ -338,28 +346,47 @@ public class GameWindow {
 
     // updates entities when collision from a bullet is detected
     @FXML
-    public void findCollision(ActionEvent e) {
+    public void onHit(ActionEvent e) {
         int enemies = room.getEnemyList().size();
         int doors = room.getDoorList().size();
 
-        for (int i = 1 + enemies + doors; i < Gamepane.getChildren().size(); ++i) { // i = bullet index, j = enemy index, player
-                                                                            // index = 0
-            for (int j = 1; j < enemies + 1 + doors; ++j) {
+        for (int i = 1 + enemies + doors; i < Gamepane.getChildren().size(); ++i) { // i = bullet index, j = enemy
+                                                                                    // index, player
+            // index = 0
+            for (int j = 1; j <= enemies; ++j) {
                 Double bulletX = Gamepane.getChildren().get(i).getLayoutX();
                 Double bulletY = Gamepane.getChildren().get(i).getLayoutY();
                 Double entityX = Gamepane.getChildren().get(j).getLayoutX();
                 Double entityY = Gamepane.getChildren().get(j).getLayoutY();
                 boolean isCollision = (Math
-                        .abs(Math.sqrt(Math.pow(bulletX - entityX, 2) + Math.pow(bulletY - entityY, 2))) <= 30.0); 
+                        .abs(Math.sqrt(Math.pow(bulletX - entityX, 2) + Math.pow(bulletY - entityY, 2))) <= 30.0);
                 if (isCollision) {
-                    if (room.getEnemyList().size() != 0) {
-                        Gamepane.getChildren().remove(i);
-                        Gamepane.getChildren().remove(j);
-                        room.getBulletList().remove(i - enemies - 1 - doors);
-                        room.getEnemyList().remove(j - 1);
+                    room.getEnemyList().get(j - 1).setHealth(room.getEnemyList().get(j - 1).getHealth() - player.getDamage());
+                    if (room.getEnemyList().get(j - 1).getHealth() <= 0) {
+                        if (room.getEnemyList().size() != 0) {
+                            Gamepane.getChildren().remove(i);
+                            Gamepane.getChildren().remove(j);
+                            room.getBulletList().remove(i - enemies - 1 - doors);
+                            room.getEnemyList().remove(j - 1);
+                        }
                     }
 
                 }
+            }
+        }
+    }
+
+    @FXML
+    public void onDoor(ActionEvent e) {
+        for (int i = 0; i < 1 + enemyCount + doorCount; ++i) {
+            double playerX = Gamepane.getChildren().get(0).getLayoutX();
+            double playerY = Gamepane.getChildren().get(0).getLayoutY();
+            double doorX = Gamepane.getChildren().get(i).getLayoutX();
+            double doorY = Gamepane.getChildren().get(i).getLayoutY();
+            boolean isCollision = (Math
+                    .abs(Math.sqrt(Math.pow(playerX - doorX, 2) + Math.pow(playerY - doorY, 2))) <= 30.0);
+            if (isCollision) {
+
             }
         }
     }
