@@ -6,37 +6,67 @@
 <VBox fx:controller="CharWindow" xmlns:fx="http://javafx.com/fxml"  stylesheets="@CharWindow.css"
     spacing="10" prefHeight="500" prefWidth="700">
 
-    <Button onAction="#onBackClicked" text="Back to Title" />
+    <Label text="Select a Character and Difficulty" styleClass="title" />
 
-    <HBox>
+    <HBox alignment="CENTER" prefHeight="35" >
 
-    <Button fx:id="pizzaCharacter" onAction="#selectPizzaCharacter" text="Leftover Pizza" />
+        <Button fx:id="pizzaCharacter" onAction="#selectPizzaCharacter" text="Leftover Pizza" />
 
-    <Button fx:id="hotPocketCharacter" onAction="#selectHPocketCharacter" text="Hot Pocket" />
+        <HBox prefWidth="5" />
 
-    <Button fx:id="ramenCharacter" onAction="#selectRamenCharacter" text="Ramen" />
+        <Button fx:id="hotPocketCharacter" onAction="#selectHPocketCharacter" text="Hot Pocket" />
 
-    <Button fx:id="macCharacter" onAction="#selectMacCharacter" text="Mac n Cheese" />
+        <HBox prefWidth="5" />
+
+        <Button fx:id="ramenCharacter" onAction="#selectRamenCharacter" text="Ramen" />
+
+        <HBox prefWidth="5" />
+
+        <Button fx:id="macCharacter" onAction="#selectMacCharacter" text="Mac n Cheese" />
     
-
     </HBox>
 
-    <HBox>
+    <HBox alignment="CENTER" prefHeight="35" >
 
-    <Button fx:id="Easy" onAction="#selectEasy" text="Easy" />
+        <Button fx:id="Easy" onAction="#selectEasy" text="Easy" />
 
-    <Button fx:id="Medium" onAction="#selectMedium" text="Medium" />
+        <HBox prefWidth="5" />
 
-    <Button fx:id="Hard" onAction="#selectHard" text="Hard" />
+        <Button fx:id="Medium" onAction="#selectMedium" text="Medium" />
 
-    <Button fx:id="NUKE" onAction="#selectNuke" text="Nuclear" />
-    
+        <HBox prefWidth="5" />
 
-    </HBox>
+        <Button fx:id="Hard" onAction="#selectHard" text="Hard" />
 
-    <TextField fx:id="nameInput" text="Type your name here!" />
+        <HBox prefWidth="5" />
 
-    <Button text="Into the Dungeon!" onAction="#onStartClicked" />
+        <Button fx:id="NUKE" onAction="#selectNuke" text="Nuclear" />
+
+    </HBox >
+
+    <Label text="Enter your Username" styleClass="heading"/>
+
+    <HBox alignment="CENTER" >
+
+        <HBox prefWidth="25" />
+
+        <TextField fx:id="nameInput" prefWidth="300" />
+
+        <HBox prefWidth="25" />
+
+    </HBox >
+
+    <HBox prefHeight="10" />
+
+    <HBox alignment="CENTER" >
+
+        <Button onAction="#onBackClicked" text="Back to Title" />
+
+        <HBox prefWidth="8" />
+
+        <Button text="Into the Dungeon!" onAction="#onStartClicked" />
+
+    </HBox >
 
     <Label fx:id="errorLabel" />
 
