@@ -13,11 +13,13 @@ Upon opening the game, you are presented with 6 buttons. Click "Start" to begin 
 - Implemented player movement
 - Implemented basic Enemy movement
 - Implemented visual projectiles
+- Implemented sound
 
 ### Serialization
 
 - Implemented save and load methods for model classes
 - Created a functional pause menu that pauses the game when opened
+- Pause menu can now be opened and closed with Escape
 - Working save and load functions
 
 ### Auxilary Screens
