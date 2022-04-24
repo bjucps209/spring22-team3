@@ -10,6 +10,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.*;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Label;
+import javafx.scene.control.ProgressBar;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.image.*;
 import javax.sound.sampled.*;
@@ -29,7 +30,10 @@ public class GameWindow {
     VBox MasterVbox;
 
     @FXML
-    Label healthLbl, scoreLbl, timeLbl, gunCooldownLbl, abilityCooldownLbl;
+    ProgressBar healthBar;
+
+    @FXML
+    Label scoreLbl, timeLbl, gunCooldownLbl, abilityCooldownLbl;
 
     private Game game;
 
@@ -336,7 +340,10 @@ public class GameWindow {
 
             }
             Platform.runLater(() -> {
-                healthLbl.setText("Health: " + player.getHealth()); // Update health, score, & time labels
+                if(player.getHealth() > 24.9) // Update health, score, & time labels
+                    healthBar.setProgress(1.0);
+                else
+                    healthBar.setProgress(player.getHealth()/25);
                 scoreLbl.setText("Score: " + game.getScore());
                 int timeLeft = 600 - game.getTimePassed();
                 if (timeLeft < 0)

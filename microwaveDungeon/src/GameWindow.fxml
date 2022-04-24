@@ -33,22 +33,37 @@
 
     <HBox>
 
-        <VBox alignment="BASELINE_LEFT" prefWidth="100">
-            
-                <Label fx:id="healthLbl" />
-                <Label fx:id="scoreLbl" />
-                <Label fx:id="timeLbl" />
+        <VBox alignment="BASELINE_LEFT" prefWidth="70">
+
+            <Label text="Health: "/>
+
+            <Label text="Shield: "/>
+
+            <Label fx:id="scoreLbl" />
 
         </VBox>
 
+        <VBox alignment="BASELINE_LEFT" prefWidth="100">
+
+            <ProgressBar fx:id="healthBar" progress="1.0"/>
+
+            <ProgressBar fx:id="shieldBar" progress="0.0"/>
+
+            <VBox prefHeight="15" />
+
+        </VBox>
+
+        <VBox prefWidth="5" />
+
         <Separator orientation="VERTICAL" />
 
-        <VBox prefWidth="40" />
+        <VBox prefWidth="4" />
 
         <VBox alignment="BASELINE_LEFT">
             
                 <Label fx:id="gunCooldownLbl" />
                 <Label fx:id="abilityCooldownLbl" />
+                <Label fx:id="timeLbl" />
 
         </VBox>
 
