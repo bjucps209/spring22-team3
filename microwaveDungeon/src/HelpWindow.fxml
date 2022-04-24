@@ -16,17 +16,18 @@
     <Label text="and entering your username."/>
 
     <Label text="Controls" styleClass="heading"/>
-    <Label text="Use WASD for movement, left-click to shoot, and shift to activate your character's ability." />
+    <Label text="Use WASD for movement, left-click to shoot, Shift to activate your character's ability," />
+    <Label text="and Escape to pause." />
     
     <Label text="Abilties" styleClass="heading"/>
-    <Label text="Evade (Dash forward with temporary damage immunity: 5s cooldown)"/>
-    <Label text="Magic missiles (Homing projectiles: 10s cooldown)" />
-    <Label text="Rail gun (Powerful beam that destroys everything in its path: 40s cooldown)" />
-    <Label text="Pepperoni shield (A shield that repels projectiles: lasts 6 seconds w/ 20s cooldown)" />
+    <Label text="Evade (Dash forward: 3s cooldown)"/>
+    <Label text="TODO: Magic missiles (Homing projectiles: 10s cooldown)" />
+    <Label text="TODO: Rail gun (Powerful beam that destroys everything in its path: 40s cooldown)" />
+    <Label text="TODO: Pepperoni shield (A shield that repels projectiles: lasts 6 seconds w/ 20s cooldown)" />
 
     <Label text="Scoring" styleClass="heading"/>
     <Label text="Scoring is based off of how many enemies you eliminate before dying" />
-    <Label text="and how quivkly you beat each level."/>
+    <Label text="and how quickly you beat each level."/>
 
     <Button text="Back" onAction="#onBackClicked" />
 

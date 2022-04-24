@@ -3,26 +3,29 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<VBox fx:controller="TitleWindow" xmlns:fx="http://javafx.com/fxml"  stylesheets="@TitleWindow.css"
+<HBox fx:controller="TitleWindow" xmlns:fx="http://javafx.com/fxml"  stylesheets="@TitleWindow.css"
     spacing="10" prefHeight="500" prefWidth="700" styleClass="vboxTitle">
 
     <!-- <Label text="Microwave Dungeon!" styleClass="title"/> -->
 
+        <VBox prefWidth="486" />
 
-        <Button fx:id="load" onAction="#onLoadClicked" text="Load Saved Game" />
+        <VBox>
 
-        <Button fx:id="credits" onAction="#onCreditsClicked" text="Credits" />
+            <HBox prefHeight="11" />
 
-        <Button fx:id="leaderboard" onAction="#onLeaderboardClicked" text="Leaderboard" />
+            <Button fx:id="load" onAction="#onLoadClicked" text="Load Saved Game" prefWidth="150" prefHeight="41" />
 
-        <Button fx:id="help" onAction="#onHelpClicked" text="Help" />
+            <Button fx:id="credits" onAction="#onCreditsClicked" text="Credits" prefWidth="150" prefHeight="41" />
 
-        <Button fx:id="start" onAction="#startGame" text="Start" />
+            <Button fx:id="leaderboard" onAction="#onLeaderboardClicked" text="Leaderboard" prefWidth="150" prefHeight="41" />
+
+            <Button fx:id="help" onAction="#onHelpClicked" text="Help" prefWidth="150" prefHeight="41" />
+
+            <Button fx:id="start" onAction="#startGame" text="Start" prefWidth="150" prefHeight="41" />
+
+            <Button onAction="#onQuitClicked" text="Quit" prefWidth="150" prefHeight="41" />
         
+        </VBox>
 
-    
-
-    <Button onAction="#onQuitClicked" text="Quit" />
-
-
-</VBox> 
+</HBox> 

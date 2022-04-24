@@ -428,12 +428,6 @@ public class GameWindow {
 
     }
 
-    // public void stopMove() {
-    //     player.setDirection(0);
-    //     player.setSpeed(0);
-    //     timer.stop();
-    // }
-
     @FXML
     public void updatePlayer(ActionEvent e) {
         if(playerIsMoving) {
