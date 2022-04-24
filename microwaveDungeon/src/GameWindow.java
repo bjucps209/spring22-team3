@@ -160,7 +160,7 @@ public class GameWindow {
             enemytimer.setCycleCount(Timeline.INDEFINITE);
             enemytimer.play();
 
-            KeyFrame collisionkf = new KeyFrame(Duration.millis(100), this::onHit);
+            KeyFrame collisionkf = new KeyFrame(Duration.millis(500), this::onHit);
             var collisionTimer = new Timeline(collisionkf);
             collisionTimer.setCycleCount(Timeline.INDEFINITE);
             collisionTimer.play();
