@@ -81,6 +81,8 @@ public class GameWindow {
 
     final Image door = new Image("/imgs/door2.png");
 
+    Image playerImage;
+
     // initializes the view by calling the necesary methods
     public void initialize(difficulties setDiff, characters setCharacter) {
         diff = setDiff;
@@ -121,18 +123,22 @@ public class GameWindow {
         switch (character) {
 
             case PIZZA:
+                playerImage = pizza;
                 makeImage(pizza, player);
                 break;
 
             case MAC:
+                playerImage = mac;
                 makeImage(mac, player);
                 break;
 
             case RAMEN:
+                playerImage = ramen;
                 makeImage(ramen, player);
                 break;
 
             case HPOCKET:
+                playerImage = hPocket;
                 makeImage(hPocket, player);
                 break;
 
@@ -160,10 +166,15 @@ public class GameWindow {
             enemytimer.setCycleCount(Timeline.INDEFINITE);
             enemytimer.play();
 
-            KeyFrame collisionkf = new KeyFrame(Duration.millis(500), this::onHit);
+            KeyFrame collisionkf = new KeyFrame(Duration.millis(300), this::onHit);
             var collisionTimer = new Timeline(collisionkf);
             collisionTimer.setCycleCount(Timeline.INDEFINITE);
             collisionTimer.play();
+
+            KeyFrame doorkf = new KeyFrame(Duration.millis(100), this::onDoor);
+            var doorTimer = new Timeline(doorkf);
+            doorTimer.setCycleCount(Timeline.INDEFINITE);
+            doorTimer.play();
 
         });
         t.start();
@@ -359,7 +370,7 @@ public class GameWindow {
                 Double entityX = Gamepane.getChildren().get(j).getLayoutX();
                 Double entityY = Gamepane.getChildren().get(j).getLayoutY();
                 boolean isCollision = (Math
-                        .abs(Math.sqrt(Math.pow(bulletX - entityX, 2) + Math.pow(bulletY - entityY, 2))) <= 30.0);
+                        .abs(Math.sqrt(Math.pow(bulletX - entityX, 2) + Math.pow(bulletY - entityY, 2))) <= 50.0);
                 if (isCollision) {
                     room.getEnemyList().get(j - 1).setHealth(room.getEnemyList().get(j - 1).getHealth() - player.getDamage());
                     if (room.getEnemyList().get(j - 1).getHealth() <= 0) {
@@ -378,15 +389,108 @@ public class GameWindow {
 
     @FXML
     public void onDoor(ActionEvent e) {
-        for (int i = 0; i < 1 + enemyCount + doorCount; ++i) {
+
+        for (int i = 1 + enemyCount; i < 1 + enemyCount + doorCount; ++i) {
             double playerX = Gamepane.getChildren().get(0).getLayoutX();
             double playerY = Gamepane.getChildren().get(0).getLayoutY();
             double doorX = Gamepane.getChildren().get(i).getLayoutX();
             double doorY = Gamepane.getChildren().get(i).getLayoutY();
             boolean isCollision = (Math
-                    .abs(Math.sqrt(Math.pow(playerX - doorX, 2) + Math.pow(playerY - doorY, 2))) <= 30.0);
+                    .abs(Math.sqrt(Math.pow(playerX - doorX, 2) + Math.pow(playerY - doorY, 2))) <= 100.0);
             if (isCollision) {
+                System.out.println("check");
+                directions d = room.getDoorList().get(i - 1 - enemyCount).getDir();
+                if (d == null){
+                    return;
+                }
 
+                switch(d){
+
+                    case North:
+                        game.setCurrentRoom(1);
+                        int roomIndex = game.getCurrentRoom();
+                        room = game.getLevelSet().get(roomIndex).getRooms().get(roomIndex);
+                        player.setXcoord(0);
+                        player.setYcoord(300);
+                        Gamepane.getChildren().clear();
+                        makeImage(playerImage, player);
+                        enemyCount = room.getEnemyList().size();
+                        doorCount = room.getDoorList().size();
+
+                        for (int k = 0; k < room.getEnemyList().size(); ++k) {
+                            makeImage(enemies, room.getEnemyList().get(k));
+                        }
+                
+                        for (int j = 0; j < room.getDoorList().size(); ++j) {
+                            makeImage(door, room.getDoorList().get(j));
+                        }
+                        
+                        break;
+
+                    case South:
+
+                        game.setCurrentRoom(1);
+                        roomIndex = game.getCurrentRoom();
+                        room = game.getLevelSet().get(roomIndex).getRooms().get(roomIndex);
+                        player.setXcoord(0);
+                        player.setYcoord(300);
+                        Gamepane.getChildren().clear();
+                        makeImage(playerImage, player);
+                        enemyCount = room.getEnemyList().size();
+                        doorCount = room.getDoorList().size();
+
+                        for (int k = 0; k < room.getEnemyList().size(); ++k) {
+                            makeImage(enemies, room.getEnemyList().get(k));
+                        }
+                
+                        for (int j = 0; j < room.getDoorList().size(); ++j) {
+                            makeImage(door, room.getDoorList().get(j));
+                        }
+                        break;
+
+                    case East:
+
+                        game.setCurrentRoom(1);
+                        roomIndex = game.getCurrentRoom();
+                        room = game.getLevelSet().get(roomIndex).getRooms().get(roomIndex);
+                        player.setXcoord(0);
+                        player.setYcoord(300);
+                        Gamepane.getChildren().clear();
+                        makeImage(playerImage, player);
+                        enemyCount = room.getEnemyList().size();
+                        doorCount = room.getDoorList().size();
+
+                        for (int k = 0; k < room.getEnemyList().size(); ++k) {
+                            makeImage(enemies, room.getEnemyList().get(k));
+                        }
+                
+                        for (int j = 0; j < room.getDoorList().size(); ++j) {
+                            makeImage(door, room.getDoorList().get(j));
+                        }
+                        break;
+
+                    case West:
+
+                        game.setCurrentRoom(1);
+                        roomIndex = game.getCurrentRoom();
+                        room = game.getLevelSet().get(roomIndex).getRooms().get(roomIndex);
+                        player.setXcoord(0);
+                        player.setYcoord(300);
+                        Gamepane.getChildren().clear();
+                        makeImage(playerImage, player);
+                        enemyCount = room.getEnemyList().size();
+                        doorCount = room.getDoorList().size();
+
+                        for (int k = 0; k < room.getEnemyList().size(); ++k) {
+                            makeImage(enemies, room.getEnemyList().get(k));
+                        }
+                
+                        for (int j = 0; j < room.getDoorList().size(); ++j) {
+                            makeImage(door, room.getDoorList().get(j));
+                        }
+                        break;
+
+                }
             }
         }
     }

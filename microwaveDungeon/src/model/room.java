@@ -19,7 +19,7 @@ public class room {
 
     private position East;
 
-    private position West;
+    private position West; 
     // List of all entities in the room
 
     staircase stairs = null; // Added for saving method

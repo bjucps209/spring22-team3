@@ -7,7 +7,7 @@ public class door extends entity {
         //TODO Auto-generated constructor stub
     }
 
-    private directions dir;
+    private directions dir; 
 
 
 
