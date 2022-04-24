@@ -98,14 +98,15 @@ public class GameWindow {
             var keyframe = new KeyFrame(Duration.seconds(1), this::updateCooldowns);
             var timer = new Timeline(keyframe);
             timer.setCycleCount(Timeline.INDEFINITE);
-            timer.play();});
+            timer.play();
+        });
         cooldownThread.start();
     }
 
     void updateCooldowns(ActionEvent e) {
-        if(gunFireCooldown > 0)
+        if (gunFireCooldown > 0)
             --gunFireCooldown;
-        if(abilityCooldown > 0)
+        if (abilityCooldown > 0)
             --abilityCooldown;
     }
 
@@ -134,18 +135,16 @@ public class GameWindow {
                 break;
 
         }
+        for (int j = 0; j < room.getDoorList().size(); ++j) {
+            makeImage(door, room.getDoorList().get(j));
+        }
 
         for (int i = 0; i < room.getEnemyList().size(); ++i) {
             makeImage(enemies, room.getEnemyList().get(i));
         }
 
-        for (int i = 0; i < room.getDoorList().size(); ++i){
-            makeImage(door, room.getDoorList().get(i));
-        }
-
     }
 
-    
     @FXML
     public void tickProcessing() {
         // calls updateView(), and trackCursor() every tick, and every time the player
@@ -163,11 +162,10 @@ public class GameWindow {
             collisionTimer.setCycleCount(Timeline.INDEFINITE);
             collisionTimer.play();
 
-            
         });
         t.start();
     }
-    
+
     public void setmovement() {
 
         // Scene scene = new Scene(Gamepane, Gamepane.widthProperty().get(),
@@ -178,19 +176,31 @@ public class GameWindow {
             @Override
             public void handle(KeyEvent event) {
                 switch (event.getCode()) {
-                    case W:    goNorth = true; break;
-                    case S:  goSouth = true; break;
-                    case A:  goWest  = true; playerModelFlipped = true; break;
-                    case D: goEast  = true; playerModelFlipped = false; break;
-                    case SHIFT: 
-                    if(abilityCooldown <= 0.0) {
-                        player.setSpeed((int) player.getSpeed() + 8);
-                        var keyframe = new KeyFrame(Duration.millis(180), e -> {player.setSpeed((int) player.getSpeed() - 8);});
-                        var DashTimer = new Timeline(keyframe);
-                        DashTimer.play();
-                        abilityCooldown = 3;
-                    }
-                    break; // TODO: Special ability - added basic dash
+                    case W:
+                        goNorth = true;
+                        break;
+                    case S:
+                        goSouth = true;
+                        break;
+                    case A:
+                        goWest = true;
+                        playerModelFlipped = true;
+                        break;
+                    case D:
+                        goEast = true;
+                        playerModelFlipped = false;
+                        break;
+                    case SHIFT:
+                        if (abilityCooldown <= 0.0) {
+                            player.setSpeed((int) player.getSpeed() + 8);
+                            var keyframe = new KeyFrame(Duration.millis(180), e -> {
+                                player.setSpeed((int) player.getSpeed() - 8);
+                            });
+                            var DashTimer = new Timeline(keyframe);
+                            DashTimer.play();
+                            abilityCooldown = 3;
+                        }
+                        break; // TODO: Special ability - added basic dash
                     default:
                         break;
                 }
@@ -238,63 +248,58 @@ public class GameWindow {
         });
     }
 
-        // moves the player character when WASD is pressed
-        public void UpdateMove() {
+    // moves the player character when WASD is pressed
+    public void UpdateMove() {
 
-            boolean moving = goNorth || goSouth || goWest || goEast;
-    
-            double direction = 0;
-    
-            if (moving) {
-                if (goNorth) {
-                    direction = 270;
-                    if (goEast) {
-                        direction += 45;
-                    } else if (goWest) {
-                        direction -= 45;
-                    }
-                } else if (goSouth) {
-                    direction = 90;
-                    if (goEast) {
-                        direction -= 45;
-                    } else if (goWest) {
-                        direction += 45;
-                    }
+        boolean moving = goNorth || goSouth || goWest || goEast;
+
+        double direction = 0;
+
+        if (moving) {
+            if (goNorth) {
+                direction = 270;
+                if (goEast) {
+                    direction += 45;
                 } else if (goWest) {
-                    direction = 180;
-                } else if (goEast) {
-                    direction = 0;
+                    direction -= 45;
                 }
-                
-                if(playerModelFlipped) 
-                    Gamepane.getChildren().get(0).setScaleX(-1);
-                else 
-                    Gamepane.getChildren().get(0).setScaleX(1);
-    
-                player.setDirection(direction);
-                timer.setCycleCount(Timeline.INDEFINITE);
-                timer.play();
-                
-    
+            } else if (goSouth) {
+                direction = 90;
+                if (goEast) {
+                    direction -= 45;
+                } else if (goWest) {
+                    direction += 45;
+                }
+            } else if (goWest) {
+                direction = 180;
+            } else if (goEast) {
+                direction = 0;
             }
+
+            if (playerModelFlipped)
+                Gamepane.getChildren().get(0).setScaleX(-1);
+            else
+                Gamepane.getChildren().get(0).setScaleX(1);
+
+            player.setDirection(direction);
+            timer.setCycleCount(Timeline.INDEFINITE);
+            timer.play();
 
         }
 
-    
+    }
+
     @FXML
     public void setCursor(MouseEvent m) {
         Gamepane.getScene().setCursor(Cursor.CROSSHAIR);
     }
 
-    
-    
     // updates the view based on changes in the model
     @FXML
     public void updateEnemyPositions(ActionEvent e) {
 
         if (isNotPaused) {
-            var ls = game.getLevelSet().get(game.getCurrentLevel()).getRooms().get(game.getCurrentRoom())
-                    .getEnemyList();
+            var ls = room.getEnemyList();
             int len = ls.size();
             for (int i = 0; i < len; ++i) {
                 final int currentI = i;
@@ -316,11 +321,11 @@ public class GameWindow {
                 if (timeLeft < 0)
                     timeLeft = 0;
                 timeLbl.setText("Time: " + String.valueOf(timeLeft)); // 600 second countdown for scoring purposes
-                if(gunFireCooldown > 0.0)
+                if (gunFireCooldown > 0.0)
                     gunCooldownLbl.setText("Primary: " + String.valueOf(gunFireCooldown));
                 else
-                gunCooldownLbl.setText("Primary: READY");
-                if(abilityCooldown > 0.0)
+                    gunCooldownLbl.setText("Primary: READY");
+                if (abilityCooldown > 0.0)
                     abilityCooldownLbl.setText("Ablility: " + String.valueOf(abilityCooldown));
                 else
                     abilityCooldownLbl.setText("Ablility: READY");
@@ -332,26 +337,26 @@ public class GameWindow {
     // updates entities when collision from a bullet is detected
     @FXML
     public void findCollision(ActionEvent e) {
-        int enemies = game.getLevelSet().get(game.getCurrentLevel()).getRooms().get(game.getCurrentRoom())
-                .getEnemyList().size();
+        int enemies = room.getEnemyList().size();
+        int doors = room.getDoorList().size();
 
-        for (int i = 1 + enemies; i < Gamepane.getChildren().size(); ++i) { // i = bullet index, j = enemy index, player
+        for (int i = 1 + enemies + doors; i < Gamepane.getChildren().size(); ++i) { // i = bullet index, j = enemy index, player
                                                                             // index = 0
-            for (int j = 1; j < enemies + 1; ++j) {
+            for (int j = 1; j < enemies + 1 + doors; ++j) {
                 Double bulletX = Gamepane.getChildren().get(i).getLayoutX();
                 Double bulletY = Gamepane.getChildren().get(i).getLayoutY();
                 Double entityX = Gamepane.getChildren().get(j).getLayoutX();
                 Double entityY = Gamepane.getChildren().get(j).getLayoutY();
                 boolean isCollision = (Math
-                        .abs(Math.sqrt(Math.pow(bulletX - entityX, 2) + Math.pow(bulletY - entityY, 2))) <= 30.0); // checks to see if the bullet is within a 30.0 pixel radius of the target enemy
+                        .abs(Math.sqrt(Math.pow(bulletX - entityX, 2) + Math.pow(bulletY - entityY, 2))) <= 30.0); 
                 if (isCollision) {
-                    if (room.getEnemyList().size() != 0){
+                    if (room.getEnemyList().size() != 0) {
                         Gamepane.getChildren().remove(i);
                         Gamepane.getChildren().remove(j);
-                        room.getBulletList().remove(i - enemies - 1);
+                        room.getBulletList().remove(i - enemies - 1 - doors);
                         room.getEnemyList().remove(j - 1);
                     }
-                    
+
                 }
             }
         }
@@ -360,9 +365,9 @@ public class GameWindow {
     // fires at enemies when the mouse is clicked
     @FXML
     public void openFire(MouseEvent e) {
-        if(gunFireCooldown <= 0.0) {
+        if (gunFireCooldown <= 0.0) {
             GameWindow.playAudio("src\\audio\\gunSound.wav"); // Plays gunfire sound effect
-            
+
             cursorX = e.getX();
             cursorY = e.getY();
 
@@ -370,7 +375,7 @@ public class GameWindow {
             room = game.getLevelSet().get(roomIndex).getRooms().get(roomIndex);
             room.getBulletList().add(new projectile(1000, 10, 1, 5, player.getXcoord(), player.getYcoord()));
             room.getBulletList().get(room.getBulletList().size() - 1).setDirection(cursorX, cursorY);
-            makeImage(bullet, room.getBulletList().get(room.getBulletList().size() - 1)); 
+            makeImage(bullet, room.getBulletList().get(room.getBulletList().size() - 1));
             KeyFrame kf = new KeyFrame(Duration.millis(100), this::movebullet);
             var timer = new Timeline(kf);
             timer.setCycleCount(100);
@@ -498,7 +503,8 @@ public class GameWindow {
         Gamepane.requestFocus();
     }
 
-    // Uses an audio filepath string and plays it -Note, the file must be in the WAV format
+    // Uses an audio filepath string and plays it -Note, the file must be in the WAV
+    // format
     public static Clip playAudio(String soundName) {
         try {
             AudioInputStream audioInputStream = AudioSystem.getAudioInputStream(new File(soundName).getAbsoluteFile());
@@ -506,8 +512,7 @@ public class GameWindow {
             clip.open(audioInputStream);
             clip.start();
             return clip;
-        }
-        catch(Exception e) {
+        } catch (Exception e) {
             Alert a = new Alert(AlertType.ERROR, "There was a problem with playing audio: " + e.getMessage());
             a.show();
             return null;

@@ -175,10 +175,11 @@ public class room {
         obstacleList.remove(e);
     }
 
+    
     public void addDoor(door d) {
         doorList.add(d);
     }
-    
+
     public void removeDoor(door d) {
         doorList.remove(d);
     }

@@ -78,7 +78,7 @@ public class Game {
                 //level 1
                 easyLevelList.get(0).addRoom(new room(0, 2, false));
                 easyLevelList.get(0).getRooms().get(0).addEnemy(new enemy(5, 10, 2, 1, 300, 250));
-                easyLevelList.get(0).getRooms().get(0).addDoor(new door(10000, 0, 0, 0, 600, 250));
+                easyLevelList.get(0).getRooms().get(0).addDoor(new door(2147483647, 0, 0, 5, 600, 250));
                 easyLevelList.get(0).addRoom(new room(1, 2, false));
                 easyLevelList.get(0).addRoom(new room(2, 2, false));
                 
@@ -100,6 +100,7 @@ public class Game {
                 easyLevelList.get(2).addRoom(new room(2, 3, false));
                 easyLevelList.get(2).addRoom(new room(3, 3, false));
                 levelSet = easyLevelList;
+                break;
 
             case MEDIUM:
                 mediumLevelList.add(new Level(difficulties.MEDIUM));
@@ -109,6 +110,7 @@ public class Game {
                 //level 1
                 mediumLevelList.get(0).addRoom(new room(0, 2, false));
                 mediumLevelList.get(0).getRooms().get(0).addEnemy(new enemy(5, 10, 2, 1, 300, 250));
+                mediumLevelList.get(0).getRooms().get(0).addDoor(new door(2147483647, 0, 0, 5, 600, 250));
                 mediumLevelList.get(0).addRoom(new room(1, 2, false));
                 mediumLevelList.get(0).addRoom(new room(2, 2, false));
                 
@@ -130,6 +132,7 @@ public class Game {
                 mediumLevelList.get(2).addRoom(new room(2, 3, false));
                 mediumLevelList.get(2).addRoom(new room(3, 3, false));
                 levelSet = mediumLevelList;
+                break;
 
             case HARD:
                 hardLevelList.add(new Level(difficulties.HARD));
@@ -139,6 +142,7 @@ public class Game {
                 //level 1
                 hardLevelList.get(0).addRoom(new room(0, 2, false));
                 hardLevelList.get(0).getRooms().get(0).addEnemy(new enemy(5, 10, 2, 1, 300, 250));
+                hardLevelList.get(0).getRooms().get(0).addDoor(new door(2147483647, 0, 0, 5, 600, 250));
                 hardLevelList.get(0).addRoom(new room(1, 2, false));
                 hardLevelList.get(0).addRoom(new room(2, 2, false));
                 
@@ -160,6 +164,7 @@ public class Game {
                 hardLevelList.get(2).addRoom(new room(2, 3, false));
                 hardLevelList.get(2).addRoom(new room(3, 3, false));
                 levelSet = hardLevelList;
+                break;
 
             case NUKE:
                 nukeLevelList.add(new Level(difficulties.NUKE));
@@ -190,6 +195,7 @@ public class Game {
                 nukeLevelList.get(2).addRoom(new room(2, 3, false));
                 nukeLevelList.get(2).addRoom(new room(3, 3, false));
                 levelSet = nukeLevelList;
+                break;
         }
         
     }
