@@ -81,15 +81,8 @@ public class GameWindow {
 
     // initializes the view by calling the necesary methods
     public void initialize(difficulties setDiff, characters setCharacter) {
-        if (setDiff != null) // Default values to prevent exceptions when character and/or diff not selected
-            diff = setDiff;
-        else
-            diff = difficulties.MEDIUM;
-        if (setCharacter != null)
-            character = setCharacter;
-        else
-            character = characters.HPOCKET;
-
+        diff = setDiff;
+        character = setCharacter;
         game = new Game(diff, character);
         int roomIndex = game.getCurrentRoom();
         room = game.getLevelSet().get(roomIndex).getRooms().get(roomIndex);
@@ -470,6 +463,8 @@ public class GameWindow {
     // This method is called to call the load method in the game object
     public void load() {
         game = game.load(false);
+        int roomIndex = game.getCurrentRoom();
+        room = game.getLevelSet().get(roomIndex).getRooms().get(roomIndex);
         player = game.getUser();
         character = game.getCharacter();
         switch (character) {
@@ -489,13 +484,20 @@ public class GameWindow {
                 makeImage(hPocket, player);
                 break;
         }
-        int roomIndex = game.getCurrentRoom();
-        room room = game.getLevelSet().get(roomIndex).getRooms().get(roomIndex);
         for (int i = 0; i < room.getEnemyList().size(); ++i) {
             makeImage(enemies, room.getEnemyList().get(i));
         }
         tickProcessing();
         Gamepane.requestFocus();
+        setmovement();
+
+        cooldownThread = new Thread(() -> {
+            var keyframe = new KeyFrame(Duration.seconds(1), this::updateCooldowns);
+            var timer = new Timeline(keyframe);
+            timer.setCycleCount(Timeline.INDEFINITE);
+            timer.play();
+        });
+        cooldownThread.start();
     }
 
     // method for generating images in the Game pane
