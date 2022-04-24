@@ -14,6 +14,8 @@ Upon opening the game, you are presented with 6 buttons. Click "Start" to begin 
 - Implemented basic Enemy movement
 - Implemented visual projectiles
 - Implemented sound
+- Implemented health mechanic
+- Implemented very basic door functionality (buggy)
 
 ### Serialization
 
@@ -39,7 +41,8 @@ Upon opening the game, you are presented with 6 buttons. Click "Start" to begin 
 
 ### Basic Gameplay
 
-- None Known
+- Doors are very buggy
+- hitboxes on objects are very specific
 
 ### Serialization
 
