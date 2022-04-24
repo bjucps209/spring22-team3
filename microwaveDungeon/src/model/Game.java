@@ -78,7 +78,7 @@ public class Game {
                 //level 1
                 easyLevelList.get(0).addRoom(new room(0, 2, false));
                 easyLevelList.get(0).getRooms().get(0).addEnemy(new enemy(5, 10, 2, 1, 300, 250));
-                easyLevelList.get(0).getRooms().get(0).addDoor(new door(2147483647, 0, 0, 5, 600, 250));
+                easyLevelList.get(0).getRooms().get(0).addDoor(new door(2147483647, 0, 0, 5, 770, 250));
                 easyLevelList.get(0).addRoom(new room(1, 2, false));
                 easyLevelList.get(0).addRoom(new room(2, 2, false));
                 
@@ -110,7 +110,7 @@ public class Game {
                 //level 1
                 mediumLevelList.get(0).addRoom(new room(0, 2, false));
                 mediumLevelList.get(0).getRooms().get(0).addEnemy(new enemy(5, 10, 2, 1, 300, 250));
-                mediumLevelList.get(0).getRooms().get(0).addDoor(new door(2147483647, 0, 0, 5, 600, 250));
+                mediumLevelList.get(0).getRooms().get(0).addDoor(new door(2147483647, 0, 0, 5, 770, 250));
                 mediumLevelList.get(0).addRoom(new room(1, 2, false));
                 mediumLevelList.get(0).addRoom(new room(2, 2, false));
                 
@@ -142,7 +142,7 @@ public class Game {
                 //level 1
                 hardLevelList.get(0).addRoom(new room(0, 2, false));
                 hardLevelList.get(0).getRooms().get(0).addEnemy(new enemy(5, 10, 2, 1, 300, 250));
-                hardLevelList.get(0).getRooms().get(0).addDoor(new door(2147483647, 0, 0, 5, 600, 250));
+                hardLevelList.get(0).getRooms().get(0).addDoor(new door(2147483647, 0, 0, 5, 770, 250));
                 hardLevelList.get(0).addRoom(new room(1, 2, false));
                 hardLevelList.get(0).addRoom(new room(2, 2, false));
                 
@@ -174,6 +174,7 @@ public class Game {
                 //level 1
                 nukeLevelList.get(0).addRoom(new room(0, 2, false));
                 nukeLevelList.get(0).getRooms().get(0).addEnemy(new enemy(5, 10, 2, 1, 300, 250));
+                nukeLevelList.get(0).getRooms().get(0).addDoor(new door(2147483647, 0, 0, 5, 770, 250));
                 nukeLevelList.get(0).addRoom(new room(1, 2, false));
                 nukeLevelList.get(0).addRoom(new room(2, 2, false));
                 

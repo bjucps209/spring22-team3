@@ -7,7 +7,7 @@ public class entity {
 
 
     //instance variables for storing properties of entities
-    protected int health;
+    protected double health;
 
     protected double speed;
 
@@ -39,11 +39,11 @@ public class entity {
         Ycoord = ycoord;
     }
 
-    public int getHealth() {
+    public double getHealth() {
         return health;
     }
 
-    public void setHealth(int health) {
+    public void setHealth(double health) {
         this.health = health;
     }
 
@@ -84,7 +84,7 @@ public class entity {
     }
 
     //constructor
-    public entity(int setHealth, double setSpeed, double setDamage, int setId, int xcoord, int ycoord){
+    public entity(double setHealth, double setSpeed, double setDamage, int setId, int xcoord, int ycoord){
         health = setHealth;
         speed = setSpeed;
         damage = setDamage;

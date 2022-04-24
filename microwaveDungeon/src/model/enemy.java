@@ -6,7 +6,7 @@ import java.util.Random;
 
 public class enemy extends entity {
 
-    public enemy(int setHealth, double setSpeed, double setDamage, int setId, int xcoord, int ycoord) {
+    public enemy(double setHealth, double setSpeed, double setDamage, int setId, int xcoord, int ycoord) {
         super(setHealth, setSpeed, setDamage, setId, xcoord, ycoord);
         //TODO Auto-generated constructor stub
     }

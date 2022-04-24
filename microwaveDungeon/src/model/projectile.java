@@ -2,7 +2,7 @@ package model;
 
 public class projectile extends entity {
 
-    public projectile(int setHealth, double setSpeed, double setDamage, int setId, int xcoord, int ycoord) {
+    public projectile(double setHealth, double setSpeed, double setDamage, int setId, int xcoord, int ycoord) {
         super(setHealth, setSpeed, setDamage, setId, xcoord, ycoord);
         // TODO Auto-generated constructor stub
     }
