@@ -25,6 +25,7 @@ Upon opening the game, you are presented with 6 buttons. Click "Start" to begin 
 - Implemented save and load methods for scoring
 - Created a functioning High Score window showing the top 10 scores
 - High Scores will load from the .txt file into the High Score window
+- Created an About page & a Help page
 
 ### Level Builder
 - Implemeted placing down enemies and obstacles
@@ -44,7 +45,7 @@ Upon opening the game, you are presented with 6 buttons. Click "Start" to begin 
 
 ### Auxilary Screens
 
-- None known
+- None Known
 
 ### Level Builder
 
@@ -64,7 +65,7 @@ https://youtu.be/9ogX3OZSppQ
 | :---|:---|:---|:---|:---|:---|
 | Edward Taylor | etayl261 | Basic Game Play | 30 | 20 | [Time Journal](https://github.com/bjucps209/spring22-team3/wiki/Time-Journal#edward-taylor) |
 | Ethan Wood | thethanwood | Serialization | 33 | 17 | [Time Journal](https://github.com/bjucps209/spring22-team3/wiki/Time-Journal#ethan-wood) |
-| David John Hayes | dhaye039 | Auxiliary screens | 16 | 34 | [Time Journal](https://github.com/bjucps209/spring22-team3/wiki/Time-Journal#david-hayes) |
+| David John Hayes | dhaye039 | Auxiliary screens | 22 | 28 | [Time Journal](https://github.com/bjucps209/spring22-team3/wiki/Time-Journal#david-hayes) |
 | Ryan Kuhn | rkuhn153 | Level Builder | 20 | 30 | [Time Journal](https://github.com/bjucps209/spring22-team3/wiki/Time-Journal#ryan-kuhn) |
 
 ***
