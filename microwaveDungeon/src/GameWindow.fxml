@@ -27,19 +27,27 @@
 
         </HBox>
 
+        <HBox prefWidth="620" />
+
+        <VBox>
+
+            <Label fx:id="timeLbl" />
+
+            <Label fx:id="scoreLbl" />
+
+        </VBox>
+
     </HBox>
 
     <Pane fx:id="Gamepane" onMouseEntered="#setCursor" onMouseClicked="#openFire" minHeight="600" minWidth="800" maxHeight="600" maxWidth="800" styleClass="Gamepane" />
 
     <HBox>
 
-        <VBox alignment="BASELINE_LEFT" prefWidth="70">
+        <VBox alignment="BASELINE_LEFT" prefWidth="45">
 
             <Label text="Health: "/>
 
             <Label text="Shield: "/>
-
-            <Label fx:id="scoreLbl" />
 
         </VBox>
 
@@ -49,8 +57,6 @@
 
             <ProgressBar fx:id="shieldBar" progress="0.0"/>
 
-            <VBox prefHeight="15" />
-
         </VBox>
 
         <VBox prefWidth="5" />
@@ -59,13 +65,39 @@
 
         <VBox prefWidth="4" />
 
-        <VBox alignment="BASELINE_LEFT">
-            
-                <Label fx:id="gunCooldownLbl" />
-                <Label fx:id="abilityCooldownLbl" />
-                <Label fx:id="timeLbl" />
+        <HBox>
 
-        </VBox>
+            <VBox alignment="CENTER">
+
+                <Label text="Primary: " />
+
+            </VBox>
+
+            <VBox prefWidth="2" />
+
+            <ProgressIndicator fx:id="primaryIndicator" progress="1.0"/>
+
+        </HBox>
+
+        <VBox prefWidth="4" />
+
+        <Separator orientation="VERTICAL" />
+
+        <VBox prefWidth="4" />
+
+        <HBox>
+
+            <VBox alignment="CENTER">
+
+                <Label text="Ability: " />
+
+            </VBox>
+            
+            <VBox prefWidth="2" />
+
+            <ProgressIndicator fx:id="abilityIndicator" progress="1.0"/>
+
+        </HBox>
 
     </HBox>
 

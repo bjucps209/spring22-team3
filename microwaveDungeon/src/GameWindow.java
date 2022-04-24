@@ -11,6 +11,7 @@ import javafx.scene.*;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Label;
 import javafx.scene.control.ProgressBar;
+import javafx.scene.control.ProgressIndicator;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.image.*;
 import javax.sound.sampled.*;
@@ -30,10 +31,13 @@ public class GameWindow {
     VBox MasterVbox;
 
     @FXML
-    ProgressBar healthBar;
+    ProgressBar healthBar, shieldBar;
 
     @FXML
-    Label scoreLbl, timeLbl, gunCooldownLbl, abilityCooldownLbl;
+    ProgressIndicator primaryIndicator, abilityIndicator;
+
+    @FXML
+    Label scoreLbl, timeLbl;
 
     private Game game;
 
@@ -55,9 +59,9 @@ public class GameWindow {
 
     private double cursorY;
 
-    private int gunFireCooldown = 0; // Time left until player can fire primary again
+    private double gunFireCooldown = 0.0; // Time left until player can fire primary again
 
-    private int abilityCooldown = 0; // Time left until player can use ability again
+    private double abilityCooldown = 0.0; // Time left until player can use ability again
 
     private room room;
 
@@ -102,7 +106,7 @@ public class GameWindow {
         doorCount = room.getDoorList().size();
 
         cooldownThread = new Thread(() -> {
-            var keyframe = new KeyFrame(Duration.seconds(1), this::updateCooldowns);
+            var keyframe = new KeyFrame(Duration.millis(50), this::updateCooldowns);
             var timer = new Timeline(keyframe);
             timer.setCycleCount(Timeline.INDEFINITE);
             timer.play();
@@ -112,9 +116,9 @@ public class GameWindow {
 
     void updateCooldowns(ActionEvent e) {
         if (gunFireCooldown > 0)
-            --gunFireCooldown;
+            gunFireCooldown -= 0.05;
         if (abilityCooldown > 0)
-            --abilityCooldown;
+            abilityCooldown -= 0.05;
     }
 
     @FXML
@@ -349,14 +353,8 @@ public class GameWindow {
                 if (timeLeft < 0)
                     timeLeft = 0;
                 timeLbl.setText("Time: " + String.valueOf(timeLeft)); // 600 second countdown for scoring purposes
-                if (gunFireCooldown > 0.0)
-                    gunCooldownLbl.setText("Primary: " + String.valueOf(gunFireCooldown));
-                else
-                    gunCooldownLbl.setText("Primary: READY");
-                if (abilityCooldown > 0.0)
-                    abilityCooldownLbl.setText("Ablility: " + String.valueOf(abilityCooldown));
-                else
-                    abilityCooldownLbl.setText("Ablility: READY");
+                primaryIndicator.setProgress(1 - (gunFireCooldown / 1));
+                abilityIndicator.setProgress(1 - (abilityCooldown / 3));
             });
         }
 
