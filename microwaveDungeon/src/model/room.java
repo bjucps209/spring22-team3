@@ -74,7 +74,7 @@ public class room {
         }
         int enemyCount = Integer.parseInt(input.readLine());
         for(int i = 0; i < enemyCount; ++i) {
-            enemy e = new enemy(Integer.parseInt(input.readLine()), Double.parseDouble(input.readLine()), Double.parseDouble(input.readLine()), Integer.parseInt(input.readLine()), Integer.parseInt(input.readLine()), Integer.parseInt(input.readLine()));
+            enemy e = new enemy(Double.parseDouble(input.readLine()), Double.parseDouble(input.readLine()), Double.parseDouble(input.readLine()), Integer.parseInt(input.readLine()), Integer.parseInt(input.readLine()), Integer.parseInt(input.readLine()));
             e.setSize(Integer.parseInt(input.readLine()));
             output.addEnemy(e);
         }
