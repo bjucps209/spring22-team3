@@ -21,7 +21,11 @@
             </graphic>
         </Button>
 
-        <Button onAction="#onCheatClicked" text="Cheat" />
+        <HBox alignment="CENTER" prefWidth="70">
+
+            <Button onAction="#onCheatClicked" text="Cheat" />
+
+        </HBox>
 
     </HBox>
 
@@ -29,7 +33,7 @@
 
     <HBox>
 
-        <VBox alignment="BASELINE_LEFT" prefWidth="58">
+        <VBox alignment="BASELINE_LEFT" prefWidth="100">
             
                 <Label fx:id="healthLbl" />
                 <Label fx:id="scoreLbl" />
@@ -38,6 +42,8 @@
         </VBox>
 
         <Separator orientation="VERTICAL" />
+
+        <VBox prefWidth="40" />
 
         <VBox alignment="BASELINE_LEFT">
             

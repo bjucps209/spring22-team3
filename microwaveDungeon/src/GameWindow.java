@@ -45,6 +45,8 @@ public class GameWindow {
 
     private boolean playerModelFlipped = false; // For knowing when to flip the player model img when moving
 
+    private boolean playerIsMoving = false; // true when a movement key is pressed, false when a movement key is not pressed
+
     private double cursorX;
 
     private double cursorY;
@@ -178,16 +180,20 @@ public class GameWindow {
             public void handle(KeyEvent event) {
                 switch (event.getCode()) {
                     case W:
+                        playerIsMoving = true;
                         goNorth = true;
                         break;
                     case S:
+                        playerIsMoving = true;
                         goSouth = true;
                         break;
                     case A:
+                        playerIsMoving = true;
                         goWest = true;
                         playerModelFlipped = true;
                         break;
                     case D:
+                        playerIsMoving = true;
                         goEast = true;
                         playerModelFlipped = false;
                         break;
@@ -202,6 +208,9 @@ public class GameWindow {
                             abilityCooldown = 3;
                         }
                         break; // TODO: Special ability - added basic dash
+                    case C: 
+                        onCheatClicked(new ActionEvent()); 
+                        break;
                     default:
                         break;
                 }
@@ -240,7 +249,7 @@ public class GameWindow {
                 }
                 timer.stop();
                 if (!goNorth && !goSouth && !goWest && !goEast) {
-                    stopMove();
+                    playerIsMoving = false;
                 } else {
                     UpdateMove();
                 }
@@ -419,18 +428,19 @@ public class GameWindow {
 
     }
 
-    public void stopMove() {
-        player.setDirection(0);
-        player.setSpeed(0);
-        timer.stop();
-    }
+    // public void stopMove() {
+    //     player.setDirection(0);
+    //     player.setSpeed(0);
+    //     timer.stop();
+    // }
 
     @FXML
     public void updatePlayer(ActionEvent e) {
-        player.updatePosition();
-        Gamepane.getChildren().get(0).setLayoutX(player.getXcoord());
-        Gamepane.getChildren().get(0).setLayoutY(player.getYcoord());
-
+        if(playerIsMoving) {
+            player.updatePosition();
+            Gamepane.getChildren().get(0).setLayoutX(player.getXcoord());
+            Gamepane.getChildren().get(0).setLayoutY(player.getYcoord());
+        }
     }
 
     // Pauses the game and opens the Pause Menu
@@ -460,7 +470,7 @@ public class GameWindow {
 
     }
 
-    // This method is called to call the load method in the game object
+    // This method is called to call the load method in the game object and initialize the newly loaded game
     public void load() {
         game = game.load(false);
         int roomIndex = game.getCurrentRoom();
@@ -526,14 +536,14 @@ public class GameWindow {
         Gamepane.requestFocus();
     }
 
+    // Adds 10,000 health to the player when "Cheat" is clicked
     public void onCheatClicked(ActionEvent e) {
         TitleWindow.beep();
         player.setHealth(player.getHealth() + 10000);
         Gamepane.requestFocus();
     }
 
-    // Uses an audio filepath string and plays it -Note, the file must be in the WAV
-    // format
+    // Uses an audio filepath string and plays it -Note, the file must be in the .wav format
     public static Clip playAudio(String soundName) {
         try {
             AudioInputStream audioInputStream = AudioSystem.getAudioInputStream(new File(soundName).getAbsoluteFile());
