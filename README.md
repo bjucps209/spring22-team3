@@ -60,7 +60,7 @@ Upon opening the game, you are presented with 6 buttons. Click "Start" to begin 
 
 ## Recording:
 
-https://youtu.be/IR_Wz3unb0o
+https://youtu.be/aljIkJWjkBI
 
 ***
 
