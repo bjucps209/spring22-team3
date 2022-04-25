@@ -53,7 +53,7 @@
 
         <VBox alignment="BASELINE_LEFT" prefWidth="100">
 
-            <ProgressBar fx:id="healthBar" progress="1.0"/>
+            <ProgressBar fx:id="healthBar" style="-fx-accent: green;" progress="1.0"/>
 
             <ProgressBar fx:id="shieldBar" progress="0.0"/>
 

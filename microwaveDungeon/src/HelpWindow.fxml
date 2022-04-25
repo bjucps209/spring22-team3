@@ -20,10 +20,10 @@
     <Label text="and Escape to pause." />
     
     <Label text="Abilties" styleClass="heading"/>
-    <Label text="Evade (Dash forward: 3s cooldown)"/>
-    <Label text="TODO: Magic missiles (Homing projectiles: 10s cooldown)" />
-    <Label text="TODO: Rail gun (Powerful beam that destroys everything in its path: 40s cooldown)" />
-    <Label text="TODO: Pepperoni shield (A shield that repels projectiles: lasts 6 seconds w/ 20s cooldown)" />
+    <Label text="Hot Pocket: Evade (Dash forward: 2.5s cooldown)"/>
+    <Label text="Ramen: Magic missiles (Homing projectiles: 10s cooldown)" />
+    <Label text="Mac and Cheese: Rail gun (Powerful beam that destroys everything in its path: 40s cooldown)" />
+    <Label text="Pizza: Pepperoni shield (A shield that repels projectiles: lasts 6 seconds w/ 20s cooldown)" />
 
     <Label text="Scoring" styleClass="heading"/>
     <Label text="Scoring is based off of how many enemies you eliminate before dying" />

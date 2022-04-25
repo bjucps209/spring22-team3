@@ -141,11 +141,13 @@ public class GameWindow {
             case MAC:
                 playerImage = mac;
                 makeImage(mac, player);
+                abilityTime = 40;
                 break;
 
             case RAMEN:
                 playerImage = ramen;
                 makeImage(ramen, player);
+                abilityTime = 10;
                 break;
 
             case HPOCKET:
@@ -357,6 +359,10 @@ public class GameWindow {
                     healthBar.setProgress(1.0);
                 else
                     healthBar.setProgress(player.getHealth()/25);
+                if(healthBar.getProgress() < 0.5) {
+                    healthBar.setStyle("-fx-accent: orange;");
+                    if(healthBar.getProgress() < 0.25)
+                        healthBar.setStyle("-fx-accent: red;"); }
                 shieldBar.setProgress(player.getShield() / 10);
                 scoreLbl.setText("Score: " + game.getScore());
                 int timeLeft = 600 - game.getTimePassed();
