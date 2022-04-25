@@ -16,6 +16,7 @@ Upon opening the game, you are presented with 6 buttons. Click "Start" to begin 
 - Implemented sound
 - Implemented health mechanic
 - Implemented very basic door functionality (buggy)
+- Implemented Power-Up System
 
 ### Serialization
 
