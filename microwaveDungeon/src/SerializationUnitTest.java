@@ -22,7 +22,7 @@ public class SerializationUnitTest {
     @Test
     public void saveAndLoadTest() throws FileNotFoundException, IOException {
         Game testGame = new Game(difficulties.MEDIUM, characters.HPOCKET);
-        testGame.setUser(new player(50, 15, 20, 0, 45, 45));
+        testGame.setUser(new player(50, 15, 20, 0, 45, 45, 0));
         testGame.save();
         Game testGameTwo = Game.load(false);
         assertEquals(difficulties.MEDIUM, testGameTwo.getDiff());

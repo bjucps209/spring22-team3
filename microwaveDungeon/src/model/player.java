@@ -5,10 +5,12 @@ import java.io.IOException;
 import java.io.PrintWriter;
 
 public class player extends entity {
-    
 
-    public player(double setHealth, double setSpeed, double setDamage, int setId, int xcoord, int ycoord) {
+    double shield;
+
+    public player(double setHealth, double setSpeed, double setDamage, int setId, int xcoord, int ycoord, double shield) {
         super(setHealth, setSpeed, setDamage, setId, xcoord, ycoord);
+        this.shield = shield;
         //TODO Auto-generated constructor stub
     }
 
@@ -28,6 +30,13 @@ public class player extends entity {
         Ycoord += speed * Math.sin(direction * Math.PI / 180);
     }
 
+    public double getShield() {
+        return shield;
+    }
+
+    public void setShield(double shield) {
+        this.shield = shield;
+    }
 
     public String getPowerup() {
         return powerup;
@@ -89,6 +98,7 @@ public class player extends entity {
         output.println(getId());
         output.println(getXcoord());
         output.println(getYcoord());
+        output.println(getShield());
         output.println(roomXCoord);
         output.println(roomYCoord);
         output.println(floor);
@@ -96,7 +106,7 @@ public class player extends entity {
 
     // Factory Method that builds/loads a player based off a DataInputStream
     public static player load(BufferedReader input) throws IOException {
-        player output = new player(Double.parseDouble(input.readLine()), Double.parseDouble(input.readLine()), Double.parseDouble(input.readLine()), Integer.parseInt(input.readLine()), Integer.parseInt(input.readLine()), Integer.parseInt(input.readLine()));
+        player output = new player(Double.parseDouble(input.readLine()), Double.parseDouble(input.readLine()), Double.parseDouble(input.readLine()), Integer.parseInt(input.readLine()), Integer.parseInt(input.readLine()), Integer.parseInt(input.readLine()), Double.parseDouble(input.readLine()));
         System.out.println(output);
         output.setRoomXCoord(Integer.parseInt(input.readLine()));
         output.setRoomYCoord(Integer.parseInt(input.readLine()));

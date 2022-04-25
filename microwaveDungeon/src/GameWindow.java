@@ -63,6 +63,8 @@ public class GameWindow {
 
     private double abilityCooldown = 0.0; // Time left until player can use ability again
 
+    private double abilityTime = 1.0;
+
     private room room;
 
     private int enemyCount;
@@ -125,7 +127,7 @@ public class GameWindow {
     public void generate() {
         // on generation, player is always slot 0 on the Gamepane, then enemies, then doors, everything beyond that is projectiles
 
-        player = new player(25, 3, 1, 69, 0, 300);
+        player = new player(25, 3, 1, 69, 0, 300, 0);
         game.setUser(player);
 
         switch (character) {
@@ -133,6 +135,7 @@ public class GameWindow {
             case PIZZA:
                 playerImage = pizza;
                 makeImage(pizza, player);
+                abilityTime = 20;
                 break;
 
             case MAC:
@@ -148,6 +151,7 @@ public class GameWindow {
             case HPOCKET:
                 playerImage = hPocket;
                 makeImage(hPocket, player);
+                abilityTime = 2.5;
                 break;
 
         }
@@ -217,14 +221,19 @@ public class GameWindow {
                         playerModelFlipped = false;
                         break;
                     case SHIFT:
-                        if (abilityCooldown <= 0.0) {
-                            player.setSpeed((int) player.getSpeed() + 8);
-                            var keyframe = new KeyFrame(Duration.millis(180), e -> {
-                                player.setSpeed((int) player.getSpeed() - 8);
-                            });
-                            var DashTimer = new Timeline(keyframe);
-                            DashTimer.play();
-                            abilityCooldown = 3;
+                        switch(character) {
+                            case HPOCKET:
+                                dash();
+                                break;
+                            case PIZZA:
+                                pepShield();
+                                break;
+                            case RAMEN:
+                                // TODO: add homing missle
+                                break;
+                            case MAC:
+                                // TODO: add railgun
+                                break;
                         }
                         break; // TODO: Special ability - added basic dash
                     case C: 
@@ -348,13 +357,14 @@ public class GameWindow {
                     healthBar.setProgress(1.0);
                 else
                     healthBar.setProgress(player.getHealth()/25);
+                shieldBar.setProgress(player.getShield() / 10);
                 scoreLbl.setText("Score: " + game.getScore());
                 int timeLeft = 600 - game.getTimePassed();
                 if (timeLeft < 0)
                     timeLeft = 0;
                 timeLbl.setText("Time: " + String.valueOf(timeLeft)); // 600 second countdown for scoring purposes
                 primaryIndicator.setProgress(1 - (gunFireCooldown / 1));
-                abilityIndicator.setProgress(1 - (abilityCooldown / 3));
+                abilityIndicator.setProgress(1 - (abilityCooldown / abilityTime));
             });
         }
 
@@ -658,6 +668,32 @@ public class GameWindow {
             Alert a = new Alert(AlertType.ERROR, "There was a problem with playing audio: " + e.getMessage());
             a.show();
             return null;
+        }
+    }
+
+    public void dash() {
+        if (abilityCooldown <= 0.0) {
+            player.setSpeed((int) player.getSpeed() + 8);
+            var keyframe = new KeyFrame(Duration.millis(180), e -> {
+                player.setSpeed((int) player.getSpeed() - 8);
+            });
+            var DashTimer = new Timeline(keyframe);
+            DashTimer.play();
+            abilityCooldown = 2.5;
+        }
+    }
+
+    public void pepShield() {
+        if (abilityCooldown <= 0.0) {
+            player.setShield(10);
+            KeyFrame keyframe = new KeyFrame(Duration.seconds(1), e -> {
+                if(player.getShield() > 0.0)
+                    player.setShield(player.getShield() - 1.0);
+            });
+            Timeline timer = new Timeline(keyframe);
+            timer.setCycleCount(10);
+            timer.play();
+            abilityCooldown = 20.0;
         }
     }
 }

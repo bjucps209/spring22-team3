@@ -73,7 +73,7 @@
 
             </VBox>
 
-            <VBox prefWidth="2" />
+            <VBox prefWidth="5" />
 
             <ProgressIndicator fx:id="primaryIndicator" progress="1.0"/>
 
