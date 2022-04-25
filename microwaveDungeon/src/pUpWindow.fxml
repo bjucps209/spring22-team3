@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<VBox fx:controller="pUpWindow" xmlns:fx="http://javafx.com/fxml"  stylesheets="@pUpWindow.css"
+    spacing="10" prefHeight="160" prefWidth="220" alignment="CENTER">
+
+    <Label text="Select a Power-Up" styleClass="heading" />
+
+    <HBox alignment="CENTER" >
+
+        <Button onAction="#onShieldClicked" text="+Shield" />
+
+        <HBox prefWidth="10"/>
+
+        <Button onAction="#onSpeedClicked" text="+Speed" />
+
+        <HBox prefWidth="10"/>
+
+        <Button onAction="#onFRateClicked" text="+Firerate" />
+
+    </HBox>
+
+</VBox> 

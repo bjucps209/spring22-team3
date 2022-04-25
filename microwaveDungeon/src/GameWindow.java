@@ -31,13 +31,13 @@ public class GameWindow {
     VBox MasterVbox;
 
     @FXML
-    ProgressBar healthBar, shieldBar;
+    ProgressBar healthBar, shieldBar, levelBar;
 
     @FXML
     ProgressIndicator primaryIndicator, abilityIndicator;
 
     @FXML
-    Label scoreLbl, timeLbl;
+    Label scoreLbl, timeLbl, powerUpLbl;
 
     private Game game;
 
@@ -64,6 +64,8 @@ public class GameWindow {
     private double abilityCooldown = 0.0; // Time left until player can use ability again
 
     private double abilityTime = 1.0;
+
+    private double levelBarCap = 100; // Sets the score needed to get a power-up
 
     private room room;
 
@@ -239,7 +241,7 @@ public class GameWindow {
                         }
                         break; // TODO: Special ability - added basic dash
                     case C: 
-                        onCheatClicked(new ActionEvent()); 
+                        player.setHealth(2147483647); 
                         break;
                     default:
                         break;
@@ -266,13 +268,32 @@ public class GameWindow {
                         break;
                     case ESCAPE:
                         try {
-                            onPauseClicked(new ActionEvent());
+                            Pause();
                         } catch (IOException e) {
                             Alert a = new Alert(AlertType.ERROR,
                                     "There was a problem with opening the pause menu: " + e.getMessage());
                             a.show();
                         }
                         ;
+                        break;
+                    case P:
+                        //if(game.getScore() >= levelBarCap)
+                        TitleWindow.beep();
+                        pUpWindow.setPlayer(player);
+                        levelBarCap *= 2;
+                        isNotPaused = false;
+                        var loader = new FXMLLoader(getClass().getResource("pUpWindow.fxml"));
+                            Scene scene = null;
+                            try {
+                                scene = new Scene(loader.load());
+                            } catch (IOException e) {
+                                Alert a = new Alert(AlertType.ERROR, "There was a problem with opeing the Power-Up menu: " + e.getMessage());
+                                a.show();
+                            }
+                        Stage stage = new Stage();
+                        stage.setScene(scene);
+                        stage.show();
+                        stage.setTitle("Power-Up Select");
                         break;
                     default:
                         break;
@@ -359,11 +380,17 @@ public class GameWindow {
                     healthBar.setProgress(1.0);
                 else
                     healthBar.setProgress(player.getHealth()/25);
-                if(healthBar.getProgress() < 0.5) {
+                if(player.getHealth() > 25)
+                    healthBar.setStyle("-fx-accent: darkgreen;");
+                else if(healthBar.getProgress() < 0.5) {
                     healthBar.setStyle("-fx-accent: orange;");
                     if(healthBar.getProgress() < 0.25)
                         healthBar.setStyle("-fx-accent: red;"); }
                 shieldBar.setProgress(player.getShield() / 10);
+                if(player.getShield() > 10)
+                    shieldBar.setStyle("-fx-accent: blue;");
+                else
+                    shieldBar.setStyle("-fx-accent: cornflowerblue;");
                 scoreLbl.setText("Score: " + game.getScore());
                 int timeLeft = 600 - game.getTimePassed();
                 if (timeLeft < 0)
@@ -387,6 +414,11 @@ public class GameWindow {
                     else
                         abilityIndicator.setStyle("-fx-accent: orange;");
                 }
+                levelBar.setProgress(game.getScore() / levelBarCap);
+                if(game.getScore() >= levelBarCap)
+                    powerUpLbl.setText("PRESS P TO SELECT A POWER-UP!");
+                else
+                    powerUpLbl.setText("");
             });
         }
 
@@ -580,7 +612,7 @@ public class GameWindow {
 
     // Pauses the game and opens the Pause Menu
     @FXML
-    void onPauseClicked(ActionEvent event) throws IOException {
+    void Pause() throws IOException {
         TitleWindow.beep();
         isNotPaused = false;
         var loader = new FXMLLoader(getClass().getResource("PauseMenu.fxml"));
@@ -671,13 +703,6 @@ public class GameWindow {
         Gamepane.requestFocus();
     }
 
-    // Adds 10,000 health to the player when "Cheat" is clicked
-    public void onCheatClicked(ActionEvent e) {
-        TitleWindow.beep();
-        player.setHealth(player.getHealth() + 10000);
-        Gamepane.requestFocus();
-    }
-
     // Uses an audio filepath string and plays it -Note, the file must be in the .wav format
     public static Clip playAudio(String soundName) {
         try {
@@ -707,14 +732,19 @@ public class GameWindow {
 
     public void pepShield() {
         if (abilityCooldown <= 0.0) {
-            player.setShield(10);
-            KeyFrame keyframe = new KeyFrame(Duration.seconds(1), e -> {
+            KeyFrame keyframe = new KeyFrame(Duration.millis(8), e -> {
+                player.setShield(player.getShield() + 0.5);
+            });
+            Timeline timer = new Timeline(keyframe);
+            timer.setCycleCount(20);
+            timer.play();
+            KeyFrame keyframeTwo = new KeyFrame(Duration.seconds(1), e -> {
                 if(player.getShield() > 0.0)
                     player.setShield(player.getShield() - 1.0);
             });
-            Timeline timer = new Timeline(keyframe);
-            timer.setCycleCount(10);
-            timer.play();
+            Timeline timerTwo = new Timeline(keyframeTwo);
+            timerTwo.setCycleCount(10);
+            timerTwo.play();
             abilityCooldown = 20.0;
         }
     }

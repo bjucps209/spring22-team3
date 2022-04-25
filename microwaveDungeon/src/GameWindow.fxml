@@ -9,33 +9,23 @@
 
     <HBox>
 
-        <Button onAction="#onPauseClicked">
-            <graphic>
-
-                <ImageView fitWidth="20" fitHeight="25">
-
-                <image><Image url="@imgs/pause.png" /></image>
-
-                </ImageView>
-            
-            </graphic>
-        </Button>
-
-        <HBox alignment="CENTER" prefWidth="70">
-
-            <Button onAction="#onCheatClicked" text="Cheat" />
-
-        </HBox>
-
-        <HBox prefWidth="620" />
-
-        <VBox>
+        <HBox alignment="CENTER" prefWidth="100" >
 
             <Label fx:id="timeLbl" />
 
+        </HBox>
+
+        <HBox alignment="CENTER" prefWidth="600" >
+
+            <Label fx:id="powerUpLbl" text=""/>
+
+        </HBox>
+
+        <HBox alignment="CENTER" prefWidth="100" >
+
             <Label fx:id="scoreLbl" />
 
-        </VBox>
+        </HBox>
 
     </HBox>
 
@@ -55,7 +45,7 @@
 
             <ProgressBar fx:id="healthBar" style="-fx-accent: green;" progress="1.0"/>
 
-            <ProgressBar fx:id="shieldBar" progress="0.0"/>
+            <ProgressBar fx:id="shieldBar" style="-fx-accent: cornflowerblue;" progress="0.0"/>
 
         </VBox>
 
@@ -97,6 +87,21 @@
 
             <ProgressIndicator fx:id="abilityIndicator" progress="1.0"/>
 
+        </HBox>
+
+        <VBox prefWidth="4" />
+
+        <Separator orientation="VERTICAL" />
+
+        <VBox prefWidth="4" />
+
+        <HBox alignment="CENTER" >
+
+            <Label text="Power-Up meter: " />
+
+            <VBox prefWidth="4" />
+
+            <ProgressBar fx:id="levelBar" style="-fx-accent: navy;" progress="0.0" prefWidth="350" />
         </HBox>
 
     </HBox>

@@ -1,0 +1,27 @@
+.root {
+    -fx-padding: 10; /* Add a small padding around the window */
+    -fx-font-family: 'Cambria', Arial, sans-serif;
+}
+
+/* for Macs */
+.dialog-pane  {
+    -fx-font-family: 'Helvetica', Arial, sans-serif;
+}
+
+VBox {
+    -fx-alignment: center;
+    -fx-background-color: lightgray;
+}
+
+.title { 
+    -fx-font-size: 36;
+}
+
+Label {
+    -fx-font-size: 16;
+}
+
+.heading {
+    -fx-font-size: 24;
+    -fx-font-style: italic;
+}
