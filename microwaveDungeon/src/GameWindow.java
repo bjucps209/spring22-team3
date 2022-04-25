@@ -443,12 +443,14 @@ public class GameWindow {
                         .abs(Math.sqrt(Math.pow(bulletX - entityX, 2) + Math.pow(bulletY - entityY, 2))) <= 50.0);
                 if (isCollision) {
                     room.getEnemyList().get(j - 1).setHealth(room.getEnemyList().get(j - 1).getHealth() - player.getDamage());
+                    Gamepane.getChildren().remove(i);
+                    room.getBulletList().remove(i - enemies - 1 - doors);
+                    game.setScore(game.getScore() + 5);
                     if (room.getEnemyList().get(j - 1).getHealth() <= 0) {
                         if (room.getEnemyList().size() != 0) {
-                            Gamepane.getChildren().remove(i);
                             Gamepane.getChildren().remove(j);
-                            room.getBulletList().remove(i - enemies - 1 - doors);
                             room.getEnemyList().remove(j - 1);
+                            game.setScore(game.getScore() + 20);
                         }
                     }
 
