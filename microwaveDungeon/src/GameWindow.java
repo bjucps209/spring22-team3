@@ -127,7 +127,7 @@ public class GameWindow {
     public void generate() {
         // on generation, player is always slot 0 on the Gamepane, then enemies, then doors, everything beyond that is projectiles
 
-        player = new player(25, 3, 1, 69, 0, 300, 0);
+        player = new player(25, 3, 1, 69, 0, 300, 0, 1.0);
         game.setUser(player);
 
         switch (character) {
@@ -371,6 +371,22 @@ public class GameWindow {
                 timeLbl.setText("Time: " + String.valueOf(timeLeft)); // 600 second countdown for scoring purposes
                 primaryIndicator.setProgress(1 - (gunFireCooldown / 1));
                 abilityIndicator.setProgress(1 - (abilityCooldown / abilityTime));
+                if(primaryIndicator.getProgress() > 0.9)
+                    primaryIndicator.setStyle("-fx-accent: green;");
+                else {
+                    if(primaryIndicator.getProgress() < 0.5)
+                        primaryIndicator.setStyle("-fx-accent: red;");
+                    else
+                        primaryIndicator.setStyle("-fx-accent: orange;");
+                }
+                if(abilityIndicator.getProgress() > 0.9)
+                    abilityIndicator.setStyle("-fx-accent: green;");
+                else {
+                    if(abilityIndicator.getProgress() < 0.5)
+                        abilityIndicator.setStyle("-fx-accent: red;");
+                    else
+                        abilityIndicator.setStyle("-fx-accent: orange;");
+                }
             });
         }
 
@@ -534,7 +550,7 @@ public class GameWindow {
             var timer = new Timeline(kf);
             timer.setCycleCount(100);
             timer.play();
-            gunFireCooldown = 1; // TODO: Gunfire rate value
+            gunFireCooldown = player.getFireCooldown(); // TODO: Gunfire rate value
         }
     }
 

@@ -6,11 +6,12 @@ import java.io.PrintWriter;
 
 public class player extends entity {
 
-    double shield;
+    double shield, fireCooldown;
 
-    public player(double setHealth, double setSpeed, double setDamage, int setId, int xcoord, int ycoord, double shield) {
+    public player(double setHealth, double setSpeed, double setDamage, int setId, int xcoord, int ycoord, double shield, double fireCooldown) {
         super(setHealth, setSpeed, setDamage, setId, xcoord, ycoord);
         this.shield = shield;
+        this.fireCooldown = fireCooldown;
         //TODO Auto-generated constructor stub
     }
 
@@ -82,12 +83,29 @@ public class player extends entity {
         return Character;
     }
 
+    public double getFireCooldown() {
+        return fireCooldown;
+    }
+
+    public void setFireCooldown(double fireCooldown) {
+        this.fireCooldown = fireCooldown;
+    }
+
     public void setCharacter(characters character) {
         Character = character;
     }
 
+    public void upgradeFireRate() {
+        fireCooldown = fireCooldown * 0.7;
+    }
 
+    public void upgradeShield() {
+        shield += 5;
+    }
 
+    public void upgradeSpeed() {
+        speed += 1.5;
+    }
 
     // Given an OutputStream, this method saves the player's attributes 
     @Override
@@ -99,6 +117,7 @@ public class player extends entity {
         output.println(getXcoord());
         output.println(getYcoord());
         output.println(getShield());
+        output.println(getFireCooldown());
         output.println(roomXCoord);
         output.println(roomYCoord);
         output.println(floor);
@@ -106,7 +125,7 @@ public class player extends entity {
 
     // Factory Method that builds/loads a player based off a DataInputStream
     public static player load(BufferedReader input) throws IOException {
-        player output = new player(Double.parseDouble(input.readLine()), Double.parseDouble(input.readLine()), Double.parseDouble(input.readLine()), Integer.parseInt(input.readLine()), Integer.parseInt(input.readLine()), Integer.parseInt(input.readLine()), Double.parseDouble(input.readLine()));
+        player output = new player(Double.parseDouble(input.readLine()), Double.parseDouble(input.readLine()), Double.parseDouble(input.readLine()), Integer.parseInt(input.readLine()), Integer.parseInt(input.readLine()), Integer.parseInt(input.readLine()), Double.parseDouble(input.readLine()), Double.parseDouble(input.readLine()));
         System.out.println(output);
         output.setRoomXCoord(Integer.parseInt(input.readLine()));
         output.setRoomYCoord(Integer.parseInt(input.readLine()));
