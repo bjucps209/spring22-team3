@@ -7,6 +7,7 @@ import javafx.fxml.*;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.stage.Stage;
+import javafx.stage.StageStyle;
 import model.*;
 
 public class TitleWindow {
@@ -51,7 +52,7 @@ public class TitleWindow {
         var loader = new FXMLLoader(getClass().getResource("CharWindow.fxml"));
         var scene = new Scene(loader.load());
 
-        var stage = new Stage();
+        var stage = new Stage(StageStyle.UTILITY);
         stage.setScene(scene);
         stage.show();
         stage.setTitle("Character select");
@@ -69,7 +70,7 @@ public class TitleWindow {
         var loader = new FXMLLoader(getClass().getResource("CreditsWindow.fxml"));
         var scene = new Scene(loader.load());
 
-        var stage = new Stage();
+        var stage = new Stage(StageStyle.UTILITY);
         stage.setScene(scene);
         stage.show();
         stage.setTitle("Credits");
@@ -86,7 +87,7 @@ public class TitleWindow {
         var loader = new FXMLLoader(getClass().getResource("LeaderboardWindow.fxml"));
         var scene = new Scene(loader.load());
 
-        var stage = new Stage();
+        var stage = new Stage(StageStyle.UTILITY);
         stage.setScene(scene);
         stage.show();
         stage.setTitle("LeaderBoard");
@@ -103,7 +104,7 @@ public class TitleWindow {
         var loader = new FXMLLoader(getClass().getResource("HelpWindow.fxml"));
         var scene = new Scene(loader.load());
     
-        var stage = new Stage();
+        var stage = new Stage(StageStyle.UTILITY);
         stage.setScene(scene);
         stage.show();
         stage.setTitle("Help");
@@ -121,7 +122,7 @@ public class TitleWindow {
         var loader = new FXMLLoader(getClass().getResource("GameWindow.fxml"));
         var scene = new Scene(loader.load());
 
-        var stage = new Stage();
+        var stage = new Stage(StageStyle.UTILITY);
         stage.setScene(scene);
         stage.show();
         CharWindow.setGameStage(stage);

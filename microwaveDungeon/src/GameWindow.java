@@ -19,6 +19,7 @@ import javafx.scene.input.*;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.*;
 import javafx.stage.Stage;
+import javafx.stage.StageStyle;
 import javafx.util.Duration;
 import model.*;
 
@@ -277,23 +278,23 @@ public class GameWindow {
                         ;
                         break;
                     case P:
-                        //if(game.getScore() >= levelBarCap)
-                        TitleWindow.beep();
-                        pUpWindow.setPlayer(player);
-                        levelBarCap *= 2;
-                        isNotPaused = false;
-                        var loader = new FXMLLoader(getClass().getResource("pUpWindow.fxml"));
-                            Scene scene = null;
-                            try {
-                                scene = new Scene(loader.load());
-                            } catch (IOException e) {
-                                Alert a = new Alert(AlertType.ERROR, "There was a problem with opeing the Power-Up menu: " + e.getMessage());
-                                a.show();
-                            }
-                        Stage stage = new Stage();
-                        stage.setScene(scene);
-                        stage.show();
-                        stage.setTitle("Power-Up Select");
+                        if(game.getScore() >= levelBarCap) {
+                            TitleWindow.beep();
+                            pUpWindow.setPlayer(player);
+                            levelBarCap *= 2;
+                            isNotPaused = false;
+                            var loader = new FXMLLoader(getClass().getResource("pUpWindow.fxml"));
+                                Scene scene = null;
+                                try {
+                                    scene = new Scene(loader.load());
+                                } catch (IOException e) {
+                                    Alert a = new Alert(AlertType.ERROR, "There was a problem with opeing the Power-Up menu: " + e.getMessage());
+                                    a.show();
+                                }
+                            Stage stage = new Stage(StageStyle.UNDECORATED);
+                            stage.setScene(scene);
+                            stage.show();
+                            stage.setTitle("Power-Up Select"); }
                         break;
                     default:
                         break;
@@ -617,7 +618,7 @@ public class GameWindow {
         isNotPaused = false;
         var loader = new FXMLLoader(getClass().getResource("PauseMenu.fxml"));
         var scene = new Scene(loader.load());
-        Stage stage = new Stage();
+        Stage stage = new Stage(StageStyle.UNDECORATED);
         scene.setOnKeyReleased(new EventHandler<KeyEvent>() { // Unpauses the game when ESC is released
             @Override
             public void handle(KeyEvent event) {

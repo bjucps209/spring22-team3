@@ -104,7 +104,7 @@ public class player extends entity {
     }
 
     public void upgradeSpeed() {
-        speed += 1.5;
+        speed += 1.25;
     }
 
     // Given an OutputStream, this method saves the player's attributes 

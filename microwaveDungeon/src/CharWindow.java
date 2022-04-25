@@ -5,6 +5,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.stage.Stage;
+import javafx.stage.StageStyle;
 import model.Game;
 import model.characters;
 import model.difficulties;
@@ -122,7 +123,7 @@ public class CharWindow {
             var loader = new FXMLLoader(getClass().getResource("GameWindow.fxml"));
         var scene = new Scene(loader.load());
 
-        var stage = new Stage();
+        var stage = new Stage(StageStyle.UTILITY);
         gameStage = stage;
         stage.setScene(scene);
         stage.show();
