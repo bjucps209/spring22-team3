@@ -12,7 +12,7 @@ public class Scores {
 
     @Override
     public String toString() {
-        return "\t" + name + " || Score: " + score;
+        return "Name: " + name + " || Score: " + score;
     }
 
     // getters and setters

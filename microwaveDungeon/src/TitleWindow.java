@@ -43,13 +43,6 @@ public class TitleWindow {
             load.setDisable(true);
     }
 
-
-
-    //Hey Daniel, I went ahead and made the buttons work so that they load the other windows
-
-
-
-
     // begins the game when the start button is pressed
     @FXML
     public void startGame(ActionEvent e) throws IOException {
