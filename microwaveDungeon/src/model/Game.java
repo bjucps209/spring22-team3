@@ -79,8 +79,12 @@ public class Game {
                 easyLevelList.get(0).addRoom(new room(0, 2, false));
                 easyLevelList.get(0).getRooms().get(0).addEnemy(new enemy(5, 10, 2, 1, 300, 250));
                 easyLevelList.get(0).getRooms().get(0).addDoor(new door(2147483647, 0, 0, 5, 770, 250));
-                easyLevelList.get(0).getRooms().get(0).getDoorList().get(0).setDir(directions.West);
+                easyLevelList.get(0).getRooms().get(0).getDoorList().get(0).setDir(directions.East);
+
                 easyLevelList.get(0).addRoom(new room(1, 2, false));
+                easyLevelList.get(0).getRooms().get(1).addDoor(new door(2147483647, 0, 0, 5, 0, 200));
+                easyLevelList.get(0).getRooms().get(1).getDoorList().get(0).setDir(directions.West);
+                
                 easyLevelList.get(0).addRoom(new room(2, 2, false));
                 
                 //level 2
@@ -112,7 +116,7 @@ public class Game {
                 mediumLevelList.get(0).addRoom(new room(0, 2, false));
                 mediumLevelList.get(0).getRooms().get(0).addEnemy(new enemy(5, 10, 2, 1, 300, 250));
                 mediumLevelList.get(0).getRooms().get(0).addDoor(new door(2147483647, 0, 0, 5, 770, 250));
-                mediumLevelList.get(0).getRooms().get(0).getDoorList().get(0).setDir(directions.West);
+                mediumLevelList.get(0).getRooms().get(0).getDoorList().get(0).setDir(directions.East);
                 mediumLevelList.get(0).addRoom(new room(1, 2, false));
                 mediumLevelList.get(0).addRoom(new room(2, 2, false));
                 
