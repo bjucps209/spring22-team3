@@ -70,7 +70,10 @@ public class GameWindow {
 
     private room room;
 
+    int roomIndex;
+
     private int enemyCount;
+
     private int doorCount;
 
     private Thread moveThread;
@@ -101,7 +104,7 @@ public class GameWindow {
         diff = setDiff;
         character = setCharacter;
         game = new Game(diff, character);
-        int roomIndex = game.getCurrentRoom();
+        roomIndex = game.getCurrentRoom();
         room = game.getLevelSet().get(roomIndex).getRooms().get(roomIndex);
         generate();
         tickProcessing();
