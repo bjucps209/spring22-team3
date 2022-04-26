@@ -237,7 +237,7 @@ public class GameWindow {
                                 pepShield();
                                 break;
                             case RAMEN:
-                                // TODO: add homing missle
+                                homingMissle();
                                 break;
                             case MAC:
                                 // TODO: add railgun
@@ -430,7 +430,7 @@ public class GameWindow {
 
     // updates entities when collision from a bullet is detected
     @FXML
-    public void onHit(ActionEvent e) {
+    public boolean onHit(ActionEvent e) {
         int enemies = room.getEnemyList().size();
         int doors = room.getDoorList().size();
 
@@ -448,7 +448,7 @@ public class GameWindow {
                     room.getEnemyList().get(j - 1).setHealth(room.getEnemyList().get(j - 1).getHealth() - player.getDamage());
                     Gamepane.getChildren().remove(i);
                     room.getBulletList().remove(i - enemies - 1 - doors);
-                    game.setScore(game.getScore() + 5);
+                    game.setScore(game.getScore() + 5); 
                     if (room.getEnemyList().get(j - 1).getHealth() <= 0) {
                         if (room.getEnemyList().size() != 0) {
                             Gamepane.getChildren().remove(j);
@@ -457,10 +457,12 @@ public class GameWindow {
                             enemyCount = room.getEnemyList().size();
                         }
                     }
+                    return true;
 
                 }
             }
         }
+        return false;
     }
 
     @FXML
@@ -548,7 +550,7 @@ public class GameWindow {
             var timer = new Timeline(kf);
             timer.setCycleCount(100);
             timer.play();
-            gunFireCooldown = player.getFireCooldown(); // TODO: Gunfire rate value
+            gunFireCooldown = player.getFireCooldown(); 
         }
     }
 
@@ -713,5 +715,40 @@ public class GameWindow {
             timerTwo.play();
             abilityCooldown = 20.0;
         }
+    }
+
+    public void homingMissle() {
+        int roomIndex = game.getCurrentRoom();
+        room = game.getLevelSet().get(roomIndex).getRooms().get(roomIndex);
+        room.getBulletList().add(new projectile(1000, 10, 1, 5, player.getXcoord(), player.getYcoord()));
+        int bulletIndex = room.getBulletList().size() - 1;
+        room.getBulletList().get(bulletIndex).setDirection(cursorX, cursorY);
+        makeImage(bullet, room.getBulletList().get(room.getBulletList().size() - 1)); // TODO homingMissle PNG
+        KeyFrame kf = new KeyFrame(Duration.millis(100), this::movebullet);
+        var timer = new Timeline(kf);            
+        timer.setCycleCount(100);
+        timer.play();
+        KeyFrame keyframe = new KeyFrame(Duration.millis(10), event -> {
+            enemy closestEnemy = null;
+            if(room.getEnemyList().size() > 0) {
+                for(enemy e: room.getEnemyList()) {
+                    if(closestEnemy == null) 
+                        closestEnemy = e;
+                    else {
+                        if(Math.sqrt(Math.pow(player.getXcoord() - e.getXcoord(), 2) + Math.pow(player.getYcoord() - e.getYcoord(), 2)) < Math.sqrt(Math.pow(player.getXcoord() - closestEnemy.getXcoord(), 2) + Math.pow(player.getYcoord() - closestEnemy.getYcoord(), 2))) // Compare Distances
+                            closestEnemy = e;
+                    }
+                }
+                if(closestEnemy != null && room.getBulletList().size() > bulletIndex) 
+                    room.getBulletList().get(bulletIndex).setDirection(closestEnemy.getXcoord(), closestEnemy.getYcoord());
+                player.setDamage((int) (3 * player.getDamage()));
+                onHit(new ActionEvent());
+                player.setDamage((int) (player.getDamage() / 3));
+        }});
+        Timeline timertwo = new Timeline(keyframe);
+        timertwo.getKeyFrames().addAll(keyframe);
+        timertwo.setCycleCount(100);
+        timertwo.play();
+        abilityCooldown = 10.0;
     }
 }
