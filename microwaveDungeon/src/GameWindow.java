@@ -130,7 +130,7 @@ public class GameWindow {
     public void generate() {
         // on generation, player is always slot 0 on the Gamepane, then enemies, then doors, everything beyond that is projectiles
 
-        player = new player(25, 3, 1, 69, 0, 300, 0, 1.0);
+        player = new player(25, 3, 1, 69, 0, 400, 0, 1.0);
         game.setUser(player);
 
         switch (character) {
@@ -451,6 +451,7 @@ public class GameWindow {
                             Gamepane.getChildren().remove(j);
                             room.getEnemyList().remove(j - 1);
                             game.setScore(game.getScore() + 20);
+                            enemyCount = room.getEnemyList().size();
                         }
                     }
                     return true;
@@ -480,55 +481,13 @@ public class GameWindow {
 
                 switch(d){
 
-                    case North:
-                        game.setCurrentRoom(1);
-                        int roomIndex = game.getCurrentRoom();
-                        room = game.getLevelSet().get(roomIndex).getRooms().get(roomIndex);
-                        player.setXcoord(0);
-                        player.setYcoord(300);
-                        Gamepane.getChildren().clear();
-                        makeImage(playerImage, player);
-                        enemyCount = room.getEnemyList().size();
-                        doorCount = room.getDoorList().size();
-
-                        for (int k = 0; k < room.getEnemyList().size(); ++k) {
-                            makeImage(enemies, room.getEnemyList().get(k));
-                        }
-                
-                        for (int j = 0; j < room.getDoorList().size(); ++j) {
-                            makeImage(door, room.getDoorList().get(j));
-                        }
-                        
-                        break;
-
-                    case South:
-
-                        game.setCurrentRoom(1);
-                        roomIndex = game.getCurrentRoom();
-                        room = game.getLevelSet().get(roomIndex).getRooms().get(roomIndex);
-                        player.setXcoord(0);
-                        player.setYcoord(300);
-                        Gamepane.getChildren().clear();
-                        makeImage(playerImage, player);
-                        enemyCount = room.getEnemyList().size();
-                        doorCount = room.getDoorList().size();
-
-                        for (int k = 0; k < room.getEnemyList().size(); ++k) {
-                            makeImage(enemies, room.getEnemyList().get(k));
-                        }
-                
-                        for (int j = 0; j < room.getDoorList().size(); ++j) {
-                            makeImage(door, room.getDoorList().get(j));
-                        }
-                        break;
-
                     case East:
 
-                        game.setCurrentRoom(1);
-                        roomIndex = game.getCurrentRoom();
-                        room = game.getLevelSet().get(roomIndex).getRooms().get(roomIndex);
+                        game.setCurrentRoom(game.getCurrentRoom() + 1);
+                        int roomIndex = game.getCurrentRoom();
+                        room = game.getLevelSet().get(0).getRooms().get(roomIndex);
                         player.setXcoord(0);
-                        player.setYcoord(300);
+                        player.setYcoord(400);
                         Gamepane.getChildren().clear();
                         makeImage(playerImage, player);
                         enemyCount = room.getEnemyList().size();
@@ -539,16 +498,17 @@ public class GameWindow {
                         }
                 
                         for (int j = 0; j < room.getDoorList().size(); ++j) {
+                            System.out.println("generated");
                             makeImage(door, room.getDoorList().get(j));
                         }
                         break;
 
                     case West:
 
-                        game.setCurrentRoom(1);
+                        game.setCurrentRoom(game.getCurrentRoom() - 1);
                         roomIndex = game.getCurrentRoom();
-                        room = game.getLevelSet().get(roomIndex).getRooms().get(roomIndex);
-                        player.setXcoord(0);
+                        room = game.getLevelSet().get(0).getRooms().get(roomIndex);
+                        player.setXcoord(650);
                         player.setYcoord(300);
                         Gamepane.getChildren().clear();
                         makeImage(playerImage, player);

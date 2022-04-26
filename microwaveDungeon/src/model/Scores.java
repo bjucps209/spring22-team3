@@ -32,6 +32,10 @@ public class Scores {
         this.score = score;
     }
 
+    public void addToScore(int score) {
+        this.score += score;
+    }
+
     
 }
 
