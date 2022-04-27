@@ -41,7 +41,10 @@
         <HBox prefWidth="5" />
 
         <Button fx:id="NUKE" onAction="#selectNuke" text="Nuclear" />
+        
+        <HBox prefWidth = "5"/>
 
+        <Button fx:id="CUSTOM" onAction="#selectCustom" text="Custom" />
     </HBox >
 
     <Label text="Enter your Username" styleClass="heading"/>

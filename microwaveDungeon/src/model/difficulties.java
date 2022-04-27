@@ -1,5 +1,5 @@
 package model;
 
 public enum difficulties {
-    EASY, MEDIUM, HARD, NUKE;
+    EASY, MEDIUM, HARD, NUKE,CUSTOM;
 }

@@ -7,6 +7,8 @@ import java.io.*;
 public class LevelData {
     int numLevel;
     ArrayList<room> roomList = new ArrayList<room>();
+    Level customLevel = new Level(difficulties.CUSTOM);
+    public int doorCount = 0;
 
     // constructor to create a level
     public LevelData(int numLevel) {
@@ -18,7 +20,7 @@ public class LevelData {
      * It should read the level data one by one and create rooms for that level.
      * The Rooms should hold the location it is relative to the rooms around it.
      */
-    public void load() {
+    public Level load() {
 
         File dir = new File("src/Levels");
         
@@ -36,7 +38,7 @@ public class LevelData {
                                 new FileReader(child));
 
                         String line = rd.readLine();
-
+   
                         while (line != null) {
                             if (line.startsWith("Room")) {
 
@@ -49,8 +51,18 @@ public class LevelData {
                                 // create a new roomCoord to hold the room's location
 
                                 // set room coordinates to the room
-                                room newRoom = new room(x, y, true);
+                                room newRoom = new room(x, y, false);
                                 roomList.add(newRoom);
+                                
+                               
+                                    
+                                 door newDoor = new door(1000000, 0, 0, 0, 770, 250);
+                                 newDoor.setDir(directions.East);
+                                 newRoom.addDoor(newDoor);
+                                 
+                         
+                               
+                                customLevel.addRoom(newRoom);
 
                                 line = rd.readLine();
                             }
@@ -69,13 +81,15 @@ public class LevelData {
                                 switch (enemy) {
                                     case "enemy":
                                         enemy enemy1 = new enemy(health, speed, damage, id, x, y);
-                                        // ad the entity to the room using the roomId
+                                
                                         enemy1.setSize(scale);
-                                        roomList.get(roomId - 1).addEnemy(enemy1);
+                                      
+                                        customLevel.getRooms().get(roomId - 1).addEnemy(enemy1);
                                         break;
                                     case "obstacle":
                                         obstacle o = new obstacle(health, speed, damage, id, x, y);
                                         roomList.get(roomId - 1).addObstacle(o);
+
                                         break;
                                     // staircase
                                     case "staircase":
@@ -94,10 +108,15 @@ public class LevelData {
                             }
                             if (line.equals("End")) {
                                 line = rd.readLine();
+
                             }
 
                         }
+                        
                         rd.close();
+                        //remove the last door from the last room
+                        customLevel.getRooms().get(customLevel.getRooms().size() - 1).getDoorList().remove(0);
+                        return customLevel;
 
                     } catch (IOException e) {
                         System.out.println("Problem reading file");
@@ -109,6 +128,7 @@ public class LevelData {
         } else {
             System.out.println("Not a directory");
         }
+        return null;
 
     }
 
@@ -161,5 +181,5 @@ public class LevelData {
         return this.roomList;
 
     }
-
+  
 }

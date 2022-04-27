@@ -19,6 +19,7 @@ public class Game {
     private ArrayList<Level> hardLevelList = new ArrayList<Level>();
 
     private ArrayList<Level> nukeLevelList = new ArrayList<Level>();
+    private ArrayList<Level> customLevelList = new ArrayList<Level>();
 
     private ArrayList<Level> levelSet; // Added to simplify saving so that the Save method can easily iterate through each level
 
@@ -148,7 +149,7 @@ public class Game {
                 hardLevelList.get(0).addRoom(new room(0, 2, false));
                 hardLevelList.get(0).getRooms().get(0).addEnemy(new enemy(5, 10, 2, 1, 300, 250));
                 hardLevelList.get(0).getRooms().get(0).addDoor(new door(2147483647, 0, 0, 5, 770, 250));
-                hardLevelList.get(0).getRooms().get(0).getDoorList().get(0).setDir(directions.West);
+                hardLevelList.get(0).getRooms().get(0).getDoorList().get(0).setDir(directions.East);
                 hardLevelList.get(0).addRoom(new room(1, 2, false));
                 hardLevelList.get(0).addRoom(new room(2, 2, false));
                 
@@ -172,6 +173,8 @@ public class Game {
                 levelSet = hardLevelList;
                 break;
 
+                
+                
             case NUKE:
                 nukeLevelList.add(new Level(difficulties.NUKE));
                 nukeLevelList.add(new Level(difficulties.NUKE));
@@ -181,7 +184,7 @@ public class Game {
                 nukeLevelList.get(0).addRoom(new room(0, 2, false));
                 nukeLevelList.get(0).getRooms().get(0).addEnemy(new enemy(5, 10, 2, 1, 300, 250));
                 nukeLevelList.get(0).getRooms().get(0).addDoor(new door(2147483647, 0, 0, 5, 770, 250));
-                nukeLevelList.get(0).getRooms().get(0).getDoorList().get(0).setDir(directions.West);
+                nukeLevelList.get(0).getRooms().get(0).getDoorList().get(0).setDir(directions.East);
                 nukeLevelList.get(0).addRoom(new room(1, 2, false));
                 nukeLevelList.get(0).addRoom(new room(2, 2, false));
                 
@@ -204,7 +207,27 @@ public class Game {
                 nukeLevelList.get(2).addRoom(new room(3, 3, false));
                 levelSet = nukeLevelList;
                 break;
+            case CUSTOM:
+                //loop through the custom level folder and add each level to the list
+                File folder = new File("src/Levels");
+                File[] listOfFiles = folder.listFiles();
+                for (File file : listOfFiles) {
+                    if (file.isFile()) {
+                        LevelData customLevel = new LevelData(Integer.parseInt(file.getName().split("\\.")[0]));
+                       Level level = customLevel.load();
+                     
+                        customLevelList.add(level);
+
+                        
+                    }
+                }
+                
+                levelSet = customLevelList;
+                break;
+            
         }
+        
+        
         
     }
 
@@ -328,6 +351,9 @@ public class Game {
                 case NUKE:
                     writer.println(4);
                     break;
+                case CUSTOM:
+                    writer.println(5);
+                    break;
             }
             writer.println(score);
             writer.println(timePassed);
@@ -382,6 +408,9 @@ public class Game {
                     break;
                 case 4:
                     loadDiff = difficulties.NUKE;
+                    break;
+                case 5:
+                    loadDiff = difficulties.CUSTOM;
                     break;
                 default:
                     loadDiff = difficulties.EASY;

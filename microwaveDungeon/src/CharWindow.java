@@ -101,6 +101,11 @@ public class CharWindow {
         TitleWindow.beep();
         diff = difficulties.NUKE;
     }
+    @FXML
+    public void selectCustom(ActionEvent e) {
+        TitleWindow.beep();
+        diff = difficulties.CUSTOM;
+    }
 
     @FXML
     void onBackClicked(ActionEvent e) throws IOException {
