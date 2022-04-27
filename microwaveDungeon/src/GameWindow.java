@@ -226,7 +226,7 @@ public class GameWindow {
             KeyFrame dmgkf = new KeyFrame(Duration.millis(200), event -> {
                 try {
                     onDamage(event);
-                } catch (IOException e) {
+                } catch (IOException | InterruptedException e) {
                     // TODO Auto-generated catch block
                     e.printStackTrace();
                 }
@@ -640,7 +640,7 @@ public class GameWindow {
 
 
     @FXML
-    public void onDamage(ActionEvent e) throws IOException {
+    public void onDamage(ActionEvent e) throws IOException, InterruptedException {
         for (int i = 1; i < 1 + enemyCount; ++i){
             double playerX = Gamepane.getChildren().get(0).getLayoutX();
             double playerY = Gamepane.getChildren().get(0).getLayoutY();
@@ -661,7 +661,7 @@ public class GameWindow {
     }
 
     @FXML
-    public void onDeath(ActionEvent e) throws IOException{
+    public void onDeath(ActionEvent e) throws IOException, InterruptedException{
         Clip deathSound = GameWindow.playAudio("src\\audio\\Wilhelm Sceam.wav");
         isNotPaused = false;
         var loader = new FXMLLoader(getClass().getResource("DeathWindow.fxml"));
@@ -670,6 +670,11 @@ public class GameWindow {
         stage.setScene(scene);
         stage.show();
         stage.setTitle("R.I.P.");
+
+        KeyFrame kf = new KeyFrame(Duration.millis(1000), l -> {Clip deadMusic = GameWindow.playAudio("src\\audio\\rip.wav");});
+        var timer = new Timeline(kf);
+        timer.setCycleCount(1);
+        timer.play();
         
 
     }
