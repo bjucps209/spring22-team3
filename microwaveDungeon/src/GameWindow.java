@@ -718,18 +718,22 @@ public class GameWindow {
         switch (character) {
             case PIZZA:
                 makeImage(pizza, player);
+                abilityTime = 20;
                 break;
 
             case MAC:
                 makeImage(mac, player);
+                abilityTime = 40;
                 break;
 
             case RAMEN:
                 makeImage(ramen, player);
+                abilityTime = 10;
                 break;
 
             case HPOCKET:
                 makeImage(hPocket, player);
+                abilityTime = 2.5;
                 break;
         }
         for (int i = 0; i < room.getEnemyList().size(); ++i) {
@@ -740,7 +744,7 @@ public class GameWindow {
         setmovement();
 
         cooldownThread = new Thread(() -> {
-            var keyframe = new KeyFrame(Duration.seconds(1), this::updateCooldowns);
+            var keyframe = new KeyFrame(Duration.millis(50), this::updateCooldowns);
             var timer = new Timeline(keyframe);
             timer.setCycleCount(Timeline.INDEFINITE);
             timer.play();
