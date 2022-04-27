@@ -64,11 +64,13 @@ public class ScoreList {
     }
 
     /**
-     * Adds a score to the list.
+     * Adds a score to the list and saves the list.
      * @param score
+     * @throws IOException
      */
-    public void addScore(Scores score) {
+    public void addScore(Scores score) throws IOException {
         this.scoreList.add(score);
+        saveData();
     }
     
     /**
