@@ -1,7 +1,7 @@
 
 //-----------------------------------------------------------
 //File:   MainWindow.java
-//Desc:   This is the main window for the program.
+//Desc:   This is the main window for the LevelBuilder.
 //----------------------------------------------------------- 
 
 import java.io.File;
@@ -29,45 +29,49 @@ import model.*;
 
 public class MainWindow {
     @FXML
-    Pane pane;
+    Pane pane; // the pane that holds the game
     @FXML
-    Label lblId;
+    Label lblId; // the label that displays the entity's id
     @FXML
-    Label lblLoc;
+    Label lblLoc; // the label that displays the entity's location
     @FXML
-    TextField txthealth;
+    TextField txthealth; // the text field that displays the entity's health
     @FXML
-    TextField txtSpeed;
+    TextField txtSpeed; // the text field that displays the entity's speed
     @FXML
-    TextField txtDamage;
+    TextField txtDamage; // the text field that displays the entity's damage
     @FXML
-    Button leftBtn;
+    Button leftBtn; // the button that moves to the room on the left
     @FXML
-    Button rightBtn;
+    Button rightBtn; // the button that moves to the room on the right
     @FXML
-    Button upBtn;
+    Button upBtn; // the button that moves to the room above
     @FXML
-    Button downBtn;
+    Button downBtn; // the button that moves to the room below
     @FXML
-    Button startBtn;
+    Button startBtn; // the button that adds the startpoint to the room
     @FXML
-    Label lblRoomCoord;
+    Label lblRoomCoord; // the label that displays the room's coordinates
     @FXML
-    Button saveBtn;
+    Button saveBtn; // the button that saves the Level
     @FXML
-    Button setStairsBtn;
+    Button setStairsBtn; // the button that sets the stairs
     @FXML
-    Button removeStairsBtn;
+    Button removeStairsBtn; // the button that removes the stairs
 
     @FXML
-    Button deletestartptBtn;
-    ImageView tempImage = new ImageView();
-    room tempRoom = new room(0, 0, true);
-    String type = "";
-    int numLevel = 0;
+    Button deletestartptBtn; // the button that deletes the startpoint
+    ImageView tempImage = new ImageView(); // the temporary image that is used to hold a reference to the image that is
+                                           // going to be deleted
+    room tempRoom = new room(0, 0, true); // the temporary room that is used to hold a reference to the room that is
+                                          // going to delete a entity from it
+    String type = ""; // the type if it is a new level or a loaded level
+    int numLevel = 0; // the number of the level
 
     @FXML
     void initialize(int setLevel, String setType) {
+        // assigns the level number and the type
+        // sets all the buttons to their default state
         leftBtn.setUserData(new String("left"));
         rightBtn.setUserData(new String("right"));
         upBtn.setUserData(new String("up"));
@@ -125,6 +129,7 @@ public class MainWindow {
 
     @FXML
     void setStairs(ActionEvent event) {
+        // sets the stairs
 
         setStairsBtn.disableProperty().set(true);
         removeStairsBtn.disableProperty().set(false);
@@ -145,6 +150,7 @@ public class MainWindow {
 
     @FXML
     void removeStairs(ActionEvent event) {
+        // removes the stairs
 
         removeStairsBtn.disableProperty().set(true);
 
@@ -174,6 +180,7 @@ public class MainWindow {
     }
 
     void loadLevel(int levelnum, ActionEvent event) {
+        // loads the level from the file
         LevelData level = new LevelData(levelnum);
         level.load();
         currentLevel = level;
@@ -205,6 +212,7 @@ public class MainWindow {
 
     @FXML
     void setSpawnPoint(Event event) {
+        // sets the spawn point
         startPlaced = true;
 
         startBtn.disableProperty().set(true);
@@ -227,6 +235,7 @@ public class MainWindow {
 
     @FXML
     void deleteSpawnPoint(ActionEvent event) {
+        // deletes the spawn point
         Button source = (Button) event.getSource();
         source.disableProperty().set(true);
         startPlaced = false;
@@ -248,6 +257,7 @@ public class MainWindow {
 
     @FXML
     void seeLayout(ActionEvent event) {
+        // shows the layout of the level in a new window
         // open RoomView.fxml
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("RoomView.fxml"));
@@ -265,6 +275,7 @@ public class MainWindow {
     }
 
     void moveRoom(String dir) {
+        // moves the room in the direction specified
 
         currentRoom = currentLevel.findRoom(currentRoom.getX() + Integer.parseInt(checkDirection(dir).split(",")[0]),
                 currentRoom.getY() + Integer.parseInt(checkDirection(dir).split(",")[1]));
@@ -315,6 +326,7 @@ public class MainWindow {
 
     @FXML
     void createRoom(ActionEvent event) {
+        // creates a new room
         clearPane();
         Button button = (Button) event.getSource();
         String direction = (String) button.getUserData();
@@ -339,10 +351,12 @@ public class MainWindow {
         Boolean check = currentRoom.getX() == 0 ? true : false;
         leftBtn.setDisable(check);
         // check to the right
+        //TODO: This is hardcoded for now, need to fix
         check = currentRoom.getX() == 4 ? true : false;
         rightBtn.setDisable(check);
         // check to the top
-        check = currentRoom.getY() == 4 ? true : false;
+        // TODO: This is hardcoded for now, need to fix
+        check = currentRoom.getY() == 0 ? true : false;
         upBtn.setDisable(check);
         // check to the bottom
         check = currentRoom.getY() == 0 ? true : false;
@@ -352,6 +366,7 @@ public class MainWindow {
 
     @FXML
     void onObstacleClicked(ActionEvent event) {
+        // creates an obstacle
         obstacle obstacle = new obstacle(0, 0, 0, 1, new Random().nextInt(780), new Random().nextInt(580));
         currentRoom.addObstacle(obstacle);
         var img = new ImageView(IMG_OBSTACLE);
@@ -369,6 +384,7 @@ public class MainWindow {
     }
 
     void clearPane() {
+        // clears the pane that holds the stats of an entity
         entitySelected = null;
         // clear the table
         lblId.setText("");
@@ -404,6 +420,7 @@ public class MainWindow {
 
     void selectEntity(Node img) {
 
+        // selects a specific entity and highlights it
         if (entitySelected != null) {
             currentRoom.getImageList().forEach(c -> {
                 c.getStyleClass().remove("current");
@@ -414,6 +431,7 @@ public class MainWindow {
 
     @FXML
     void onSaveEntityClicked(ActionEvent event) {
+        // saves the entity to be saved to the file
         entity entity = (entity) entitySelected.getUserData();
         entity.setHealth(Integer.parseInt(txthealth.getText()));
         entity.setSpeed(Double.parseDouble(txtSpeed.getText()));
@@ -423,11 +441,13 @@ public class MainWindow {
 
     @FXML
     void onSaveLevelClicked(ActionEvent event) {
+        // saves the level to a file
         currentLevel.save(type);
     }
 
     @FXML
     void onCritterClicked(Event event, ImageView img) {
+        // selects a specific entity and invokes the update stats method
 
         makeDraggable(img);
         selectEntity(img);
@@ -440,14 +460,16 @@ public class MainWindow {
 
     @FXML
     void placeEntity(ActionEvent event) {
+        // places an entity on the pane
+
 
         // get the button that was clicked
         var img = new ImageView(
                 ((ImageView) (((Button) event.getSource())
                         .getChildrenUnmodifiable().get(0))).getImage());
-        // TODO: add the ability to add an obstacle
+       
 
-        enemy enemy = new enemy(100, 10, 20, 1, new Random().nextInt(780), new Random().nextInt(480));
+        enemy enemy = new enemy(5, 10, 10, 1, new Random().nextInt(780), new Random().nextInt(480));
         currentRoom.addEnemy(enemy);
         img.setFitHeight(100);
         img.setFitWidth(100);
@@ -564,7 +586,7 @@ public class MainWindow {
         // resulting in creation of a new image
         node.setOnMouseClicked(me -> me.consume());
     }
-
+    //this class is used to store the x and y coordinates of the mouse
     private class Delta {
         public double x;
         public double y;

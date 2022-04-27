@@ -1,9 +1,13 @@
+//-----------------------------------------------------------
+//File:   player.java
+//Desc:   This file holds the player class.
+//----------------------------------------------------------- 
 package model;
 
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
-
+//This is the class that holds the data for the player.
 public class player extends entity {
     
 

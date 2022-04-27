@@ -1,8 +1,12 @@
+//-----------------------------------------------------------
+//File:   staircase.java
+//Desc:   This file holds the staircase class.
+//----------------------------------------------------------- 
 package model;
 
 import java.io.DataOutputStream;
 import java.io.IOException;
-
+// This is the class that holds the data for the staircase.
 public class staircase extends entity {
  
 
@@ -13,7 +17,7 @@ public class staircase extends entity {
         //TODO Auto-generated constructor stub
     }
 
-    directions dir;
+    directions dir; // Added direction to show staircase direction 
 
 
 

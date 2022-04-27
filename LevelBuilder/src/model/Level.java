@@ -1,10 +1,14 @@
+//-----------------------------------------------------------
+//File:   Level.java
+//Desc:   This file holds the level class.
+//----------------------------------------------------------- 
 package model;
 
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
 import java.util.ArrayList;
-
+//This is the class that holds the data for the level.
 public class Level {
 
     private ArrayList<room> Rooms = new ArrayList<room>();

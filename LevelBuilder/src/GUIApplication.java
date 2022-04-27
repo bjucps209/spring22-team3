@@ -1,10 +1,13 @@
-
+//-----------------------------------------------------------
+//File:   GUIApplication.java
+//Desc:   This file holds the GUIApplication class to open the TitleWindow.
+//----------------------------------------------------------- 
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 
-
+//This is the class that opens the TitleWindow.
 public class GUIApplication extends Application{
 
     @Override
@@ -18,7 +21,7 @@ public class GUIApplication extends Application{
         var scene = new Scene(loader.load());
 
         stage.setScene(scene);
-        stage.setTitle("Hello"); // Title of main window
+        stage.setTitle("LevelBuilder"); // Title of main window
         stage.show();
     }
 

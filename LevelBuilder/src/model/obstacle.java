@@ -1,8 +1,12 @@
+//-----------------------------------------------------------
+//File:   obstacle.java
+//Desc:   This file holds the obstacle class.
+//----------------------------------------------------------- 
 package model;
 
 import java.io.DataOutputStream;
 import java.io.IOException;
-
+//This is the class that holds the data for the obstacle.
 public class obstacle extends entity {
 
 

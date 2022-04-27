@@ -1,15 +1,19 @@
+//-----------------------------------------------------------
+//File:   ScoreList.java
+//Desc:   This file holds the ScoreList class.
+//----------------------------------------------------------- 
 package model;
 
 import java.util.ArrayList;
-
+//This is the class that holds the data for the scores in the game.
 public class ScoreList {
 
-    public ArrayList<Scores> scoreList;
+    public ArrayList<Scores> scoreList; //This is the list of scores.
 
-    static final String FILENAME = "scores.txt";
+    static final String FILENAME = "scores.txt"; //This is the name of the file that holds the scores.
 
     public ScoreList() {
-        scoreList = new ArrayList<Scores>();
+        scoreList = new ArrayList<Scores>(); //This creates the list of scores.
     }
 
     // // gets the scores from the .txt file and adds it to the scoreList variable 

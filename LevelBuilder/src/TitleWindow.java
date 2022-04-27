@@ -1,3 +1,8 @@
+//-----------------------------------------------------------
+//File:   TitleWindow.java
+//Desc:   This program accepts two numbers as input and
+//        prints the sum as output.
+//----------------------------------------------------------- 
 import java.io.File;
 import java.io.IOException;
 
@@ -11,13 +16,14 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.ChoiceBox;
 import javafx.stage.Stage;
-
+// This is the class that holds the TitleWindow.
 public class TitleWindow {
     @FXML
-    ChoiceBox<String> levelCB;
+    ChoiceBox<String> levelCB; // The choice box that holds the levels.
 
     @FXML
     void initialize() {
+        // the choice box will hold the levels 
         File dir = new File("../microwaveDungeon/src/Levels");
         int level;
         File[] directoryListing = dir.listFiles();
@@ -33,7 +39,7 @@ public class TitleWindow {
 
     @FXML
     void newGame(ActionEvent event) throws IOException {
-
+        //makes a new Level and goes to the LevelBuilder
         var loader = new FXMLLoader(getClass().getResource("MainWindow.fxml"));
         var scene = new Scene(loader.load());
 
@@ -52,6 +58,7 @@ public class TitleWindow {
 
     @FXML
     void onLoadClicked(ActionEvent event) throws IOException {
+        //loads a level from a directory and goes to the LevelBuilder
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
 
         alert.setHeaderText("Load level " + levelCB.getValue() + "?");

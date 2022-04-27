@@ -1,11 +1,16 @@
+//-----------------------------------------------------------
+//File:   entity.java
+//Desc:   This file holds the entity class.
+//----------------------------------------------------------- 
 package model;
 
 import java.io.DataOutputStream;
 import java.io.IOException;
 
+//This is the class that holds the data for the entity.
 public class entity {
 
-    private static int nextId =0;
+    private static int nextId =0; // Added to allow for unique IDs 
     //instance variables for storing properties of entities
     protected int health;
 

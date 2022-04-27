@@ -1,5 +1,9 @@
+//-----------------------------------------------------------
+//File:   position.java
+//Desc:   This file holds the position class.
+//----------------------------------------------------------- 
 package model;
-
+//This is the class that holds a position by a x and y coordinate.
 public class position {
     private int x;
 

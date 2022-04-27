@@ -8,7 +8,7 @@ import javafx.scene.image.ImageView;
 
 import java.io.File;
 import java.io.*;
-
+//This is the class that holds the data for a level to be saved or loaded.
 public class LevelData {
     int numLevel;
     int numLevelOld;

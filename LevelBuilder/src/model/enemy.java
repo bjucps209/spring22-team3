@@ -1,9 +1,13 @@
+//-----------------------------------------------------------
+//File:   enemy.java
+//Desc:   This file holds the enemy class.
+//----------------------------------------------------------- 
 package model;
 
 import java.io.DataOutputStream;
 import java.io.IOException;
 import java.util.Random;
-
+//This is the class that holds the data for the enemy.
 public class enemy extends entity {
 
     public enemy(int setHealth, double setSpeed, double setDamage, int setId, int xcoord, int ycoord) {
@@ -16,6 +20,7 @@ public class enemy extends entity {
 
 
     @Override
+    
     public void updatePosition() {
         if (Xcoord > 710) {
             Xcoord -= 710;

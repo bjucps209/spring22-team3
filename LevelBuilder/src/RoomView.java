@@ -1,3 +1,9 @@
+//-----------------------------------------------------------
+//File:   RoomView.java
+//Desc:   This file makes the room view.
+//The room view is showed to the user with a red square if the player is viewing the room.
+//Otherwise, the room would be shown as a green square.
+//----------------------------------------------------------- 
 import javafx.fxml.FXML;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
@@ -8,10 +14,10 @@ import javafx.scene.layout.Region;
 import javafx.scene.paint.Color;
 import model.LevelData;
 import model.room;
-
+// This is the class that holds the RoomView.
 public class RoomView {
     @FXML
-    GridPane grid;
+    GridPane grid; // The grid pane that holds the room in a grid.
 
     @FXML
     void initialize(LevelData levelData, room currentRoom) {

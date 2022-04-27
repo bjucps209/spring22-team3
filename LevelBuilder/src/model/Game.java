@@ -1,3 +1,7 @@
+//-----------------------------------------------------------
+//File:   Game.java
+//Desc:   This file holds the game class.
+//----------------------------------------------------------- 
 package model;
 
 import java.io.*;
@@ -11,7 +15,7 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.image.Image;
 import javafx.scene.layout.Pane;
-
+//holds the levels of the game
 public class Game {
     private ArrayList<Level> easyLevelList = new ArrayList<Level>();
 
@@ -50,9 +54,7 @@ public class Game {
     }
 
 
-    public void onStaircaseReached(){
-        
-    }
+ 
 
     public void generateLevels(difficulties diff){
 

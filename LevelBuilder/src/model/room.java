@@ -1,3 +1,7 @@
+//-----------------------------------------------------------
+//File:   room.java
+//Desc:   This file holds the room class.
+//----------------------------------------------------------- 
 package model;
 
 import java.util.ArrayList;
@@ -7,7 +11,7 @@ import javafx.scene.image.ImageView;
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
-
+//This is the class that holds the data for the room.
 public class room {
     
     //X and Y coordinate that marks the rooms location in relationship to the other rooms
@@ -40,9 +44,9 @@ public class room {
     }
 
 
-    ArrayList<obstacle> obstacleList = new ArrayList<obstacle>();
-    ArrayList<ImageView> imageList = new ArrayList<ImageView>();
-    player player;
+    ArrayList<obstacle> obstacleList = new ArrayList<obstacle>(); //the list of obstacles in the room
+    ArrayList<ImageView> imageList = new ArrayList<ImageView>(); //the list of images in the room
+    player player; //the player in the room
 
     public room(int setX, int setY, Boolean isNotForLoad){ // isNotForLoad determines whether if generate() is used as when loading, generate is not nessesary
         x = setX;
