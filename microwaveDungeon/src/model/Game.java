@@ -38,6 +38,12 @@ public class Game {
 
     private int currentLevel = 0;
 
+    private double levelBarCap = 100;
+    
+    private double primaryCooldown, abilityCooldown;
+
+    private boolean isNotPaused = true;
+
 
     @FXML
     Pane pane;
@@ -53,7 +59,8 @@ public class Game {
     }
 
     public void incrementTimePassed(ActionEvent e) {
-        ++timePassed;
+        if(isNotPaused)
+            ++timePassed;
     }
 
 
@@ -251,8 +258,6 @@ public class Game {
         return levelSet;
     }
 
-    
-
     public void setScore(int score) {
         this.score = score;
     }
@@ -287,6 +292,38 @@ public class Game {
 
     public int getCurrentRoom() {
         return currentRoom;
+    }
+
+    public double getLevelBarCap() {
+        return levelBarCap;
+    }
+
+    public void setLevelBarCap(double levelBarCap) {
+        this.levelBarCap = levelBarCap;
+    }
+
+    public double getPrimaryCooldown() {
+        return primaryCooldown;
+    }
+
+    public void setPrimaryCooldown(double primaryCooldown) {
+        this.primaryCooldown = primaryCooldown;
+    }
+
+    public double getAbilityCooldown() {
+        return abilityCooldown;
+    }
+
+    public void setAbilityCooldown(double abilityCooldown) {
+        this.abilityCooldown = abilityCooldown;
+    }
+    
+    public boolean isNotPaused() {
+        return isNotPaused;
+    }
+
+    public void setNotPaused(boolean isNotPaused) {
+        this.isNotPaused = isNotPaused;
     }
 
     // Saves the Game
@@ -329,7 +366,11 @@ public class Game {
                     writer.println(4);
                     break;
             }
+            writer.println(User.getName());
             writer.println(score);
+            writer.println(levelBarCap);
+            writer.println(primaryCooldown);
+            writer.println(abilityCooldown);
             writer.println(timePassed);
             writer.println(levelSet.size());
             for(Level l: levelSet) {
@@ -388,7 +429,11 @@ public class Game {
                     break;
             }
             output = new Game(loadDiff, loadCharacter);
+            String userName = input.readLine();
             output.setScore(Integer.parseInt(input.readLine()));
+            output.setLevelBarCap(Double.parseDouble(input.readLine()));
+            output.setPrimaryCooldown(Double.parseDouble(input.readLine()));
+            output.setAbilityCooldown(Double.parseDouble(input.readLine()));
             output.setTimePassed(Integer.parseInt(input.readLine()));
             ArrayList<Level> loadLevelSet = new ArrayList<Level>();
             int levelCount = Integer.parseInt(input.readLine());
@@ -397,6 +442,7 @@ public class Game {
             }
             output.setLevelSet(loadLevelSet);
             output.setUser(player.load(input));
+            output.getUser().setName(userName);
         }
         catch (IOException e) {
             Alert a = new Alert(AlertType.ERROR, "There was a problem reading the save file: " + e.getMessage());

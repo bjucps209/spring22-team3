@@ -126,7 +126,6 @@ public class player extends entity {
     // Factory Method that builds/loads a player based off a DataInputStream
     public static player load(BufferedReader input) throws IOException {
         player output = new player(Double.parseDouble(input.readLine()), Double.parseDouble(input.readLine()), Double.parseDouble(input.readLine()), Integer.parseInt(input.readLine()), Integer.parseInt(input.readLine()), Integer.parseInt(input.readLine()), Double.parseDouble(input.readLine()), Double.parseDouble(input.readLine()));
-        System.out.println(output);
         output.setRoomXCoord(Integer.parseInt(input.readLine()));
         output.setRoomYCoord(Integer.parseInt(input.readLine()));
         output.setFloor(Integer.parseInt(input.readLine()));
