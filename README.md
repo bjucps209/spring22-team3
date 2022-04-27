@@ -36,7 +36,8 @@ Upon opening the game, you are presented with 6 buttons. Click "Start" to begin 
 ### Level Builder
 - Implemeted placing down enemies and obstacles
 - Added the ability to make multiple rooms
-- 5x5 is the maximum level size
+- 1x5 is the maximum level size
+- can load and save levels
 ***
 
 ## Known Issues
@@ -73,6 +74,6 @@ https://youtu.be/ySEE_kFdIYo
 | Edward Taylor | etayl261 | Basic Game Play | 40 | 10 | [Time Journal](https://github.com/bjucps209/spring22-team3/wiki/Time-Journal#edward-taylor) |
 | Ethan Wood | thethanwood | Serialization | 47 | 3 | [Time Journal](https://github.com/bjucps209/spring22-team3/wiki/Time-Journal#ethan-wood) |
 | David John Hayes | dhaye039 | Auxiliary screens | 28 | 22 | [Time Journal](https://github.com/bjucps209/spring22-team3/wiki/Time-Journal#david-hayes) |
-| Ryan Kuhn | rkuhn153 | Level Builder | 33.5 | 26.5 | [Time Journal](https://github.com/bjucps209/spring22-team3/wiki/Time-Journal#ryan-kuhn) |
+| Ryan Kuhn | rkuhn153 | Level Builder | 36.5 | 13.5 | [Time Journal](https://github.com/bjucps209/spring22-team3/wiki/Time-Journal#ryan-kuhn) |
 
 ***
