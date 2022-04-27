@@ -14,9 +14,9 @@
     -fx-text-fill: black;
 }
 
-VBox {
+/* VBox {
     -fx-alignment: center;
-}
+} */
 
 .vboxTitle {
     -fx-background-image: url("/imgs/title3.gif");
@@ -25,3 +25,12 @@ VBox {
     -fx-background-position: center center;
     -fx-spacing: 20
 }
+
+Button {
+    -fx-background-color: black;
+    -fx-padding: 0;
+    -fx-text-fill: white;
+    -fx-font-family: "Impact", Arial, bold;
+    -fx-font-size: 18px;
+}
+
