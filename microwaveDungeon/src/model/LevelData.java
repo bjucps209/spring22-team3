@@ -1,3 +1,8 @@
+//-----------------------------------------------------------
+//File:   LevelData.java
+//Desc:   This file contains the LevelData class.
+//The LevelData class is used to load custom levels from a directory.
+//----------------------------------------------------------- 
 package model;
 
 import java.util.*;
@@ -6,9 +11,9 @@ import java.io.*;
 
 public class LevelData {
     int numLevel;
-    ArrayList<room> roomList = new ArrayList<room>();
-    Level customLevel = new Level(difficulties.CUSTOM);
-    public int doorCount = 0;
+    ArrayList<room> roomList = new ArrayList<room>(); //the room list for the level
+    Level customLevel = new Level(difficulties.CUSTOM); //the level to be returned
+    public int doorCount = 0; //the number of doors in a specific room
 
     // constructor to create a level
     public LevelData(int numLevel) {

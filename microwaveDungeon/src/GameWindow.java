@@ -26,60 +26,60 @@ import model.*;
 public class GameWindow {
 
     @FXML
-    Pane Gamepane;
+    Pane Gamepane; //the pane that holds the game
 
     @FXML
     VBox MasterVbox;
 
     @FXML
-    ProgressBar healthBar, shieldBar, levelBar;
+    ProgressBar healthBar, shieldBar, levelBar; //the bars for different stats
 
     @FXML
-    ProgressIndicator primaryIndicator, abilityIndicator;
+    ProgressIndicator primaryIndicator, abilityIndicator; //indicators for the primary and ability bars
 
     @FXML
-    Label scoreLbl, timeLbl, powerUpLbl;
+    Label scoreLbl, timeLbl, powerUpLbl; //labels for the score, time, and power up
 
-    private Game game;
+    private Game game; //the game object
 
     boolean isNotPaused = true; // Value that if false when the pause window is open
 
-    private difficulties diff;
+    private difficulties diff; //the difficulty of the game
 
-    private characters character;
+    private characters character; //the character of the game
 
-    private player player;
+    private player player; //the player object
     
-    private boolean goNorth, goEast, goSouth, goWest;
+    private boolean goNorth, goEast, goSouth, goWest; //booleans for the wasd keys
 
     private boolean playerModelFlipped = false; // For knowing when to flip the player model img when moving
 
     private boolean playerIsMoving = false; // true when a movement key is pressed, false when a movement key is not
                                             // pressed
 
-    private double cursorX;
+    private double cursorX; //the x coordinate of the cursor
 
-    private double cursorY;
+    private double cursorY; //the y coordinate of the cursor
 
     private double gunFireCooldown = 0.0; // Time left until player can fire primary again
 
     private double abilityCooldown = 0.0; // Time left until player can use ability again
 
-    private double abilityTime = 1.0;
+    private double abilityTime = 1.0; 
 
     private double levelBarCap = 100; // Sets the score needed to get a power-up
 
-    private room room;
+    private room room; //the room object
 
-    private int roomIndex;
+    private int roomIndex; //the index of the room
 
-    private int enemyCount;
+    private int enemyCount; //the number of enemies in the room
 
-    private int doorCount;
+    private int doorCount; //the number of doors in the room
 
-    private Thread moveThread;
+    private Thread moveThread; 
 
-    private Thread cooldownThread;
+    private Thread cooldownThread; // Thread for cooldowns
 
     private KeyFrame kf = new KeyFrame(Duration.millis(10), this::updatePlayer);
     private Timeline timer = new Timeline(kf);
@@ -239,9 +239,9 @@ public class GameWindow {
         });
         t.start();
     }
-
+    
     public void setmovement() {
-
+        // sets the movement of the player
         // Scene scene = new Scene(Gamepane, Gamepane.widthProperty().get(),
         // Gamepane.heightProperty().get());
         Scene scene = Gamepane.getScene();
@@ -398,6 +398,7 @@ public class GameWindow {
     }
 
     @FXML
+    //sets the cursor to a crosshair for aiming
     public void setCursor(MouseEvent m) {
         Gamepane.getScene().setCursor(Cursor.CROSSHAIR);
     }

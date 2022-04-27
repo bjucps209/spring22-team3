@@ -1,9 +1,13 @@
+//-----------------------------------------------------------
+//File:   door.java
+//Desc:   This file contains the door class.
+//----------------------------------------------------------- 
 package model;
 
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.PrintWriter;
-
+//This class is used to create doors to move between rooms.
 public class door extends entity {
 
     public door(double setHealth, double setSpeed, double setDamage, int setId, int xcoord, int ycoord) {

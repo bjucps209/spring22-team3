@@ -1,9 +1,13 @@
+//-----------------------------------------------------------
+//File:   enemy.java
+//Desc:   This file contains the enemy class.
+//----------------------------------------------------------- 
 package model;
 
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.Random;
-
+//this class is used to create enemies to fight in the game.
 public class enemy extends entity {
 
     public enemy(double setHealth, double setSpeed, double setDamage, int setId, int xcoord, int ycoord) {
@@ -13,7 +17,8 @@ public class enemy extends entity {
 
 
     public void updatePosition(Double playerX, Double playerY) {
-
+        //update the position of the enemy
+        //uses the player's position to determine the direction of the enemy
         if (playerX < Xcoord && playerY < Ycoord){
             direction = Math.atan((playerY - Ycoord)/(playerX - Xcoord)) *(180 / Math.PI) + 180;
         } else if (playerX < Xcoord && playerY > Ycoord){

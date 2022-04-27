@@ -1,8 +1,14 @@
+//-----------------------------------------------------------
+//File:   entity.java
+//Desc:   This file contains the entity class.
+//----------------------------------------------------------- 
 package model;
 
 import java.io.IOException;
 import java.io.PrintWriter;
 
+//This class is used to create entities in the game.
+//This class is used as a super class for the game objects visible on the screen.
 public class entity {
 
 
