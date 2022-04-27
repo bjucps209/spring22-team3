@@ -12,6 +12,7 @@ public class DeathWindow {
     @FXML
     public void onRestart(ActionEvent e) throws IOException{
         TitleWindow.beep();
+        CharWindow.getGameStage().close();
         var loader = new FXMLLoader(getClass().getResource("CharWindow.fxml"));
         var scene = new Scene(loader.load());
 
@@ -28,6 +29,7 @@ public class DeathWindow {
     @FXML
     public void onReturn(ActionEvent e) throws IOException{
         TitleWindow.beep();
+        CharWindow.getGameStage().close();
         var loader = new FXMLLoader(getClass().getResource("TitleWindow.fxml"));
         var scene = new Scene(loader.load());
 
