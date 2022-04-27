@@ -432,7 +432,10 @@ public class GameWindow {
                     if (healthBar.getProgress() < 0.25)
                         healthBar.setStyle("-fx-accent: red;");
                 }
-                shieldBar.setProgress(player.getShield() / 10);
+                if(player.getShield() > 0)
+                    shieldBar.setProgress(player.getShield() / 10);
+                else
+                    shieldBar.setProgress(0);
                 if (player.getShield() > 10)
                     shieldBar.setStyle("-fx-accent: blue;");
                 else
@@ -650,7 +653,10 @@ public class GameWindow {
                     .abs(Math.sqrt(Math.pow(playerX - enemyX, 2) + Math.pow(playerY - enemyY, 2))) <= 45.0);
 
             if (isCollision){
-                player.setHealth(player.getHealth() - room.getEnemyList().get(i - 1).getDamage());
+                if(player.getShield() > 0)
+                    player.setShield(player.getShield() - room.getEnemyList().get(i - 1).getDamage());
+                else
+                    player.setHealth(player.getHealth() - room.getEnemyList().get(i - 1).getDamage());
             }
 
             if (player.getHealth() <= 0 && isNotPaused == true){
