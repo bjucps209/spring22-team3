@@ -226,7 +226,7 @@ public class GameWindow {
             KeyFrame dmgkf = new KeyFrame(Duration.millis(200), event -> {
                 try {
                     onDamage(event);
-                } catch (IOException e) {
+                } catch (IOException | InterruptedException e) {
                     // TODO Auto-generated catch block
                     e.printStackTrace();
                 }
@@ -432,10 +432,7 @@ public class GameWindow {
                     if (healthBar.getProgress() < 0.25)
                         healthBar.setStyle("-fx-accent: red;");
                 }
-                if(player.getShield() > 0)
-                    shieldBar.setProgress(player.getShield() / 10);
-                else
-                    shieldBar.setProgress(0);
+                shieldBar.setProgress(player.getShield() / 10);
                 if (player.getShield() > 10)
                     shieldBar.setStyle("-fx-accent: blue;");
                 else
@@ -643,7 +640,7 @@ public class GameWindow {
 
 
     @FXML
-    public void onDamage(ActionEvent e) throws IOException {
+    public void onDamage(ActionEvent e) throws IOException, InterruptedException {
         for (int i = 1; i < 1 + enemyCount; ++i){
             double playerX = Gamepane.getChildren().get(0).getLayoutX();
             double playerY = Gamepane.getChildren().get(0).getLayoutY();
@@ -653,10 +650,7 @@ public class GameWindow {
                     .abs(Math.sqrt(Math.pow(playerX - enemyX, 2) + Math.pow(playerY - enemyY, 2))) <= 45.0);
 
             if (isCollision){
-                if(player.getShield() > 0)
-                    player.setShield(player.getShield() - room.getEnemyList().get(i - 1).getDamage());
-                else
-                    player.setHealth(player.getHealth() - room.getEnemyList().get(i - 1).getDamage());
+                player.setHealth(player.getHealth() - room.getEnemyList().get(i - 1).getDamage());
             }
 
             if (player.getHealth() <= 0 && isNotPaused == true){
@@ -667,7 +661,7 @@ public class GameWindow {
     }
 
     @FXML
-    public void onDeath(ActionEvent e) throws IOException{
+    public void onDeath(ActionEvent e) throws IOException, InterruptedException{
         Clip deathSound = GameWindow.playAudio("src\\audio\\Wilhelm Sceam.wav");
         isNotPaused = false;
         var loader = new FXMLLoader(getClass().getResource("DeathWindow.fxml"));
@@ -677,7 +671,6 @@ public class GameWindow {
         stage.show();
         stage.setTitle("R.I.P.");
         
-
     }
 
     // Pauses the game and opens the Pause Menu
@@ -896,10 +889,10 @@ public class GameWindow {
                     room.getBulletList().get(bulletIndex).setDirection(closestEnemy.getXcoord(), closestEnemy.getYcoord());
             }
             KeyFrame keyframe = new KeyFrame(Duration.millis(100), event -> {
-                    player.setDamage((int) (10 * player.getDamage()));
+                    player.setDamage((int) (100 * player.getDamage()));
                     if(onHit(new ActionEvent()))
-                        game.setScore(game.getScore() + 20);
-                    player.setDamage((int) (player.getDamage() / 10));
+                        game.setScore(game.getScore() + 30);
+                    player.setDamage((int) (player.getDamage() / 100));
             });
             Timeline timertwo = new Timeline(keyframe);
             timertwo.getKeyFrames().addAll(keyframe);
