@@ -1,5 +1,3 @@
-JJ,2100
-Paul,1920
-StarBoi29,1500
-Bob,850
-NinjaNoodle84,500
+Bob,500
+Sally,360
+Joe,920

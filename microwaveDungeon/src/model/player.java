@@ -20,11 +20,6 @@ public class player extends entity {
     private int roomXCoord, roomYCoord; // Added RoomCoords and floor to show player loc. -EW
     private int floor;
     private characters Character;
-    
-    /* TODO: getter and setter, addToScore(int score) which will add a designated score to the players score,
-     * when player dies, call Scores(name, score) and put in the player name and the player score 
-     */
-    private int score;
 
     public void updatePosition(){
         Xcoord += speed * Math.cos(direction * Math.PI / 180);
