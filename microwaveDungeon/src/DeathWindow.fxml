@@ -9,6 +9,10 @@
 
     <Label text="You Died!" styleClass="title" />
 
+    <Label fx:id="deadNamelbl" />
+
+    <Label fx:id="scorelbl" />
+
     <Button text="Main Menu" onAction="#onReturn" />
 
     <Button text="Quit" onAction="#onQuitGame" />

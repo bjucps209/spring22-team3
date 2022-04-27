@@ -670,6 +670,8 @@ public class GameWindow {
         stage.setScene(scene);
         stage.show();
         stage.setTitle("R.I.P.");
+        DeathWindow deathWindow = loader.getController();
+        deathWindow.initialize(player.getName(), scoreLbl.getText());
         
     }
 

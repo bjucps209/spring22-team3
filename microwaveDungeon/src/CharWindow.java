@@ -17,7 +17,7 @@ public class CharWindow {
     static GameWindow staticGameWindow; // Added to allow saving from pause menu
 
     @FXML
-    Button pizzaCharacter;
+    Button pizzaCharacter; 
 
     @FXML
     Button hotPocketCharacter;
@@ -119,7 +119,7 @@ public class CharWindow {
 
     public void onStartClicked(ActionEvent e) throws IOException{
         TitleWindow.beep();
-        if ((character != null) && (diff != null)) {
+        if ((character != null) && (diff != null) && (nameInput.getText().length() != 0)) {
             var loader = new FXMLLoader(getClass().getResource("GameWindow.fxml"));
         var scene = new Scene(loader.load());
 
@@ -136,7 +136,7 @@ public class CharWindow {
         gameWindow.initialize(diff, character);
         staticGameWindow = gameWindow;
         } else{
-            errorLabel.setText("Please select a character AND a  difficulty!");
+            errorLabel.setText("Please select a character, a difficulty and a name!");
         }
         
     }

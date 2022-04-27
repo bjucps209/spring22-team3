@@ -10,7 +10,20 @@ import javafx.scene.control.*;
 
 public class DeathWindow {
 
+    @FXML
+    Label scorelbl;
+
+    @FXML
+    Label deadNamelbl;
+
     Clip deadMusic = GameWindow.playAudio("src\\audio\\rip.wav");
+
+    @FXML
+    public void initialize(String name, String score){
+        deadNamelbl.setText("R.I.P. " + name + ", twas a valiant attempt!");
+        scorelbl.setText(score);
+
+    }
 
     @FXML
     public void onReturn(ActionEvent e) throws IOException{

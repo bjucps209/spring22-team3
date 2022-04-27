@@ -12,7 +12,7 @@ import java.util.ArrayList;
 
 public class ScoreList {
 
-    private ArrayList<Scores> scoreList;
+    private ArrayList<Scores> scoreList; 
     static final String FILENAME = "..\\microwaveDungeon\\src\\Saves\\scores.txt";
 
     public ScoreList() {
