@@ -1,4 +1,5 @@
 import java.io.IOException;
+import javax.sound.sampled.Clip;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -9,8 +10,11 @@ import javafx.scene.control.*;
 
 public class DeathWindow {
 
+    Clip deadMusic = GameWindow.playAudio("src\\audio\\rip.wav");
+
     @FXML
     public void onReturn(ActionEvent e) throws IOException{
+        deadMusic.stop();
         TitleWindow.beep();
         CharWindow.getGameStage().close();
 
@@ -28,6 +32,7 @@ public class DeathWindow {
 
     @FXML
     public void onQuitGame(ActionEvent e){
+        deadMusic.stop();
         TitleWindow.beep();
         System.exit(1);
     }
