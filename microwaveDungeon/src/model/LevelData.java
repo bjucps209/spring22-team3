@@ -59,6 +59,13 @@ public class LevelData {
                                  door newDoor = new door(1000000, 0, 0, 0, 770, 250);
                                  newDoor.setDir(directions.East);
                                  newRoom.addDoor(newDoor);
+                                 if(roomId > 1) {
+                                     //add a door to the left
+                                        newDoor = new door(1000000, 0, 0, 0, 0, 250);
+                                        newDoor.setDir(directions.West);
+                                        newRoom.addDoor(newDoor);
+
+                                 }
                                  
                          
                                
