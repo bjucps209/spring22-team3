@@ -50,8 +50,6 @@ public class GameWindow {
 
     private player player;
     
-    private enemy enemy;
-
     private boolean goNorth, goEast, goSouth, goWest;
 
     private boolean playerModelFlipped = false; // For knowing when to flip the player model img when moving
@@ -108,7 +106,7 @@ public class GameWindow {
         character = setCharacter;
         game = new Game(diff, character);
         roomIndex = game.getCurrentRoom();
-        room = game.getLevelSet().get(roomIndex).getRooms().get(roomIndex);
+        room = game.getLevelSet().get(0).getRooms().get(roomIndex);
         generate();
         tickProcessing();
         setmovement();
@@ -211,7 +209,7 @@ public class GameWindow {
             enemytimer.setCycleCount(Timeline.INDEFINITE);
             enemytimer.play();
 
-            KeyFrame collisionkf = new KeyFrame(Duration.millis(300), this::onHit);
+            KeyFrame collisionkf = new KeyFrame(Duration.millis(200), this::onHit);
             var collisionTimer = new Timeline(collisionkf);
             collisionTimer.setCycleCount(Timeline.INDEFINITE);
             collisionTimer.play();
@@ -220,6 +218,18 @@ public class GameWindow {
             var doorTimer = new Timeline(doorkf);
             doorTimer.setCycleCount(Timeline.INDEFINITE);
             doorTimer.play();
+
+            KeyFrame dmgkf = new KeyFrame(Duration.millis(200), event -> {
+                try {
+                    onDamage(event);
+                } catch (IOException e) {
+                    // TODO Auto-generated catch block
+                    e.printStackTrace();
+                }
+            });
+            var dmgTimer = new Timeline(dmgkf);
+            dmgTimer.setCycleCount(Timeline.INDEFINITE);
+            dmgTimer.play();
 
         });
         t.start();
@@ -393,14 +403,14 @@ public class GameWindow {
         if (isNotPaused) {
             var ls = room.getEnemyList();
             int len = ls.size();
-            for (int i = 0; i < len; ++i) {
+            for (int i = 1; i < len + 1; ++i) {
                 final int currentI = i;
-                ls.get(i).updatePosition(Gamepane.getChildren().get(0).getLayoutX(),
+                ls.get(i  - 1).updatePosition(Gamepane.getChildren().get(0).getLayoutX(),
                         Gamepane.getChildren().get(0).getLayoutY());
                 Platform.runLater(() -> {
                     if (room.getEnemyList().size() != 0) {
-                        Gamepane.getChildren().get(currentI + 1).setLayoutX(ls.get(currentI).getXcoord());
-                        Gamepane.getChildren().get(currentI + 1).setLayoutY(ls.get(currentI).getYcoord());
+                        Gamepane.getChildren().get(currentI).setLayoutX(ls.get(currentI - 1).getXcoord());
+                        Gamepane.getChildren().get(currentI).setLayoutY(ls.get(currentI - 1).getYcoord());
                     }
 
                 });
@@ -486,9 +496,8 @@ public class GameWindow {
                             
                         }
                     }
-                    if (room.getEnemyList().size() == 0){
-                        enemyCount = 0;
-                    }
+                    enemyCount = room.getEnemyList().size();
+
                     return true;
 
                 }
@@ -509,7 +518,7 @@ public class GameWindow {
                     .abs(Math.sqrt(Math.pow(playerX - doorX, 2) + Math.pow(playerY - doorY, 2))) <= 100.0);
             if (isCollision) {
                 System.out.println("check");
-                directions d = room.getDoorList().get(i - 1 - enemyCount).getDir();
+                directions d = game.getLevelSet().get(0).getRooms().get(game.getCurrentRoom()).getDoorList().get(i - enemyCount - 1).getDir();
                 if (d == null) {
                     return;
                 }
@@ -574,7 +583,7 @@ public class GameWindow {
             cursorY = e.getY();
 
             int roomIndex = game.getCurrentRoom();
-            room = game.getLevelSet().get(roomIndex).getRooms().get(roomIndex);
+            room = game.getLevelSet().get(0).getRooms().get(roomIndex);
             room.getBulletList().add(new projectile(1000, 10, 1, 5, player.getXcoord(), player.getYcoord()));
             room.getBulletList().get(room.getBulletList().size() - 1).setDirection(cursorX, cursorY);
             makeImage(bullet, room.getBulletList().get(room.getBulletList().size() - 1));
@@ -589,13 +598,27 @@ public class GameWindow {
     @FXML
     public void movebullet(ActionEvent e) {
         int roomIndex = game.getCurrentRoom();
-        room room = game.getLevelSet().get(roomIndex).getRooms().get(roomIndex);
+        room room = game.getLevelSet().get(0).getRooms().get(roomIndex);
 
         for (int i = 0; i < room.getBulletList().size(); ++i) {
             projectile p = room.getBulletList().get(i);
             p.updatePosition();
             Gamepane.getChildren().get(Gamepane.getChildren().size() - i - 1).setLayoutX(p.getXcoord());
             Gamepane.getChildren().get(Gamepane.getChildren().size() - i - 1).setLayoutY(p.getYcoord());
+
+            double bulletX = Gamepane.getChildren().get(Gamepane.getChildren().size() - i - 1).getLayoutX();
+            double bulletY = Gamepane.getChildren().get(Gamepane.getChildren().size() - i - 1).getLayoutY();
+
+            if (bulletX > 800 || bulletX < 0){
+                Gamepane.getChildren().remove(Gamepane.getChildren().size() - i - 1);
+                room.getBulletList().remove(i);
+            }
+
+            
+            if (bulletY > 700 || bulletY < 0){
+                Gamepane.getChildren().remove(Gamepane.getChildren().size() - i - 1);
+                room.getBulletList().remove(i);
+            }
 
         }
 
@@ -609,6 +632,7 @@ public class GameWindow {
             Gamepane.getChildren().get(0).setLayoutY(player.getYcoord());
         }
     }
+
 
     @FXML
     public void onDamage(ActionEvent e) throws IOException {
@@ -624,16 +648,22 @@ public class GameWindow {
                 player.setHealth(player.getHealth() - room.getEnemyList().get(i - 1).getDamage());
             }
 
-            if (player.getHealth() == 0){
-                var loader = new FXMLLoader(getClass().getResource("DeathWindow.fxml"));
-                var scene = new Scene(loader.load());
-                Stage stage = new Stage(StageStyle.UNDECORATED);
-                stage.setScene(scene);
-                stage.show();
-                stage.setTitle("R.I.P.");
+            if (player.getHealth() <= 0 && isNotPaused == true){
+                onDeath();
             }
 
         }
+    }
+
+    @FXML
+    public void onDeath() throws IOException{
+        isNotPaused = false;
+        var loader = new FXMLLoader(getClass().getResource("DeathWindow.fxml"));
+        var scene = new Scene(loader.load());
+        Stage stage = new Stage(StageStyle.UNDECORATED);
+        stage.setScene(scene);
+        stage.show();
+        stage.setTitle("R.I.P.");
     }
 
     // Pauses the game and opens the Pause Menu
@@ -668,7 +698,7 @@ public class GameWindow {
     public void load() {
         game = game.load(false);
         int roomIndex = game.getCurrentRoom();
-        room = game.getLevelSet().get(roomIndex).getRooms().get(roomIndex);
+        room = game.getLevelSet().get(0).getRooms().get(roomIndex);
         player = game.getUser();
         character = game.getCharacter();
         switch (character) {
@@ -779,7 +809,7 @@ public class GameWindow {
 
     public void homingMissle() {
         int roomIndex = game.getCurrentRoom();
-        room = game.getLevelSet().get(roomIndex).getRooms().get(roomIndex);
+        room = game.getLevelSet().get(0).getRooms().get(roomIndex);
         room.getBulletList().add(new projectile(1000, 10, 1, 5, player.getXcoord(), player.getYcoord()));
         int bulletIndex = room.getBulletList().size() - 1;
         room.getBulletList().get(bulletIndex).setDirection(cursorX, cursorY);

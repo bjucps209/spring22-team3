@@ -4,16 +4,16 @@
 <?import javafx.scene.layout.*?>
 
 <VBox fx:controller="DeathWindow" xmlns:fx="http://javafx.com/fxml"  stylesheets="@DeathWindow.css"
-    spacing="10" prefHeight="200" prefWidth="160" alignment="CENTER" styleClass="vboxDeath" >
+    spacing="10" prefHeight="300" prefWidth="300" alignment="CENTER" styleClass="vboxDeath" >
 
 
     <Label text="Play again?" />
 
-    <Button text="New Game" />
+    <Button text="New Game" onAction="#onRestart" />
 
-    <Button text="Main Menu" />
+    <Button text="Main Menu" onAction="#onReturn" />
 
-    <Button text="Quit" />
+    <Button text="Quit" onAction="#onQuitGame" />
 
 
 </VBox> 
