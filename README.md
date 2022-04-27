@@ -17,6 +17,7 @@ Upon opening the game, you are presented with 6 buttons. Click "Start" to begin 
 - Implemented health mechanic
 - Implemented very basic door functionality (buggy)
 - Implemented Power-Up System
+- Implemented unique abilities for each character
 
 ### Serialization
 
@@ -70,7 +71,7 @@ https://youtu.be/aljIkJWjkBI
 | Team Member Name | Github Username | Ownership Area | Hours contributed| Hours Remaining | TimeJournal |
 | :---|:---|:---|:---|:---|:---|
 | Edward Taylor | etayl261 | Basic Game Play | 40 | 10 | [Time Journal](https://github.com/bjucps209/spring22-team3/wiki/Time-Journal#edward-taylor) |
-| Ethan Wood | thethanwood | Serialization | 39 | 11 | [Time Journal](https://github.com/bjucps209/spring22-team3/wiki/Time-Journal#ethan-wood) |
+| Ethan Wood | thethanwood | Serialization | 47 | 3 | [Time Journal](https://github.com/bjucps209/spring22-team3/wiki/Time-Journal#ethan-wood) |
 | David John Hayes | dhaye039 | Auxiliary screens | 28 | 22 | [Time Journal](https://github.com/bjucps209/spring22-team3/wiki/Time-Journal#david-hayes) |
 | Ryan Kuhn | rkuhn153 | Level Builder | 33.5 | 26.5 | [Time Journal](https://github.com/bjucps209/spring22-team3/wiki/Time-Journal#ryan-kuhn) |
 
