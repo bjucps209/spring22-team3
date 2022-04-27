@@ -94,7 +94,11 @@ public class GameWindow {
 
     final Image ramen = new Image("/imgs/ramen2.png");
 
-    final Image bullet = new Image("/imgs/IAMALSOBULLET.png");
+    final Image bullet = new Image("/imgs/roundBullet.png");
+
+    final Image hMissle = new Image("/imgs/homingMissle.png");
+
+    final Image railgun = new Image("/imgs/railGun.png");
 
     final Image door = new Image("/imgs/door2.png");
 
@@ -275,7 +279,7 @@ public class GameWindow {
                                 homingMissle();
                                 break;
                             case MAC:
-                                // TODO: add railgun
+                                railGun();
                                 break;
                         }
                         break; // TODO: Special ability - added basic dash
@@ -586,7 +590,8 @@ public class GameWindow {
             room = game.getLevelSet().get(0).getRooms().get(roomIndex);
             room.getBulletList().add(new projectile(1000, 10, 1, 5, player.getXcoord(), player.getYcoord()));
             room.getBulletList().get(room.getBulletList().size() - 1).setDirection(cursorX, cursorY);
-            makeImage(bullet, room.getBulletList().get(room.getBulletList().size() - 1));
+            var bShot = makeImage(bullet, room.getBulletList().get(room.getBulletList().size() - 1));
+            
             KeyFrame kf = new KeyFrame(Duration.millis(100), this::movebullet);
             var timer = new Timeline(kf);
             timer.setCycleCount(100);
@@ -790,6 +795,7 @@ public class GameWindow {
 
     public void pepShield() {
         if (abilityCooldown <= 0.0) {
+            playAudio("src\\audio\\powerUp.wav");
             KeyFrame keyframe = new KeyFrame(Duration.millis(8), e -> {
                 player.setShield(player.getShield() + 0.5);
             });
@@ -808,17 +814,57 @@ public class GameWindow {
     }
 
     public void homingMissle() {
-        int roomIndex = game.getCurrentRoom();
-        room = game.getLevelSet().get(0).getRooms().get(roomIndex);
-        room.getBulletList().add(new projectile(1000, 10, 1, 5, player.getXcoord(), player.getYcoord()));
-        int bulletIndex = room.getBulletList().size() - 1;
-        room.getBulletList().get(bulletIndex).setDirection(cursorX, cursorY);
-        makeImage(bullet, room.getBulletList().get(room.getBulletList().size() - 1)); // TODO homingMissle PNG
-        KeyFrame kf = new KeyFrame(Duration.millis(100), this::movebullet);
-        var timer = new Timeline(kf);
-        timer.setCycleCount(100);
-        timer.play();
-        KeyFrame keyframe = new KeyFrame(Duration.millis(10), event -> {
+        if(abilityCooldown <= 0.0) {
+            playAudio("src\\audio\\missle.wav");
+            int roomIndex = game.getCurrentRoom();
+            room = game.getLevelSet().get(roomIndex).getRooms().get(roomIndex);
+            room.getBulletList().add(new projectile(1000, 10, 1, 5, player.getXcoord(), player.getYcoord()));
+            int bulletIndex = room.getBulletList().size() - 1;
+            room.getBulletList().get(bulletIndex).setDirection(cursorX, cursorY);
+            makeImage(hMissle, room.getBulletList().get(room.getBulletList().size() - 1)); 
+            KeyFrame kf = new KeyFrame(Duration.millis(100), this::movebullet);
+            var timer = new Timeline(kf);            
+            timer.setCycleCount(100);
+            timer.play();
+            KeyFrame keyframe = new KeyFrame(Duration.millis(100), event -> {
+                enemy closestEnemy = null;
+                if(room.getEnemyList().size() > 0) {
+                    for(enemy e: room.getEnemyList()) {
+                        if(closestEnemy == null) 
+                            closestEnemy = e;
+                        else {
+                            if(Math.sqrt(Math.pow(player.getXcoord() - e.getXcoord(), 2) + Math.pow(player.getYcoord() - e.getYcoord(), 2)) < Math.sqrt(Math.pow(player.getXcoord() - closestEnemy.getXcoord(), 2) + Math.pow(player.getYcoord() - closestEnemy.getYcoord(), 2))) // Compare Distances
+                                closestEnemy = e;
+                        }
+                    }
+                    if(closestEnemy != null && room.getBulletList().size() > bulletIndex) 
+                        room.getBulletList().get(bulletIndex).setDirection(closestEnemy.getXcoord(), closestEnemy.getYcoord());
+                    player.setDamage((int) (2 * player.getDamage()));
+                    if(onHit(new ActionEvent()))
+                        game.setScore(game.getScore() + 5);
+                    player.setDamage((int) (player.getDamage() / 2));
+            }});
+            Timeline timertwo = new Timeline(keyframe);
+            timertwo.getKeyFrames().addAll(keyframe);
+            timertwo.setCycleCount(100);
+            timertwo.play();
+            abilityCooldown = 10.0;
+        }
+    }
+
+    public void railGun() {
+        if(abilityCooldown <= 0.0) {
+            playAudio("src\\audio\\cannon.wav");
+            int roomIndex = game.getCurrentRoom();
+            room = game.getLevelSet().get(roomIndex).getRooms().get(roomIndex);
+            room.getBulletList().add(new projectile(1000, 10, 1, 5, player.getXcoord(), player.getYcoord()));
+            int bulletIndex = room.getBulletList().size() - 1;
+            room.getBulletList().get(bulletIndex).setDirection(cursorX, cursorY);
+            makeImage(railgun, room.getBulletList().get(room.getBulletList().size() - 1)); 
+            KeyFrame kf = new KeyFrame(Duration.millis(50), this::movebullet);
+            var timer = new Timeline(kf);            
+            timer.setCycleCount(100);
+            timer.play();
             enemy closestEnemy = null;
             if (room.getEnemyList().size() > 0) {
                 for (enemy e : room.getEnemyList()) {
@@ -833,18 +879,22 @@ public class GameWindow {
                             closestEnemy = e;
                     }
                 }
-                if (closestEnemy != null && room.getBulletList().size() > bulletIndex)
-                    room.getBulletList().get(bulletIndex).setDirection(closestEnemy.getXcoord(),
-                            closestEnemy.getYcoord());
-                player.setDamage((int) (3 * player.getDamage()));
-                onHit(new ActionEvent());
-                player.setDamage((int) (player.getDamage() / 3));
+                if(closestEnemy != null && room.getBulletList().size() > bulletIndex) 
+                    room.getBulletList().get(bulletIndex).setDirection(closestEnemy.getXcoord(), closestEnemy.getYcoord());
             }
-        });
-        Timeline timertwo = new Timeline(keyframe);
-        timertwo.getKeyFrames().addAll(keyframe);
-        timertwo.setCycleCount(100);
-        timertwo.play();
-        abilityCooldown = 10.0;
-    }
+            KeyFrame keyframe = new KeyFrame(Duration.millis(100), event -> {
+                    player.setDamage((int) (100 * player.getDamage()));
+                    if(onHit(new ActionEvent()))
+                        game.setScore(game.getScore() + 30);
+                    player.setDamage((int) (player.getDamage() / 100));
+            });
+            Timeline timertwo = new Timeline(keyframe);
+            timertwo.getKeyFrames().addAll(keyframe);
+            timertwo.setCycleCount(100);
+            timertwo.play();
+            }
+            else
+                playAudio("src\\audio\\powerDown.wav");
+            abilityCooldown = 40.0;
+        }
 }

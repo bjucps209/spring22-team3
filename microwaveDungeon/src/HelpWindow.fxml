@@ -22,7 +22,7 @@
     <Label text="Abilties" styleClass="heading"/>
     <Label text="Hot Pocket: Evade (Dash forward: 2.5s cooldown)"/>
     <Label text="Ramen: Magic missiles (Homing projectiles: 10s cooldown)" />
-    <Label text="Mac and Cheese: Rail gun (Powerful beam that destroys everything in its path: 40s cooldown)" />
+    <Label text="Mac and Cheese: Rail gun (Powerful beam that destroys whatever it hits: 40s cooldown)" />
     <Label text="Pizza: Pepperoni shield (A shield that repels projectiles: lasts 6 seconds w/ 20s cooldown)" />
 
     <Label text="Power-Ups" styleClass="heading"/>
