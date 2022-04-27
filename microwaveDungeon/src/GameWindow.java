@@ -105,7 +105,7 @@ public class GameWindow {
     Image playerImage;
 
     // initializes the view by calling the necesary methods
-    public void initialize(difficulties setDiff, characters setCharacter) {
+    public void initialize(difficulties setDiff, characters setCharacter, String name) {
         diff = setDiff;
         character = setCharacter;
         game = new Game(diff, character);
@@ -114,6 +114,7 @@ public class GameWindow {
         generate();
         tickProcessing();
         setmovement();
+        player.setName(name);
 
         enemyCount = room.getEnemyList().size();
         doorCount = room.getDoorList().size();

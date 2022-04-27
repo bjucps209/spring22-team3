@@ -133,7 +133,7 @@ public class CharWindow {
         titleStage.close();
 
         GameWindow gameWindow = loader.getController();
-        gameWindow.initialize(diff, character);
+        gameWindow.initialize(diff, character, nameInput.getText());
         staticGameWindow = gameWindow;
         } else{
             errorLabel.setText("Please select a character, a difficulty and a name!");

@@ -1,19 +1,13 @@
 package model;
 
 import java.io.*;
-import java.sql.Time;
 import java.util.ArrayList;
-import java.util.Arrays;
-
-import javax.crypto.spec.RC2ParameterSpec;
-
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
-import javafx.scene.image.Image;
 import javafx.scene.layout.Pane;
 import javafx.util.Duration;
 
@@ -77,14 +71,16 @@ public class Game {
                 
                 //level 1
                 easyLevelList.get(0).addRoom(new room(0, 2, false));
-                easyLevelList.get(0).getRooms().get(0).addEnemy(new enemy(5, 10, 2, 1, 300, 250));
+                easyLevelList.get(0).getRooms().get(0).addEnemy(new enemy(5, 10, 3, 1, 300, 250));
                 easyLevelList.get(0).getRooms().get(0).addDoor(new door(2147483647, 0, 0, 5, 770, 250));
                 easyLevelList.get(0).getRooms().get(0).getDoorList().get(0).setDir(directions.East);
 
                 easyLevelList.get(0).addRoom(new room(1, 2, false));
                 easyLevelList.get(0).getRooms().get(1).addDoor(new door(2147483647, 0, 0, 5, 0, 200));
                 easyLevelList.get(0).getRooms().get(1).getDoorList().get(0).setDir(directions.West);
-                
+                easyLevelList.get(0).getRooms().get(1).addEnemy(new enemy(5, 10, 3, 1, 300, 150));
+                easyLevelList.get(0).getRooms().get(1).addEnemy(new enemy(5, 10, 3, 1, 300, 250));
+                easyLevelList.get(0).getRooms().get(1).addEnemy(new enemy(5, 10, 3, 1, 300, 500));
                 easyLevelList.get(0).addRoom(new room(2, 2, false));
                 
                 //level 2
@@ -114,10 +110,13 @@ public class Game {
                 
                 //level 1
                 mediumLevelList.get(0).addRoom(new room(0, 2, false));
-                mediumLevelList.get(0).getRooms().get(0).addEnemy(new enemy(5, 10, 2, 1, 300, 250));
+                mediumLevelList.get(0).getRooms().get(0).addEnemy(new enemy(7, 10, 5, 1, 300, 250));
                 mediumLevelList.get(0).getRooms().get(0).addDoor(new door(2147483647, 0, 0, 5, 770, 250));
                 mediumLevelList.get(0).getRooms().get(0).getDoorList().get(0).setDir(directions.East);
                 mediumLevelList.get(0).addRoom(new room(1, 2, false));
+                mediumLevelList.get(0).getRooms().get(1).addEnemy(new enemy(7, 10, 5, 1, 300, 150));
+                mediumLevelList.get(0).getRooms().get(1).addEnemy(new enemy(7, 10, 5, 1, 300, 250));
+                mediumLevelList.get(0).getRooms().get(1).addEnemy(new enemy(7, 10, 5, 1, 300, 500));
                 mediumLevelList.get(0).addRoom(new room(2, 2, false));
                 
                 //level 2

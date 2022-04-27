@@ -4,7 +4,7 @@
 <?import javafx.scene.layout.*?>
 
 <VBox fx:controller="DeathWindow" xmlns:fx="http://javafx.com/fxml"  stylesheets="@DeathWindow.css"
-    spacing="10" prefHeight="300" prefWidth="300" alignment="CENTER" styleClass="vboxDeath" >
+    spacing="10" prefHeight="300" prefWidth="500" alignment="CENTER" styleClass="vboxDeath" >
 
 
     <Label text="You Died!" styleClass="title" />
