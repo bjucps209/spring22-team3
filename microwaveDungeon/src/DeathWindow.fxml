@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<VBox fx:controller="DeathWindow" xmlns:fx="http://javafx.com/fxml"  stylesheets="@DeathWindow.css"
+    spacing="10" prefHeight="200" prefWidth="160" alignment="CENTER" styleClass="vboxDeath" >
+
+
+    <Label text="Play again?" />
+
+    <Button text="New Game" />
+
+    <Button text="Main Menu" />
+
+    <Button text="Quit" />
+
+
+</VBox> 
