@@ -7,7 +7,7 @@
     spacing="10" prefHeight="300" prefWidth="300" alignment="CENTER" styleClass="vboxDeath" >
 
 
-    <Label text="You Died!" />
+    <Label text="You Died!" styleClass="title" />
 
     <Button text="Main Menu" onAction="#onReturn" />
 
