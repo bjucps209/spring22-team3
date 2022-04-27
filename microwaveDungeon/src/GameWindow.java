@@ -654,14 +654,15 @@ public class GameWindow {
             }
 
             if (player.getHealth() <= 0 && isNotPaused == true){
-                onDeath();
+                onDeath(new ActionEvent());
             }
 
         }
     }
 
     @FXML
-    public void onDeath() throws IOException{
+    public void onDeath(ActionEvent e) throws IOException{
+        Clip deathSound = GameWindow.playAudio("src\\audio\\Wilhelm Sceam.wav");
         isNotPaused = false;
         var loader = new FXMLLoader(getClass().getResource("DeathWindow.fxml"));
         var scene = new Scene(loader.load());
@@ -669,6 +670,8 @@ public class GameWindow {
         stage.setScene(scene);
         stage.show();
         stage.setTitle("R.I.P.");
+        
+
     }
 
     // Pauses the game and opens the Pause Menu

@@ -12,7 +12,7 @@ import model.*;
 
 public class TitleWindow {
 
-    Clip titleMusic = GameWindow.playAudio("src\\audio\\xDeviruchi - The Final of The Fantasy.wav");;
+    Clip titleMusic = GameWindow.playAudio("src\\audio\\xDeviruchi - The Final of The Fantasy.wav");
 
     @FXML
     Button start;
