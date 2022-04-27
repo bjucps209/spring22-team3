@@ -6,6 +6,8 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
+import model.ScoreList;
+import model.Scores;
 import javafx.scene.control.*;
 
 public class DeathWindow {
@@ -19,10 +21,14 @@ public class DeathWindow {
     Clip deadMusic = GameWindow.playAudio("src\\audio\\rip.wav");
 
     @FXML
-    public void initialize(String name, String score){
+    public void initialize(String name, String score) throws IOException {
         deadNamelbl.setText("R.I.P. " + name + ", twas a valiant attempt!");
         scorelbl.setText(score);
 
+        var lst = new ScoreList();
+        lst.loadData();
+        var s = new Scores(name, Integer.parseInt(score.split(" ")[1]));
+        lst.addScore(s);
     }
 
     @FXML
