@@ -14,7 +14,7 @@ Upon opening the game, you are presented with 6 buttons. Click "Start" to begin 
 - Implemented basic Enemy movement
 - Implemented visual projectiles
 - Implemented sound
-- Implemented health mechanic
+- Implemented health and shield mechanic
 - Implemented very basic door functionality (buggy)
 - Implemented Power-Up System
 - Implemented unique abilities for each character

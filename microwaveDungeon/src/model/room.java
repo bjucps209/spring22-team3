@@ -51,14 +51,15 @@ public class room {
         }
         else
             output.println(false);
+        output.println(doorList.size());
+        for(door d: doorList)
+            d.save(output);
         output.println(obstacleList.size());
-        for(obstacle o: obstacleList) {
+        for(obstacle o: obstacleList) 
             o.save(output);
-        }
         output.println(enemyList.size());
-        for(enemy e: enemyList) {
+        for(enemy e: enemyList) 
             e.save(output);
-        }
     }
 
     //Factory Method that builds/loads a room based off a DataInputStream
@@ -68,10 +69,13 @@ public class room {
         room output = new room(Integer.parseInt(x), Integer.parseInt(y), false);
         if(Boolean.parseBoolean(input.readLine())) 
             output.setStaircase(new staircase(0, 0, 0, 0, Integer.parseInt(input.readLine()), Integer.parseInt(input.readLine()))); // TODO: Parameters for health and such good?
-        int obstacleCount = Integer.parseInt(input.readLine());
-        for(int i = 0; i < obstacleCount; ++i) {
-            output.addObstacle(new obstacle(-1, 0, 0, -1, Integer.parseInt(input.readLine()), Integer.parseInt(input.readLine()))); // TODO: Parameters for health and such good?
+        int doorCount = Integer.parseInt(input.readLine());
+        for(int i = 0; i < doorCount; ++i) {
+            output.addDoor(door.load(input));
         }
+        int obstacleCount = Integer.parseInt(input.readLine());
+        for(int i = 0; i < obstacleCount; ++i) 
+            output.addObstacle(new obstacle(-1, 0, 0, -1, Integer.parseInt(input.readLine()), Integer.parseInt(input.readLine()))); // TODO: Parameters for health and such good?
         int enemyCount = Integer.parseInt(input.readLine());
         for(int i = 0; i < enemyCount; ++i) {
             enemy e = new enemy(Double.parseDouble(input.readLine()), Double.parseDouble(input.readLine()), Double.parseDouble(input.readLine()), Integer.parseInt(input.readLine()), Integer.parseInt(input.readLine()), Integer.parseInt(input.readLine()));

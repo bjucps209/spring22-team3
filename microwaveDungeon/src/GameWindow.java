@@ -129,9 +129,9 @@ public class GameWindow {
     }
 
     void updateCooldowns(ActionEvent e) {
-        if (gunFireCooldown > 0)
+        if (gunFireCooldown > 0 && isNotPaused)
             gunFireCooldown -= 0.05;
-        if (abilityCooldown > 0)
+        if (abilityCooldown > 0 && isNotPaused)
             abilityCooldown -= 0.05;
     }
 
@@ -326,6 +326,7 @@ public class GameWindow {
                             pUpWindow.setPlayer(player);
                             levelBarCap *= 2;
                             isNotPaused = false;
+                            game.setNotPaused(false);
                             var loader = new FXMLLoader(getClass().getResource("pUpWindow.fxml"));
                             Scene scene = null;
                             try {
@@ -606,31 +607,32 @@ public class GameWindow {
 
     @FXML
     public void movebullet(ActionEvent e) {
-        int roomIndex = game.getCurrentRoom();
-        room room = game.getLevelSet().get(0).getRooms().get(roomIndex);
+        if(isNotPaused) {
+            int roomIndex = game.getCurrentRoom();
+            room room = game.getLevelSet().get(0).getRooms().get(roomIndex);
 
-        for (int i = 0; i < room.getBulletList().size(); ++i) {
-            projectile p = room.getBulletList().get(i);
-            p.updatePosition();
-            Gamepane.getChildren().get(Gamepane.getChildren().size() - i - 1).setLayoutX(p.getXcoord());
-            Gamepane.getChildren().get(Gamepane.getChildren().size() - i - 1).setLayoutY(p.getYcoord());
+            for (int i = 0; i < room.getBulletList().size(); ++i) {
+                projectile p = room.getBulletList().get(i);
+                p.updatePosition();
+                Gamepane.getChildren().get(Gamepane.getChildren().size() - i - 1).setLayoutX(p.getXcoord());
+                Gamepane.getChildren().get(Gamepane.getChildren().size() - i - 1).setLayoutY(p.getYcoord());
 
-            double bulletX = Gamepane.getChildren().get(Gamepane.getChildren().size() - i - 1).getLayoutX();
-            double bulletY = Gamepane.getChildren().get(Gamepane.getChildren().size() - i - 1).getLayoutY();
+                double bulletX = Gamepane.getChildren().get(Gamepane.getChildren().size() - i - 1).getLayoutX();
+                double bulletY = Gamepane.getChildren().get(Gamepane.getChildren().size() - i - 1).getLayoutY();
 
-            if (bulletX > 800 || bulletX < 0){
-                Gamepane.getChildren().remove(Gamepane.getChildren().size() - i - 1);
-                room.getBulletList().remove(i);
+                if (bulletX > 800 || bulletX < 0){
+                    Gamepane.getChildren().remove(Gamepane.getChildren().size() - i - 1);
+                    room.getBulletList().remove(i);
+                }
+
+                
+                if (bulletY > 700 || bulletY < 0){
+                    Gamepane.getChildren().remove(Gamepane.getChildren().size() - i - 1);
+                    room.getBulletList().remove(i);
+                }
+
             }
-
-            
-            if (bulletY > 700 || bulletY < 0){
-                Gamepane.getChildren().remove(Gamepane.getChildren().size() - i - 1);
-                room.getBulletList().remove(i);
-            }
-
         }
-
     }
 
     @FXML
@@ -645,25 +647,27 @@ public class GameWindow {
 
     @FXML
     public void onDamage(ActionEvent e) throws IOException, InterruptedException {
-        for (int i = 1; i < 1 + enemyCount; ++i){
-            double playerX = Gamepane.getChildren().get(0).getLayoutX();
-            double playerY = Gamepane.getChildren().get(0).getLayoutY();
-            double enemyX = Gamepane.getChildren().get(i).getLayoutX();
-            double enemyY = Gamepane.getChildren().get(i).getLayoutY();
-            boolean isCollision = (Math
-                    .abs(Math.sqrt(Math.pow(playerX - enemyX, 2) + Math.pow(playerY - enemyY, 2))) <= 45.0);
+        if(isNotPaused) {
+            for (int i = 1; i < 1 + enemyCount; ++i){
+                double playerX = Gamepane.getChildren().get(0).getLayoutX();
+                double playerY = Gamepane.getChildren().get(0).getLayoutY();
+                double enemyX = Gamepane.getChildren().get(i).getLayoutX();
+                double enemyY = Gamepane.getChildren().get(i).getLayoutY();
+                boolean isCollision = (Math
+                        .abs(Math.sqrt(Math.pow(playerX - enemyX, 2) + Math.pow(playerY - enemyY, 2))) <= 45.0);
 
-            if (isCollision){
-                if(player.getShield() > 0)
-                    player.setShield(player.getShield() - room.getEnemyList().get(i - 1).getDamage());
-                else
-                    player.setHealth(player.getHealth() - room.getEnemyList().get(i - 1).getDamage());
+                if (isCollision){
+                    if(player.getShield() > 0)
+                        player.setShield(player.getShield() - room.getEnemyList().get(i - 1).getDamage());
+                    else
+                        player.setHealth(player.getHealth() - room.getEnemyList().get(i - 1).getDamage());
+                }
+
+                if (player.getHealth() <= 0 && isNotPaused == true){
+                    onDeath(new ActionEvent());
+                }
+
             }
-
-            if (player.getHealth() <= 0 && isNotPaused == true){
-                onDeath(new ActionEvent());
-            }
-
         }
     }
 
@@ -671,6 +675,7 @@ public class GameWindow {
     public void onDeath(ActionEvent e) throws IOException, InterruptedException{
         Clip deathSound = GameWindow.playAudio("src\\audio\\Wilhelm Sceam.wav");
         isNotPaused = false;
+        game.setNotPaused(false);
         var loader = new FXMLLoader(getClass().getResource("DeathWindow.fxml"));
         var scene = new Scene(loader.load());
         Stage stage = new Stage(StageStyle.UNDECORATED);
@@ -687,6 +692,7 @@ public class GameWindow {
     void Pause() throws IOException {
         TitleWindow.beep();
         isNotPaused = false;
+        game.setNotPaused(false);
         var loader = new FXMLLoader(getClass().getResource("PauseMenu.fxml"));
         var scene = new Scene(loader.load());
         Stage stage = new Stage(StageStyle.UNDECORATED);
@@ -712,7 +718,10 @@ public class GameWindow {
     // This method is called to call the load method in the game object and
     // initialize the newly loaded game
     public void load() {
-        game = game.load(false);
+        game = Game.load(false);
+        levelBarCap = game.getLevelBarCap();
+        gunFireCooldown = game.getPrimaryCooldown();
+        abilityCooldown = game.getAbilityCooldown();
         int roomIndex = game.getCurrentRoom();
         room = game.getLevelSet().get(0).getRooms().get(roomIndex);
         player = game.getUser();
@@ -777,6 +786,7 @@ public class GameWindow {
     // Unpauses the game when called
     public void resume() {
         isNotPaused = true;
+        game.setNotPaused(true);
         Gamepane.requestFocus();
     }
 

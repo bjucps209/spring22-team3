@@ -20,11 +20,6 @@ public class player extends entity {
     private int roomXCoord, roomYCoord; // Added RoomCoords and floor to show player loc. -EW
     private int floor;
     private characters Character;
-    
-    /* TODO: getter and setter, addToScore(int score) which will add a designated score to the players score,
-     * when player dies, call Scores(name, score) and put in the player name and the player score 
-     */
-    private int score;
 
     public void updatePosition(){
         Xcoord += speed * Math.cos(direction * Math.PI / 180);
@@ -126,7 +121,6 @@ public class player extends entity {
     // Factory Method that builds/loads a player based off a DataInputStream
     public static player load(BufferedReader input) throws IOException {
         player output = new player(Double.parseDouble(input.readLine()), Double.parseDouble(input.readLine()), Double.parseDouble(input.readLine()), Integer.parseInt(input.readLine()), Integer.parseInt(input.readLine()), Integer.parseInt(input.readLine()), Double.parseDouble(input.readLine()), Double.parseDouble(input.readLine()));
-        System.out.println(output);
         output.setRoomXCoord(Integer.parseInt(input.readLine()));
         output.setRoomYCoord(Integer.parseInt(input.readLine()));
         output.setFloor(Integer.parseInt(input.readLine()));
