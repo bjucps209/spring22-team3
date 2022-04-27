@@ -49,12 +49,15 @@ public class GameWindow {
     private characters character;
 
     private player player;
+    
+    private enemy enemy;
 
     private boolean goNorth, goEast, goSouth, goWest;
 
     private boolean playerModelFlipped = false; // For knowing when to flip the player model img when moving
 
-    private boolean playerIsMoving = false; // true when a movement key is pressed, false when a movement key is not pressed
+    private boolean playerIsMoving = false; // true when a movement key is pressed, false when a movement key is not
+                                            // pressed
 
     private double cursorX;
 
@@ -70,7 +73,7 @@ public class GameWindow {
 
     private room room;
 
-    int roomIndex;
+    private int roomIndex;
 
     private int enemyCount;
 
@@ -131,7 +134,8 @@ public class GameWindow {
 
     @FXML
     public void generate() {
-        // on generation, player is always slot 0 on the Gamepane, then enemies, then doors, everything beyond that is projectiles
+        // on generation, player is always slot 0 on the Gamepane, then enemies, then
+        // doors, everything beyond that is projectiles
 
         player = new player(25, 3, 1, 69, 0, 400, 0, 1.0);
         game.setUser(player);
@@ -161,6 +165,27 @@ public class GameWindow {
                 makeImage(hPocket, player);
                 abilityTime = 2.5;
                 break;
+
+        }
+
+        switch (diff){
+
+            case EASY:
+
+
+            break;
+
+            case MEDIUM:
+
+            break;
+
+            case HARD:
+
+            break;
+
+            case NUKE:
+
+            break;
 
         }
 
@@ -229,7 +254,7 @@ public class GameWindow {
                         playerModelFlipped = false;
                         break;
                     case SHIFT:
-                        switch(character) {
+                        switch (character) {
                             case HPOCKET:
                                 dash();
                                 break;
@@ -244,8 +269,8 @@ public class GameWindow {
                                 break;
                         }
                         break; // TODO: Special ability - added basic dash
-                    case C: 
-                        player.setHealth(2147483647); 
+                    case C:
+                        player.setHealth(2147483647);
                         break;
                     default:
                         break;
@@ -281,23 +306,25 @@ public class GameWindow {
                         ;
                         break;
                     case P:
-                        if(game.getScore() >= levelBarCap) {
+                        if (game.getScore() >= levelBarCap) {
                             TitleWindow.beep();
                             pUpWindow.setPlayer(player);
                             levelBarCap *= 2;
                             isNotPaused = false;
                             var loader = new FXMLLoader(getClass().getResource("pUpWindow.fxml"));
-                                Scene scene = null;
-                                try {
-                                    scene = new Scene(loader.load());
-                                } catch (IOException e) {
-                                    Alert a = new Alert(AlertType.ERROR, "There was a problem with opeing the Power-Up menu: " + e.getMessage());
-                                    a.show();
-                                }
+                            Scene scene = null;
+                            try {
+                                scene = new Scene(loader.load());
+                            } catch (IOException e) {
+                                Alert a = new Alert(AlertType.ERROR,
+                                        "There was a problem with opeing the Power-Up menu: " + e.getMessage());
+                                a.show();
+                            }
                             Stage stage = new Stage(StageStyle.UNDECORATED);
                             stage.setScene(scene);
                             stage.show();
-                            stage.setTitle("Power-Up Select"); }
+                            stage.setTitle("Power-Up Select");
+                        }
                         break;
                     default:
                         break;
@@ -380,18 +407,19 @@ public class GameWindow {
 
             }
             Platform.runLater(() -> {
-                if(player.getHealth() > 24.9) // Update health, score, & time labels
+                if (player.getHealth() > 24.9) // Update health, score, & time labels
                     healthBar.setProgress(1.0);
                 else
-                    healthBar.setProgress(player.getHealth()/25);
-                if(player.getHealth() > 25)
+                    healthBar.setProgress(player.getHealth() / 25);
+                if (player.getHealth() > 25)
                     healthBar.setStyle("-fx-accent: darkgreen;");
-                else if(healthBar.getProgress() < 0.5) {
+                else if (healthBar.getProgress() < 0.5) {
                     healthBar.setStyle("-fx-accent: orange;");
-                    if(healthBar.getProgress() < 0.25)
-                        healthBar.setStyle("-fx-accent: red;"); }
+                    if (healthBar.getProgress() < 0.25)
+                        healthBar.setStyle("-fx-accent: red;");
+                }
                 shieldBar.setProgress(player.getShield() / 10);
-                if(player.getShield() > 10)
+                if (player.getShield() > 10)
                     shieldBar.setStyle("-fx-accent: blue;");
                 else
                     shieldBar.setStyle("-fx-accent: cornflowerblue;");
@@ -402,24 +430,24 @@ public class GameWindow {
                 timeLbl.setText("Time: " + String.valueOf(timeLeft)); // 600 second countdown for scoring purposes
                 primaryIndicator.setProgress(1 - (gunFireCooldown / 1));
                 abilityIndicator.setProgress(1 - (abilityCooldown / abilityTime));
-                if(primaryIndicator.getProgress() > 0.9)
+                if (primaryIndicator.getProgress() > 0.9)
                     primaryIndicator.setStyle("-fx-accent: green;");
                 else {
-                    if(primaryIndicator.getProgress() < 0.5)
+                    if (primaryIndicator.getProgress() < 0.5)
                         primaryIndicator.setStyle("-fx-accent: red;");
                     else
                         primaryIndicator.setStyle("-fx-accent: orange;");
                 }
-                if(abilityIndicator.getProgress() > 0.9)
+                if (abilityIndicator.getProgress() > 0.9)
                     abilityIndicator.setStyle("-fx-accent: green;");
                 else {
-                    if(abilityIndicator.getProgress() < 0.5)
+                    if (abilityIndicator.getProgress() < 0.5)
                         abilityIndicator.setStyle("-fx-accent: red;");
                     else
                         abilityIndicator.setStyle("-fx-accent: orange;");
                 }
                 levelBar.setProgress(game.getScore() / levelBarCap);
-                if(game.getScore() >= levelBarCap)
+                if (game.getScore() >= levelBarCap)
                     powerUpLbl.setText("PRESS P TO SELECT A POWER-UP!");
                 else
                     powerUpLbl.setText("");
@@ -445,17 +473,21 @@ public class GameWindow {
                 boolean isCollision = (Math
                         .abs(Math.sqrt(Math.pow(bulletX - entityX, 2) + Math.pow(bulletY - entityY, 2))) <= 50.0);
                 if (isCollision) {
-                    room.getEnemyList().get(j - 1).setHealth(room.getEnemyList().get(j - 1).getHealth() - player.getDamage());
+                    room.getEnemyList().get(j - 1)
+                            .setHealth(room.getEnemyList().get(j - 1).getHealth() - player.getDamage());
                     Gamepane.getChildren().remove(i);
                     room.getBulletList().remove(i - enemies - 1 - doors);
-                    game.setScore(game.getScore() + 5); 
+                    game.setScore(game.getScore() + 5);
                     if (room.getEnemyList().get(j - 1).getHealth() <= 0) {
                         if (room.getEnemyList().size() != 0) {
                             Gamepane.getChildren().remove(j);
                             room.getEnemyList().remove(j - 1);
                             game.setScore(game.getScore() + 20);
-                            enemyCount = room.getEnemyList().size();
+                            
                         }
+                    }
+                    if (room.getEnemyList().size() == 0){
+                        enemyCount = 0;
                     }
                     return true;
 
@@ -478,11 +510,11 @@ public class GameWindow {
             if (isCollision) {
                 System.out.println("check");
                 directions d = room.getDoorList().get(i - 1 - enemyCount).getDir();
-                if (d == null){
+                if (d == null) {
                     return;
                 }
 
-                switch(d){
+                switch (d) {
 
                     case East:
 
@@ -499,7 +531,7 @@ public class GameWindow {
                         for (int k = 0; k < room.getEnemyList().size(); ++k) {
                             makeImage(enemies, room.getEnemyList().get(k));
                         }
-                
+
                         for (int j = 0; j < room.getDoorList().size(); ++j) {
                             System.out.println("generated");
                             makeImage(door, room.getDoorList().get(j));
@@ -521,7 +553,7 @@ public class GameWindow {
                         for (int k = 0; k < room.getEnemyList().size(); ++k) {
                             makeImage(enemies, room.getEnemyList().get(k));
                         }
-                
+
                         for (int j = 0; j < room.getDoorList().size(); ++j) {
                             makeImage(door, room.getDoorList().get(j));
                         }
@@ -550,7 +582,7 @@ public class GameWindow {
             var timer = new Timeline(kf);
             timer.setCycleCount(100);
             timer.play();
-            gunFireCooldown = player.getFireCooldown(); 
+            gunFireCooldown = player.getFireCooldown();
         }
     }
 
@@ -571,10 +603,36 @@ public class GameWindow {
 
     @FXML
     public void updatePlayer(ActionEvent e) {
-        if(playerIsMoving) {
+        if (playerIsMoving) {
             player.updatePosition();
             Gamepane.getChildren().get(0).setLayoutX(player.getXcoord());
             Gamepane.getChildren().get(0).setLayoutY(player.getYcoord());
+        }
+    }
+
+    @FXML
+    public void onDamage(ActionEvent e) throws IOException {
+        for (int i = 1; i < 1 + enemyCount; ++i){
+            double playerX = Gamepane.getChildren().get(0).getLayoutX();
+            double playerY = Gamepane.getChildren().get(0).getLayoutY();
+            double enemyX = Gamepane.getChildren().get(i).getLayoutX();
+            double enemyY = Gamepane.getChildren().get(i).getLayoutY();
+            boolean isCollision = (Math
+                    .abs(Math.sqrt(Math.pow(playerX - enemyX, 2) + Math.pow(playerY - enemyY, 2))) <= 45.0);
+
+            if (isCollision){
+                player.setHealth(player.getHealth() - room.getEnemyList().get(i - 1).getDamage());
+            }
+
+            if (player.getHealth() == 0){
+                var loader = new FXMLLoader(getClass().getResource("DeathWindow.fxml"));
+                var scene = new Scene(loader.load());
+                Stage stage = new Stage(StageStyle.UNDECORATED);
+                stage.setScene(scene);
+                stage.show();
+                stage.setTitle("R.I.P.");
+            }
+
         }
     }
 
@@ -605,7 +663,8 @@ public class GameWindow {
 
     }
 
-    // This method is called to call the load method in the game object and initialize the newly loaded game
+    // This method is called to call the load method in the game object and
+    // initialize the newly loaded game
     public void load() {
         game = game.load(false);
         int roomIndex = game.getCurrentRoom();
@@ -671,7 +730,8 @@ public class GameWindow {
         Gamepane.requestFocus();
     }
 
-    // Uses an audio filepath string and plays it -Note, the file must be in the .wav format
+    // Uses an audio filepath string and plays it -Note, the file must be in the
+    // .wav format
     public static Clip playAudio(String soundName) {
         try {
             AudioInputStream audioInputStream = AudioSystem.getAudioInputStream(new File(soundName).getAbsoluteFile());
@@ -707,7 +767,7 @@ public class GameWindow {
             timer.setCycleCount(20);
             timer.play();
             KeyFrame keyframeTwo = new KeyFrame(Duration.seconds(1), e -> {
-                if(player.getShield() > 0.0)
+                if (player.getShield() > 0.0)
                     player.setShield(player.getShield() - 1.0);
             });
             Timeline timerTwo = new Timeline(keyframeTwo);
@@ -725,26 +785,32 @@ public class GameWindow {
         room.getBulletList().get(bulletIndex).setDirection(cursorX, cursorY);
         makeImage(bullet, room.getBulletList().get(room.getBulletList().size() - 1)); // TODO homingMissle PNG
         KeyFrame kf = new KeyFrame(Duration.millis(100), this::movebullet);
-        var timer = new Timeline(kf);            
+        var timer = new Timeline(kf);
         timer.setCycleCount(100);
         timer.play();
         KeyFrame keyframe = new KeyFrame(Duration.millis(10), event -> {
             enemy closestEnemy = null;
-            if(room.getEnemyList().size() > 0) {
-                for(enemy e: room.getEnemyList()) {
-                    if(closestEnemy == null) 
+            if (room.getEnemyList().size() > 0) {
+                for (enemy e : room.getEnemyList()) {
+                    if (closestEnemy == null)
                         closestEnemy = e;
                     else {
-                        if(Math.sqrt(Math.pow(player.getXcoord() - e.getXcoord(), 2) + Math.pow(player.getYcoord() - e.getYcoord(), 2)) < Math.sqrt(Math.pow(player.getXcoord() - closestEnemy.getXcoord(), 2) + Math.pow(player.getYcoord() - closestEnemy.getYcoord(), 2))) // Compare Distances
+                        if (Math.sqrt(Math.pow(player.getXcoord() - e.getXcoord(), 2)
+                                + Math.pow(player.getYcoord() - e.getYcoord(), 2)) < Math
+                                        .sqrt(Math.pow(player.getXcoord() - closestEnemy.getXcoord(), 2)
+                                                + Math.pow(player.getYcoord() - closestEnemy.getYcoord(), 2))) // Compare
+                                                                                                               // Distances
                             closestEnemy = e;
                     }
                 }
-                if(closestEnemy != null && room.getBulletList().size() > bulletIndex) 
-                    room.getBulletList().get(bulletIndex).setDirection(closestEnemy.getXcoord(), closestEnemy.getYcoord());
+                if (closestEnemy != null && room.getBulletList().size() > bulletIndex)
+                    room.getBulletList().get(bulletIndex).setDirection(closestEnemy.getXcoord(),
+                            closestEnemy.getYcoord());
                 player.setDamage((int) (3 * player.getDamage()));
                 onHit(new ActionEvent());
                 player.setDamage((int) (player.getDamage() / 3));
-        }});
+            }
+        });
         Timeline timertwo = new Timeline(keyframe);
         timertwo.getKeyFrames().addAll(keyframe);
         timertwo.setCycleCount(100);

@@ -14,15 +14,10 @@
     -fx-text-fill: black;
 }
 
-VBox {
-    -fx-alignment: center;
-}
-
-.vboxTitle {
-    -fx-background-image: url("/imgs/title3.gif");
+.vboxDeath {
+    -fx-background-image: url("/imgs/Death.png");
     -fx-background-repeat: stretch;   
-    -fx-background-size: 700 506; /* this is the width and height, I don't know what the actual numbers are so feel free to change it */
+    -fx-background-size: 200 160; /* this is the width and height, I don't know what the actual numbers are so feel free to change it */
     -fx-background-position: center center;
     -fx-spacing: 20
 }
- 
