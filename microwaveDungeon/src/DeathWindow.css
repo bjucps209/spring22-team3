@@ -8,10 +8,19 @@
     -fx-font-family: 'Helvetica', Arial, sans-serif;
 }
 
+VBox {
+    -fx-alignment: center;
+    -fx-background-color: lightgray;
+}
+
 .title {
-    -fx-font-size: 45px;
-    -fx-font-family: "Impact", Arial, bold;
-    -fx-text-fill: black;
+    -fx-font-family: "Cambria", Arial, sans-serif; 
+    -fx-font-size: 36;
+}
+
+Label {
+    -fx-font-family: "Cambria", Arial, sans-serif; 
+    -fx-font-size: 18;
 }
 
 .vboxDeath {
