@@ -1,3 +1,10 @@
-Bob,500
-Sally,360
+Dungeon Master,2000
+Good Cop,1650
+CandyMan321,1230
+NinjaNoodle58,1200
 Joe,920
+croissant,600
+Bob,500
+salmonman,360
+bad cop,230
+IamBad,5
