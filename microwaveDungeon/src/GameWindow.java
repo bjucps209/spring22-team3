@@ -431,10 +431,10 @@ public class GameWindow {
                 Platform.runLater(() -> {
                     if (room.getEnemyList().size() != 0) {
                           
-                            
+                            if (player.getHealth() > 0){
                             Gamepane.getChildren().get(currentI).setLayoutX(room.getEnemyList().get(currentI - 1).getXcoord());
                             Gamepane.getChildren().get(currentI).setLayoutY(room.getEnemyList().get(currentI - 1).getYcoord());
-                            
+                            }
                             
                       
                     }
