@@ -717,6 +717,7 @@ public class GameWindow {
                 }
 
                 if (player.getHealth() <= 0 && isNotPaused == true){
+                    timer.stop();
                     collisionTimer.stop();
                     enemytimer.stop();
                     doorTimer.stop();
