@@ -1,3 +1,8 @@
+//-----------------------------------------------------------
+//File:   HelpWindow.java
+//Desc:   This file contains the Help Window information.
+//-----------------------------------------------------------
+
 import java.io.IOException;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;

@@ -1,3 +1,8 @@
+//-----------------------------------------------------------
+//File:   TitleWindow.java
+//Desc:   This file contains the Title Window information.
+//-----------------------------------------------------------
+
 import java.io.File;
 import java.io.IOException;
 

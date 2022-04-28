@@ -1,3 +1,9 @@
+//-----------------------------------------------------------
+//File:   CharWindow.java
+//Desc:   This file contains the character selection, difficulty 
+//        selection, and username.
+//-----------------------------------------------------------
+
 import java.io.IOException;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;

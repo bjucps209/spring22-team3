@@ -1,3 +1,8 @@
+//-----------------------------------------------------------
+//File:   LeaderboardWindow.java
+//Desc:   This file contains the Leaderboard Window information.
+//-----------------------------------------------------------
+
 import java.io.IOException;
 import java.util.ArrayList;
 
