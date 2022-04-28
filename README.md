@@ -49,7 +49,7 @@ Upon opening the game, you are presented with 6 buttons. Click "Start" to begin 
 
 ### Serialization
 
-- None Known
+- Player always spawns in first room (minor)
 
 ### Auxilary Screens
 
