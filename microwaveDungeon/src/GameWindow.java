@@ -559,11 +559,7 @@ public class GameWindow {
                 isCollision = true;
             }
             if (isCollision) {
-                doorTimer.stop();
                 Gamepane.getChildren().clear();
-                cooldownTimer.setCycleCount(300);
-                gunFireCooldown = player.getFireCooldown();
-                cooldownTimer.play();
 
                 directions d = game.getLevelSet().get(0).getRooms().get(game.getCurrentRoom()).getDoorList().get(i - enemyCount - 1).getDir();
                 if (d == null) {
@@ -590,8 +586,6 @@ public class GameWindow {
                         for (int j = 0; j < room.getDoorList().size(); ++j) {
                             makeImage(door, room.getDoorList().get(j));
                         }
-                        cooldownTimer.setCycleCount(100);
-                        doorTimer.play();
                         break;
 
                     case West:
@@ -612,8 +606,6 @@ public class GameWindow {
                         for (int j = 0; j < room.getDoorList().size(); ++j) {
                             makeImage(door, room.getDoorList().get(j));
                         }
-                        cooldownTimer.setCycleCount(100);
-                        doorTimer.play();
                         break;
 
 
@@ -903,7 +895,7 @@ public class GameWindow {
         if(abilityCooldown <= 0.0) {
             playAudio("src\\audio\\missle.wav");
             int roomIndex = game.getCurrentRoom();
-            room = game.getLevelSet().get(game.getCurrentLevel()).getRooms().get(roomIndex);
+            room = game.getLevelSet().get(roomIndex).getRooms().get(roomIndex);
             room.getBulletList().add(new projectile(1000, 10, 1, 5, player.getXcoord(), player.getYcoord()));
             int bulletIndex = room.getBulletList().size() - 1;
             room.getBulletList().get(bulletIndex).setDirection(cursorX, cursorY);

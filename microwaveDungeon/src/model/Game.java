@@ -166,9 +166,11 @@ public class Game {
                 hardLevelList.get(0).getRooms().get(2).addEnemy(new enemy(9, 10, 7, 1, 300, 500));
                 hardLevelList.get(0).getRooms().get(2).addEnemy(new enemy(9, 10, 7, 1, 400, 200));
                 hardLevelList.get(0).getRooms().get(2).addEnemy(new enemy(9, 10, 7, 1, 400, 350));
-
+                
                 levelSet = hardLevelList;
                 break;
+
+                
                 
             case NUKE:
                 nukeLevelList.add(new Level(difficulties.NUKE));
@@ -199,7 +201,7 @@ public class Game {
                 nukeLevelList.get(0).getRooms().get(2).addEnemy(new enemy(11, 10, 9, 1, 600, 150));
                 nukeLevelList.get(0).getRooms().get(2).addEnemy(new enemy(11, 10, 9, 1, 600, 250));
                 nukeLevelList.get(0).getRooms().get(2).addEnemy(new enemy(11, 10, 9, 1, 600, 500));
-
+                
                 levelSet = nukeLevelList;
                 break;
             case CUSTOM:
