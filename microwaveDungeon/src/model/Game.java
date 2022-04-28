@@ -167,23 +167,6 @@ public class Game {
                 hardLevelList.get(0).getRooms().get(2).addEnemy(new enemy(9, 10, 7, 1, 400, 200));
                 hardLevelList.get(0).getRooms().get(2).addEnemy(new enemy(9, 10, 7, 1, 400, 350));
                 
-                //level 2
-                hardLevelList.get(1).addRoom(new room(2, 2, false));
-                hardLevelList.get(1).addRoom(new room(1, 2, false));
-                hardLevelList.get(1).addRoom(new room(2, 1, false));
-                hardLevelList.get(1).addRoom(new room(2, 0, false));
-                hardLevelList.get(1).addRoom(new room(3, 2, false));
-                hardLevelList.get(1).addRoom(new room(2, 3, false));
-                hardLevelList.get(1).addRoom(new room(3, 3, false));
-
-                //level 3
-                hardLevelList.get(2).addRoom(new room(2, 2, false));
-                hardLevelList.get(2).addRoom(new room(1, 2, false));
-                hardLevelList.get(2).addRoom(new room(2, 1, false));
-                hardLevelList.get(2).addRoom(new room(2, 0, false));
-                hardLevelList.get(2).addRoom(new room(3, 2, false));
-                hardLevelList.get(2).addRoom(new room(2, 3, false));
-                hardLevelList.get(2).addRoom(new room(3, 3, false));
                 levelSet = hardLevelList;
                 break;
 
@@ -219,23 +202,6 @@ public class Game {
                 nukeLevelList.get(0).getRooms().get(2).addEnemy(new enemy(11, 10, 9, 1, 600, 250));
                 nukeLevelList.get(0).getRooms().get(2).addEnemy(new enemy(11, 10, 9, 1, 600, 500));
                 
-                //level 2
-                nukeLevelList.get(1).addRoom(new room(2, 2, false));
-                nukeLevelList.get(1).addRoom(new room(1, 2, false));
-                nukeLevelList.get(1).addRoom(new room(2, 1, false));
-                nukeLevelList.get(1).addRoom(new room(2, 0, false));
-                nukeLevelList.get(1).addRoom(new room(3, 2, false));
-                nukeLevelList.get(1).addRoom(new room(2, 3, false));
-                nukeLevelList.get(1).addRoom(new room(3, 3, false));
-
-                //level 3
-                nukeLevelList.get(2).addRoom(new room(2, 2, false));
-                nukeLevelList.get(2).addRoom(new room(1, 2, false));
-                nukeLevelList.get(2).addRoom(new room(2, 1, false));
-                nukeLevelList.get(2).addRoom(new room(2, 0, false));
-                nukeLevelList.get(2).addRoom(new room(3, 2, false));
-                nukeLevelList.get(2).addRoom(new room(2, 3, false));
-                nukeLevelList.get(2).addRoom(new room(3, 3, false));
                 levelSet = nukeLevelList;
                 break;
             case CUSTOM:
