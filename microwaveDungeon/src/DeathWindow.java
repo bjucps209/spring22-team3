@@ -1,3 +1,8 @@
+//-----------------------------------------------------------
+//File:   DeathWindow.java
+//Desc:   This file contains the death window information.
+//-----------------------------------------------------------
+
 import java.io.IOException;
 import javax.sound.sampled.Clip;
 import javafx.event.ActionEvent;

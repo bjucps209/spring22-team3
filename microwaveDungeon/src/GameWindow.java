@@ -1,3 +1,8 @@
+//-----------------------------------------------------------
+//File:   projectile.java
+//Desc:   This file contains the projectile information.
+//-----------------------------------------------------------
+
 import java.io.File;
 import java.io.IOException;
 import javafx.animation.KeyFrame;

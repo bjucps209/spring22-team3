@@ -1,3 +1,8 @@
+//-----------------------------------------------------------
+//File:   CreditsWindow.java
+//Desc:   This file contains the Credit Window information.
+//-----------------------------------------------------------
+
 import java.io.IOException;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;

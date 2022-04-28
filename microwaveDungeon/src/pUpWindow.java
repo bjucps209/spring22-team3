@@ -1,3 +1,8 @@
+//-----------------------------------------------------------
+//File:   pUpWindow.java
+//Desc:   This file contains the power-up window information.
+//-----------------------------------------------------------
+
 import java.io.*;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
