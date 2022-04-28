@@ -15,9 +15,9 @@
     <ImageView><image><Image url="@images/logo.png" /></image></ImageView>
     <HBox spacing="10">
         <VBox spacing="10">
-            <Button onAction="#placeEntity" styleClass="leftbutton"><graphic><ImageView fitHeight="74.0" fitWidth="77.0"><image><Image url="@images/wave.png" /></image></ImageView></graphic></Button>
+            <Button disable = "True" onAction="#placeEntity" styleClass="leftbutton"><graphic><ImageView fitHeight="74.0" fitWidth="77.0"><image><Image url="@images/wave.png" /></image></ImageView></graphic></Button>
             <Button onAction="#placeEntity" styleClass="leftbutton"><graphic><ImageView fitHeight="74.0" fitWidth="77.0"><image><Image url="@images/microwave.png" /></image></ImageView></graphic></Button>
-         <Button onAction="#onObstacleClicked" styleClass="leftbutton">
+         <Button disable = "True" onAction="#onObstacleClicked" styleClass="leftbutton">
             <graphic>
                <ImageView fitHeight="74.0" fitWidth="77.0">
                   <image>
@@ -26,9 +26,9 @@
                </ImageView>
             </graphic>
          </Button>
-         <Button fx:id="startBtn" mnemonicParsing="false" onAction="#setSpawnPoint" prefHeight="26.0" prefWidth="98.0" text="Set Start" />
-         <Button fx:id="deletestartptBtn" mnemonicParsing="false" onAction="#deleteSpawnPoint" prefHeight="26.0" prefWidth="98.0" text="Remove Start" />
-         <Button fx:id="setStairsBtn" mnemonicParsing="false" onAction="#setStairs" prefHeight="26.0" prefWidth="98.0" text="Set Stairs" />
+         <Button disable = "True" fx:id="startBtn" mnemonicParsing="false" onAction="#setSpawnPoint" prefHeight="26.0" prefWidth="98.0" text="Set Start" />
+         <Button disable = "True" fx:id="deletestartptBtn" mnemonicParsing="false" onAction="#deleteSpawnPoint" prefHeight="26.0" prefWidth="98.0" text="Remove Start" />
+         <Button disable = "True" fx:id="setStairsBtn" mnemonicParsing="false" onAction="#setStairs" prefHeight="26.0" prefWidth="98.0" text="Set Stairs" />
          <Button fx:id="removeStairsBtn" mnemonicParsing="false" onAction="#removeStairs" prefHeight="26.0" prefWidth="99.0" text="Remove Stairs" />
             <Button onAction="#onDeleteClicked" prefHeight="53.0" prefWidth="98.0" styleClass="leftbutton"><graphic><ImageView><image><Image url="@images/delete-icon.png" /></image></ImageView></graphic></Button>
         </VBox>
