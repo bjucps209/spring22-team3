@@ -21,15 +21,11 @@ public class LeaderboardWindow {
     Label name0, name1, name2, name3, name4, name5, name6, name7, name8, name9;
 
     @FXML
+    // sets the leaderboards with the highest 10 scores
     void initialize() throws IOException {
         ScoreList List = new ScoreList();
         scoreList = List.getScoreList();
 
-        // System.out.println(scoreList.size());
-        // for (Scores sc : scoreList) {
-        //     System.out.println(sc.getName());
-        // }
-        
         for (int i = 0; i < scoreList.size(); ++i) {
             Scores s = scoreList.get(i);
             if (i > scoreList.size()) {

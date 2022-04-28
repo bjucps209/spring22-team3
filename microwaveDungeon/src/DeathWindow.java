@@ -20,6 +20,7 @@ public class DeathWindow {
     Clip deadMusic = GameWindow.playAudio("src\\audio\\rip.wav");
 
     @FXML
+    // initialize method, also adds the player's score to the ScoreList (and the leaderboards if it is in the top 10)
     public void initialize(String name, String score) throws IOException {
         deadNamelbl.setText("R.I.P. " + name + ", twas a valiant attempt!");
         scorelbl.setText(score);

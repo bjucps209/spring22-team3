@@ -65,7 +65,7 @@ public class GameWindow {
 
     private double abilityCooldown = 0.0; // Time left until player can use ability again
 
-    private double abilityTime = 1.0;
+    private double abilityTime = 1.0; // how long the ability will take to be used again
 
     private double levelBarCap = 100; // Sets the score needed to get a power-up
 
@@ -129,6 +129,7 @@ public class GameWindow {
         cooldownThread.start();
     }
 
+    // called every tick. decrements the cooldown time by the designated amount.
     void updateCooldowns(ActionEvent e) {
         if (gunFireCooldown > 0 && isNotPaused)
             gunFireCooldown -= 0.05;
@@ -530,6 +531,7 @@ public class GameWindow {
         return false;
     }
 
+    // makes the doors usable and sets the room to the next room
     @FXML
     public void onDoor(ActionEvent e) {
 
@@ -633,6 +635,7 @@ public class GameWindow {
     }
 
     @FXML
+    // Called every tick. Will move the bullet in the direction the mouse is located in relation to the player
     public void movebullet(ActionEvent e) {
         if(isNotPaused) {
             int roomIndex = game.getCurrentRoom();
@@ -674,6 +677,7 @@ public class GameWindow {
 
 
     @FXML
+    // checks to see if an enemy is attacking a player and decrements health if true
     public void onDamage(ActionEvent e) throws IOException, InterruptedException {
         if(isNotPaused) {
             for (int i = 1; i < 1 + enemyCount; ++i){
@@ -705,6 +709,7 @@ public class GameWindow {
     }
 
     @FXML
+    // creates a death window when the player's health reaches 0
     public void onDeath(ActionEvent e) throws IOException, InterruptedException{
         GameWindow.playAudio("src\\audio\\Wilhelm Sceam.wav");
         isNotPaused = false;
@@ -842,6 +847,7 @@ public class GameWindow {
         }
     }
 
+    // dash ability used by player
     public void dash() {
         if (abilityCooldown <= 0.0) {
             player.setSpeed((int) player.getSpeed() + 8);
@@ -854,6 +860,7 @@ public class GameWindow {
         }
     }
 
+    // shield ability used by player
     public void pepShield() {
         if (abilityCooldown <= 0.0) {
             playAudio("src\\audio\\powerUp.wav");
@@ -874,6 +881,7 @@ public class GameWindow {
         }
     }
 
+    // homing missle ability used by player
     public void homingMissle() {
         if(abilityCooldown <= 0.0) {
             playAudio("src\\audio\\missle.wav");
@@ -913,6 +921,7 @@ public class GameWindow {
         }
     }
 
+    // railgun ability used by player
     public void railGun() {
         if(abilityCooldown <= 0.0) {
             playAudio("src\\audio\\cannon.wav");
