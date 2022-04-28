@@ -565,6 +565,7 @@ public class GameWindow {
             }
             if (isCollision) {
                 Gamepane.getChildren().clear();
+                room.getBulletList().clear();
 
                 directions d = game.getLevelSet().get(0).getRooms().get(game.getCurrentRoom()).getDoorList().get(i - enemyCount - 1).getDir();
                 if (d == null) {
