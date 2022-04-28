@@ -1,3 +1,8 @@
+//-----------------------------------------------------------
+//File:   projectile.java
+//Desc:   This file contains the projectile information.
+//-----------------------------------------------------------
+
 package model;
 
 import java.util.ArrayList;

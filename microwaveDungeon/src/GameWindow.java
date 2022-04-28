@@ -65,7 +65,7 @@ public class GameWindow {
 
     private double abilityCooldown = 0.0; // Time left until player can use ability again
 
-    private double abilityTime = 1.0; 
+    private double abilityTime = 1.0;
 
     private double levelBarCap = 100; // Sets the score needed to get a power-up
 
@@ -636,6 +636,7 @@ public class GameWindow {
         }
     }
 
+    // Moves the player's image
     @FXML
     public void updatePlayer(ActionEvent e) {
         if (playerIsMoving) {

@@ -12,38 +12,38 @@ import javafx.scene.layout.Pane;
 import javafx.util.Duration;
 
 public class Game {
-    private ArrayList<Level> easyLevelList = new ArrayList<Level>();
+    private ArrayList<Level> easyLevelList = new ArrayList<Level>(); // list of easy levels
 
-    private ArrayList<Level> mediumLevelList = new ArrayList<Level>();
+    private ArrayList<Level> mediumLevelList = new ArrayList<Level>(); // list of medium levels
 
-    private ArrayList<Level> hardLevelList = new ArrayList<Level>();
+    private ArrayList<Level> hardLevelList = new ArrayList<Level>(); // list of hard levels
 
-    private ArrayList<Level> nukeLevelList = new ArrayList<Level>();
-    private ArrayList<Level> customLevelList = new ArrayList<Level>();
+    private ArrayList<Level> nukeLevelList = new ArrayList<Level>(); // list of nuke levels
+    private ArrayList<Level> customLevelList = new ArrayList<Level>(); // list of custom levels
 
     private ArrayList<Level> levelSet; // Added to simplify saving so that the Save method can easily iterate through each level
 
-    private int timePassed = 0;
+    private int timePassed = 0; // time that has passed (used for scoring)
 
-    private int score = 0;
+    private int score = 0; // player's score
 
-    private characters character;
+    private characters character; // player's current selected character
 
-    private difficulties diff;
+    private difficulties diff; // the selected difficults
 
-    private player User;
+    private player User; // the player's entity (contains health, x & y, damage, etc.)
 
-    private int currentRoom;
+    private int currentRoom; // the room the player is currently in
 
-    private position currentRoomCoords;
+    private position currentRoomCoords; // the coords of the player
 
-    private int currentLevel = 0;
+    private int currentLevel = 0; // Current level
 
     private double levelBarCap = 100;
     
-    private double primaryCooldown, abilityCooldown;
+    private double primaryCooldown, abilityCooldown; // player cooldowns for shooting and using ability
 
-    private boolean isNotPaused = true;
+    private boolean isNotPaused = true; // paused status
 
 
     @FXML
@@ -59,6 +59,7 @@ public class Game {
         timer.play();
     }
 
+    // increments the time passed each second
     public void incrementTimePassed(ActionEvent e) {
         if(isNotPaused)
             ++timePassed;
@@ -69,6 +70,7 @@ public class Game {
         
     }
 
+    // creates the 3 levels for each difficult
     public void generateLevels(difficulties diff){
 
         switch (diff){
@@ -244,6 +246,7 @@ public class Game {
         //}
     }
 
+    // getters and setters
     public void setTimePassed(int time) {
         timePassed = time;
     }
