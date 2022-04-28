@@ -7,7 +7,7 @@
     spacing="10" prefHeight="300" prefWidth="500" alignment="CENTER" styleClass="vboxDeath" >
 
 
-    <Label text="You Died!" styleClass="title" />
+    <Label text="Meal Served." styleClass="title" />
 
     <Label fx:id="deadNamelbl" />
 

@@ -902,7 +902,7 @@ public class GameWindow {
         if(abilityCooldown <= 0.0) {
             playAudio("src\\audio\\missle.wav");
             int roomIndex = game.getCurrentRoom();
-            room = game.getLevelSet().get(roomIndex).getRooms().get(roomIndex);
+            room = game.getLevelSet().get(game.getCurrentLevel()).getRooms().get(roomIndex);
             room.getBulletList().add(new projectile(1000, 10, 1, 5, player.getXcoord(), player.getYcoord()));
             int bulletIndex = room.getBulletList().size() - 1;
             room.getBulletList().get(bulletIndex).setDirection(cursorX, cursorY);
