@@ -88,7 +88,15 @@ public class GameWindow {
 
     private Timeline timer = new Timeline(kf);
 
-    Timeline cooldownTimer;
+    private Timeline cooldownTimer;
+
+    private Timeline doorTimer;
+
+    private Timeline enemytimer;
+
+    private Timeline collisionTimer;
+
+    private Timeline dmgTimer;
 
     final Image enemies = new Image("/imgs/microwave2.gif");
 
@@ -217,17 +225,17 @@ public class GameWindow {
         // tick.
         Thread t = new Thread(() -> {
             KeyFrame enemykf = new KeyFrame(Duration.millis(100), this::updateEnemyPositions);
-            var enemytimer = new Timeline(enemykf);
+            enemytimer = new Timeline(enemykf);
             enemytimer.setCycleCount(Timeline.INDEFINITE);
             enemytimer.play();
 
             KeyFrame collisionkf = new KeyFrame(Duration.millis(1), this::onHit);
-            var collisionTimer = new Timeline(collisionkf);
+            collisionTimer = new Timeline(collisionkf);
             collisionTimer.setCycleCount(Timeline.INDEFINITE);
             collisionTimer.play();
 
             KeyFrame doorkf = new KeyFrame(Duration.millis(100), this::onDoor);
-            var doorTimer = new Timeline(doorkf);
+            doorTimer = new Timeline(doorkf);
             doorTimer.setCycleCount(Timeline.INDEFINITE);
             doorTimer.play();
 
@@ -239,7 +247,7 @@ public class GameWindow {
                     e.printStackTrace();
                 }
             });
-            var dmgTimer = new Timeline(dmgkf);
+            dmgTimer = new Timeline(dmgkf);
             dmgTimer.setCycleCount(Timeline.INDEFINITE);
             dmgTimer.play();
 
@@ -539,6 +547,8 @@ public class GameWindow {
     // makes the doors usable and sets the room to the next room
     @FXML
     public void onDoor(ActionEvent e) {
+        enemyCount = room.getEnemyList().size();
+        doorCount = room.getDoorList().size();
 
         for (int i = 1 + enemyCount; i < 1 + enemyCount + doorCount; ++i) {
             double playerX = Gamepane.getChildren().get(0).getLayoutX();
@@ -554,6 +564,12 @@ public class GameWindow {
                 isCollision = true;
             }
             if (isCollision) {
+                doorTimer.stop();
+                Gamepane.getChildren().clear();
+                cooldownTimer.setCycleCount(300);
+                gunFireCooldown = player.getFireCooldown();
+                cooldownTimer.play();
+
                 directions d = game.getLevelSet().get(0).getRooms().get(game.getCurrentRoom()).getDoorList().get(i - enemyCount - 1).getDir();
                 if (d == null) {
                     return;
@@ -562,10 +578,6 @@ public class GameWindow {
                 switch (d) {
 
                     case East:
-                        Gamepane.getChildren().clear();
-                        cooldownTimer.setCycleCount(300);
-                        gunFireCooldown = player.getFireCooldown();
-                        cooldownTimer.play();
                         Gamepane.getChildren().clear();
                         game.setCurrentRoom(game.getCurrentRoom() + 1);
                         roomIndex = game.getCurrentRoom();
@@ -584,13 +596,10 @@ public class GameWindow {
                             makeImage(door, room.getDoorList().get(j));
                         }
                         cooldownTimer.setCycleCount(100);
+                        doorTimer.play();
                         break;
 
                     case West:
-                        Gamepane.getChildren().clear();
-                        cooldownTimer.setCycleCount(300);
-                        gunFireCooldown = player.getFireCooldown();
-                        cooldownTimer.play();
                         Gamepane.getChildren().clear();
                         game.setCurrentRoom(game.getCurrentRoom() - 1);
                         roomIndex = game.getCurrentRoom();
@@ -609,7 +618,9 @@ public class GameWindow {
                             makeImage(door, room.getDoorList().get(j));
                         }
                         cooldownTimer.setCycleCount(100);
+                        doorTimer.play();
                         break;
+
 
                 }
             }
@@ -706,6 +717,11 @@ public class GameWindow {
                 }
 
                 if (player.getHealth() <= 0 && isNotPaused == true){
+                    collisionTimer.stop();
+                    enemytimer.stop();
+                    doorTimer.stop();
+                    dmgTimer.stop();
+                    Gamepane.getChildren().clear();
                     onDeath(new ActionEvent());
                 }
 
