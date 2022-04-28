@@ -6,7 +6,6 @@ package model;
 
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.util.Random;
 //this class is used to create enemies to fight in the game.
 public class enemy extends entity {
 

@@ -77,8 +77,6 @@ public class GameWindow {
 
     private int doorCount; //the number of doors in the room
 
-    private Thread moveThread; 
-
     private Thread cooldownThread; // Thread for cooldowns
 
     private KeyFrame kf = new KeyFrame(Duration.millis(10), this::updatePlayer);
