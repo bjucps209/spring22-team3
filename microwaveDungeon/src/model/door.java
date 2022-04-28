@@ -55,6 +55,7 @@ public class door extends entity {
         output.println(Ycoord);
     }
 
+    // A factory method that builds a door to return given a BufferedReader
     public static door load(BufferedReader input) throws IOException {
         directions newDir;
         switch(Integer.parseInt(input.readLine())) {
