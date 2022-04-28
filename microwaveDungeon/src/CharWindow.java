@@ -94,12 +94,15 @@ public class CharWindow {
     }
 
     // sets the diff variable to NUKE, which is then passed into the GameWindow
-    // initialize method
+    // initialize method 
     @FXML
     public void selectNuke(ActionEvent e) {
         TitleWindow.beep();
         diff = difficulties.NUKE;
     }
+
+    // sets the diff variable to CUSTOM, which is then passed into the GameWindow
+    // initialize method 
     @FXML
     public void selectCustom(ActionEvent e) {
         TitleWindow.beep();

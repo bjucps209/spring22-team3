@@ -1,3 +1,8 @@
+//-----------------------------------------------------------
+//File:   Scores.java
+//Desc:   This file contains the information for a score.
+//-----------------------------------------------------------
+
 package model;
 
 public class Scores {

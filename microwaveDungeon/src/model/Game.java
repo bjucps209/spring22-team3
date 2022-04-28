@@ -1,3 +1,9 @@
+//-----------------------------------------------------------
+//File:   Game.java
+//Desc:   This file contains the game information and is used
+//        for basic gamleplay and functionality
+//-----------------------------------------------------------
+
 package model;
 
 import java.io.*;
@@ -39,7 +45,7 @@ public class Game {
 
     private int currentLevel = 0; // Current level
 
-    private double levelBarCap = 100;
+    private double levelBarCap = 100; // determines the threshold for receiving a power up
     
     private double primaryCooldown, abilityCooldown; // player cooldowns for shooting and using ability
 
@@ -76,8 +82,6 @@ public class Game {
         switch (diff){
             case EASY:
                 easyLevelList.add(new Level(difficulties.EASY));
-                easyLevelList.add(new Level(difficulties.EASY));
-                easyLevelList.add(new Level(difficulties.EASY));
                 
                 //level 1
                 easyLevelList.get(0).addRoom(new room(0, 2, false));
@@ -103,29 +107,10 @@ public class Game {
                 easyLevelList.get(0).getRooms().get(2).addEnemy(new enemy(5, 10, 3, 1, 400, 200));
                 easyLevelList.get(0).getRooms().get(2).addEnemy(new enemy(5, 10, 3, 1, 400, 350));
                 
-                //level 2
-                easyLevelList.get(1).addRoom(new room(2, 2, false));
-                easyLevelList.get(1).addRoom(new room(1, 2, false));
-                easyLevelList.get(1).addRoom(new room(2, 1, false));
-                easyLevelList.get(1).addRoom(new room(2, 0, false));
-                easyLevelList.get(1).addRoom(new room(3, 2, false));
-                easyLevelList.get(1).addRoom(new room(2, 3, false));
-                easyLevelList.get(1).addRoom(new room(3, 3, false));
-
-                //level 3
-                easyLevelList.get(2).addRoom(new room(2, 2, false));
-                easyLevelList.get(2).addRoom(new room(1, 2, false));
-                easyLevelList.get(2).addRoom(new room(2, 1, false));
-                easyLevelList.get(2).addRoom(new room(2, 0, false));
-                easyLevelList.get(2).addRoom(new room(3, 2, false));
-                easyLevelList.get(2).addRoom(new room(2, 3, false));
-                easyLevelList.get(2).addRoom(new room(3, 3, false));
                 levelSet = easyLevelList;
                 break;
 
             case MEDIUM:
-                mediumLevelList.add(new Level(difficulties.MEDIUM));
-                mediumLevelList.add(new Level(difficulties.MEDIUM));
                 mediumLevelList.add(new Level(difficulties.MEDIUM));
                 
                 //level 1
@@ -152,29 +137,10 @@ public class Game {
                 mediumLevelList.get(0).getRooms().get(2).addEnemy(new enemy(7, 10, 5, 1, 400, 200));
                 mediumLevelList.get(0).getRooms().get(2).addEnemy(new enemy(7, 10, 5, 1, 400, 350));
                 
-                //level 2
-                mediumLevelList.get(1).addRoom(new room(2, 2, false));
-                mediumLevelList.get(1).addRoom(new room(1, 2, false));
-                mediumLevelList.get(1).addRoom(new room(2, 1, false));
-                mediumLevelList.get(1).addRoom(new room(2, 0, false));
-                mediumLevelList.get(1).addRoom(new room(3, 2, false));
-                mediumLevelList.get(1).addRoom(new room(2, 3, false));
-                mediumLevelList.get(1).addRoom(new room(3, 3, false));
-
-                //level 3
-                mediumLevelList.get(2).addRoom(new room(2, 2, false));
-                mediumLevelList.get(2).addRoom(new room(1, 2, false));
-                mediumLevelList.get(2).addRoom(new room(2, 1, false));
-                mediumLevelList.get(2).addRoom(new room(2, 0, false));
-                mediumLevelList.get(2).addRoom(new room(3, 2, false));
-                mediumLevelList.get(2).addRoom(new room(2, 3, false));
-                mediumLevelList.get(2).addRoom(new room(3, 3, false));
                 levelSet = mediumLevelList;
                 break;
 
             case HARD:
-                hardLevelList.add(new Level(difficulties.HARD));
-                hardLevelList.add(new Level(difficulties.HARD));
                 hardLevelList.add(new Level(difficulties.HARD));
                 
                 //level 1
@@ -224,8 +190,6 @@ public class Game {
                 
                 
             case NUKE:
-                nukeLevelList.add(new Level(difficulties.NUKE));
-                nukeLevelList.add(new Level(difficulties.NUKE));
                 nukeLevelList.add(new Level(difficulties.NUKE));
                 
                 //level 1
