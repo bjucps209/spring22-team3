@@ -36,6 +36,16 @@ public class enemy extends entity {
         Xcoord += speed * Math.cos(direction * Math.PI / 180);
         Ycoord += speed * Math.sin(direction * Math.PI / 180);
         
+        
+        if (Xcoord > 720){
+            Xcoord -= speed;
+        } else if (Ycoord > 520){
+            Ycoord -= speed;
+        } else if (Xcoord < 0){
+            Xcoord += speed;
+        } else if (Ycoord < 30){
+            Ycoord += speed;
+        }
 
     }
 
