@@ -80,7 +80,10 @@ public class GameWindow {
     private Thread cooldownThread; // Thread for cooldowns
 
     private KeyFrame kf = new KeyFrame(Duration.millis(10), this::updatePlayer);
+
     private Timeline timer = new Timeline(kf);
+
+    Timeline cooldownTimer;
 
     final Image enemies = new Image("/imgs/microwave2.gif");
 
@@ -553,8 +556,12 @@ public class GameWindow {
 
                     case East:
                         Gamepane.getChildren().clear();
+                        cooldownTimer.setCycleCount(300);
+                        gunFireCooldown = player.getFireCooldown();
+                        cooldownTimer.play();
+                        Gamepane.getChildren().clear();
                         game.setCurrentRoom(game.getCurrentRoom() + 1);
-                        int roomIndex = game.getCurrentRoom();
+                        roomIndex = game.getCurrentRoom();
                         room = game.getLevelSet().get(0).getRooms().get(roomIndex);
                         player.setXcoord(0);
                         player.setYcoord(400);
@@ -569,9 +576,14 @@ public class GameWindow {
                         for (int j = 0; j < room.getDoorList().size(); ++j) {
                             makeImage(door, room.getDoorList().get(j));
                         }
+                        cooldownTimer.setCycleCount(100);
                         break;
 
                     case West:
+                        Gamepane.getChildren().clear();
+                        cooldownTimer.setCycleCount(300);
+                        gunFireCooldown = player.getFireCooldown();
+                        cooldownTimer.play();
                         Gamepane.getChildren().clear();
                         game.setCurrentRoom(game.getCurrentRoom() - 1);
                         roomIndex = game.getCurrentRoom();
@@ -589,6 +601,7 @@ public class GameWindow {
                         for (int j = 0; j < room.getDoorList().size(); ++j) {
                             makeImage(door, room.getDoorList().get(j));
                         }
+                        cooldownTimer.setCycleCount(100);
                         break;
 
                 }
@@ -612,9 +625,9 @@ public class GameWindow {
             var bShot = makeImage(bullet, room.getBulletList().get(room.getBulletList().size() - 1));
             
             KeyFrame kf = new KeyFrame(Duration.millis(100), this::movebullet);
-            var timer = new Timeline(kf);
-            timer.setCycleCount(100);
-            timer.play();
+            cooldownTimer = new Timeline(kf);
+            cooldownTimer.setCycleCount(100);
+            cooldownTimer.play();
             gunFireCooldown = player.getFireCooldown();
         }
     }
