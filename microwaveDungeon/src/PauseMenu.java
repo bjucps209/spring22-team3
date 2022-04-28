@@ -1,3 +1,7 @@
+//-----------------------------------------------------------
+//File:   PauseMenu.java
+//Desc:   This file contains code to run the Pause Menu
+//-----------------------------------------------------------
 import java.io.*;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;

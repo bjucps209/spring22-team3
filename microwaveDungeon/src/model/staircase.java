@@ -1,3 +1,7 @@
+//-----------------------------------------------------------
+//File:   staircase.java
+//Desc:   This file contains the object class for staircase
+//-----------------------------------------------------------
 package model;
 
 import java.io.IOException;

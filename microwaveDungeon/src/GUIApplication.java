@@ -1,4 +1,7 @@
-
+//-----------------------------------------------------------
+//File:   GUIApplication.java
+//Desc:   This file contains code to start the GUI.
+//-----------------------------------------------------------
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;

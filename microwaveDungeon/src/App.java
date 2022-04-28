@@ -1,3 +1,7 @@
+//-----------------------------------------------------------
+//File:   App.java
+//Desc:   This file contains code to start the game.
+//-----------------------------------------------------------
 import javafx.application.Application;
 
 public class App {

@@ -1,5 +1,5 @@
 //-----------------------------------------------------------
-//File:   obstacke.java
+//File:   obstacle.java
 //Desc:   This file contains the obstacle's information.
 //-----------------------------------------------------------
 
