@@ -1,6 +1,6 @@
 //-----------------------------------------------------------
-//File:   projectile.java
-//Desc:   This file contains the projectile information.
+//File:   GameWindow.java
+//Desc:   Code to run the GameWindow
 //-----------------------------------------------------------
 
 import java.io.File;

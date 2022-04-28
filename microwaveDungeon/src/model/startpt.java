@@ -1,3 +1,7 @@
+//-----------------------------------------------------------
+//File:   startpt.java
+//Desc:   This file contains object class for startpt
+//-----------------------------------------------------------
 package model;
 
 public class startpt extends entity {

@@ -1,6 +1,6 @@
 //-----------------------------------------------------------
-//File:   projectile.java
-//Desc:   This file contains the projectile information.
+//File:  room.java
+//Desc:  Room object that contains entities
 //-----------------------------------------------------------
 
 package model;
