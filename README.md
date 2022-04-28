@@ -1,4 +1,6 @@
-# Microwave Dungeon Alpha
+# Microwave Dungeon Final Release
+
+![alt text](https://github.com/bjucps209/spring22-team3/blob/main/microwaveDungeon/src/imgs/title3.gif)
 
 ## Instructions
 
