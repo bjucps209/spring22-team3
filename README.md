@@ -72,7 +72,7 @@ https://youtu.be/ySEE_kFdIYo
 | Team Member Name | Github Username | Ownership Area | Hours contributed| Hours Remaining | TimeJournal |
 | :---|:---|:---|:---|:---|:---|
 | Edward Taylor | etayl261 | Basic Game Play | 40 | 10 | [Time Journal](https://github.com/bjucps209/spring22-team3/wiki/Time-Journal#edward-taylor) |
-| Ethan Wood | thethanwood | Serialization | 47 | 3 | [Time Journal](https://github.com/bjucps209/spring22-team3/wiki/Time-Journal#ethan-wood) |
+| Ethan Wood | thethanwood | Serialization | 49.5 | 0.5 | [Time Journal](https://github.com/bjucps209/spring22-team3/wiki/Time-Journal#ethan-wood) |
 | David John Hayes | dhaye039 | Auxiliary screens | 30 | 20 | [Time Journal](https://github.com/bjucps209/spring22-team3/wiki/Time-Journal#david-hayes) |
 | Ryan Kuhn | rkuhn153 | Level Builder | 36.5 | 13.5 | [Time Journal](https://github.com/bjucps209/spring22-team3/wiki/Time-Journal#ryan-kuhn) |
 
