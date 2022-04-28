@@ -407,18 +407,16 @@ public class GameWindow {
         onHit(new ActionEvent());
         onDoor(new ActionEvent());
         if (isNotPaused) {
-            var ls = room.getEnemyList();
-            int len = ls.size();
-            for (int i = 1; i < len + 1; ++i) {
+            for (int i = 1; i < room.getEnemyList().size() + 1; ++i) {
                 final int currentI = i;
-                ls.get(i  - 1).updatePosition(Gamepane.getChildren().get(0).getLayoutX(),
+                room.getEnemyList().get(i  - 1).updatePosition(Gamepane.getChildren().get(0).getLayoutX(),
                         Gamepane.getChildren().get(0).getLayoutY());
                 Platform.runLater(() -> {
                     if (room.getEnemyList().size() != 0) {
                           
                             
-                            Gamepane.getChildren().get(currentI).setLayoutX(ls.get(currentI - 1).getXcoord());
-                            Gamepane.getChildren().get(currentI).setLayoutY(ls.get(currentI - 1).getYcoord());
+                            Gamepane.getChildren().get(currentI).setLayoutX(room.getEnemyList().get(currentI - 1).getXcoord());
+                            Gamepane.getChildren().get(currentI).setLayoutY(room.getEnemyList().get(currentI - 1).getYcoord());
                             
                             
                       
@@ -546,7 +544,6 @@ public class GameWindow {
                 isCollision = true;
             }
             if (isCollision) {
-                System.out.println("check");
                 directions d = game.getLevelSet().get(0).getRooms().get(game.getCurrentRoom()).getDoorList().get(i - enemyCount - 1).getDir();
                 if (d == null) {
                     return;
@@ -555,13 +552,12 @@ public class GameWindow {
                 switch (d) {
 
                     case East:
-
+                        Gamepane.getChildren().clear();
                         game.setCurrentRoom(game.getCurrentRoom() + 1);
                         int roomIndex = game.getCurrentRoom();
                         room = game.getLevelSet().get(0).getRooms().get(roomIndex);
                         player.setXcoord(0);
                         player.setYcoord(400);
-                        Gamepane.getChildren().clear();
                         makeImage(playerImage, player);
                         enemyCount = room.getEnemyList().size();
                         doorCount = room.getDoorList().size();
@@ -571,19 +567,17 @@ public class GameWindow {
                         }
 
                         for (int j = 0; j < room.getDoorList().size(); ++j) {
-                            System.out.println("generated");
                             makeImage(door, room.getDoorList().get(j));
                         }
                         break;
 
                     case West:
-
+                        Gamepane.getChildren().clear();
                         game.setCurrentRoom(game.getCurrentRoom() - 1);
                         roomIndex = game.getCurrentRoom();
                         room = game.getLevelSet().get(0).getRooms().get(roomIndex);
                         player.setXcoord(650);
                         player.setYcoord(300);
-                        Gamepane.getChildren().clear();
                         makeImage(playerImage, player);
                         enemyCount = room.getEnemyList().size();
                         doorCount = room.getDoorList().size();
