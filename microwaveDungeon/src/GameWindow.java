@@ -431,10 +431,10 @@ public class GameWindow {
                 Platform.runLater(() -> {
                     if (room.getEnemyList().size() != 0) {
                           
-                            
+                            if (player.getHealth() > 0){
                             Gamepane.getChildren().get(currentI).setLayoutX(room.getEnemyList().get(currentI - 1).getXcoord());
                             Gamepane.getChildren().get(currentI).setLayoutY(room.getEnemyList().get(currentI - 1).getYcoord());
-                            
+                            }
                             
                       
                     }
@@ -565,6 +565,7 @@ public class GameWindow {
             }
             if (isCollision) {
                 Gamepane.getChildren().clear();
+                room.getBulletList().clear();
 
                 directions d = game.getLevelSet().get(0).getRooms().get(game.getCurrentRoom()).getDoorList().get(i - enemyCount - 1).getDir();
                 if (d == null) {
@@ -904,7 +905,7 @@ public class GameWindow {
         if(abilityCooldown <= 0.0) {
             playAudio("src\\audio\\missle.wav");
             int roomIndex = game.getCurrentRoom();
-            room = game.getLevelSet().get(roomIndex).getRooms().get(roomIndex);
+            room = game.getLevelSet().get(game.getCurrentLevel()).getRooms().get(roomIndex);
             room.getBulletList().add(new projectile(1000, 10, 1, 5, player.getXcoord(), player.getYcoord()));
             int bulletIndex = room.getBulletList().size() - 1;
             room.getBulletList().get(bulletIndex).setDirection(cursorX, cursorY);
