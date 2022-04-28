@@ -780,21 +780,25 @@ public class GameWindow {
         character = game.getCharacter();
         switch (character) {
             case PIZZA:
+                playerImage = pizza;
                 makeImage(pizza, player);
                 abilityTime = 20;
                 break;
 
             case MAC:
+                playerImage = mac;
                 makeImage(mac, player);
                 abilityTime = 40;
                 break;
 
             case RAMEN:
+                playerImage = ramen;
                 makeImage(ramen, player);
                 abilityTime = 10;
                 break;
 
             case HPOCKET:
+                playerImage = hPocket;
                 makeImage(hPocket, player);
                 abilityTime = 2.5;
                 break;
