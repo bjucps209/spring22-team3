@@ -1,6 +1,6 @@
 # Microwave Dungeon Final Release
 
-![alt text](https://github.com/bjucps209/spring22-team3/blob/main/microwaveDungeon/src/imgs/title3.gif)
+![alt text](https://github.com/bjucps209/spring22-team3/blob/main/microwaveDungeon/src/imgs/Screenshot 2022-04-27 234025.png)
 
 ## Instructions
 
