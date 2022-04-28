@@ -212,7 +212,7 @@ public class GameWindow {
             enemytimer.setCycleCount(Timeline.INDEFINITE);
             enemytimer.play();
 
-            KeyFrame collisionkf = new KeyFrame(Duration.millis(200), this::onHit);
+            KeyFrame collisionkf = new KeyFrame(Duration.millis(1), this::onHit);
             var collisionTimer = new Timeline(collisionkf);
             collisionTimer.setCycleCount(Timeline.INDEFINITE);
             collisionTimer.play();
@@ -404,7 +404,8 @@ public class GameWindow {
     // updates the view based on changes in the model
     @FXML
     public void updateEnemyPositions(ActionEvent e) {
-
+        onHit(new ActionEvent());
+        onDoor(new ActionEvent());
         if (isNotPaused) {
             var ls = room.getEnemyList();
             int len = ls.size();
@@ -414,8 +415,13 @@ public class GameWindow {
                         Gamepane.getChildren().get(0).getLayoutY());
                 Platform.runLater(() -> {
                     if (room.getEnemyList().size() != 0) {
-                        Gamepane.getChildren().get(currentI).setLayoutX(ls.get(currentI - 1).getXcoord());
-                        Gamepane.getChildren().get(currentI).setLayoutY(ls.get(currentI - 1).getYcoord());
+                          
+                            
+                            Gamepane.getChildren().get(currentI).setLayoutX(ls.get(currentI - 1).getXcoord());
+                            Gamepane.getChildren().get(currentI).setLayoutY(ls.get(currentI - 1).getYcoord());
+                            
+                            
+                      
                     }
 
                 });
@@ -488,13 +494,22 @@ public class GameWindow {
                 Double bulletY = Gamepane.getChildren().get(i).getLayoutY();
                 Double entityX = Gamepane.getChildren().get(j).getLayoutX();
                 Double entityY = Gamepane.getChildren().get(j).getLayoutY();
-                boolean isCollision = (Math
-                        .abs(Math.sqrt(Math.pow(bulletX - entityX, 2) + Math.pow(bulletY - entityY, 2))) <= 50.0);
+                boolean isCollision = false;
+                 //= (Math
+                   //     .abs(Math.sqrt(Math.pow(bulletX - entityX, 2) + Math.pow(bulletY - entityY, 2))) <= 50.0);
+                
+                
+                if(entityX < bulletX + Gamepane.getChildren().get(i).getBoundsInParent().getWidth() &&
+                        entityX + Gamepane.getChildren().get(j).getBoundsInParent().getWidth() > bulletX &&
+                        entityY < bulletY + Gamepane.getChildren().get(i).getBoundsInParent().getHeight() &&
+                        Gamepane.getChildren().get(j).getBoundsInParent().getHeight() + entityY > bulletY) {
+                    isCollision = true;
+                }
                 if (isCollision) {
                     room.getEnemyList().get(j - 1)
                             .setHealth(room.getEnemyList().get(j - 1).getHealth() - player.getDamage());
                     Gamepane.getChildren().remove(i);
-                    room.getBulletList().remove(i - enemies - 1 - doors);
+                    room.getBulletList().remove(i - enemies - 1 - doors );
                     game.setScore(game.getScore() + 5);
                     if (room.getEnemyList().get(j - 1).getHealth() <= 0) {
                         if (room.getEnemyList().size() != 0) {
@@ -522,8 +537,14 @@ public class GameWindow {
             double playerY = Gamepane.getChildren().get(0).getLayoutY();
             double doorX = Gamepane.getChildren().get(i).getLayoutX();
             double doorY = Gamepane.getChildren().get(i).getLayoutY();
-            boolean isCollision = (Math
-                    .abs(Math.sqrt(Math.pow(playerX - doorX, 2) + Math.pow(playerY - doorY, 2))) <= 100.0);
+            boolean isCollision = false;//(Math
+                    //.abs(Math.sqrt(Math.pow(playerX - doorX, 2) + Math.pow(playerY - doorY, 2))) <= 100.0);
+            if(doorX < playerX + Gamepane.getChildren().get(0).getBoundsInParent().getWidth() && 
+                    doorX + Gamepane.getChildren().get(i).getBoundsInParent().getWidth() > playerX &&
+                    doorY < playerY + Gamepane.getChildren().get(0).getBoundsInParent().getHeight() &&
+                    Gamepane.getChildren().get(i).getBoundsInParent().getHeight() + doorY > playerY) {
+                isCollision = true;
+            }
             if (isCollision) {
                 System.out.println("check");
                 directions d = game.getLevelSet().get(0).getRooms().get(game.getCurrentRoom()).getDoorList().get(i - enemyCount - 1).getDir();
@@ -652,8 +673,13 @@ public class GameWindow {
                 double playerY = Gamepane.getChildren().get(0).getLayoutY();
                 double enemyX = Gamepane.getChildren().get(i).getLayoutX();
                 double enemyY = Gamepane.getChildren().get(i).getLayoutY();
-                boolean isCollision = (Math
-                        .abs(Math.sqrt(Math.pow(playerX - enemyX, 2) + Math.pow(playerY - enemyY, 2))) <= 45.0);
+               // boolean isCollision = (Math
+                     //   .abs(Math.sqrt(Math.pow(playerX - enemyX, 2) + Math.pow(playerY - enemyY, 2))) <= 45.0);
+                boolean isCollision = false;
+                if (playerX + Gamepane.getChildren().get(0).getBoundsInParent().getWidth() > enemyX && playerX < enemyX + Gamepane.getChildren().get(i).getBoundsInParent().getWidth() && playerY + Gamepane.getChildren().get(0).getBoundsInParent().getHeight() > enemyY && playerY < enemyY + Gamepane.getChildren().get(i).getBoundsInParent().getHeight()) {
+                    isCollision = true;
+                }
+                
 
                 if (isCollision){
                     if(player.getShield() > 0)
@@ -883,7 +909,7 @@ public class GameWindow {
         if(abilityCooldown <= 0.0) {
             playAudio("src\\audio\\cannon.wav");
             int roomIndex = game.getCurrentRoom();
-            room = game.getLevelSet().get(roomIndex).getRooms().get(roomIndex);
+            room = game.getLevelSet().get(game.getCurrentLevel()).getRooms().get(roomIndex);
             room.getBulletList().add(new projectile(1000, 10, 1, 5, player.getXcoord(), player.getYcoord()));
             int bulletIndex = room.getBulletList().size() - 1;
             room.getBulletList().get(bulletIndex).setDirection(cursorX, cursorY);

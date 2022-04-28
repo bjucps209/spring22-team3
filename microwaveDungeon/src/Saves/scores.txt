@@ -8,3 +8,7 @@ Bob,500
 salmonman,360
 bad cop,230
 IamBad,5
+d,0
+d,0
+d,0
+d,0
