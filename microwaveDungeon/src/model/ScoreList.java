@@ -1,3 +1,9 @@
+//-----------------------------------------------------------
+//File:   ScoreList.java
+//Desc:   This file contains the list of scores and is used to
+//        store all of the score to make them easily accessable.
+//-----------------------------------------------------------
+
 package model;
 
 import java.io.BufferedReader;

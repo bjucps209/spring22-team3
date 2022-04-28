@@ -1,3 +1,9 @@
+//-----------------------------------------------------------
+//File:   Game.java
+//Desc:   This file contains the game information and is used
+//        for basic gamleplay and functionality
+//-----------------------------------------------------------
+
 package model;
 
 import java.io.*;
@@ -39,7 +45,7 @@ public class Game {
 
     private int currentLevel = 0; // Current level
 
-    private double levelBarCap = 100;
+    private double levelBarCap = 100; // determines the threshold for receiving a power up
     
     private double primaryCooldown, abilityCooldown; // player cooldowns for shooting and using ability
 

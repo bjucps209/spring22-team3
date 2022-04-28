@@ -142,6 +142,7 @@ public class TitleWindow {
         titleStage.close();
     }
 
+    // plays beeping sound
     public static void beep() {
         GameWindow.playAudio("src\\audio\\MicrowaveBeep.wav");
     }
