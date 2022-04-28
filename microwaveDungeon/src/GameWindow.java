@@ -674,7 +674,7 @@ public class GameWindow {
 
     @FXML
     public void onDeath(ActionEvent e) throws IOException, InterruptedException{
-        Clip deathSound = GameWindow.playAudio("src\\audio\\Wilhelm Sceam.wav");
+        GameWindow.playAudio("src\\audio\\Wilhelm Sceam.wav");
         isNotPaused = false;
         game.setNotPaused(false);
         var loader = new FXMLLoader(getClass().getResource("DeathWindow.fxml"));
@@ -750,6 +750,9 @@ public class GameWindow {
         }
         for (int i = 0; i < room.getEnemyList().size(); ++i) {
             makeImage(enemies, room.getEnemyList().get(i));
+        }
+        for (int j = 0; j < room.getDoorList().size(); ++j) {
+            makeImage(door, room.getDoorList().get(j));
         }
         tickProcessing();
         Gamepane.requestFocus();
