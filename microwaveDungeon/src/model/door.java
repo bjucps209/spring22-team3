@@ -83,7 +83,6 @@ public class door extends entity {
         }
         door output = new door(2147483647, 0, 0, 5, Integer.parseInt(input.readLine()), Integer.parseInt(input.readLine()));
         output.setDir(newDir);
-        System.out.println(output);
         return output;
     }    
 }
