@@ -1,3 +1,9 @@
+//-----------------------------------------------------------
+//File:   Level.java
+//Desc:   This file contains the level information and is used
+//        to create levels in the different difficulties.
+//-----------------------------------------------------------
+
 package model;
 
 import java.io.BufferedReader;
@@ -7,11 +13,11 @@ import java.util.ArrayList;
 
 public class Level {
 
-    private ArrayList<room> Rooms = new ArrayList<room>();
+    private ArrayList<room> Rooms = new ArrayList<room>(); // list of rooms for a level
 
-    private difficulties difficultyLevel;
+    private difficulties difficultyLevel; // difficult of the level
 
-    // Constructor -Added for save/load tests. Feel free to make changes as you see fit
+    // Constructor -Added for save/load tests. 
     public Level(difficulties difficultyLevel) {
         this.difficultyLevel = difficultyLevel;
     }
@@ -24,7 +30,8 @@ public class Level {
         Rooms = rooms;
     }
 
-    public void addRoom(room r) { // Added this as it might be useful when constructing the games
+    // adds a room to the list of rooms
+    public void addRoom(room r) { 
         Rooms.add(r);
     }
 

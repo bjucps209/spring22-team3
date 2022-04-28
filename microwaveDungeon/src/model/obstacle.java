@@ -1,3 +1,8 @@
+//-----------------------------------------------------------
+//File:   obstacke.java
+//Desc:   This file contains the obstacle's information.
+//-----------------------------------------------------------
+
 package model;
 
 import java.io.IOException;

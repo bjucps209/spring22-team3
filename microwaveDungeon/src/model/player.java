@@ -1,3 +1,8 @@
+//-----------------------------------------------------------
+//File:   player.java
+//Desc:   This file contains the player's information.
+//-----------------------------------------------------------
+
 package model;
 
 import java.io.BufferedReader;
@@ -15,12 +20,13 @@ public class player extends entity {
         //TODO Auto-generated constructor stub
     }
 
-    private String name;
-    private String powerup;
+    private String name; // player username
+    private String powerup; // player's selected powerup
     private int roomXCoord, roomYCoord; // Added RoomCoords and floor to show player loc. -EW
-    private int floor;
-    private characters Character;
+    private int floor; // current floor
+    private characters Character; // players selected character
 
+    // used to move the player 
     public void updatePosition(){
         Xcoord += speed * Math.cos(direction * Math.PI / 180);
         Ycoord += speed * Math.sin(direction * Math.PI / 180);

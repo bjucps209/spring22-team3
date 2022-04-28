@@ -27,7 +27,7 @@
 
     <Label text="Power-Ups" styleClass="heading"/>
     <Label text="By raising your score and reaching a threshold, you are given three options for a Power-Up:"/>
-    <Label text="Add to you Shield, Increase Speed, or Lower Fire-Rate."/>
+    <Label text="Add to your Shield, Increase Speed, or Lower Fire-Rate."/>
 
     <Label text="Scoring" styleClass="heading"/>
     <Label text="Scoring is based off of how many enemies you eliminate before dying" />

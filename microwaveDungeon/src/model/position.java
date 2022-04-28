@@ -1,3 +1,8 @@
+//-----------------------------------------------------------
+//File:   position.java
+//Desc:   This file contains the positioning information.
+//----------------------------------------------------------- 
+
 package model;
 
 public class position {

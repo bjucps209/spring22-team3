@@ -10,7 +10,7 @@ import java.io.File;
 import java.io.*;
 
 public class LevelData {
-    int numLevel;
+    int numLevel; // level number
     ArrayList<room> roomList = new ArrayList<room>(); //the room list for the level
     Level customLevel = new Level(difficulties.CUSTOM); //the level to be returned
     public int doorCount = 0; //the number of doors in a specific room
