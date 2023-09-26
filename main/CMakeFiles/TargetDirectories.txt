@@ -1,0 +1,3 @@
+/home/turnip/Desktop/homework/cps310/mockup/CMakeFiles/ask.dir
+/home/turnip/Desktop/homework/cps310/mockup/CMakeFiles/edit_cache.dir
+/home/turnip/Desktop/homework/cps310/mockup/CMakeFiles/rebuild_cache.dir
