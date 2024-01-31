@@ -47,11 +47,10 @@ Upon opening the game, you are presented with 6 buttons. Click "Start" to begin 
 ### Basic Gameplay
 
 - Doors are very buggy
-- hitboxes on objects are very specific
 
 ### Serialization
 
-- Player always spawns in first room (minor)
+- Player always spawns in first room
 
 ### Auxilary Screens
 
