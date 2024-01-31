@@ -4,7 +4,7 @@
 
 ## Instructions
 
-Upon opening the game, you are presented with 6 buttons. Click "Start" to begin the game, "Load Saved Game" to load the last saved game, "Credits" to view the credits, "Help" to learn how to play, "Leaderboard" to view the top scores, and "Quit" to exit the application. When starting the game, you are to enter your username, select a difficulty, and select the player you would like to play as before clicking "Enter the Dungeon" to begin the game. After begining the game, you may use WASD keys for movement. Attacking/damage are not yet implemented. In the top left corner of the game window, there is a pause button. Clicking that will open a pause screen which will give you options to resume the game, save the game, quit to main menu, or quit to desktop.
+Upon opening the game, you are presented with 6 buttons. Click "Start" to begin the game, "Load Saved Game" to load the last saved game, "Credits" to view the credits, "Help" to learn how to play, "Leaderboard" to view the top scores, and "Quit" to exit the application. When starting the game, you are to enter your username, select a difficulty, and select the player you would like to play as before clicking "Enter the Dungeon" to begin the game. After begining the game, you may use WASD keys for movement. In the top left corner of the game window, there is a pause button. Clicking that will open a pause screen which will give you options to resume the game, save the game, quit to main menu, or quit to desktop.
 
 ***
 
@@ -20,6 +20,7 @@ Upon opening the game, you are presented with 6 buttons. Click "Start" to begin 
 - Implemented very basic door functionality (buggy)
 - Implemented Power-Up System
 - Implemented unique abilities for each character
+- Implemented Projectiles and Damage
 
 ### Serialization
 
